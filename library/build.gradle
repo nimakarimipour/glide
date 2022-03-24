@@ -1,17 +1,14 @@
+plugins {
+    id("net.ltgt.errorprone")
+}
+
 apply plugin: 'com.android.library'
 
-if (!hasProperty('DISABLE_ERROR_PRONE')) {
-    apply plugin: "net.ltgt.errorprone"
-}
-
-tasks.withType(JavaCompile) {
-    options.fork = true
-}
 
 dependencies {
     api project(':third_party:gif_decoder')
     api project(':third_party:disklrucache')
-    api project(':annotation')
+//    api project(':annotation')
     api "androidx.fragment:fragment:${ANDROID_X_FRAGMENT_VERSION}"
     api "androidx.vectordrawable:vectordrawable-animated:${ANDROID_X_VERSION}"
     api "androidx.exifinterface:exifinterface:${EXIF_INTERFACE_VERSION}"
@@ -34,6 +31,13 @@ dependencies {
     testImplementation "androidx.test:core:${ANDROID_X_TEST_VERSION}"
     testImplementation "androidx.test.ext:junit:${ANDROID_X_TEST_JUNIT_VERSION}"
     testImplementation "androidx.test:runner:${ANDROID_X_TEST_VERSION}"
+
+    annotationProcessor "com.uber.nullaway:nullaway:0.9.6"
+    annotationProcessor "edu.ucr.cs.riple.nullawayannotator:css:1.1.1-LOCAL"
+
+    compileOnly "com.google.code.findbugs:jsr305:3.0.2"
+    errorprone "com.google.errorprone:error_prone_core:2.3.2"
+    errorproneJavac "com.google.errorprone:javac:9+181-r4173-1"
 }
 
 android {
@@ -66,3 +70,20 @@ def classPathForQuality() {
 }
 
 apply from: "${rootProject.projectDir}/scripts/upload.gradle"
+
+tasks.withType(JavaCompile) {
+    options.fork = true
+
+    if (!name.toLowerCase().contains("test")) {
+        options.errorprone.errorproneArgs += ["-XepDisableAllChecks",
+                                              "-Xep:NullAway:ERROR",
+                                              "-XepOpt:NullAway:AnnotatedPackages=com.bumptech",
+                                              "-XepOpt:NullAway:SerializeFixMetadata=true",
+                                              "-XepOpt:NullAway:FixSerializationConfigPath=/tmp/NullAwayFix/config.xml",
+                                              "-Xep:CSS:ERROR",
+                                              "-XepOpt:CSS:ConfigPath=/tmp/NullAwayFix/css.xml",
+                                              "-XepDisableAllWarnings"]
+        options.compilerArgs << "-Xmaxerrs" << "100000"
+
+    }
+}
