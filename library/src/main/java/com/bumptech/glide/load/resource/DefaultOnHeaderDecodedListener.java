@@ -1,5 +1,6 @@
 package com.bumptech.glide.load.resource;
 
+import androidx.annotation.Nullable;
 import android.graphics.ColorSpace;
 import android.graphics.ImageDecoder;
 import android.graphics.ImageDecoder.DecodeException;
@@ -30,101 +31,78 @@ import com.bumptech.glide.util.Synthetic;
  */
 @RequiresApi(api = 28)
 public final class DefaultOnHeaderDecodedListener implements OnHeaderDecodedListener {
-  private static final String TAG = "ImageDecoder";
 
-  @Synthetic
-  private final HardwareConfigState hardwareConfigState = HardwareConfigState.getInstance();
+    private static final String TAG = "ImageDecoder";
 
-  private final int requestedWidth;
-  private final int requestedHeight;
-  private final DecodeFormat decodeFormat;
-  private final DownsampleStrategy strategy;
-  private final boolean isHardwareConfigAllowed;
-  private final PreferredColorSpace preferredColorSpace;
+    @Synthetic
+    private final HardwareConfigState hardwareConfigState = HardwareConfigState.getInstance();
 
-  public DefaultOnHeaderDecodedListener(
-      int requestedWidth, int requestedHeight, @NonNull Options options) {
-    this.requestedWidth = requestedWidth;
-    this.requestedHeight = requestedHeight;
-    decodeFormat = options.get(Downsampler.DECODE_FORMAT);
-    strategy = options.get(DownsampleStrategy.OPTION);
-    isHardwareConfigAllowed =
-        options.get(Downsampler.ALLOW_HARDWARE_CONFIG) != null
-            && options.get(Downsampler.ALLOW_HARDWARE_CONFIG);
-    preferredColorSpace = options.get(Downsampler.PREFERRED_COLOR_SPACE);
-  }
+    private final int requestedWidth;
 
-  @Override
-  public void onHeaderDecoded(
-      @NonNull ImageDecoder decoder, @NonNull ImageInfo info, @NonNull Source source) {
-    if (hardwareConfigState.isHardwareConfigAllowed(
-        requestedWidth,
-        requestedHeight,
-        isHardwareConfigAllowed,
-        /*isExifOrientationRequired=*/ false)) {
-      decoder.setAllocator(ImageDecoder.ALLOCATOR_HARDWARE);
-    } else {
-      decoder.setAllocator(ImageDecoder.ALLOCATOR_SOFTWARE);
+    private final int requestedHeight;
+
+    @Nullable
+    private final DecodeFormat decodeFormat;
+
+    @Nullable
+    private final DownsampleStrategy strategy;
+
+    private final boolean isHardwareConfigAllowed;
+
+    @Nullable
+    private final PreferredColorSpace preferredColorSpace;
+
+    public DefaultOnHeaderDecodedListener(int requestedWidth, int requestedHeight, @NonNull Options options) {
+        this.requestedWidth = requestedWidth;
+        this.requestedHeight = requestedHeight;
+        decodeFormat = options.get(Downsampler.DECODE_FORMAT);
+        strategy = options.get(DownsampleStrategy.OPTION);
+        isHardwareConfigAllowed = options.get(Downsampler.ALLOW_HARDWARE_CONFIG) != null && options.get(Downsampler.ALLOW_HARDWARE_CONFIG);
+        preferredColorSpace = options.get(Downsampler.PREFERRED_COLOR_SPACE);
     }
 
-    if (decodeFormat == DecodeFormat.PREFER_RGB_565) {
-      decoder.setMemorySizePolicy(ImageDecoder.MEMORY_POLICY_LOW_RAM);
-    }
+    @Override
+    public void onHeaderDecoded(@NonNull ImageDecoder decoder, @NonNull ImageInfo info, @NonNull Source source) {
+        if (hardwareConfigState.isHardwareConfigAllowed(requestedWidth, requestedHeight, isHardwareConfigAllowed, /*isExifOrientationRequired=*/
+        false)) {
+            decoder.setAllocator(ImageDecoder.ALLOCATOR_HARDWARE);
+        } else {
+            decoder.setAllocator(ImageDecoder.ALLOCATOR_SOFTWARE);
+        }
+        if (decodeFormat == DecodeFormat.PREFER_RGB_565) {
+            decoder.setMemorySizePolicy(ImageDecoder.MEMORY_POLICY_LOW_RAM);
+        }
+        decoder.setOnPartialImageListener(new OnPartialImageListener() {
 
-    decoder.setOnPartialImageListener(
-        new OnPartialImageListener() {
-          @Override
-          public boolean onPartialImage(@NonNull DecodeException e) {
-            // Never return partial images.
-            return false;
-          }
+            @Override
+            public boolean onPartialImage(@NonNull DecodeException e) {
+                // Never return partial images.
+                return false;
+            }
         });
-
-    Size size = info.getSize();
-    int targetWidth = requestedWidth;
-    if (requestedWidth == Target.SIZE_ORIGINAL) {
-      targetWidth = size.getWidth();
+        Size size = info.getSize();
+        int targetWidth = requestedWidth;
+        if (requestedWidth == Target.SIZE_ORIGINAL) {
+            targetWidth = size.getWidth();
+        }
+        int targetHeight = requestedHeight;
+        if (requestedHeight == Target.SIZE_ORIGINAL) {
+            targetHeight = size.getHeight();
+        }
+        float scaleFactor = strategy.getScaleFactor(size.getWidth(), size.getHeight(), targetWidth, targetHeight);
+        int resizeWidth = Math.round(scaleFactor * size.getWidth());
+        int resizeHeight = Math.round(scaleFactor * size.getHeight());
+        if (Log.isLoggable(TAG, Log.VERBOSE)) {
+            Log.v(TAG, "Resizing" + " from [" + size.getWidth() + "x" + size.getHeight() + "]" + " to [" + resizeWidth + "x" + resizeHeight + "]" + " scaleFactor: " + scaleFactor);
+        }
+        decoder.setTargetSize(resizeWidth, resizeHeight);
+        if (preferredColorSpace != null) {
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.P) {
+                boolean isP3Eligible = preferredColorSpace == PreferredColorSpace.DISPLAY_P3 && info.getColorSpace() != null && info.getColorSpace().isWideGamut();
+                decoder.setTargetColorSpace(ColorSpace.get(isP3Eligible ? ColorSpace.Named.DISPLAY_P3 : ColorSpace.Named.SRGB));
+            } else if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+                decoder.setTargetColorSpace(ColorSpace.get(ColorSpace.Named.SRGB));
+            }
+        }
     }
-    int targetHeight = requestedHeight;
-    if (requestedHeight == Target.SIZE_ORIGINAL) {
-      targetHeight = size.getHeight();
-    }
-
-    float scaleFactor =
-        strategy.getScaleFactor(size.getWidth(), size.getHeight(), targetWidth, targetHeight);
-
-    int resizeWidth = Math.round(scaleFactor * size.getWidth());
-    int resizeHeight = Math.round(scaleFactor * size.getHeight());
-    if (Log.isLoggable(TAG, Log.VERBOSE)) {
-      Log.v(
-          TAG,
-          "Resizing"
-              + " from ["
-              + size.getWidth()
-              + "x"
-              + size.getHeight()
-              + "]"
-              + " to ["
-              + resizeWidth
-              + "x"
-              + resizeHeight
-              + "]"
-              + " scaleFactor: "
-              + scaleFactor);
-    }
-
-    decoder.setTargetSize(resizeWidth, resizeHeight);
-    if (preferredColorSpace != null) {
-      if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.P) {
-        boolean isP3Eligible =
-            preferredColorSpace == PreferredColorSpace.DISPLAY_P3
-                && info.getColorSpace() != null
-                && info.getColorSpace().isWideGamut();
-        decoder.setTargetColorSpace(
-            ColorSpace.get(isP3Eligible ? ColorSpace.Named.DISPLAY_P3 : ColorSpace.Named.SRGB));
-      } else if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
-        decoder.setTargetColorSpace(ColorSpace.get(ColorSpace.Named.SRGB));
-      }
-    }
-  }
 }
