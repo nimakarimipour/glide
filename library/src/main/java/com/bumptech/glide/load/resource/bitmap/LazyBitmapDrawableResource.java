@@ -18,73 +18,69 @@ import com.bumptech.glide.util.Preconditions;
  */
 public final class LazyBitmapDrawableResource implements Resource<BitmapDrawable>, Initializable {
 
-  private final Resources resources;
-  private final Resource<Bitmap> bitmapResource;
+    private final Resources resources;
 
-  /**
-   * @deprecated Use {@link #obtain(Resources, Resource)} instead, it can be unsafe to extract
-   *     {@link Bitmap}s from their wrapped {@link Resource}.
-   */
-  @Deprecated
-  public static LazyBitmapDrawableResource obtain(Context context, Bitmap bitmap) {
-    return (LazyBitmapDrawableResource)
-        obtain(
-            context.getResources(),
-            BitmapResource.obtain(bitmap, Glide.get(context).getBitmapPool()));
-  }
+    private final Resource<Bitmap> bitmapResource;
 
-  /**
-   * @deprecated Use {@link #obtain(Resources, Resource)} instead, it can be unsafe to extract
-   *     {@link Bitmap}s from their wrapped {@link Resource}.
-   */
-  @Deprecated
-  public static LazyBitmapDrawableResource obtain(
-      Resources resources, BitmapPool bitmapPool, Bitmap bitmap) {
-    return (LazyBitmapDrawableResource)
-        obtain(resources, BitmapResource.obtain(bitmap, bitmapPool));
-  }
-
-  @Nullable
-  public static Resource<BitmapDrawable> obtain(
-      @NonNull Resources resources, @Nullable Resource<Bitmap> bitmapResource) {
-    if (bitmapResource == null) {
-      return null;
+    /**
+     * @deprecated Use {@link #obtain(Resources, Resource)} instead, it can be unsafe to extract
+     *     {@link Bitmap}s from their wrapped {@link Resource}.
+     */
+    @Deprecated
+    @Nullable
+    public static LazyBitmapDrawableResource obtain(Context context, Bitmap bitmap) {
+        return (LazyBitmapDrawableResource) obtain(context.getResources(), BitmapResource.obtain(bitmap, Glide.get(context).getBitmapPool()));
     }
-    return new LazyBitmapDrawableResource(resources, bitmapResource);
-  }
 
-  private LazyBitmapDrawableResource(
-      @NonNull Resources resources, @NonNull Resource<Bitmap> bitmapResource) {
-    this.resources = Preconditions.checkNotNull(resources);
-    this.bitmapResource = Preconditions.checkNotNull(bitmapResource);
-  }
-
-  @NonNull
-  @Override
-  public Class<BitmapDrawable> getResourceClass() {
-    return BitmapDrawable.class;
-  }
-
-  @NonNull
-  @Override
-  public BitmapDrawable get() {
-    return new BitmapDrawable(resources, bitmapResource.get());
-  }
-
-  @Override
-  public int getSize() {
-    return bitmapResource.getSize();
-  }
-
-  @Override
-  public void recycle() {
-    bitmapResource.recycle();
-  }
-
-  @Override
-  public void initialize() {
-    if (bitmapResource instanceof Initializable) {
-      ((Initializable) bitmapResource).initialize();
+    /**
+     * @deprecated Use {@link #obtain(Resources, Resource)} instead, it can be unsafe to extract
+     *     {@link Bitmap}s from their wrapped {@link Resource}.
+     */
+    @Deprecated
+    @Nullable
+    public static LazyBitmapDrawableResource obtain(Resources resources, BitmapPool bitmapPool, Bitmap bitmap) {
+        return (LazyBitmapDrawableResource) obtain(resources, BitmapResource.obtain(bitmap, bitmapPool));
     }
-  }
+
+    @Nullable
+    public static Resource<BitmapDrawable> obtain(@NonNull Resources resources, @Nullable Resource<Bitmap> bitmapResource) {
+        if (bitmapResource == null) {
+            return null;
+        }
+        return new LazyBitmapDrawableResource(resources, bitmapResource);
+    }
+
+    private LazyBitmapDrawableResource(@NonNull Resources resources, @NonNull Resource<Bitmap> bitmapResource) {
+        this.resources = Preconditions.checkNotNull(resources);
+        this.bitmapResource = Preconditions.checkNotNull(bitmapResource);
+    }
+
+    @NonNull
+    @Override
+    public Class<BitmapDrawable> getResourceClass() {
+        return BitmapDrawable.class;
+    }
+
+    @NonNull
+    @Override
+    public BitmapDrawable get() {
+        return new BitmapDrawable(resources, bitmapResource.get());
+    }
+
+    @Override
+    public int getSize() {
+        return bitmapResource.getSize();
+    }
+
+    @Override
+    public void recycle() {
+        bitmapResource.recycle();
+    }
+
+    @Override
+    public void initialize() {
+        if (bitmapResource instanceof Initializable) {
+            ((Initializable) bitmapResource).initialize();
+        }
+    }
 }
