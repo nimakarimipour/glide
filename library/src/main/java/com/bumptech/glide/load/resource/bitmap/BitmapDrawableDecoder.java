@@ -1,5 +1,6 @@
 package com.bumptech.glide.load.resource.bitmap;
 
+import androidx.annotation.Nullable;
 import android.content.Context;
 import android.content.res.Resources;
 import android.graphics.Bitmap;
@@ -19,43 +20,39 @@ import java.io.IOException;
  */
 public class BitmapDrawableDecoder<DataType> implements ResourceDecoder<DataType, BitmapDrawable> {
 
-  private final ResourceDecoder<DataType, Bitmap> decoder;
-  private final Resources resources;
+    private final ResourceDecoder<DataType, Bitmap> decoder;
 
-  // Public API.
-  @SuppressWarnings({"unused", "WeakerAccess"})
-  public BitmapDrawableDecoder(Context context, ResourceDecoder<DataType, Bitmap> decoder) {
-    this(context.getResources(), decoder);
-  }
+    private final Resources resources;
 
-  /**
-   * @deprecated Use {@link #BitmapDrawableDecoder(Context, ResourceDecoder)}, {@code bitmapPool} is
-   *     ignored.
-   */
-  @Deprecated
-  public BitmapDrawableDecoder(
-      Resources resources,
-      @SuppressWarnings("unused") BitmapPool bitmapPool,
-      ResourceDecoder<DataType, Bitmap> decoder) {
-    this(resources, decoder);
-  }
+    // Public API.
+    @SuppressWarnings({ "unused", "WeakerAccess" })
+    public BitmapDrawableDecoder(Context context, ResourceDecoder<DataType, Bitmap> decoder) {
+        this(context.getResources(), decoder);
+    }
 
-  public BitmapDrawableDecoder(
-      @NonNull Resources resources, @NonNull ResourceDecoder<DataType, Bitmap> decoder) {
-    this.resources = Preconditions.checkNotNull(resources);
-    this.decoder = Preconditions.checkNotNull(decoder);
-  }
+    /**
+     * @deprecated Use {@link #BitmapDrawableDecoder(Context, ResourceDecoder)}, {@code bitmapPool} is
+     *     ignored.
+     */
+    @Deprecated
+    public BitmapDrawableDecoder(Resources resources, @SuppressWarnings("unused") BitmapPool bitmapPool, ResourceDecoder<DataType, Bitmap> decoder) {
+        this(resources, decoder);
+    }
 
-  @Override
-  public boolean handles(@NonNull DataType source, @NonNull Options options) throws IOException {
-    return decoder.handles(source, options);
-  }
+    public BitmapDrawableDecoder(@NonNull Resources resources, @NonNull ResourceDecoder<DataType, Bitmap> decoder) {
+        this.resources = Preconditions.checkNotNull(resources);
+        this.decoder = Preconditions.checkNotNull(decoder);
+    }
 
-  @Override
-  public Resource<BitmapDrawable> decode(
-      @NonNull DataType source, int width, int height, @NonNull Options options)
-      throws IOException {
-    Resource<Bitmap> bitmapResource = decoder.decode(source, width, height, options);
-    return LazyBitmapDrawableResource.obtain(resources, bitmapResource);
-  }
+    @Override
+    public boolean handles(@NonNull DataType source, @NonNull Options options) throws IOException {
+        return decoder.handles(source, options);
+    }
+
+    @Override
+    @Nullable
+    public Resource<BitmapDrawable> decode(@NonNull DataType source, int width, int height, @NonNull Options options) throws IOException {
+        Resource<Bitmap> bitmapResource = decoder.decode(source, width, height, options);
+        return LazyBitmapDrawableResource.obtain(resources, bitmapResource);
+    }
 }
