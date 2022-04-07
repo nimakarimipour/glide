@@ -1,5 +1,6 @@
 package com.bumptech.glide.load.resource.bitmap;
 
+import androidx.annotation.Nullable;
 import android.graphics.Bitmap;
 import androidx.annotation.NonNull;
 import com.bumptech.glide.load.engine.bitmap_recycle.BitmapPool;
@@ -13,27 +14,28 @@ import java.security.MessageDigest;
  * image's aspect ratio).
  */
 public class CenterInside extends BitmapTransformation {
-  private static final String ID = "com.bumptech.glide.load.resource.bitmap.CenterInside";
-  private static final byte[] ID_BYTES = ID.getBytes(CHARSET);
 
-  @Override
-  protected Bitmap transform(
-      @NonNull BitmapPool pool, @NonNull Bitmap toTransform, int outWidth, int outHeight) {
-    return TransformationUtils.centerInside(pool, toTransform, outWidth, outHeight);
-  }
+    private static final String ID = "com.bumptech.glide.load.resource.bitmap.CenterInside";
 
-  @Override
-  public boolean equals(Object o) {
-    return o instanceof CenterInside;
-  }
+    private static final byte[] ID_BYTES = ID.getBytes(CHARSET);
 
-  @Override
-  public int hashCode() {
-    return ID.hashCode();
-  }
+    @Override
+    protected Bitmap transform(@NonNull BitmapPool pool, @NonNull Bitmap toTransform, int outWidth, int outHeight) {
+        return TransformationUtils.centerInside(pool, toTransform, outWidth, outHeight);
+    }
 
-  @Override
-  public void updateDiskCacheKey(@NonNull MessageDigest messageDigest) {
-    messageDigest.update(ID_BYTES);
-  }
+    @Override
+    public boolean equals(Object o) {
+        return o instanceof CenterInside;
+    }
+
+    @Override
+    public int hashCode() {
+        return ID.hashCode();
+    }
+
+    @Override
+    public void updateDiskCacheKey(@NonNull MessageDigest messageDigest) {
+        messageDigest.update(ID_BYTES);
+    }
 }
