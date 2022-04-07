@@ -23,117 +23,119 @@ import java.util.Queue;
  */
 public final class ExceptionPassthroughInputStream extends InputStream {
 
-  @GuardedBy("POOL")
-  private static final Queue<ExceptionPassthroughInputStream> POOL = Util.createQueue(0);
+    @GuardedBy("POOL")
+    private static final Queue<ExceptionPassthroughInputStream> POOL = Util.createQueue(0);
 
-  private InputStream wrapped;
-  private IOException exception;
+    private InputStream wrapped;
 
-  @NonNull
-  public static ExceptionPassthroughInputStream obtain(@NonNull InputStream toWrap) {
-    ExceptionPassthroughInputStream result;
-    synchronized (POOL) {
-      result = POOL.poll();
+    @Nullable
+    private IOException exception;
+
+    @NonNull
+    public static ExceptionPassthroughInputStream obtain(@NonNull InputStream toWrap) {
+        ExceptionPassthroughInputStream result;
+        synchronized (POOL) {
+            result = POOL.poll();
+        }
+        if (result == null) {
+            result = new ExceptionPassthroughInputStream();
+        }
+        result.setInputStream(toWrap);
+        return result;
     }
-    if (result == null) {
-      result = new ExceptionPassthroughInputStream();
+
+    // Exposed for testing.
+    static void clearQueue() {
+        synchronized (POOL) {
+            while (!POOL.isEmpty()) {
+                POOL.remove();
+            }
+        }
     }
-    result.setInputStream(toWrap);
-    return result;
-  }
 
-  // Exposed for testing.
-  static void clearQueue() {
-    synchronized (POOL) {
-      while (!POOL.isEmpty()) {
-        POOL.remove();
-      }
+    ExceptionPassthroughInputStream() {
+        // Do nothing.
     }
-  }
 
-  ExceptionPassthroughInputStream() {
-    // Do nothing.
-  }
-
-  void setInputStream(@NonNull InputStream toWrap) {
-    wrapped = toWrap;
-  }
-
-  @Override
-  public int available() throws IOException {
-    return wrapped.available();
-  }
-
-  @Override
-  public void close() throws IOException {
-    wrapped.close();
-  }
-
-  @Override
-  public void mark(int readLimit) {
-    wrapped.mark(readLimit);
-  }
-
-  @Override
-  public boolean markSupported() {
-    return wrapped.markSupported();
-  }
-
-  @Override
-  public int read() throws IOException {
-    try {
-      return wrapped.read();
-    } catch (IOException e) {
-      exception = e;
-      throw e;
+    void setInputStream(@NonNull InputStream toWrap) {
+        wrapped = toWrap;
     }
-  }
 
-  @Override
-  public int read(byte[] buffer) throws IOException {
-    try {
-      return wrapped.read(buffer);
-    } catch (IOException e) {
-      exception = e;
-      throw e;
+    @Override
+    public int available() throws IOException {
+        return wrapped.available();
     }
-  }
 
-  @Override
-  public int read(byte[] buffer, int byteOffset, int byteCount) throws IOException {
-    try {
-      return wrapped.read(buffer, byteOffset, byteCount);
-    } catch (IOException e) {
-      exception = e;
-      throw e;
+    @Override
+    public void close() throws IOException {
+        wrapped.close();
     }
-  }
 
-  @Override
-  public synchronized void reset() throws IOException {
-    wrapped.reset();
-  }
-
-  @Override
-  public long skip(long byteCount) throws IOException {
-    try {
-      return wrapped.skip(byteCount);
-    } catch (IOException e) {
-      exception = e;
-      throw e;
+    @Override
+    public void mark(int readLimit) {
+        wrapped.mark(readLimit);
     }
-  }
 
-  @Nullable
-  public IOException getException() {
-    return exception;
-  }
-
-  public void release() {
-    exception = null;
-    wrapped = null;
-    synchronized (POOL) {
-      POOL.offer(this);
+    @Override
+    public boolean markSupported() {
+        return wrapped.markSupported();
     }
-  }
+
+    @Override
+    public int read() throws IOException {
+        try {
+            return wrapped.read();
+        } catch (IOException e) {
+            exception = e;
+            throw e;
+        }
+    }
+
+    @Override
+    public int read(byte[] buffer) throws IOException {
+        try {
+            return wrapped.read(buffer);
+        } catch (IOException e) {
+            exception = e;
+            throw e;
+        }
+    }
+
+    @Override
+    public int read(byte[] buffer, int byteOffset, int byteCount) throws IOException {
+        try {
+            return wrapped.read(buffer, byteOffset, byteCount);
+        } catch (IOException e) {
+            exception = e;
+            throw e;
+        }
+    }
+
+    @Override
+    public synchronized void reset() throws IOException {
+        wrapped.reset();
+    }
+
+    @Override
+    public long skip(long byteCount) throws IOException {
+        try {
+            return wrapped.skip(byteCount);
+        } catch (IOException e) {
+            exception = e;
+            throw e;
+        }
+    }
+
+    @Nullable
+    public IOException getException() {
+        return exception;
+    }
+
+    public void release() {
+        exception = null;
+        wrapped = null;
+        synchronized (POOL) {
+            POOL.offer(this);
+        }
+    }
 }
