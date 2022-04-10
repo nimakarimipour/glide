@@ -1,5 +1,6 @@
 package com.bumptech.glide.request.transition;
 
+import androidx.annotation.Nullable;
 import android.content.res.Resources;
 import android.graphics.Bitmap;
 import android.graphics.drawable.BitmapDrawable;
@@ -15,43 +16,45 @@ import com.bumptech.glide.load.DataSource;
  *     be transitioned.
  */
 public abstract class BitmapContainerTransitionFactory<R> implements TransitionFactory<R> {
-  private final TransitionFactory<Drawable> realFactory;
 
-  // Public API.
-  @SuppressWarnings("WeakerAccess")
-  public BitmapContainerTransitionFactory(TransitionFactory<Drawable> realFactory) {
-    this.realFactory = realFactory;
-  }
+    private final TransitionFactory<Drawable> realFactory;
 
-  @Override
-  public Transition<R> build(DataSource dataSource, boolean isFirstResource) {
-    Transition<Drawable> transition = realFactory.build(dataSource, isFirstResource);
-    return new BitmapGlideAnimation(transition);
-  }
-
-  /**
-   * Retrieve the Bitmap from a composite object.
-   *
-   * <p><b>Warning:</b> Do not convert any arbitrary object to Bitmap via expensive drawing here,
-   * this method is called on the UI thread.
-   *
-   * @param current composite object containing a Bitmap and some other information
-   * @return the Bitmap contained within {@code current}
-   */
-  protected abstract Bitmap getBitmap(R current);
-
-  private final class BitmapGlideAnimation implements Transition<R> {
-    private final Transition<Drawable> transition;
-
-    BitmapGlideAnimation(Transition<Drawable> transition) {
-      this.transition = transition;
+    // Public API.
+    @SuppressWarnings("WeakerAccess")
+    public BitmapContainerTransitionFactory(TransitionFactory<Drawable> realFactory) {
+        this.realFactory = realFactory;
     }
 
     @Override
-    public boolean transition(R current, ViewAdapter adapter) {
-      Resources resources = adapter.getView().getResources();
-      Drawable currentBitmap = new BitmapDrawable(resources, getBitmap(current));
-      return transition.transition(currentBitmap, adapter);
+    public Transition<R> build(DataSource dataSource, boolean isFirstResource) {
+        Transition<Drawable> transition = realFactory.build(dataSource, isFirstResource);
+        return new BitmapGlideAnimation(transition);
     }
-  }
+
+    /**
+     * Retrieve the Bitmap from a composite object.
+     *
+     * <p><b>Warning:</b> Do not convert any arbitrary object to Bitmap via expensive drawing here,
+     * this method is called on the UI thread.
+     *
+     * @param current composite object containing a Bitmap and some other information
+     * @return the Bitmap contained within {@code current}
+     */
+    protected abstract Bitmap getBitmap(R current);
+
+    private final class BitmapGlideAnimation implements Transition<R> {
+
+        private final Transition<Drawable> transition;
+
+        BitmapGlideAnimation(Transition<Drawable> transition) {
+            this.transition = transition;
+        }
+
+        @Override
+        public boolean transition(R current, ViewAdapter adapter) {
+            Resources resources = adapter.getView().getResources();
+            Drawable currentBitmap = new BitmapDrawable(resources, getBitmap(current));
+            return transition.transition(currentBitmap, adapter);
+        }
+    }
 }
