@@ -1,5 +1,6 @@
 package com.bumptech.glide.request.target;
 
+import androidx.annotation.Nullable;
 import android.graphics.Bitmap;
 import android.graphics.drawable.BitmapDrawable;
 import android.graphics.drawable.Drawable;
@@ -11,21 +12,22 @@ import android.widget.ImageView;
 // Public API.
 @SuppressWarnings("unused")
 public class BitmapThumbnailImageViewTarget extends ThumbnailImageViewTarget<Bitmap> {
-  public BitmapThumbnailImageViewTarget(ImageView view) {
-    super(view);
-  }
 
-  /**
-   * @deprecated Use {@link #waitForLayout()} instead.
-   */
-  @SuppressWarnings("deprecation")
-  @Deprecated
-  public BitmapThumbnailImageViewTarget(ImageView view, boolean waitForLayout) {
-    super(view, waitForLayout);
-  }
+    public BitmapThumbnailImageViewTarget(ImageView view) {
+        super(view);
+    }
 
-  @Override
-  protected Drawable getDrawable(Bitmap resource) {
-    return new BitmapDrawable(view.getResources(), resource);
-  }
+    /**
+     * @deprecated Use {@link #waitForLayout()} instead.
+     */
+    @SuppressWarnings("deprecation")
+    @Deprecated
+    public BitmapThumbnailImageViewTarget(ImageView view, boolean waitForLayout) {
+        super(view, waitForLayout);
+    }
+
+    @Override
+    protected Drawable getDrawable(@Nullable Bitmap resource) {
+        return new BitmapDrawable(view.getResources(), resource);
+    }
 }
