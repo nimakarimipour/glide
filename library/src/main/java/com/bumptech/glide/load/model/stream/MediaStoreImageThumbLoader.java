@@ -1,5 +1,6 @@
 package com.bumptech.glide.load.model.stream;
 
+import androidx.annotation.Nullable;
 import android.content.Context;
 import android.net.Uri;
 import androidx.annotation.NonNull;
@@ -17,47 +18,49 @@ import java.io.InputStream;
  * thumbnails for those {@link Uri}s in the media store.
  */
 public class MediaStoreImageThumbLoader implements ModelLoader<Uri, InputStream> {
-  private final Context context;
-
-  // Public API.
-  @SuppressWarnings("WeakerAccess")
-  public MediaStoreImageThumbLoader(Context context) {
-    this.context = context.getApplicationContext();
-  }
-
-  @Override
-  public LoadData<InputStream> buildLoadData(
-      @NonNull Uri model, int width, int height, @NonNull Options options) {
-    if (MediaStoreUtil.isThumbnailSize(width, height)) {
-      return new LoadData<>(new ObjectKey(model), ThumbFetcher.buildImageFetcher(context, model));
-    } else {
-      return null;
-    }
-  }
-
-  @Override
-  public boolean handles(@NonNull Uri model) {
-    return MediaStoreUtil.isMediaStoreImageUri(model);
-  }
-
-  /** Factory that loads {@link InputStream}s from media store image {@link Uri}s. */
-  public static class Factory implements ModelLoaderFactory<Uri, InputStream> {
 
     private final Context context;
 
-    public Factory(Context context) {
-      this.context = context;
-    }
-
-    @NonNull
-    @Override
-    public ModelLoader<Uri, InputStream> build(MultiModelLoaderFactory multiFactory) {
-      return new MediaStoreImageThumbLoader(context);
+    // Public API.
+    @SuppressWarnings("WeakerAccess")
+    public MediaStoreImageThumbLoader(Context context) {
+        this.context = context.getApplicationContext();
     }
 
     @Override
-    public void teardown() {
-      // Do nothing.
+    public LoadData<InputStream> buildLoadData(@NonNull Uri model, int width, int height, @NonNull Options options) {
+        if (MediaStoreUtil.isThumbnailSize(width, height)) {
+            return new LoadData<>(new ObjectKey(model), ThumbFetcher.buildImageFetcher(context, model));
+        } else {
+            return null;
+        }
     }
-  }
+
+    @Override
+    public boolean handles(@NonNull Uri model) {
+        return MediaStoreUtil.isMediaStoreImageUri(model);
+    }
+
+    /**
+     * Factory that loads {@link InputStream}s from media store image {@link Uri}s.
+     */
+    public static class Factory implements ModelLoaderFactory<Uri, InputStream> {
+
+        private final Context context;
+
+        public Factory(Context context) {
+            this.context = context;
+        }
+
+        @NonNull
+        @Override
+        public ModelLoader<Uri, InputStream> build(MultiModelLoaderFactory multiFactory) {
+            return new MediaStoreImageThumbLoader(context);
+        }
+
+        @Override
+        public void teardown() {
+            // Do nothing.
+        }
+    }
 }

@@ -1,5 +1,6 @@
 package com.bumptech.glide.load.resource.gif;
 
+import androidx.annotation.Nullable;
 import android.graphics.Bitmap;
 import androidx.annotation.NonNull;
 import com.bumptech.glide.gifdecoder.GifDecoder;
@@ -14,21 +15,21 @@ import com.bumptech.glide.load.resource.bitmap.BitmapResource;
  * GIF image.
  */
 public final class GifFrameResourceDecoder implements ResourceDecoder<GifDecoder, Bitmap> {
-  private final BitmapPool bitmapPool;
 
-  public GifFrameResourceDecoder(BitmapPool bitmapPool) {
-    this.bitmapPool = bitmapPool;
-  }
+    private final BitmapPool bitmapPool;
 
-  @Override
-  public boolean handles(@NonNull GifDecoder source, @NonNull Options options) {
-    return true;
-  }
+    public GifFrameResourceDecoder(BitmapPool bitmapPool) {
+        this.bitmapPool = bitmapPool;
+    }
 
-  @Override
-  public Resource<Bitmap> decode(
-      @NonNull GifDecoder source, int width, int height, @NonNull Options options) {
-    Bitmap bitmap = source.getNextFrame();
-    return BitmapResource.obtain(bitmap, bitmapPool);
-  }
+    @Override
+    public boolean handles(@NonNull GifDecoder source, @NonNull Options options) {
+        return true;
+    }
+
+    @Override
+    public Resource<Bitmap> decode(@NonNull GifDecoder source, int width, int height, @NonNull Options options) {
+        Bitmap bitmap = source.getNextFrame();
+        return BitmapResource.obtain(bitmap, bitmapPool);
+    }
 }

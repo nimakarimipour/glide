@@ -4,17 +4,18 @@ import android.graphics.Bitmap;
 import androidx.annotation.Nullable;
 
 interface LruPoolStrategy {
-  void put(Bitmap bitmap);
 
-  @Nullable
-  Bitmap get(int width, int height, Bitmap.Config config);
+    void put(Bitmap bitmap);
 
-  @Nullable
-  Bitmap removeLast();
+    @Nullable
+    Bitmap get(int width, int height, Bitmap.Config config);
 
-  String logBitmap(Bitmap bitmap);
+    @Nullable
+    Bitmap removeLast();
 
-  String logBitmap(int width, int height, Bitmap.Config config);
+    String logBitmap(Bitmap bitmap);
 
-  int getSize(Bitmap bitmap);
+    String logBitmap(int width, int height, Bitmap.Config config);
+
+    int getSize(Bitmap bitmap);
 }
