@@ -1,5 +1,6 @@
 package com.bumptech.glide.load.model;
 
+import androidx.annotation.Nullable;
 import android.net.Uri;
 import androidx.annotation.NonNull;
 import com.bumptech.glide.load.Options;
@@ -16,43 +17,44 @@ import java.util.Set;
  * @param <Data> The type of data this Loader will obtain for a {@link Uri}.
  */
 public class UrlUriLoader<Data> implements ModelLoader<Uri, Data> {
-  private static final Set<String> SCHEMES =
-      Collections.unmodifiableSet(new HashSet<>(Arrays.asList("http", "https")));
-  private final ModelLoader<GlideUrl, Data> urlLoader;
 
-  // Public API.
-  @SuppressWarnings("WeakerAccess")
-  public UrlUriLoader(ModelLoader<GlideUrl, Data> urlLoader) {
-    this.urlLoader = urlLoader;
-  }
+    private static final Set<String> SCHEMES = Collections.unmodifiableSet(new HashSet<>(Arrays.asList("http", "https")));
 
-  @Override
-  public LoadData<Data> buildLoadData(
-      @NonNull Uri uri, int width, int height, @NonNull Options options) {
-    GlideUrl glideUrl = new GlideUrl(uri.toString());
-    return urlLoader.buildLoadData(glideUrl, width, height, options);
-  }
+    private final ModelLoader<GlideUrl, Data> urlLoader;
 
-  @Override
-  public boolean handles(@NonNull Uri uri) {
-    return SCHEMES.contains(uri.getScheme());
-  }
-
-  /**
-   * Loads {@link java.io.InputStream InputStreams} from {@link android.net.Uri Uris} with http or
-   * https schemes.
-   */
-  public static class StreamFactory implements ModelLoaderFactory<Uri, InputStream> {
-
-    @NonNull
-    @Override
-    public ModelLoader<Uri, InputStream> build(MultiModelLoaderFactory multiFactory) {
-      return new UrlUriLoader<>(multiFactory.build(GlideUrl.class, InputStream.class));
+    // Public API.
+    @SuppressWarnings("WeakerAccess")
+    public UrlUriLoader(ModelLoader<GlideUrl, Data> urlLoader) {
+        this.urlLoader = urlLoader;
     }
 
     @Override
-    public void teardown() {
-      // Do nothing.
+    @Nullable
+    public LoadData<Data> buildLoadData(@NonNull Uri uri, int width, int height, @NonNull Options options) {
+        GlideUrl glideUrl = new GlideUrl(uri.toString());
+        return urlLoader.buildLoadData(glideUrl, width, height, options);
     }
-  }
+
+    @Override
+    public boolean handles(@NonNull Uri uri) {
+        return SCHEMES.contains(uri.getScheme());
+    }
+
+    /**
+     * Loads {@link java.io.InputStream InputStreams} from {@link android.net.Uri Uris} with http or
+     * https schemes.
+     */
+    public static class StreamFactory implements ModelLoaderFactory<Uri, InputStream> {
+
+        @NonNull
+        @Override
+        public ModelLoader<Uri, InputStream> build(MultiModelLoaderFactory multiFactory) {
+            return new UrlUriLoader<>(multiFactory.build(GlideUrl.class, InputStream.class));
+        }
+
+        @Override
+        public void teardown() {
+            // Do nothing.
+        }
+    }
 }
