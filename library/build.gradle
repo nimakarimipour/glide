@@ -32,12 +32,12 @@ dependencies {
     testImplementation "androidx.test.ext:junit:${ANDROID_X_TEST_JUNIT_VERSION}"
     testImplementation "androidx.test:runner:${ANDROID_X_TEST_VERSION}"
 
-    annotationProcessor "com.uber.nullaway:nullaway:0.9.6"
-    annotationProcessor "edu.ucr.cs.riple.nullawayannotator:css:1.2.3-LOCAL"
-
     compileOnly "com.google.code.findbugs:jsr305:3.0.2"
     errorprone "com.google.errorprone:error_prone_core:2.3.2"
     errorproneJavac "com.google.errorprone:javac:9+181-r4173-1"
+
+    annotationProcessor "com.uber.nullaway:nullaway:0.10.8"
+    annotationProcessor "edu.ucr.cs.riple.annotator:annotator-scanner:1.3.6-alpha-4-SNAPSHOT"
 }
 
 android {
@@ -71,19 +71,24 @@ def classPathForQuality() {
 
 apply from: "${rootProject.projectDir}/scripts/upload.gradle"
 
+import net.ltgt.gradle.errorprone.CheckSeverity
+
 tasks.withType(JavaCompile) {
-    options.fork = true
-
+    // remove the if condition if you want to run NullAway on test code
     if (!name.toLowerCase().contains("test")) {
-        options.errorprone.errorproneArgs += ["-XepDisableAllChecks",
-                                              "-Xep:NullAway:ERROR",
-                                              "-XepOpt:NullAway:AnnotatedPackages=com.bumptech",
-                                              "-XepOpt:NullAway:SerializeFixMetadata=true",
-                                              "-XepOpt:NullAway:FixSerializationConfigPath=/tmp/NullAwayFix/config.xml",
-                                              "-Xep:CSS:ERROR",
-                                              "-XepOpt:CSS:ConfigPath=/tmp/NullAwayFix/css.xml",
-                                              "-XepDisableAllWarnings"]
-        options.compilerArgs << "-Xmaxerrs" << "100000"
-
+        options.errorprone.disableAllChecks = true
+        options.errorprone.disableAllWarnings = true
+        options.errorprone {
+            check("NullAway", CheckSeverity.ERROR)
+            check("AnnotatorScanner", CheckSeverity.ERROR)
+            option("NullAway:AnnotatedPackages", "com.bumptech.glide")
+            option("NullAway:UnannotatedSubPackages", "com.bumptech.glide.gifdecoder")
+            option("NullAway:UnannotatedSubPackages", "com.bumptech.glide.disklrucache")
+            option("NullAway:SerializeFixMetadata", "true")
+            option("NullAway:FixSerializationConfigPath", "/tmp/NullAwayFix/nullaway.xml")
+            option("AnnotatorScanner:ConfigPath", "/tmp/NullAwayFix/scanner.xml")
+        }
     }
+    options.compilerArgs << "-Xmaxerrs" << "100000"
+    options.compilerArgs << "-Xmaxwarns" << "100000"
 }
