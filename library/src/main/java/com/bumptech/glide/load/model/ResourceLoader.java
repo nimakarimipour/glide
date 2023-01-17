@@ -29,7 +29,7 @@ public class ResourceLoader<Data> implements ModelLoader<Integer, Data> {
     this.uriLoader = uriLoader;
   }
 
-  @Override
+  @Nullable @Override
   public LoadData<Data> buildLoadData(
       @NonNull Integer model, int width, int height, @NonNull Options options) {
     Uri uri = getResourceUri(model);

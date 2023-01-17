@@ -11,6 +11,7 @@ import com.bumptech.glide.util.pool.FactoryPools;
 import com.bumptech.glide.util.pool.StateVerifier;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
+import androidx.annotation.Nullable;
 
 /**
  * A class that generates and caches safe and unique string file names from {@link

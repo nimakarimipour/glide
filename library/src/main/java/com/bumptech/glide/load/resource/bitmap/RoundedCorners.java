@@ -7,6 +7,7 @@ import com.bumptech.glide.util.Preconditions;
 import com.bumptech.glide.util.Util;
 import java.nio.ByteBuffer;
 import java.security.MessageDigest;
+import androidx.annotation.Nullable;
 
 /** A {@link BitmapTransformation} which rounds the corners of a bitmap. */
 public final class RoundedCorners extends BitmapTransformation {

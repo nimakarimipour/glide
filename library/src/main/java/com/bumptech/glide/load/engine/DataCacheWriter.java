@@ -5,6 +5,7 @@ import com.bumptech.glide.load.Encoder;
 import com.bumptech.glide.load.Options;
 import com.bumptech.glide.load.engine.cache.DiskCache;
 import java.io.File;
+import androidx.annotation.Nullable;
 
 /**
  * Writes original source data or downsampled/transformed resource data to cache using the provided
@@ -15,11 +16,11 @@ import java.io.File;
  *     Resource<Bitmap> etc).
  */
 class DataCacheWriter<DataType> implements DiskCache.Writer {
-  private final Encoder<DataType> encoder;
+  @Nullable private final Encoder<DataType> encoder;
   private final DataType data;
   private final Options options;
 
-  DataCacheWriter(Encoder<DataType> encoder, DataType data, Options options) {
+  DataCacheWriter(@Nullable Encoder<DataType> encoder, DataType data, Options options) {
     this.encoder = encoder;
     this.data = data;
     this.options = options;

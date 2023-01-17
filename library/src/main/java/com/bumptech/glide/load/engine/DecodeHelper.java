@@ -20,6 +20,8 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 import java.util.Map.Entry;
+import com.bumptech.glide.Initializer;
+import androidx.annotation.Nullable;
 
 final class DecodeHelper<Transcode> {
 
@@ -33,17 +35,17 @@ final class DecodeHelper<Transcode> {
   private Class<?> resourceClass;
   private DecodeJob.DiskCacheProvider diskCacheProvider;
   private Options options;
-  private Map<Class<?>, Transformation<?>> transformations;
+  @Nullable private Map<Class<?>, Transformation<?>> transformations;
   private Class<Transcode> transcodeClass;
   private boolean isLoadDataSet;
   private boolean isCacheKeysSet;
-  private Key signature;
-  private Priority priority;
-  private DiskCacheStrategy diskCacheStrategy;
+  @Nullable private Key signature;
+  @Nullable private Priority priority;
+  @Nullable private DiskCacheStrategy diskCacheStrategy;
   private boolean isTransformationRequired;
   private boolean isScaleOnlyOrNoTransform;
 
-  @SuppressWarnings("unchecked")
+  @Initializer @SuppressWarnings("unchecked")
   <R> void init(
       GlideContext glideContext,
       Object model,
@@ -146,7 +148,7 @@ final class DecodeHelper<Transcode> {
     return getLoadPath(dataClass) != null;
   }
 
-  <Data> LoadPath<Data, ?, Transcode> getLoadPath(Class<Data> dataClass) {
+  @Nullable <Data> LoadPath<Data, ?, Transcode> getLoadPath(Class<Data> dataClass) {
     return glideContext.getRegistry().getLoadPath(dataClass, resourceClass, transcodeClass);
   }
 

@@ -8,7 +8,7 @@ import androidx.annotation.Nullable;
 public class MultiClassKey {
   private Class<?> first;
   private Class<?> second;
-  private Class<?> third;
+  @Nullable private Class<?> third;
 
   public MultiClassKey() {
     // leave them null

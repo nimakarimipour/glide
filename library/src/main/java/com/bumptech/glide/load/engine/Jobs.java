@@ -5,6 +5,7 @@ import com.bumptech.glide.load.Key;
 import java.util.Collections;
 import java.util.HashMap;
 import java.util.Map;
+import androidx.annotation.Nullable;
 
 final class Jobs {
   private final Map<Key, EngineJob<?>> jobs = new HashMap<>();
@@ -15,7 +16,7 @@ final class Jobs {
     return Collections.unmodifiableMap(jobs);
   }
 
-  EngineJob<?> get(Key key, boolean onlyRetrieveFromCache) {
+  @Nullable EngineJob<?> get(Key key, boolean onlyRetrieveFromCache) {
     return getJobMap(onlyRetrieveFromCache).get(key);
   }
 
