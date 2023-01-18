@@ -8,6 +8,7 @@ import com.bumptech.glide.load.engine.cache.MemoryCache;
 import com.bumptech.glide.util.Util;
 import java.util.HashMap;
 import java.util.Map;
+import androidx.annotation.Nullable;
 
 /**
  * A class for pre-filling {@link android.graphics.Bitmap Bitmaps} in a {@link
@@ -17,12 +18,12 @@ public final class BitmapPreFiller {
 
   private final MemoryCache memoryCache;
   private final BitmapPool bitmapPool;
-  private final DecodeFormat defaultFormat;
+  @Nullable private final DecodeFormat defaultFormat;
 
-  private BitmapPreFillRunner current;
+  @Nullable private BitmapPreFillRunner current;
 
   public BitmapPreFiller(
-      MemoryCache memoryCache, BitmapPool bitmapPool, DecodeFormat defaultFormat) {
+      MemoryCache memoryCache, BitmapPool bitmapPool, @Nullable DecodeFormat defaultFormat) {
     this.memoryCache = memoryCache;
     this.bitmapPool = bitmapPool;
     this.defaultFormat = defaultFormat;

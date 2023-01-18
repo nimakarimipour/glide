@@ -51,7 +51,7 @@ public class GlideUrl implements Key {
     this.headers = Preconditions.checkNotNull(headers);
   }
 
-  public GlideUrl(String url, Headers headers) {
+  public GlideUrl(String url, @Nullable Headers headers) {
     this.url = null;
     this.stringUrl = Preconditions.checkNotEmpty(url);
     this.headers = Preconditions.checkNotNull(headers);

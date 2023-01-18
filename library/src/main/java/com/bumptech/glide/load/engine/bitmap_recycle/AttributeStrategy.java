@@ -4,6 +4,7 @@ import android.graphics.Bitmap;
 import androidx.annotation.VisibleForTesting;
 import com.bumptech.glide.util.Synthetic;
 import com.bumptech.glide.util.Util;
+import androidx.annotation.Nullable;
 
 /**
  * A strategy for reusing bitmaps that requires any returned bitmap's dimensions to exactly match
@@ -20,14 +21,14 @@ class AttributeStrategy implements LruPoolStrategy {
     groupedMap.put(key, bitmap);
   }
 
-  @Override
+  @Nullable @Override
   public Bitmap get(int width, int height, Bitmap.Config config) {
     final Key key = keyPool.get(width, height, config);
 
     return groupedMap.get(key);
   }
 
-  @Override
+  @Nullable @Override
   public Bitmap removeLast() {
     return groupedMap.removeLast();
   }
@@ -58,7 +59,7 @@ class AttributeStrategy implements LruPoolStrategy {
 
   @SuppressWarnings("WeakerAccess")
   @Synthetic
-  static String getBitmapString(int width, int height, Bitmap.Config config) {
+  static String getBitmapString(int width, int height, @Nullable Bitmap.Config config) {
     return "[" + width + "x" + height + "], " + config;
   }
 
@@ -82,7 +83,7 @@ class AttributeStrategy implements LruPoolStrategy {
     private int width;
     private int height;
     // Config can be null :(
-    private Bitmap.Config config;
+    @Nullable private Bitmap.Config config;
 
     public Key(KeyPool pool) {
       this.pool = pool;

@@ -300,12 +300,12 @@ public final class Downsampler {
     }
   }
 
-  private Bitmap decodeFromWrappedStreams(
+  @Nullable private Bitmap decodeFromWrappedStreams(
       ImageReader imageReader,
       BitmapFactory.Options options,
-      DownsampleStrategy downsampleStrategy,
-      DecodeFormat decodeFormat,
-      PreferredColorSpace preferredColorSpace,
+      @Nullable DownsampleStrategy downsampleStrategy,
+      @Nullable DecodeFormat decodeFormat,
+      @Nullable PreferredColorSpace preferredColorSpace,
       boolean isHardwareConfigAllowed,
       int requestedWidth,
       int requestedHeight,
@@ -461,7 +461,7 @@ public final class Downsampler {
       ImageReader imageReader,
       DecodeCallbacks decodeCallbacks,
       BitmapPool bitmapPool,
-      DownsampleStrategy downsampleStrategy,
+      @Nullable DownsampleStrategy downsampleStrategy,
       int degreesToRotate,
       int sourceWidth,
       int sourceHeight,
@@ -690,7 +690,7 @@ public final class Downsampler {
   @SuppressWarnings("deprecation")
   private void calculateConfig(
       ImageReader imageReader,
-      DecodeFormat format,
+      @Nullable DecodeFormat format,
       boolean isHardwareConfigAllowed,
       boolean isExifOrientationRequired,
       BitmapFactory.Options optionsWithScaling,
@@ -849,7 +849,7 @@ public final class Downsampler {
             + LogTime.getElapsedMillis(startTime));
   }
 
-  private static String getInBitmapString(BitmapFactory.Options options) {
+  @Nullable private static String getInBitmapString(BitmapFactory.Options options) {
     return getBitmapString(options.inBitmap);
   }
 
