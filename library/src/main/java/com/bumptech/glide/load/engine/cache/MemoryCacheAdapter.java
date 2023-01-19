@@ -4,6 +4,7 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import com.bumptech.glide.load.Key;
 import com.bumptech.glide.load.engine.Resource;
+import com.bumptech.glide.NullUnmarked;
 
 /** A simple class that ignores all puts and returns null for all gets. */
 public class MemoryCacheAdapter implements MemoryCache {
@@ -31,7 +32,7 @@ public class MemoryCacheAdapter implements MemoryCache {
     return null;
   }
 
-  @Nullable
+  @NullUnmarked @Nullable
   @Override
   public Resource<?> put(@NonNull Key key, @Nullable Resource<?> resource) {
     if (resource != null) {

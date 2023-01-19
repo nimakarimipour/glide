@@ -6,8 +6,8 @@ import androidx.annotation.Nullable;
 /** A key of two {@link Class}es to be used in hashed collections. */
 @SuppressWarnings({"PMD.ConstructorCallsOverridableMethod"})
 public class MultiClassKey {
-  private Class<?> first;
-  private Class<?> second;
+  @SuppressWarnings("NullAway.Init") private Class<?> first;
+  @SuppressWarnings("NullAway.Init") private Class<?> second;
   @Nullable private Class<?> third;
 
   public MultiClassKey() {

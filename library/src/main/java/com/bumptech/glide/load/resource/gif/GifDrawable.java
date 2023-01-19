@@ -25,6 +25,7 @@ import java.nio.ByteBuffer;
 import java.util.ArrayList;
 import java.util.List;
 import androidx.annotation.Nullable;
+import com.bumptech.glide.NullUnmarked;
 
 /**
  * An animated {@link android.graphics.drawable.Drawable} that plays the frames of an animated GIF.
@@ -152,7 +153,7 @@ public class GifDrawable extends Drawable
     return state.frameLoader.getSize();
   }
 
-  public Bitmap getFirstFrame() {
+  @NullUnmarked public Bitmap getFirstFrame() {
     return state.frameLoader.getFirstFrame();
   }
 

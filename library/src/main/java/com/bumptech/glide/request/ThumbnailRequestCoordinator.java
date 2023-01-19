@@ -11,8 +11,8 @@ public class ThumbnailRequestCoordinator implements RequestCoordinator, Request 
   @Nullable private final RequestCoordinator parent;
   private final Object requestLock;
 
-  private volatile Request full;
-  private volatile Request thumb;
+  @SuppressWarnings("NullAway.Init") private volatile Request full;
+  @SuppressWarnings("NullAway.Init") private volatile Request thumb;
 
   @GuardedBy("requestLock")
   private RequestState fullState = RequestState.CLEARED;

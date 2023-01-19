@@ -26,6 +26,7 @@ import com.bumptech.glide.util.pool.GlideTrace;
 import com.bumptech.glide.util.pool.StateVerifier;
 import java.util.List;
 import java.util.concurrent.Executor;
+import com.bumptech.glide.NullUnmarked;
 
 /**
  * A {@link Request} that loads a {@link com.bumptech.glide.load.engine.Resource} into a given
@@ -676,7 +677,7 @@ public final class SingleRequest<R> implements Request, SizeReadyCallback, Resou
     return requestLock;
   }
 
-  private void onLoadFailed(@Nullable GlideException e, int maxLogLevel) {
+  @NullUnmarked private void onLoadFailed(@Nullable GlideException e, int maxLogLevel) {
     stateVerifier.throwIfRecycled();
     synchronized (requestLock) {
       e.setOrigin(requestOrigin);
