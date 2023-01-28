@@ -1,4 +1,5 @@
 package com.bumptech.glide.load.engine.bitmap_recycle;
+import androidx.annotation.Nullable;
 /**
  * Interface for handling operations on a primitive array type.
  *
@@ -10,7 +11,7 @@ interface ArrayAdapterInterface<T> {
   String getTag();
 
   /** Return the length of the given array. */
-  int getArrayLength(T array);
+  int getArrayLength(@Nullable T array);
 
   /** Allocate and return an array of the specified size. */
   T newArray(int length);

@@ -122,7 +122,7 @@ public final class Downsampler {
         }
 
         @Override
-        public void onDecodeComplete(BitmapPool bitmapPool, Bitmap downsampled) {
+        public void onDecodeComplete(BitmapPool bitmapPool, @Nullable Bitmap downsampled) {
           // Do nothing.
         }
       };
@@ -172,7 +172,7 @@ public final class Downsampler {
    *
    * @see #decode(InputStream, int, int, Options, DecodeCallbacks)
    */
-  public Resource<Bitmap> decode(InputStream is, int outWidth, int outHeight, Options options)
+  @Nullable public Resource<Bitmap> decode(InputStream is, int outWidth, int outHeight, Options options)
       throws IOException {
     return decode(is, outWidth, outHeight, options, EMPTY_CALLBACKS);
   }
@@ -181,7 +181,7 @@ public final class Downsampler {
    * Identical to {@link #decode(InputStream, int, int, Options)}, except that it accepts a {@link
    * ByteBuffer} in place of an {@link InputStream}.
    */
-  public Resource<Bitmap> decode(
+  @Nullable public Resource<Bitmap> decode(
       ByteBuffer buffer, int requestedWidth, int requestedHeight, Options options)
       throws IOException {
     return decode(
@@ -212,7 +212,7 @@ public final class Downsampler {
    * @return A new bitmap containing the image from the given InputStream, or recycle if recycle is
    *     not null.
    */
-  public Resource<Bitmap> decode(
+  @Nullable public Resource<Bitmap> decode(
       InputStream is,
       int requestedWidth,
       int requestedHeight,
@@ -249,7 +249,7 @@ public final class Downsampler {
         EMPTY_CALLBACKS);
   }
 
-  @RequiresApi(Build.VERSION_CODES.LOLLIPOP)
+  @Nullable @RequiresApi(Build.VERSION_CODES.LOLLIPOP)
   public Resource<Bitmap> decode(
       ParcelFileDescriptor parcelFileDescriptor, int outWidth, int outHeight, Options options)
       throws IOException {
@@ -262,7 +262,7 @@ public final class Downsampler {
         EMPTY_CALLBACKS);
   }
 
-  private Resource<Bitmap> decode(
+  @Nullable private Resource<Bitmap> decode(
       ImageReader imageReader,
       int requestedWidth,
       int requestedHeight,
@@ -300,12 +300,12 @@ public final class Downsampler {
     }
   }
 
-  private Bitmap decodeFromWrappedStreams(
+  @Nullable private Bitmap decodeFromWrappedStreams(
       ImageReader imageReader,
       BitmapFactory.Options options,
-      DownsampleStrategy downsampleStrategy,
-      DecodeFormat decodeFormat,
-      PreferredColorSpace preferredColorSpace,
+      @Nullable DownsampleStrategy downsampleStrategy,
+      @Nullable DecodeFormat decodeFormat,
+      @Nullable PreferredColorSpace preferredColorSpace,
       boolean isHardwareConfigAllowed,
       int requestedWidth,
       int requestedHeight,
@@ -461,7 +461,7 @@ public final class Downsampler {
       ImageReader imageReader,
       DecodeCallbacks decodeCallbacks,
       BitmapPool bitmapPool,
-      DownsampleStrategy downsampleStrategy,
+      @Nullable DownsampleStrategy downsampleStrategy,
       int degreesToRotate,
       int sourceWidth,
       int sourceHeight,
@@ -690,7 +690,7 @@ public final class Downsampler {
   @SuppressWarnings("deprecation")
   private void calculateConfig(
       ImageReader imageReader,
-      DecodeFormat format,
+      @Nullable DecodeFormat format,
       boolean isHardwareConfigAllowed,
       boolean isExifOrientationRequired,
       BitmapFactory.Options optionsWithScaling,
@@ -754,7 +754,7 @@ public final class Downsampler {
     return new int[] {options.outWidth, options.outHeight};
   }
 
-  private static Bitmap decodeStream(
+  @Nullable private static Bitmap decodeStream(
       ImageReader imageReader,
       BitmapFactory.Options options,
       DecodeCallbacks callbacks,
@@ -816,7 +816,7 @@ public final class Downsampler {
       int sourceHeight,
       String outMimeType,
       BitmapFactory.Options options,
-      Bitmap result,
+      @Nullable Bitmap result,
       int requestedWidth,
       int requestedHeight,
       long startTime) {
@@ -849,13 +849,13 @@ public final class Downsampler {
             + LogTime.getElapsedMillis(startTime));
   }
 
-  private static String getInBitmapString(BitmapFactory.Options options) {
+  @Nullable private static String getInBitmapString(BitmapFactory.Options options) {
     return getBitmapString(options.inBitmap);
   }
 
   @Nullable
   @TargetApi(Build.VERSION_CODES.KITKAT)
-  private static String getBitmapString(Bitmap bitmap) {
+  private static String getBitmapString(@Nullable Bitmap bitmap) {
     if (bitmap == null) {
       return null;
     }
@@ -969,7 +969,7 @@ public final class Downsampler {
   public interface DecodeCallbacks {
     void onObtainBounds();
 
-    void onDecodeComplete(BitmapPool bitmapPool, Bitmap downsampled) throws IOException;
+    void onDecodeComplete(BitmapPool bitmapPool, @Nullable Bitmap downsampled) throws IOException;
   }
 
   private static boolean isRotationRequired(int degreesToRotate) {

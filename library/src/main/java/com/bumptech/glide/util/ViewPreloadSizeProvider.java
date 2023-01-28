@@ -18,11 +18,11 @@ import java.util.Arrays;
  */
 public class ViewPreloadSizeProvider<T>
     implements ListPreloader.PreloadSizeProvider<T>, SizeReadyCallback {
-  private int[] size;
+  @Nullable private int[] size;
   // We need to keep a strong reference to the Target so that it isn't garbage collected due to a
   // weak reference
   // while we're waiting to get its size.
-  @SuppressWarnings("unused")
+  @Nullable @SuppressWarnings("unused")
   private SizeViewTarget viewTarget;
 
   /**

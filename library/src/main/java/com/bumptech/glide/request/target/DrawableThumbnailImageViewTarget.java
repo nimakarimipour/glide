@@ -2,6 +2,7 @@ package com.bumptech.glide.request.target;
 
 import android.graphics.drawable.Drawable;
 import android.widget.ImageView;
+import androidx.annotation.Nullable;
 
 /**
  * Efficiently displays multiple Drawables loaded serially into a single {@link android.view.View}.
@@ -22,8 +23,8 @@ public class DrawableThumbnailImageViewTarget extends ThumbnailImageViewTarget<D
     super(view, waitForLayout);
   }
 
-  @Override
-  protected Drawable getDrawable(Drawable resource) {
+  @Nullable @Override
+  protected Drawable getDrawable(@Nullable Drawable resource) {
     return resource;
   }
 }

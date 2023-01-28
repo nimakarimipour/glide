@@ -10,6 +10,7 @@ import com.bumptech.glide.load.engine.bitmap_recycle.BitmapPool;
 import com.bumptech.glide.load.resource.bitmap.BitmapResource;
 import com.bumptech.glide.util.Preconditions;
 import java.security.MessageDigest;
+import androidx.annotation.Nullable;
 
 /**
  * An {@link com.bumptech.glide.load.Transformation} that wraps a transformation for a {@link

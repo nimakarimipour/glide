@@ -11,6 +11,7 @@ import com.bumptech.glide.util.Preconditions;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
+import androidx.annotation.Nullable;
 
 /**
  * Attempts to decode and transcode resource type from a given data type.
@@ -25,7 +26,7 @@ public class DecodePath<DataType, ResourceType, Transcode> {
   private final Class<DataType> dataClass;
   private final List<? extends ResourceDecoder<DataType, ResourceType>> decoders;
   private final ResourceTranscoder<ResourceType, Transcode> transcoder;
-  private final Pool<List<Throwable>> listPool;
+  @Nullable private final Pool<List<Throwable>> listPool;
   private final String failureMessage;
 
   public DecodePath(
@@ -34,7 +35,7 @@ public class DecodePath<DataType, ResourceType, Transcode> {
       Class<Transcode> transcodeClass,
       List<? extends ResourceDecoder<DataType, ResourceType>> decoders,
       ResourceTranscoder<ResourceType, Transcode> transcoder,
-      Pool<List<Throwable>> listPool) {
+      @Nullable Pool<List<Throwable>> listPool) {
     this.dataClass = dataClass;
     this.decoders = decoders;
     this.transcoder = transcoder;
@@ -49,7 +50,7 @@ public class DecodePath<DataType, ResourceType, Transcode> {
             + "}";
   }
 
-  public Resource<Transcode> decode(
+  @Nullable public Resource<Transcode> decode(
       DataRewinder<DataType> rewinder,
       int width,
       int height,
