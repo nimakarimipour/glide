@@ -4,12 +4,13 @@ import com.bumptech.glide.load.Key;
 import com.bumptech.glide.load.Options;
 import com.bumptech.glide.load.Transformation;
 import java.util.Map;
+import androidx.annotation.Nullable;
 
 class EngineKeyFactory {
 
   @SuppressWarnings("rawtypes")
   EngineKey buildKey(
-      Object model,
+      @Nullable Object model,
       Key signature,
       int width,
       int height,

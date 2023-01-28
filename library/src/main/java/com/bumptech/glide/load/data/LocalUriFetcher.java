@@ -8,6 +8,7 @@ import com.bumptech.glide.Priority;
 import com.bumptech.glide.load.DataSource;
 import java.io.FileNotFoundException;
 import java.io.IOException;
+import androidx.annotation.Nullable;
 
 /**
  * A DataFetcher that uses an {@link android.content.ContentResolver} to load data from a {@link
@@ -20,7 +21,7 @@ public abstract class LocalUriFetcher<T> implements DataFetcher<T> {
   private static final String TAG = "LocalUriFetcher";
   private final Uri uri;
   private final ContentResolver contentResolver;
-  private T data;
+  @Nullable private T data;
 
   /**
    * Opens an input stream for a uri pointing to a local asset. Only certain uris are supported

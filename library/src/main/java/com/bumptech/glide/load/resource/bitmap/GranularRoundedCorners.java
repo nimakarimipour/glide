@@ -6,6 +6,7 @@ import com.bumptech.glide.load.engine.bitmap_recycle.BitmapPool;
 import com.bumptech.glide.util.Util;
 import java.nio.ByteBuffer;
 import java.security.MessageDigest;
+import androidx.annotation.Nullable;
 
 /** A {@link BitmapTransformation} which has a different radius for each corner of a bitmap. */
 public final class GranularRoundedCorners extends BitmapTransformation {

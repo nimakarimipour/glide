@@ -2,6 +2,7 @@ package com.bumptech.glide.request.transition;
 
 import com.bumptech.glide.load.DataSource;
 import com.bumptech.glide.util.Synthetic;
+import androidx.annotation.Nullable;
 
 /**
  * A simple {@link Transition} that performs no actions.
@@ -24,7 +25,7 @@ public class NoTransition<R> implements Transition<R> {
   public static class NoAnimationFactory<R> implements TransitionFactory<R> {
     @SuppressWarnings("unchecked")
     @Override
-    public Transition<R> build(DataSource dataSource, boolean isFirstResource) {
+    public Transition<R> build(@Nullable DataSource dataSource, boolean isFirstResource) {
       return (Transition<R>) NO_ANIMATION;
     }
   }

@@ -120,8 +120,8 @@ class GroupedLinkedMap<K extends Poolable, V> {
   }
 
   private static class LinkedEntry<K, V> {
-    @Synthetic final K key;
-    private List<V> values;
+    @Nullable @Synthetic final K key;
+    @Nullable private List<V> values;
     LinkedEntry<K, V> next;
     LinkedEntry<K, V> prev;
 
@@ -131,7 +131,7 @@ class GroupedLinkedMap<K extends Poolable, V> {
       this(null);
     }
 
-    LinkedEntry(K key) {
+    LinkedEntry(@Nullable K key) {
       next = prev = this;
       this.key = key;
     }

@@ -7,6 +7,7 @@ import com.bumptech.glide.load.Transformation;
 import com.bumptech.glide.util.Preconditions;
 import java.security.MessageDigest;
 import java.util.Map;
+import androidx.annotation.Nullable;
 
 /** An in memory only cache key used to multiplex loads. */
 class EngineKey implements Key {
@@ -21,7 +22,7 @@ class EngineKey implements Key {
   private int hashCode;
 
   EngineKey(
-      Object model,
+      @Nullable Object model,
       Key signature,
       int width,
       int height,
