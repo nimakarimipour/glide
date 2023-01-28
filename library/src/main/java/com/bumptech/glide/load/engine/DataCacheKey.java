@@ -3,6 +3,7 @@ package com.bumptech.glide.load.engine;
 import androidx.annotation.NonNull;
 import com.bumptech.glide.load.Key;
 import java.security.MessageDigest;
+import androidx.annotation.Nullable;
 
 /** A cache key for original source data + any requested signature. */
 final class DataCacheKey implements Key {

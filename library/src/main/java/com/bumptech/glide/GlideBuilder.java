@@ -38,6 +38,7 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 import java.util.Map;
+import com.bumptech.glide.Initializer;
 
 /** A builder class for setting default structural classes for Glide to use. */
 @SuppressWarnings("PMD.ImmutableField")
@@ -45,14 +46,14 @@ public final class GlideBuilder {
   private final Map<Class<?>, TransitionOptions<?, ?>> defaultTransitionOptions = new ArrayMap<>();
   private final GlideExperiments.Builder glideExperimentsBuilder = new GlideExperiments.Builder();
   private Engine engine;
-  private BitmapPool bitmapPool;
-  private ArrayPool arrayPool;
-  private MemoryCache memoryCache;
-  private GlideExecutor sourceExecutor;
-  private GlideExecutor diskCacheExecutor;
-  private DiskCache.Factory diskCacheFactory;
-  private MemorySizeCalculator memorySizeCalculator;
-  private ConnectivityMonitorFactory connectivityMonitorFactory;
+  @Nullable private BitmapPool bitmapPool;
+  @Nullable private ArrayPool arrayPool;
+  @Nullable private MemoryCache memoryCache;
+  @Nullable private GlideExecutor sourceExecutor;
+  @Nullable private GlideExecutor diskCacheExecutor;
+  @Nullable private DiskCache.Factory diskCacheFactory;
+  @Nullable private MemorySizeCalculator memorySizeCalculator;
+  @Nullable private ConnectivityMonitorFactory connectivityMonitorFactory;
   private int logLevel = Log.INFO;
   private RequestOptionsFactory defaultRequestOptionsFactory =
       new RequestOptionsFactory() {
@@ -63,7 +64,7 @@ public final class GlideBuilder {
         }
       };
   @Nullable private RequestManagerFactory requestManagerFactory;
-  private GlideExecutor animationExecutor;
+  @Nullable private GlideExecutor animationExecutor;
   private boolean isActiveResourceRetentionAllowed;
   @Nullable private List<RequestListener<Object>> defaultRequestListeners;
 
@@ -497,11 +498,11 @@ public final class GlideBuilder {
     return this;
   }
 
-  @NonNull
+  @Initializer @NonNull
   Glide build(
       @NonNull Context context,
       List<GlideModule> manifestModules,
-      AppGlideModule annotationGeneratedGlideModule) {
+      @Nullable AppGlideModule annotationGeneratedGlideModule) {
     if (sourceExecutor == null) {
       sourceExecutor = GlideExecutor.newSourceExecutor();
     }

@@ -4,6 +4,7 @@ import android.content.Context;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
 import com.bumptech.glide.load.DataSource;
+import androidx.annotation.Nullable;
 
 /**
  * A {@link TransitionFactory} that produces {@link ViewTransition}s.
@@ -12,7 +13,7 @@ import com.bumptech.glide.load.DataSource;
  */
 public class ViewAnimationFactory<R> implements TransitionFactory<R> {
   private final ViewTransition.ViewTransitionAnimationFactory viewTransitionAnimationFactory;
-  private Transition<R> transition;
+  @Nullable private Transition<R> transition;
 
   // Public API.
   @SuppressWarnings("unused")
@@ -38,7 +39,7 @@ public class ViewAnimationFactory<R> implements TransitionFactory<R> {
    * @param isFirstResource {@inheritDoc}
    */
   @Override
-  public Transition<R> build(DataSource dataSource, boolean isFirstResource) {
+  public Transition<R> build(@Nullable DataSource dataSource, boolean isFirstResource) {
     if (dataSource == DataSource.MEMORY_CACHE || !isFirstResource) {
       return NoTransition.get();
     }

@@ -14,6 +14,7 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.nio.ByteBuffer;
 import java.util.List;
+import androidx.annotation.Nullable;
 
 /**
  * A relatively inefficient decoder for {@link com.bumptech.glide.load.resource.gif.GifDrawable}
@@ -42,7 +43,7 @@ public class StreamGifDecoder implements ResourceDecoder<InputStream, GifDrawabl
         && ImageHeaderParserUtils.getType(parsers, source, byteArrayPool) == ImageType.GIF;
   }
 
-  @Override
+  @Nullable @Override
   public Resource<GifDrawable> decode(
       @NonNull InputStream source, int width, int height, @NonNull Options options)
       throws IOException {
@@ -54,7 +55,7 @@ public class StreamGifDecoder implements ResourceDecoder<InputStream, GifDrawabl
     return byteBufferDecoder.decode(byteBuffer, width, height, options);
   }
 
-  private static byte[] inputStreamToBytes(InputStream is) {
+  @Nullable private static byte[] inputStreamToBytes(InputStream is) {
     final int bufferSize = 16384;
     ByteArrayOutputStream buffer = new ByteArrayOutputStream(bufferSize);
     try {

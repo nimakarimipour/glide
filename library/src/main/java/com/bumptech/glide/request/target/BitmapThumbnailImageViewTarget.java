@@ -4,6 +4,7 @@ import android.graphics.Bitmap;
 import android.graphics.drawable.BitmapDrawable;
 import android.graphics.drawable.Drawable;
 import android.widget.ImageView;
+import androidx.annotation.Nullable;
 
 /**
  * Efficiently displays multiple Bitmaps loaded serially into a single {@link android.view.View}.
@@ -25,7 +26,7 @@ public class BitmapThumbnailImageViewTarget extends ThumbnailImageViewTarget<Bit
   }
 
   @Override
-  protected Drawable getDrawable(Bitmap resource) {
+  protected Drawable getDrawable(@Nullable Bitmap resource) {
     return new BitmapDrawable(view.getResources(), resource);
   }
 }

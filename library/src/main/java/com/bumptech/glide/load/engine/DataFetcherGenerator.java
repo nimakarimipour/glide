@@ -33,7 +33,7 @@ interface DataFetcherGenerator {
         @Nullable Object data,
         DataFetcher<?> fetcher,
         DataSource dataSource,
-        Key attemptedKey);
+        @Nullable Key attemptedKey);
 
     /**
      * Notifies the callback when the load fails.
@@ -44,7 +44,7 @@ interface DataFetcherGenerator {
      * @param dataSource The data source we were loading from.
      */
     void onDataFetcherFailed(
-        Key attemptedKey, Exception e, DataFetcher<?> fetcher, DataSource dataSource);
+        @Nullable Key attemptedKey, Exception e, DataFetcher<?> fetcher, DataSource dataSource);
   }
 
   /**

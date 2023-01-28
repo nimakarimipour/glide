@@ -13,6 +13,7 @@ import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.InputStream;
+import androidx.annotation.Nullable;
 
 /**
  * A simple model loader for loading data from {@link File}s.
@@ -58,7 +59,7 @@ public class FileLoader<Data> implements ModelLoader<File, Data> {
   private static final class FileFetcher<Data> implements DataFetcher<Data> {
     private final File file;
     private final FileOpener<Data> opener;
-    private Data data;
+    @Nullable private Data data;
 
     FileFetcher(File file, FileOpener<Data> opener) {
       this.file = file;
