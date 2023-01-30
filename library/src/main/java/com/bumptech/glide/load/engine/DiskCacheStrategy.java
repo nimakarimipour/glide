@@ -2,6 +2,7 @@ package com.bumptech.glide.load.engine;
 
 import com.bumptech.glide.load.DataSource;
 import com.bumptech.glide.load.EncodeStrategy;
+import androidx.annotation.Nullable;
 
 /** Set of available caching strategies for media. */
 public abstract class DiskCacheStrategy {
@@ -19,7 +20,7 @@ public abstract class DiskCacheStrategy {
 
         @Override
         public boolean isResourceCacheable(
-            boolean isFromAlternateCacheKey, DataSource dataSource, EncodeStrategy encodeStrategy) {
+            boolean isFromAlternateCacheKey, @Nullable DataSource dataSource, EncodeStrategy encodeStrategy) {
           return dataSource != DataSource.RESOURCE_DISK_CACHE
               && dataSource != DataSource.MEMORY_CACHE;
         }
@@ -45,7 +46,7 @@ public abstract class DiskCacheStrategy {
 
         @Override
         public boolean isResourceCacheable(
-            boolean isFromAlternateCacheKey, DataSource dataSource, EncodeStrategy encodeStrategy) {
+            boolean isFromAlternateCacheKey, @Nullable DataSource dataSource, EncodeStrategy encodeStrategy) {
           return false;
         }
 
@@ -70,7 +71,7 @@ public abstract class DiskCacheStrategy {
 
         @Override
         public boolean isResourceCacheable(
-            boolean isFromAlternateCacheKey, DataSource dataSource, EncodeStrategy encodeStrategy) {
+            boolean isFromAlternateCacheKey, @Nullable DataSource dataSource, EncodeStrategy encodeStrategy) {
           return false;
         }
 
@@ -95,7 +96,7 @@ public abstract class DiskCacheStrategy {
 
         @Override
         public boolean isResourceCacheable(
-            boolean isFromAlternateCacheKey, DataSource dataSource, EncodeStrategy encodeStrategy) {
+            boolean isFromAlternateCacheKey, @Nullable DataSource dataSource, EncodeStrategy encodeStrategy) {
           return dataSource != DataSource.RESOURCE_DISK_CACHE
               && dataSource != DataSource.MEMORY_CACHE;
         }
@@ -126,7 +127,7 @@ public abstract class DiskCacheStrategy {
 
         @Override
         public boolean isResourceCacheable(
-            boolean isFromAlternateCacheKey, DataSource dataSource, EncodeStrategy encodeStrategy) {
+            boolean isFromAlternateCacheKey, @Nullable DataSource dataSource, EncodeStrategy encodeStrategy) {
           return ((isFromAlternateCacheKey && dataSource == DataSource.DATA_DISK_CACHE)
                   || dataSource == DataSource.LOCAL)
               && encodeStrategy == EncodeStrategy.TRANSFORMED;
@@ -161,7 +162,7 @@ public abstract class DiskCacheStrategy {
    *     com.bumptech.glide.load.ResourceEncoder} will use to encode the resource.
    */
   public abstract boolean isResourceCacheable(
-      boolean isFromAlternateCacheKey, DataSource dataSource, EncodeStrategy encodeStrategy);
+      boolean isFromAlternateCacheKey, @Nullable DataSource dataSource, EncodeStrategy encodeStrategy);
 
   /** Returns true if this request should attempt to decode cached resource data. */
   public abstract boolean decodeCachedResource();

@@ -1,4 +1,5 @@
 package com.bumptech.glide.request;
+import androidx.annotation.Nullable;
 
 /** A request that loads a resource for an {@link com.bumptech.glide.request.target.Target}. */
 public interface Request {
@@ -50,5 +51,5 @@ public interface Request {
    * let's us selectively compare {@link Request} objects to each other when it's useful in specific
    * scenarios.
    */
-  boolean isEquivalentTo(Request other);
+  boolean isEquivalentTo(@Nullable Request other);
 }

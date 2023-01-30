@@ -6,6 +6,7 @@ import com.bumptech.glide.load.engine.Resource;
 import java.security.MessageDigest;
 import java.util.Arrays;
 import java.util.Collection;
+import androidx.annotation.Nullable;
 
 /**
  * A transformation that applies one or more transformations in iteration order to a resource.
@@ -50,7 +51,7 @@ public class MultiTransformation<T> implements Transformation<T> {
   }
 
   @Override
-  public boolean equals(Object o) {
+  public boolean equals(@Nullable Object o) {
     if (o instanceof MultiTransformation) {
       MultiTransformation<?> other = (MultiTransformation<?>) o;
       return transformations.equals(other.transformations);

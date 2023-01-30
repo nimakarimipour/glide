@@ -28,7 +28,7 @@ public final class Options implements Key {
   }
 
   @Override
-  public boolean equals(Object o) {
+  public boolean equals(@Nullable Object o) {
     if (o instanceof Options) {
       Options other = (Options) o;
       return values.equals(other.values);

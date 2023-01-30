@@ -4,6 +4,7 @@ import android.graphics.Bitmap;
 import androidx.annotation.NonNull;
 import com.bumptech.glide.load.engine.bitmap_recycle.BitmapPool;
 import java.security.MessageDigest;
+import androidx.annotation.Nullable;
 
 /**
  * Returns the image with its original size if its dimensions match or are smaller than the
@@ -23,7 +24,7 @@ public class CenterInside extends BitmapTransformation {
   }
 
   @Override
-  public boolean equals(Object o) {
+  public boolean equals(@Nullable Object o) {
     return o instanceof CenterInside;
   }
 

@@ -17,6 +17,7 @@ import com.bumptech.glide.load.engine.bitmap_recycle.ArrayPool;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.InputStream;
+import androidx.annotation.Nullable;
 
 /**
  * A {@link DataFetcher} implementation for {@link InputStream}s that loads data from thumbnail
@@ -27,7 +28,7 @@ public class ThumbFetcher implements DataFetcher<InputStream> {
   private static final String TAG = "MediaStoreThumbFetcher";
   private final Uri mediaStoreImageUri;
   private final ThumbnailStreamOpener opener;
-  private InputStream inputStream;
+  @Nullable private InputStream inputStream;
 
   public static ThumbFetcher buildImageFetcher(Context context, Uri uri) {
     return build(context, uri, new ImageThumbnailQuery(context.getContentResolver()));
@@ -68,7 +69,7 @@ public class ThumbFetcher implements DataFetcher<InputStream> {
     }
   }
 
-  private InputStream openThumbInputStream() throws FileNotFoundException {
+  @Nullable private InputStream openThumbInputStream() throws FileNotFoundException {
     InputStream result = opener.open(mediaStoreImageUri);
 
     int orientation = -1;

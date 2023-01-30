@@ -11,8 +11,8 @@ public class ThumbnailRequestCoordinator implements RequestCoordinator, Request 
   @Nullable private final RequestCoordinator parent;
   private final Object requestLock;
 
-  private volatile Request full;
-  private volatile Request thumb;
+  @Nullable private volatile Request full;
+  @Nullable private volatile Request thumb;
 
   @GuardedBy("requestLock")
   private RequestState fullState = RequestState.CLEARED;
@@ -199,7 +199,7 @@ public class ThumbnailRequestCoordinator implements RequestCoordinator, Request 
   }
 
   @Override
-  public boolean isEquivalentTo(Request o) {
+  public boolean isEquivalentTo(@Nullable Request o) {
     if (o instanceof ThumbnailRequestCoordinator) {
       ThumbnailRequestCoordinator that = (ThumbnailRequestCoordinator) o;
       return (full == null ? that.full == null : full.isEquivalentTo(that.full))

@@ -176,7 +176,7 @@ public class LruBitmapPool implements BitmapPool {
   }
 
   @TargetApi(Build.VERSION_CODES.O)
-  private static void assertNotHardwareConfig(Bitmap.Config config) {
+  private static void assertNotHardwareConfig(@Nullable Bitmap.Config config) {
     // Avoid short circuiting on sdk int since it breaks on some versions of Android.
     if (Build.VERSION.SDK_INT < Build.VERSION_CODES.O) {
       return;

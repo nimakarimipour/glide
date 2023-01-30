@@ -7,6 +7,7 @@ import com.bumptech.glide.load.Key;
 import com.bumptech.glide.util.Util;
 import java.nio.ByteBuffer;
 import java.security.MessageDigest;
+import androidx.annotation.Nullable;
 
 /** Includes information about the package as well as whether or not the device is in night mode. */
 public final class AndroidResourceSignature implements Key {
@@ -28,7 +29,7 @@ public final class AndroidResourceSignature implements Key {
   }
 
   @Override
-  public boolean equals(Object o) {
+  public boolean equals(@Nullable Object o) {
     if (o instanceof AndroidResourceSignature) {
       AndroidResourceSignature that = (AndroidResourceSignature) o;
       return nightMode == that.nightMode && applicationVersion.equals(that.applicationVersion);

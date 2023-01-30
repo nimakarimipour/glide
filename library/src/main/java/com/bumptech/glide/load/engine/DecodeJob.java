@@ -25,6 +25,7 @@ import com.bumptech.glide.util.pool.StateVerifier;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
+import androidx.annotation.Nullable;
 
 /**
  * A class responsible for decoding resources either from cached data or from the original source
@@ -50,30 +51,30 @@ class DecodeJob<R>
   private final DeferredEncodeManager<?> deferredEncodeManager = new DeferredEncodeManager<>();
   private final ReleaseManager releaseManager = new ReleaseManager();
 
-  private GlideContext glideContext;
-  private Key signature;
-  private Priority priority;
-  private EngineKey loadKey;
+  @Nullable private GlideContext glideContext;
+  @Nullable private Key signature;
+  @Nullable private Priority priority;
+  @Nullable private EngineKey loadKey;
   private int width;
   private int height;
-  private DiskCacheStrategy diskCacheStrategy;
-  private Options options;
-  private Callback<R> callback;
+  @Nullable private DiskCacheStrategy diskCacheStrategy;
+  @Nullable private Options options;
+  @Nullable private Callback<R> callback;
   private int order;
-  private Stage stage;
-  private RunReason runReason;
+  @Nullable private Stage stage;
+  @Nullable private RunReason runReason;
   private long startFetchTime;
   private boolean onlyRetrieveFromCache;
-  private Object model;
+  @Nullable private Object model;
 
-  private Thread currentThread;
-  private Key currentSourceKey;
-  private Key currentAttemptingKey;
-  private Object currentData;
-  private DataSource currentDataSource;
-  private DataFetcher<?> currentFetcher;
+  @Nullable private Thread currentThread;
+  @Nullable private Key currentSourceKey;
+  @Nullable private Key currentAttemptingKey;
+  @Nullable private Object currentData;
+  @Nullable private DataSource currentDataSource;
+  @Nullable private DataFetcher<?> currentFetcher;
 
-  private volatile DataFetcherGenerator currentGenerator;
+  @Nullable private volatile DataFetcherGenerator currentGenerator;
   private volatile boolean isCallbackNotified;
   private volatile boolean isCancelled;
   private boolean isLoadingFromAlternateCacheKey;
@@ -85,7 +86,7 @@ class DecodeJob<R>
 
   DecodeJob<R> init(
       GlideContext glideContext,
-      Object model,
+      @Nullable Object model,
       EngineKey loadKey,
       Key signature,
       int width,
@@ -287,7 +288,7 @@ class DecodeJob<R>
     }
   }
 
-  private DataFetcherGenerator getNextGenerator() {
+  @Nullable private DataFetcherGenerator getNextGenerator() {
     switch (stage) {
       case RESOURCE_CACHE:
         return new ResourceCacheGenerator(decodeHelper, this);
@@ -334,7 +335,7 @@ class DecodeJob<R>
   }
 
   private void notifyComplete(
-      Resource<R> resource, DataSource dataSource, boolean isLoadedFromAlternateCacheKey) {
+      Resource<R> resource, @Nullable DataSource dataSource, boolean isLoadedFromAlternateCacheKey) {
     setNotifiedOrThrow();
     callback.onResourceReady(resource, dataSource, isLoadedFromAlternateCacheKey);
   }
@@ -348,7 +349,7 @@ class DecodeJob<R>
     isCallbackNotified = true;
   }
 
-  private Stage getNextStage(Stage current) {
+  private Stage getNextStage(@Nullable Stage current) {
     switch (current) {
       case INITIALIZE:
         return diskCacheStrategy.decodeCachedResource()
@@ -377,7 +378,7 @@ class DecodeJob<R>
 
   @Override
   public void onDataFetcherReady(
-      Key sourceKey, Object data, DataFetcher<?> fetcher, DataSource dataSource, Key attemptedKey) {
+      @Nullable Key sourceKey, @Nullable Object data, DataFetcher<?> fetcher, DataSource dataSource, @Nullable Key attemptedKey) {
     this.currentSourceKey = sourceKey;
     this.currentData = data;
     this.currentFetcher = fetcher;
@@ -400,7 +401,7 @@ class DecodeJob<R>
 
   @Override
   public void onDataFetcherFailed(
-      Key attemptedKey, Exception e, DataFetcher<?> fetcher, DataSource dataSource) {
+      @Nullable Key attemptedKey, Exception e, DataFetcher<?> fetcher, DataSource dataSource) {
     fetcher.cleanup();
     GlideException exception = new GlideException("Fetching data failed", e);
     exception.setLoggingDetails(attemptedKey, dataSource, fetcher.getDataClass());
@@ -440,7 +441,7 @@ class DecodeJob<R>
   }
 
   private void notifyEncodeAndRelease(
-      Resource<R> resource, DataSource dataSource, boolean isLoadedFromAlternateCacheKey) {
+      Resource<R> resource, @Nullable DataSource dataSource, boolean isLoadedFromAlternateCacheKey) {
     GlideTrace.beginSection("DecodeJob.notifyEncodeAndRelease");
     try {
       if (resource instanceof Initializable) {
@@ -475,8 +476,8 @@ class DecodeJob<R>
     }
   }
 
-  private <Data> Resource<R> decodeFromData(
-      DataFetcher<?> fetcher, Data data, DataSource dataSource) throws GlideException {
+  @Nullable private <Data> Resource<R> decodeFromData(
+      @Nullable DataFetcher<?> fetcher, @Nullable Data data, @Nullable DataSource dataSource) throws GlideException {
     try {
       if (data == null) {
         return null;
@@ -493,14 +494,14 @@ class DecodeJob<R>
   }
 
   @SuppressWarnings("unchecked")
-  private <Data> Resource<R> decodeFromFetcher(Data data, DataSource dataSource)
+  private <Data> Resource<R> decodeFromFetcher(Data data, @Nullable DataSource dataSource)
       throws GlideException {
     LoadPath<Data, ?, R> path = decodeHelper.getLoadPath((Class<Data>) data.getClass());
     return runLoadPath(data, dataSource, path);
   }
 
   @NonNull
-  private Options getOptionsWithHardwareConfig(DataSource dataSource) {
+  private Options getOptionsWithHardwareConfig(@Nullable DataSource dataSource) {
     Options options = this.options;
     if (Build.VERSION.SDK_INT < Build.VERSION_CODES.O) {
       return options;
@@ -526,7 +527,7 @@ class DecodeJob<R>
   }
 
   private <Data, ResourceType> Resource<R> runLoadPath(
-      Data data, DataSource dataSource, LoadPath<Data, ResourceType, R> path)
+      Data data, @Nullable DataSource dataSource, @Nullable LoadPath<Data, ResourceType, R> path)
       throws GlideException {
     Options options = getOptionsWithHardwareConfig(dataSource);
     DataRewinder<Data> rewinder = glideContext.getRegistry().getRewinder(data);
@@ -543,7 +544,7 @@ class DecodeJob<R>
     logWithTimeAndKey(message, startTime, null /*extraArgs*/);
   }
 
-  private void logWithTimeAndKey(String message, long startTime, String extraArgs) {
+  private void logWithTimeAndKey(String message, long startTime, @Nullable String extraArgs) {
     Log.v(
         TAG,
         message
@@ -564,7 +565,7 @@ class DecodeJob<R>
 
   @Synthetic
   @NonNull
-  <Z> Resource<Z> onResourceDecoded(DataSource dataSource, @NonNull Resource<Z> decoded) {
+  <Z> Resource<Z> onResourceDecoded(@Nullable DataSource dataSource, @NonNull Resource<Z> decoded) {
     @SuppressWarnings("unchecked")
     Class<Z> resourceSubClass = (Class<Z>) decoded.get().getClass();
     Transformation<Z> appliedTransformation = null;
@@ -625,10 +626,10 @@ class DecodeJob<R>
 
   private final class DecodeCallback<Z> implements DecodePath.DecodeCallback<Z> {
 
-    private final DataSource dataSource;
+    @Nullable private final DataSource dataSource;
 
     @Synthetic
-    DecodeCallback(DataSource dataSource) {
+    DecodeCallback(@Nullable DataSource dataSource) {
       this.dataSource = dataSource;
     }
 
@@ -681,9 +682,9 @@ class DecodeJob<R>
    * requestors.
    */
   private static class DeferredEncodeManager<Z> {
-    private Key key;
-    private ResourceEncoder<Z> encoder;
-    private LockedResource<Z> toEncode;
+    @Nullable private Key key;
+    @Nullable private ResourceEncoder<Z> encoder;
+    @Nullable private LockedResource<Z> toEncode;
 
     @Synthetic
     DeferredEncodeManager() {}
@@ -696,7 +697,7 @@ class DecodeJob<R>
       this.toEncode = (LockedResource<Z>) toEncode;
     }
 
-    void encode(DiskCacheProvider diskCacheProvider, Options options) {
+    void encode(DiskCacheProvider diskCacheProvider, @Nullable Options options) {
       GlideTrace.beginSection("DecodeJob.encode");
       try {
         diskCacheProvider
@@ -722,7 +723,7 @@ class DecodeJob<R>
   interface Callback<R> {
 
     void onResourceReady(
-        Resource<R> resource, DataSource dataSource, boolean isLoadedFromAlternateCacheKey);
+        Resource<R> resource, @Nullable DataSource dataSource, boolean isLoadedFromAlternateCacheKey);
 
     void onLoadFailed(GlideException e);
 

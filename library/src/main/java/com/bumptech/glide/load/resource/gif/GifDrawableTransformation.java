@@ -10,6 +10,7 @@ import com.bumptech.glide.load.engine.bitmap_recycle.BitmapPool;
 import com.bumptech.glide.load.resource.bitmap.BitmapResource;
 import com.bumptech.glide.util.Preconditions;
 import java.security.MessageDigest;
+import androidx.annotation.Nullable;
 
 /**
  * An {@link com.bumptech.glide.load.Transformation} that wraps a transformation for a {@link
@@ -51,7 +52,7 @@ public class GifDrawableTransformation implements Transformation<GifDrawable> {
   }
 
   @Override
-  public boolean equals(Object o) {
+  public boolean equals(@Nullable Object o) {
     if (o instanceof GifDrawableTransformation) {
       GifDrawableTransformation other = (GifDrawableTransformation) o;
       return wrapped.equals(other.wrapped);

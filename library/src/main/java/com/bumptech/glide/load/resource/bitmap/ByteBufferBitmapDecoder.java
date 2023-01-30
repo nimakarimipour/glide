@@ -7,6 +7,7 @@ import com.bumptech.glide.load.ResourceDecoder;
 import com.bumptech.glide.load.engine.Resource;
 import java.io.IOException;
 import java.nio.ByteBuffer;
+import androidx.annotation.Nullable;
 
 /** Decodes {@link android.graphics.Bitmap Bitmaps} from {@link java.nio.ByteBuffer ByteBuffers}. */
 public class ByteBufferBitmapDecoder implements ResourceDecoder<ByteBuffer, Bitmap> {
@@ -21,7 +22,7 @@ public class ByteBufferBitmapDecoder implements ResourceDecoder<ByteBuffer, Bitm
     return downsampler.handles(source);
   }
 
-  @Override
+  @Nullable @Override
   public Resource<Bitmap> decode(
       @NonNull ByteBuffer source, int width, int height, @NonNull Options options)
       throws IOException {

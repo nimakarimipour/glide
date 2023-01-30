@@ -4,6 +4,7 @@ import androidx.annotation.NonNull;
 import com.bumptech.glide.load.Key;
 import com.bumptech.glide.util.Preconditions;
 import java.security.MessageDigest;
+import androidx.annotation.Nullable;
 
 /**
  * Wraps an {@link java.lang.Object}, delegating {@link #equals(Object)} and {@link #hashCode()} to
@@ -27,7 +28,7 @@ public final class ObjectKey implements Key {
   }
 
   @Override
-  public boolean equals(Object o) {
+  public boolean equals(@Nullable Object o) {
     if (o instanceof ObjectKey) {
       ObjectKey other = (ObjectKey) o;
       return object.equals(other.object);

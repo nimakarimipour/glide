@@ -51,7 +51,7 @@ public class GlideUrl implements Key {
     this.headers = Preconditions.checkNotNull(headers);
   }
 
-  public GlideUrl(String url, Headers headers) {
+  public GlideUrl(String url, @Nullable Headers headers) {
     this.url = null;
     this.stringUrl = Preconditions.checkNotEmpty(url);
     this.headers = Preconditions.checkNotNull(headers);
@@ -129,7 +129,7 @@ public class GlideUrl implements Key {
   }
 
   @Override
-  public boolean equals(Object o) {
+  public boolean equals(@Nullable Object o) {
     if (o instanceof GlideUrl) {
       GlideUrl other = (GlideUrl) o;
       return getCacheKey().equals(other.getCacheKey()) && headers.equals(other.headers);

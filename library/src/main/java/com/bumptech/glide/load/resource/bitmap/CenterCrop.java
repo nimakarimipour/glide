@@ -4,6 +4,7 @@ import android.graphics.Bitmap;
 import androidx.annotation.NonNull;
 import com.bumptech.glide.load.engine.bitmap_recycle.BitmapPool;
 import java.security.MessageDigest;
+import androidx.annotation.Nullable;
 
 /**
  * Scale the image so that either the width of the image matches the given width and the height of
@@ -23,7 +24,7 @@ public class CenterCrop extends BitmapTransformation {
   }
 
   @Override
-  public boolean equals(Object o) {
+  public boolean equals(@Nullable Object o) {
     return o instanceof CenterCrop;
   }
 

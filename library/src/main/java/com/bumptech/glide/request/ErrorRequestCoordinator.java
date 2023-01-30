@@ -12,8 +12,8 @@ public final class ErrorRequestCoordinator implements RequestCoordinator, Reques
   private final Object requestLock;
   @Nullable private final RequestCoordinator parent;
 
-  private volatile Request primary;
-  private volatile Request error;
+  @Nullable private volatile Request primary;
+  @Nullable private volatile Request error;
 
   @GuardedBy("requestLock")
   private RequestState primaryState = RequestState.CLEARED;
@@ -91,7 +91,7 @@ public final class ErrorRequestCoordinator implements RequestCoordinator, Reques
   }
 
   @Override
-  public boolean isEquivalentTo(Request o) {
+  public boolean isEquivalentTo(@Nullable Request o) {
     if (o instanceof ErrorRequestCoordinator) {
       ErrorRequestCoordinator other = (ErrorRequestCoordinator) o;
       return primary.isEquivalentTo(other.primary) && error.isEquivalentTo(other.error);

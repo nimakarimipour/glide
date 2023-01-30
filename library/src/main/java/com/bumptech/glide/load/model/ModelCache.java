@@ -76,7 +76,7 @@ public class ModelCache<A, B> {
 
     private int height;
     private int width;
-    private A model;
+    @Nullable private A model;
 
     @SuppressWarnings("unchecked")
     static <A> ModelKey<A> get(A model, int width, int height) {

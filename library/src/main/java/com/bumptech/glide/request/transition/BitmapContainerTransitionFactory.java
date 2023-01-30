@@ -5,6 +5,7 @@ import android.graphics.Bitmap;
 import android.graphics.drawable.BitmapDrawable;
 import android.graphics.drawable.Drawable;
 import com.bumptech.glide.load.DataSource;
+import androidx.annotation.Nullable;
 
 /**
  * A {@link TransitionFactory} for complex types that have a {@link android.graphics.Bitmap} inside.
@@ -24,7 +25,7 @@ public abstract class BitmapContainerTransitionFactory<R> implements TransitionF
   }
 
   @Override
-  public Transition<R> build(DataSource dataSource, boolean isFirstResource) {
+  public Transition<R> build(@Nullable DataSource dataSource, boolean isFirstResource) {
     Transition<Drawable> transition = realFactory.build(dataSource, isFirstResource);
     return new BitmapGlideAnimation(transition);
   }

@@ -11,6 +11,7 @@ import com.bumptech.glide.util.pool.FactoryPools;
 import com.bumptech.glide.util.pool.StateVerifier;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
+import androidx.annotation.Nullable;
 
 /**
  * A class that generates and caches safe and unique string file names from {@link
@@ -34,7 +35,7 @@ public class SafeKeyGenerator {
             }
           });
 
-  public String getSafeKey(Key key) {
+  public String getSafeKey(@Nullable Key key) {
     String safeKey;
     synchronized (loadIdToSafeHash) {
       safeKey = loadIdToSafeHash.get(key);
@@ -48,7 +49,7 @@ public class SafeKeyGenerator {
     return safeKey;
   }
 
-  private String calculateHexStringDigest(Key key) {
+  private String calculateHexStringDigest(@Nullable Key key) {
     PoolableDigestContainer container = Preconditions.checkNotNull(digestPool.acquire());
     try {
       key.updateDiskCacheKey(container.messageDigest);

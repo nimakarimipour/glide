@@ -7,6 +7,7 @@ import com.bumptech.glide.util.Preconditions;
 import com.bumptech.glide.util.Util;
 import java.nio.ByteBuffer;
 import java.security.MessageDigest;
+import androidx.annotation.Nullable;
 
 /** A {@link BitmapTransformation} which rounds the corners of a bitmap. */
 public final class RoundedCorners extends BitmapTransformation {
@@ -31,7 +32,7 @@ public final class RoundedCorners extends BitmapTransformation {
   }
 
   @Override
-  public boolean equals(Object o) {
+  public boolean equals(@Nullable Object o) {
     if (o instanceof RoundedCorners) {
       RoundedCorners other = (RoundedCorners) o;
       return roundingRadius == other.roundingRadius;
