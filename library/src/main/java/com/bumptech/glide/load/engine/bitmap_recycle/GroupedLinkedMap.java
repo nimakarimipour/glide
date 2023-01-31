@@ -6,6 +6,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import com.bumptech.glide.NullUnmarked;
 
 /**
  * Similar to {@link java.util.LinkedHashMap} when access ordered except that it is access ordered
@@ -50,7 +51,7 @@ class GroupedLinkedMap<K extends Poolable, V> {
     return entry.removeLast();
   }
 
-  @Nullable
+  @NullUnmarked @Nullable
   public V removeLast() {
     LinkedEntry<K, V> last = head.prev;
 
@@ -136,7 +137,7 @@ class GroupedLinkedMap<K extends Poolable, V> {
       this.key = key;
     }
 
-    @Nullable
+    @NullUnmarked @Nullable
     public V removeLast() {
       final int valueSize = size();
       return valueSize > 0 ? values.remove(valueSize - 1) : null;

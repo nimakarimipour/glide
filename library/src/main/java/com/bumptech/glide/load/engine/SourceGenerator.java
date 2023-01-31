@@ -16,6 +16,7 @@ import com.bumptech.glide.util.LogTime;
 import com.bumptech.glide.util.Synthetic;
 import java.io.IOException;
 import java.util.Collections;
+import com.bumptech.glide.NullUnmarked;
 
 /**
  * Generates {@link com.bumptech.glide.load.data.DataFetcher DataFetchers} from original source data
@@ -46,7 +47,7 @@ class SourceGenerator implements DataFetcherGenerator, DataFetcherGenerator.Fetc
   }
 
   // Concurrent access isn't supported.
-  @SuppressWarnings({"NonAtomicOperationOnVolatileField", "NonAtomicVolatileUpdate"})
+  @NullUnmarked @SuppressWarnings({"NonAtomicOperationOnVolatileField", "NonAtomicVolatileUpdate"})
   @Override
   public boolean startNext() {
     if (dataToCache != null) {
@@ -91,7 +92,7 @@ class SourceGenerator implements DataFetcherGenerator, DataFetcherGenerator.Fetc
     return started;
   }
 
-  private void startNextLoad(final LoadData<?> toStart) {
+  @NullUnmarked private void startNextLoad(final LoadData<?> toStart) {
     loadData.fetcher.loadData(
         helper.getPriority(),
         new DataCallback<Object>() {
@@ -128,7 +129,7 @@ class SourceGenerator implements DataFetcherGenerator, DataFetcherGenerator.Fetc
    * directly from cache and {@code false} if we were unable to cache the data and should make an
    * attempt to decode from source.
    */
-  private boolean cacheData(Object dataToCache) throws IOException {
+  @NullUnmarked private boolean cacheData(Object dataToCache) throws IOException {
     long startTime = LogTime.getLogTime();
     boolean isLoadingFromSourceData = false;
     try {
@@ -197,7 +198,7 @@ class SourceGenerator implements DataFetcherGenerator, DataFetcherGenerator.Fetc
     }
   }
 
-  @SuppressWarnings("WeakerAccess")
+  @NullUnmarked @SuppressWarnings("WeakerAccess")
   @Synthetic
   void onDataReadyInternal(LoadData<?> loadData, @Nullable Object data) {
     DiskCacheStrategy diskCacheStrategy = helper.getDiskCacheStrategy();
@@ -230,7 +231,7 @@ class SourceGenerator implements DataFetcherGenerator, DataFetcherGenerator.Fetc
   }
 
   // Called from source cache generator.
-  @Override
+  @NullUnmarked @Override
   public void onDataFetcherReady(
       @Nullable Key sourceKey, @Nullable Object data, DataFetcher<?> fetcher, DataSource dataSource, @Nullable Key attemptedKey) {
     // This data fetcher will be loading from a File and provide the wrong data source, so override
@@ -238,7 +239,7 @@ class SourceGenerator implements DataFetcherGenerator, DataFetcherGenerator.Fetc
     cb.onDataFetcherReady(sourceKey, data, fetcher, loadData.fetcher.getDataSource(), sourceKey);
   }
 
-  @Override
+  @NullUnmarked @Override
   public void onDataFetcherFailed(
       @Nullable Key sourceKey, Exception e, DataFetcher<?> fetcher, DataSource dataSource) {
     cb.onDataFetcherFailed(sourceKey, e, fetcher, loadData.fetcher.getDataSource());

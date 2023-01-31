@@ -9,6 +9,7 @@ import com.bumptech.glide.load.engine.Initializable;
 import com.bumptech.glide.load.engine.Resource;
 import com.bumptech.glide.load.resource.gif.GifDrawable;
 import com.bumptech.glide.util.Preconditions;
+import com.bumptech.glide.NullUnmarked;
 
 /**
  * Simple wrapper for an Android {@link Drawable} which returns a {@link
@@ -42,7 +43,7 @@ public abstract class DrawableResource<T extends Drawable> implements Resource<T
     return (T) state.newDrawable();
   }
 
-  @Override
+  @NullUnmarked @Override
   public void initialize() {
     if (drawable instanceof BitmapDrawable) {
       ((BitmapDrawable) drawable).getBitmap().prepareToDraw();

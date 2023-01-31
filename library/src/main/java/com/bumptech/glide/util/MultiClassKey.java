@@ -2,6 +2,7 @@ package com.bumptech.glide.util;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import com.bumptech.glide.NullUnmarked;
 
 /** A key of two {@link Class}es to be used in hashed collections. */
 @SuppressWarnings({"PMD.ConstructorCallsOverridableMethod"})
@@ -38,7 +39,7 @@ public class MultiClassKey {
     return "MultiClassKey{" + "first=" + first + ", second=" + second + '}';
   }
 
-  @SuppressWarnings({"PMD.SimplifyBooleanReturns", "RedundantIfStatement"})
+  @NullUnmarked @SuppressWarnings({"PMD.SimplifyBooleanReturns", "RedundantIfStatement"})
   @Override
   public boolean equals(Object o) {
     if (this == o) {
@@ -63,7 +64,7 @@ public class MultiClassKey {
     return true;
   }
 
-  @Override
+  @NullUnmarked @Override
   public int hashCode() {
     int result = first.hashCode();
     result = 31 * result + second.hashCode();

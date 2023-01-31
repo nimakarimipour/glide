@@ -24,6 +24,7 @@ import com.bumptech.glide.util.Synthetic;
 import com.bumptech.glide.util.pool.FactoryPools;
 import java.util.Map;
 import java.util.concurrent.Executor;
+import com.bumptech.glide.NullUnmarked;
 
 /** Responsible for starting loads and managing active and cached resources. */
 public class Engine
@@ -390,7 +391,7 @@ public class Engine
     resourceRecycler.recycle(resource, /*forceNextFrame=*/ true);
   }
 
-  @Override
+  @NullUnmarked @Override
   public void onResourceReleased(@Nullable Key cacheKey, EngineResource<?> resource) {
     activeResources.deactivate(cacheKey);
     if (resource.isMemoryCacheable()) {

@@ -11,6 +11,7 @@ import com.bumptech.glide.util.pool.GlideTrace;
 import java.io.File;
 import java.util.List;
 import androidx.annotation.Nullable;
+import com.bumptech.glide.NullUnmarked;
 
 /**
  * Generates {@link com.bumptech.glide.load.data.DataFetcher DataFetchers} from cache files
@@ -40,7 +41,7 @@ class ResourceCacheGenerator implements DataFetcherGenerator, DataFetcher.DataCa
   }
 
   // See TODO below.
-  @SuppressWarnings("PMD.CollapsibleIfStatements")
+  @NullUnmarked @SuppressWarnings("PMD.CollapsibleIfStatements")
   @Override
   public boolean startNext() {
     GlideTrace.beginSection("ResourceCacheGenerator.startNext");
@@ -113,7 +114,7 @@ class ResourceCacheGenerator implements DataFetcherGenerator, DataFetcher.DataCa
     }
   }
 
-  private boolean hasNextModelLoader() {
+  @NullUnmarked private boolean hasNextModelLoader() {
     return modelLoaderIndex < modelLoaders.size();
   }
 
@@ -125,13 +126,13 @@ class ResourceCacheGenerator implements DataFetcherGenerator, DataFetcher.DataCa
     }
   }
 
-  @Override
+  @NullUnmarked @Override
   public void onDataReady(@Nullable Object data) {
     cb.onDataFetcherReady(
         sourceKey, data, loadData.fetcher, DataSource.RESOURCE_DISK_CACHE, currentKey);
   }
 
-  @Override
+  @NullUnmarked @Override
   public void onLoadFailed(@NonNull Exception e) {
     cb.onDataFetcherFailed(currentKey, e, loadData.fetcher, DataSource.RESOURCE_DISK_CACHE);
   }

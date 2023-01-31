@@ -2,6 +2,7 @@ package com.bumptech.glide.request;
 
 import androidx.annotation.GuardedBy;
 import androidx.annotation.Nullable;
+import com.bumptech.glide.NullUnmarked;
 
 /**
  * Runs a single primary {@link Request} until it completes and then a fallback error request only
@@ -31,7 +32,7 @@ public final class ErrorRequestCoordinator implements RequestCoordinator, Reques
     this.error = error;
   }
 
-  @Override
+  @NullUnmarked @Override
   public void begin() {
     synchronized (requestLock) {
       if (primaryState != RequestState.RUNNING) {
@@ -41,7 +42,7 @@ public final class ErrorRequestCoordinator implements RequestCoordinator, Reques
     }
   }
 
-  @Override
+  @NullUnmarked @Override
   public void clear() {
     synchronized (requestLock) {
       primaryState = RequestState.CLEARED;
@@ -55,7 +56,7 @@ public final class ErrorRequestCoordinator implements RequestCoordinator, Reques
     }
   }
 
-  @Override
+  @NullUnmarked @Override
   public void pause() {
     synchronized (requestLock) {
       if (primaryState == RequestState.RUNNING) {
@@ -90,7 +91,7 @@ public final class ErrorRequestCoordinator implements RequestCoordinator, Reques
     }
   }
 
-  @Override
+  @NullUnmarked @Override
   public boolean isEquivalentTo(@Nullable Request o) {
     if (o instanceof ErrorRequestCoordinator) {
       ErrorRequestCoordinator other = (ErrorRequestCoordinator) o;
@@ -141,7 +142,7 @@ public final class ErrorRequestCoordinator implements RequestCoordinator, Reques
         || (primaryState == RequestState.FAILED && request.equals(error));
   }
 
-  @Override
+  @NullUnmarked @Override
   public boolean isAnyResourceSet() {
     synchronized (requestLock) {
       return primary.isAnyResourceSet() || error.isAnyResourceSet();
@@ -162,7 +163,7 @@ public final class ErrorRequestCoordinator implements RequestCoordinator, Reques
     }
   }
 
-  @Override
+  @NullUnmarked @Override
   public void onRequestFailed(Request request) {
     synchronized (requestLock) {
       if (!request.equals(error)) {

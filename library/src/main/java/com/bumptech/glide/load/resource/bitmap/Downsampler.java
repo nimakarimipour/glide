@@ -39,6 +39,7 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Queue;
 import java.util.Set;
+import com.bumptech.glide.NullUnmarked;
 
 /**
  * Downsamples, decodes, and rotates images according to their exif orientation using {@link
@@ -262,7 +263,7 @@ public final class Downsampler {
         EMPTY_CALLBACKS);
   }
 
-  @Nullable private Resource<Bitmap> decode(
+  @NullUnmarked @Nullable private Resource<Bitmap> decode(
       ImageReader imageReader,
       int requestedWidth,
       int requestedHeight,
@@ -456,7 +457,7 @@ public final class Downsampler {
     return rotated;
   }
 
-  private static void calculateScaling(
+  @NullUnmarked private static void calculateScaling(
       ImageType imageType,
       ImageReader imageReader,
       DecodeCallbacks decodeCallbacks,
@@ -754,7 +755,7 @@ public final class Downsampler {
     return new int[] {options.outWidth, options.outHeight};
   }
 
-  @Nullable private static Bitmap decodeStream(
+  @NullUnmarked @Nullable private static Bitmap decodeStream(
       ImageReader imageReader,
       BitmapFactory.Options options,
       DecodeCallbacks callbacks,
@@ -943,7 +944,7 @@ public final class Downsampler {
     }
   }
 
-  @SuppressWarnings("deprecation")
+  @NullUnmarked @SuppressWarnings("deprecation")
   private static void resetOptions(BitmapFactory.Options decodeBitmapOptions) {
     decodeBitmapOptions.inTempStorage = null;
     decodeBitmapOptions.inDither = false;

@@ -26,6 +26,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 import androidx.annotation.Nullable;
+import com.bumptech.glide.NullUnmarked;
 
 /**
  * A class responsible for decoding resources either from cached data or from the original source
@@ -205,7 +206,7 @@ class DecodeJob<R>
     return result;
   }
 
-  private int getPriority() {
+  @NullUnmarked private int getPriority() {
     return priority.ordinal();
   }
 
@@ -270,7 +271,7 @@ class DecodeJob<R>
     }
   }
 
-  private void runWrapped() {
+  @NullUnmarked private void runWrapped() {
     switch (runReason) {
       case INITIALIZE:
         stage = getNextStage(Stage.INITIALIZE);
@@ -288,7 +289,7 @@ class DecodeJob<R>
     }
   }
 
-  @Nullable private DataFetcherGenerator getNextGenerator() {
+  @NullUnmarked @Nullable private DataFetcherGenerator getNextGenerator() {
     switch (stage) {
       case RESOURCE_CACHE:
         return new ResourceCacheGenerator(decodeHelper, this);
@@ -327,14 +328,14 @@ class DecodeJob<R>
     // onDataFetcherReady.
   }
 
-  private void notifyFailed() {
+  @NullUnmarked private void notifyFailed() {
     setNotifiedOrThrow();
     GlideException e = new GlideException("Failed to load resource", new ArrayList<>(throwables));
     callback.onLoadFailed(e);
     onLoadFailed();
   }
 
-  private void notifyComplete(
+  @NullUnmarked private void notifyComplete(
       Resource<R> resource, @Nullable DataSource dataSource, boolean isLoadedFromAlternateCacheKey) {
     setNotifiedOrThrow();
     callback.onResourceReady(resource, dataSource, isLoadedFromAlternateCacheKey);
@@ -349,7 +350,7 @@ class DecodeJob<R>
     isCallbackNotified = true;
   }
 
-  private Stage getNextStage(@Nullable Stage current) {
+  @NullUnmarked private Stage getNextStage(@Nullable Stage current) {
     switch (current) {
       case INITIALIZE:
         return diskCacheStrategy.decodeCachedResource()
@@ -370,13 +371,13 @@ class DecodeJob<R>
     }
   }
 
-  @Override
+  @NullUnmarked @Override
   public void reschedule() {
     runReason = RunReason.SWITCH_TO_SOURCE_SERVICE;
     callback.reschedule(this);
   }
 
-  @Override
+  @NullUnmarked @Override
   public void onDataFetcherReady(
       @Nullable Key sourceKey, @Nullable Object data, DataFetcher<?> fetcher, DataSource dataSource, @Nullable Key attemptedKey) {
     this.currentSourceKey = sourceKey;
@@ -399,7 +400,7 @@ class DecodeJob<R>
     }
   }
 
-  @Override
+  @NullUnmarked @Override
   public void onDataFetcherFailed(
       @Nullable Key attemptedKey, Exception e, DataFetcher<?> fetcher, DataSource dataSource) {
     fetcher.cleanup();
@@ -476,7 +477,7 @@ class DecodeJob<R>
     }
   }
 
-  @Nullable private <Data> Resource<R> decodeFromData(
+  @NullUnmarked @Nullable private <Data> Resource<R> decodeFromData(
       @Nullable DataFetcher<?> fetcher, @Nullable Data data, @Nullable DataSource dataSource) throws GlideException {
     try {
       if (data == null) {
@@ -500,7 +501,7 @@ class DecodeJob<R>
     return runLoadPath(data, dataSource, path);
   }
 
-  @NonNull
+  @NullUnmarked @NonNull
   private Options getOptionsWithHardwareConfig(@Nullable DataSource dataSource) {
     Options options = this.options;
     if (Build.VERSION.SDK_INT < Build.VERSION_CODES.O) {
@@ -526,7 +527,7 @@ class DecodeJob<R>
     return options;
   }
 
-  private <Data, ResourceType> Resource<R> runLoadPath(
+  @NullUnmarked private <Data, ResourceType> Resource<R> runLoadPath(
       Data data, @Nullable DataSource dataSource, @Nullable LoadPath<Data, ResourceType, R> path)
       throws GlideException {
     Options options = getOptionsWithHardwareConfig(dataSource);
@@ -563,7 +564,7 @@ class DecodeJob<R>
     return stateVerifier;
   }
 
-  @Synthetic
+  @NullUnmarked @Synthetic
   @NonNull
   <Z> Resource<Z> onResourceDecoded(@Nullable DataSource dataSource, @NonNull Resource<Z> decoded) {
     @SuppressWarnings("unchecked")
@@ -697,7 +698,7 @@ class DecodeJob<R>
       this.toEncode = (LockedResource<Z>) toEncode;
     }
 
-    void encode(DiskCacheProvider diskCacheProvider, @Nullable Options options) {
+    @NullUnmarked void encode(DiskCacheProvider diskCacheProvider, @Nullable Options options) {
       GlideTrace.beginSection("DecodeJob.encode");
       try {
         diskCacheProvider

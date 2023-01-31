@@ -4,6 +4,7 @@ import androidx.annotation.NonNull;
 import com.bumptech.glide.load.Key;
 import java.security.MessageDigest;
 import androidx.annotation.Nullable;
+import com.bumptech.glide.NullUnmarked;
 
 /** A cache key for original source data + any requested signature. */
 final class DataCacheKey implements Key {
@@ -20,7 +21,7 @@ final class DataCacheKey implements Key {
     return sourceKey;
   }
 
-  @Override
+  @NullUnmarked @Override
   public boolean equals(@Nullable Object o) {
     if (o instanceof DataCacheKey) {
       DataCacheKey other = (DataCacheKey) o;
@@ -29,7 +30,7 @@ final class DataCacheKey implements Key {
     return false;
   }
 
-  @Override
+  @NullUnmarked @Override
   public int hashCode() {
     int result = sourceKey.hashCode();
     result = 31 * result + signature.hashCode();
@@ -41,7 +42,7 @@ final class DataCacheKey implements Key {
     return "DataCacheKey{" + "sourceKey=" + sourceKey + ", signature=" + signature + '}';
   }
 
-  @Override
+  @NullUnmarked @Override
   public void updateDiskCacheKey(@NonNull MessageDigest messageDigest) {
     sourceKey.updateDiskCacheKey(messageDigest);
     signature.updateDiskCacheKey(messageDigest);

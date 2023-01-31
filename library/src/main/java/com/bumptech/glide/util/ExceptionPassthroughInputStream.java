@@ -6,6 +6,7 @@ import androidx.annotation.Nullable;
 import java.io.IOException;
 import java.io.InputStream;
 import java.util.Queue;
+import com.bumptech.glide.NullUnmarked;
 
 /**
  * An {@link java.io.InputStream} that catches, stores and rethrows {@link java.io.IOException}s
@@ -59,27 +60,27 @@ public final class ExceptionPassthroughInputStream extends InputStream {
     wrapped = toWrap;
   }
 
-  @Override
+  @NullUnmarked @Override
   public int available() throws IOException {
     return wrapped.available();
   }
 
-  @Override
+  @NullUnmarked @Override
   public void close() throws IOException {
     wrapped.close();
   }
 
-  @Override
+  @NullUnmarked @Override
   public void mark(int readLimit) {
     wrapped.mark(readLimit);
   }
 
-  @Override
+  @NullUnmarked @Override
   public boolean markSupported() {
     return wrapped.markSupported();
   }
 
-  @Override
+  @NullUnmarked @Override
   public int read() throws IOException {
     try {
       return wrapped.read();
@@ -89,7 +90,7 @@ public final class ExceptionPassthroughInputStream extends InputStream {
     }
   }
 
-  @Override
+  @NullUnmarked @Override
   public int read(byte[] buffer) throws IOException {
     try {
       return wrapped.read(buffer);
@@ -99,7 +100,7 @@ public final class ExceptionPassthroughInputStream extends InputStream {
     }
   }
 
-  @Override
+  @NullUnmarked @Override
   public int read(byte[] buffer, int byteOffset, int byteCount) throws IOException {
     try {
       return wrapped.read(buffer, byteOffset, byteCount);
@@ -109,12 +110,12 @@ public final class ExceptionPassthroughInputStream extends InputStream {
     }
   }
 
-  @Override
+  @NullUnmarked @Override
   public synchronized void reset() throws IOException {
     wrapped.reset();
   }
 
-  @Override
+  @NullUnmarked @Override
   public long skip(long byteCount) throws IOException {
     try {
       return wrapped.skip(byteCount);

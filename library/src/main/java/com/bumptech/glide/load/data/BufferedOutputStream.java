@@ -6,6 +6,7 @@ import com.bumptech.glide.load.engine.bitmap_recycle.ArrayPool;
 import java.io.IOException;
 import java.io.OutputStream;
 import androidx.annotation.Nullable;
+import com.bumptech.glide.NullUnmarked;
 
 /**
  * An {@link OutputStream} implementation that recycles and re-uses {@code byte[]}s using the
@@ -28,7 +29,7 @@ public final class BufferedOutputStream extends OutputStream {
     buffer = arrayPool.get(bufferSize, byte[].class);
   }
 
-  @Override
+  @NullUnmarked @Override
   public void write(int b) throws IOException {
     buffer[index++] = (byte) b;
     maybeFlushBuffer();
@@ -39,7 +40,7 @@ public final class BufferedOutputStream extends OutputStream {
     write(b, 0, b.length);
   }
 
-  @Override
+  @NullUnmarked @Override
   public void write(@NonNull byte[] b, int initialOffset, int length) throws IOException {
     int writtenSoFar = 0;
     do {
@@ -77,7 +78,7 @@ public final class BufferedOutputStream extends OutputStream {
     }
   }
 
-  private void maybeFlushBuffer() throws IOException {
+  @NullUnmarked private void maybeFlushBuffer() throws IOException {
     if (index == buffer.length) {
       flushBuffer();
     }

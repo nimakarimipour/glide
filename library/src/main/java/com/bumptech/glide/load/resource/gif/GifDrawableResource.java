@@ -3,6 +3,7 @@ package com.bumptech.glide.load.resource.gif;
 import androidx.annotation.NonNull;
 import com.bumptech.glide.load.engine.Initializable;
 import com.bumptech.glide.load.resource.drawable.DrawableResource;
+import com.bumptech.glide.NullUnmarked;
 
 /** A resource wrapping an {@link com.bumptech.glide.load.resource.gif.GifDrawable}. */
 public class GifDrawableResource extends DrawableResource<GifDrawable> implements Initializable {
@@ -29,7 +30,7 @@ public class GifDrawableResource extends DrawableResource<GifDrawable> implement
     drawable.recycle();
   }
 
-  @Override
+  @NullUnmarked @Override
   public void initialize() {
     drawable.getFirstFrame().prepareToDraw();
   }

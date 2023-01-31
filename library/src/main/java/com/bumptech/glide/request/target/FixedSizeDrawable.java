@@ -14,6 +14,7 @@ import androidx.annotation.RequiresApi;
 import com.bumptech.glide.util.Preconditions;
 import com.bumptech.glide.util.Synthetic;
 import androidx.annotation.Nullable;
+import com.bumptech.glide.NullUnmarked;
 
 /**
  * A wrapper drawable to square the wrapped drawable so that it expands to fill a square with
@@ -30,7 +31,7 @@ public class FixedSizeDrawable extends Drawable {
   private boolean mutated;
 
   // Public API.
-  @SuppressWarnings("WeakerAccess")
+  @NullUnmarked @SuppressWarnings("WeakerAccess")
   public FixedSizeDrawable(@Nullable Drawable wrapped, int width, int height) {
     this(new State(wrapped.getConstantState(), width, height), wrapped);
   }

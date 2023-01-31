@@ -14,6 +14,7 @@ import com.bumptech.glide.util.Preconditions;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
+import com.bumptech.glide.NullUnmarked;
 
 /**
  * Allows attempting multiple ModelLoaders registered for a given model and data class.
@@ -139,7 +140,7 @@ class MultiModelLoader<Model, Data> implements ModelLoader<Model, Data> {
       return fetchers.get(0).getDataSource();
     }
 
-    @Override
+    @NullUnmarked @Override
     public void onDataReady(@Nullable Data data) {
       if (data != null) {
         callback.onDataReady(data);
@@ -154,7 +155,7 @@ class MultiModelLoader<Model, Data> implements ModelLoader<Model, Data> {
       startNextOrFail();
     }
 
-    private void startNextOrFail() {
+    @NullUnmarked private void startNextOrFail() {
       if (isCancelled) {
         return;
       }

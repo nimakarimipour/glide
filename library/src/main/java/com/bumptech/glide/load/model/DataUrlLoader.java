@@ -11,6 +11,7 @@ import java.io.ByteArrayInputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import androidx.annotation.Nullable;
+import com.bumptech.glide.NullUnmarked;
 
 /**
  * A simple model loader for loading data from a Data URL String.
@@ -148,7 +149,7 @@ public final class DataUrlLoader<Model, Data> implements ModelLoader<Model, Data
               return new ByteArrayInputStream(bytes);
             }
 
-            @Override
+            @NullUnmarked @Override
             public void close(@Nullable InputStream inputStream) throws IOException {
               inputStream.close();
             }

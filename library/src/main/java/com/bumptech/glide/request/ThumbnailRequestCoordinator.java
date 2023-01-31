@@ -2,6 +2,7 @@ package com.bumptech.glide.request;
 
 import androidx.annotation.GuardedBy;
 import androidx.annotation.Nullable;
+import com.bumptech.glide.NullUnmarked;
 
 /**
  * A coordinator that coordinates two individual {@link Request}s that load a small thumbnail
@@ -81,14 +82,14 @@ public class ThumbnailRequestCoordinator implements RequestCoordinator, Request 
     return parent == null || parent.canNotifyStatusChanged(this);
   }
 
-  @Override
+  @NullUnmarked @Override
   public boolean isAnyResourceSet() {
     synchronized (requestLock) {
       return thumb.isAnyResourceSet() || full.isAnyResourceSet();
     }
   }
 
-  @Override
+  @NullUnmarked @Override
   public void onRequestSuccess(Request request) {
     synchronized (requestLock) {
       if (request.equals(thumb)) {
@@ -131,7 +132,7 @@ public class ThumbnailRequestCoordinator implements RequestCoordinator, Request 
   }
 
   /** Starts first the thumb request and then the full request. */
-  @Override
+  @NullUnmarked @Override
   public void begin() {
     synchronized (requestLock) {
       isRunningDuringBegin = true;
@@ -152,7 +153,7 @@ public class ThumbnailRequestCoordinator implements RequestCoordinator, Request 
     }
   }
 
-  @Override
+  @NullUnmarked @Override
   public void clear() {
     synchronized (requestLock) {
       isRunningDuringBegin = false;
@@ -163,7 +164,7 @@ public class ThumbnailRequestCoordinator implements RequestCoordinator, Request 
     }
   }
 
-  @Override
+  @NullUnmarked @Override
   public void pause() {
     synchronized (requestLock) {
       if (!thumbState.isComplete()) {

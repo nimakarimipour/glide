@@ -16,6 +16,7 @@ import java.util.Map;
 import java.util.concurrent.Executor;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.ThreadFactory;
+import com.bumptech.glide.NullUnmarked;
 
 final class ActiveResources {
   private final boolean isActiveResourceRetentionAllowed;
@@ -71,7 +72,7 @@ final class ActiveResources {
     }
   }
 
-  synchronized void activate(@Nullable Key key, EngineResource<?> resource) {
+  @NullUnmarked synchronized void activate(@Nullable Key key, EngineResource<?> resource) {
     ResourceWeakReference toPut =
         new ResourceWeakReference(
             key, resource, resourceReferenceQueue, isActiveResourceRetentionAllowed);
@@ -103,7 +104,7 @@ final class ActiveResources {
     return active;
   }
 
-  @SuppressWarnings({"WeakerAccess", "SynchronizeOnNonFinalField"})
+  @NullUnmarked @SuppressWarnings({"WeakerAccess", "SynchronizeOnNonFinalField"})
   @Synthetic
   void cleanupActiveReference(@NonNull ResourceWeakReference ref) {
     synchronized (this) {

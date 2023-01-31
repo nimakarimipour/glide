@@ -6,6 +6,7 @@ import androidx.annotation.VisibleForTesting;
 import com.bumptech.glide.util.LruCache;
 import com.bumptech.glide.util.Util;
 import java.util.Queue;
+import com.bumptech.glide.NullUnmarked;
 
 /**
  * A simple cache that can be used by {@link ModelLoader} and {@link ModelLoaderFactory} to cache
@@ -106,7 +107,7 @@ public class ModelCache<A, B> {
       }
     }
 
-    @Override
+    @NullUnmarked @Override
     public boolean equals(Object o) {
       if (o instanceof ModelKey) {
         @SuppressWarnings("unchecked")
@@ -116,7 +117,7 @@ public class ModelCache<A, B> {
       return false;
     }
 
-    @Override
+    @NullUnmarked @Override
     public int hashCode() {
       int result = height;
       result = 31 * result + width;

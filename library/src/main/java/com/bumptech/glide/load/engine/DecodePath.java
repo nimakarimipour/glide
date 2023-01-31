@@ -12,6 +12,7 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 import androidx.annotation.Nullable;
+import com.bumptech.glide.NullUnmarked;
 
 /**
  * Attempts to decode and transcode resource type from a given data type.
@@ -62,7 +63,7 @@ public class DecodePath<DataType, ResourceType, Transcode> {
     return transcoder.transcode(transformed, options);
   }
 
-  @NonNull
+  @NullUnmarked @NonNull
   private Resource<ResourceType> decodeResource(
       DataRewinder<DataType> rewinder, int width, int height, @NonNull Options options)
       throws GlideException {

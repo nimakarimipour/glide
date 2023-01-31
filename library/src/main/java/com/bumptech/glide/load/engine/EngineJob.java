@@ -20,6 +20,7 @@ import java.util.List;
 import java.util.concurrent.Executor;
 import java.util.concurrent.atomic.AtomicInteger;
 import androidx.annotation.Nullable;
+import com.bumptech.glide.NullUnmarked;
 
 /**
  * A class that manages a load by adding and removing callbacks for for the load and notifying
@@ -200,7 +201,7 @@ class EngineJob<R> implements DecodeJob.Callback<R>, Poolable {
   }
 
   // Exposed for testing.
-  void cancel() {
+  @NullUnmarked void cancel() {
     if (isDone()) {
       return;
     }
@@ -221,7 +222,7 @@ class EngineJob<R> implements DecodeJob.Callback<R>, Poolable {
 
   // We have to post Runnables in a loop. Typically there will be very few callbacks. AccessorMethod
   // seems to be a false positive
-  @SuppressWarnings({
+  @NullUnmarked @SuppressWarnings({
     "WeakerAccess",
     "PMD.AvoidInstantiatingObjectsInLoops",
     "PMD.AccessorMethodGeneration"
@@ -295,7 +296,7 @@ class EngineJob<R> implements DecodeJob.Callback<R>, Poolable {
     }
   }
 
-  private synchronized void release() {
+  @NullUnmarked private synchronized void release() {
     if (key == null) {
       throw new IllegalArgumentException();
     }
@@ -417,7 +418,7 @@ class EngineJob<R> implements DecodeJob.Callback<R>, Poolable {
       this.cb = cb;
     }
 
-    @Override
+    @NullUnmarked @Override
     public void run() {
       // Make sure we always acquire the request lock, then the EngineJob lock to avoid deadlock
       // (b/136032534).

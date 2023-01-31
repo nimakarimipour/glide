@@ -44,6 +44,7 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
+import com.bumptech.glide.NullUnmarked;
 
 /**
  * A singleton to present a simple static interface for building requests with {@link
@@ -119,7 +120,7 @@ public class Glide implements ComponentCallbacks2 {
    *
    * @return the singleton
    */
-  @NonNull
+  @NullUnmarked @NonNull
   // Double checked locking is safe here.
   @SuppressWarnings("GuardedBy")
   public static Glide get(@NonNull Context context) {
@@ -498,7 +499,7 @@ public class Glide implements ComponentCallbacks2 {
     return oldCategory;
   }
 
-  @NonNull
+  @NullUnmarked @NonNull
   private static RequestManagerRetriever getRetriever(@Nullable Context context) {
     // Context could be null for other reasons (ie the user passes in null), but in practice it will
     // only occur due to errors with the Fragment lifecycle.

@@ -41,6 +41,7 @@ import java.io.File;
 import java.net.URL;
 import java.util.List;
 import java.util.concurrent.CopyOnWriteArrayList;
+import com.bumptech.glide.NullUnmarked;
 
 /**
  * A class for managing and starting requests for Glide. Can use activity, fragment and connectivity
@@ -151,7 +152,7 @@ public class RequestManager
     requestOptions = toSet.clone().autoClone();
   }
 
-  private synchronized void updateRequestOptions(@NonNull RequestOptions toUpdate) {
+  @NullUnmarked private synchronized void updateRequestOptions(@NonNull RequestOptions toUpdate) {
     requestOptions = requestOptions.apply(toUpdate);
   }
 

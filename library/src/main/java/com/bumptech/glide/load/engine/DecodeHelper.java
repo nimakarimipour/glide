@@ -22,6 +22,7 @@ import java.util.Map;
 import java.util.Map.Entry;
 import com.bumptech.glide.Initializer;
 import androidx.annotation.Nullable;
+import com.bumptech.glide.NullUnmarked;
 
 final class DecodeHelper<Transcode> {
 
@@ -102,7 +103,7 @@ final class DecodeHelper<Transcode> {
     return diskCacheStrategy;
   }
 
-  <T> DataRewinder<T> getRewinder(T data) {
+  @NullUnmarked <T> DataRewinder<T> getRewinder(T data) {
     return glideContext.getRegistry().getRewinder(data);
   }
 
@@ -126,7 +127,7 @@ final class DecodeHelper<Transcode> {
     return height;
   }
 
-  ArrayPool getArrayPool() {
+  @NullUnmarked ArrayPool getArrayPool() {
     return glideContext.getArrayPool();
   }
 
@@ -134,11 +135,11 @@ final class DecodeHelper<Transcode> {
     return transcodeClass;
   }
 
-  Class<?> getModelClass() {
+  @NullUnmarked Class<?> getModelClass() {
     return model.getClass();
   }
 
-  List<Class<?>> getRegisteredResourceClasses() {
+  @NullUnmarked List<Class<?>> getRegisteredResourceClasses() {
     return glideContext
         .getRegistry()
         .getRegisteredResourceClasses(model.getClass(), resourceClass, transcodeClass);
@@ -148,7 +149,7 @@ final class DecodeHelper<Transcode> {
     return getLoadPath(dataClass) != null;
   }
 
-  @Nullable <Data> LoadPath<Data, ?, Transcode> getLoadPath(Class<Data> dataClass) {
+  @NullUnmarked @Nullable <Data> LoadPath<Data, ?, Transcode> getLoadPath(Class<Data> dataClass) {
     return glideContext.getRegistry().getLoadPath(dataClass, resourceClass, transcodeClass);
   }
 
@@ -156,7 +157,7 @@ final class DecodeHelper<Transcode> {
     return isScaleOnlyOrNoTransform;
   }
 
-  @SuppressWarnings("unchecked")
+  @NullUnmarked @SuppressWarnings("unchecked")
   <Z> Transformation<Z> getTransformation(Class<Z> resourceClass) {
     Transformation<Z> result = (Transformation<Z>) transformations.get(resourceClass);
     if (result == null) {
@@ -182,15 +183,15 @@ final class DecodeHelper<Transcode> {
     return result;
   }
 
-  boolean isResourceEncoderAvailable(Resource<?> resource) {
+  @NullUnmarked boolean isResourceEncoderAvailable(Resource<?> resource) {
     return glideContext.getRegistry().isResourceEncoderAvailable(resource);
   }
 
-  <Z> ResourceEncoder<Z> getResultEncoder(Resource<Z> resource) {
+  @NullUnmarked <Z> ResourceEncoder<Z> getResultEncoder(Resource<Z> resource) {
     return glideContext.getRegistry().getResultEncoder(resource);
   }
 
-  List<ModelLoader<File, ?>> getModelLoaders(File file)
+  @NullUnmarked List<ModelLoader<File, ?>> getModelLoaders(File file)
       throws Registry.NoModelLoaderAvailableException {
     return glideContext.getRegistry().getModelLoaders(file);
   }
@@ -207,7 +208,7 @@ final class DecodeHelper<Transcode> {
     return false;
   }
 
-  List<LoadData<?>> getLoadData() {
+  @NullUnmarked List<LoadData<?>> getLoadData() {
     if (!isLoadDataSet) {
       isLoadDataSet = true;
       loadData.clear();
@@ -245,7 +246,7 @@ final class DecodeHelper<Transcode> {
     return cacheKeys;
   }
 
-  <X> Encoder<X> getSourceEncoder(X data) throws Registry.NoSourceEncoderAvailableException {
+  @NullUnmarked <X> Encoder<X> getSourceEncoder(X data) throws Registry.NoSourceEncoderAvailableException {
     return glideContext.getRegistry().getSourceEncoder(data);
   }
 }

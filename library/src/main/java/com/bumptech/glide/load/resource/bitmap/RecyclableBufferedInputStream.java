@@ -24,6 +24,7 @@ import java.io.FilterInputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import androidx.annotation.Nullable;
+import com.bumptech.glide.NullUnmarked;
 
 /**
  * Wraps an existing {@link InputStream} and <em>buffers</em> the input. Expensive interaction with
@@ -101,7 +102,7 @@ public class RecyclableBufferedInputStream extends FilterInputStream {
    * increase.
    */
   // Public API.
-  @SuppressWarnings("WeakerAccess")
+  @NullUnmarked @SuppressWarnings("WeakerAccess")
   public synchronized void fixMarkLimit() {
     marklimit = buf.length;
   }
@@ -119,7 +120,7 @@ public class RecyclableBufferedInputStream extends FilterInputStream {
    *
    * @throws IOException if an error occurs while closing this stream.
    */
-  @Override
+  @NullUnmarked @Override
   public void close() throws IOException {
     if (buf != null) {
       byteArrayPool.put(buf);

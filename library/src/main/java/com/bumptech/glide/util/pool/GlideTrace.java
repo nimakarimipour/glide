@@ -3,6 +3,7 @@ package com.bumptech.glide.util.pool;
 import androidx.tracing.Trace;
 import java.util.concurrent.atomic.AtomicInteger;
 import androidx.annotation.Nullable;
+import com.bumptech.glide.NullUnmarked;
 
 /** Systracing utilities for Glide. */
 public final class GlideTrace {
@@ -49,7 +50,7 @@ public final class GlideTrace {
     }
   }
 
-  public static int beginSectionAsync(String tag) {
+  @NullUnmarked public static int beginSectionAsync(String tag) {
     if (TRACING_ENABLED) {
       int cookie = COOKIE_CREATOR.incrementAndGet();
       Trace.beginAsyncSection(truncateTag(tag), cookie);

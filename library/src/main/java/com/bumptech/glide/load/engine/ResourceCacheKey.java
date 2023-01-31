@@ -10,6 +10,7 @@ import com.bumptech.glide.util.Util;
 import java.nio.ByteBuffer;
 import java.security.MessageDigest;
 import androidx.annotation.Nullable;
+import com.bumptech.glide.NullUnmarked;
 
 /** A cache key for downsampled and transformed resource data + any requested signature. */
 final class ResourceCacheKey implements Key {
@@ -42,7 +43,7 @@ final class ResourceCacheKey implements Key {
     this.options = options;
   }
 
-  @Override
+  @NullUnmarked @Override
   public boolean equals(@Nullable Object o) {
     if (o instanceof ResourceCacheKey) {
       ResourceCacheKey other = (ResourceCacheKey) o;
@@ -57,7 +58,7 @@ final class ResourceCacheKey implements Key {
     return false;
   }
 
-  @Override
+  @NullUnmarked @Override
   public int hashCode() {
     int result = sourceKey.hashCode();
     result = 31 * result + signature.hashCode();
@@ -72,7 +73,7 @@ final class ResourceCacheKey implements Key {
   }
 
   // TODO: Include relevant options?
-  @Override
+  @NullUnmarked @Override
   public void updateDiskCacheKey(@NonNull MessageDigest messageDigest) {
     byte[] dimensions = arrayPool.getExact(8, byte[].class);
     ByteBuffer.wrap(dimensions).putInt(width).putInt(height).array();

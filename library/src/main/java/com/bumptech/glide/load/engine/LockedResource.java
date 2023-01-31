@@ -7,6 +7,7 @@ import com.bumptech.glide.util.Synthetic;
 import com.bumptech.glide.util.pool.FactoryPools;
 import com.bumptech.glide.util.pool.StateVerifier;
 import androidx.annotation.Nullable;
+import com.bumptech.glide.NullUnmarked;
 
 /**
  * A resource that defers any calls to {@link Resource#recycle()} until after {@link #unlock()} is
@@ -65,24 +66,24 @@ final class LockedResource<Z> implements Resource<Z>, FactoryPools.Poolable {
     }
   }
 
-  @NonNull
+  @NullUnmarked @NonNull
   @Override
   public Class<Z> getResourceClass() {
     return toWrap.getResourceClass();
   }
 
-  @NonNull
+  @NullUnmarked @NonNull
   @Override
   public Z get() {
     return toWrap.get();
   }
 
-  @Override
+  @NullUnmarked @Override
   public int getSize() {
     return toWrap.getSize();
   }
 
-  @Override
+  @NullUnmarked @Override
   public synchronized void recycle() {
     stateVerifier.throwIfRecycled();
 

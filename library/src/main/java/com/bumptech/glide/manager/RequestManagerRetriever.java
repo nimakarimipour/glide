@@ -32,6 +32,7 @@ import com.bumptech.glide.util.Util;
 import java.util.Collection;
 import java.util.HashMap;
 import java.util.Map;
+import com.bumptech.glide.NullUnmarked;
 
 /**
  * A collection of static methods for creating new {@link com.bumptech.glide.RequestManager}s or
@@ -493,7 +494,7 @@ public class RequestManagerRetriever implements Handler.Callback {
   }
 
   // We care about the instance specifically.
-  @SuppressWarnings({"ReferenceEquality", "PMD.CompareObjectsWithEquals"})
+  @NullUnmarked @SuppressWarnings({"ReferenceEquality", "PMD.CompareObjectsWithEquals"})
   private boolean verifyOurFragmentWasAddedOrCantBeAdded(
       android.app.FragmentManager fm, boolean hasAttemptedToAddFragmentTwice) {
     RequestManagerFragment newlyAddedRequestManagerFragment =
@@ -562,7 +563,7 @@ public class RequestManagerRetriever implements Handler.Callback {
   }
 
   // We care about the instance specifically.
-  @SuppressWarnings({"ReferenceEquality", "PMD.CompareObjectsWithEquals"})
+  @NullUnmarked @SuppressWarnings({"ReferenceEquality", "PMD.CompareObjectsWithEquals"})
   private boolean verifyOurSupportFragmentWasAddedOrCantBeAdded(
       FragmentManager supportFm, boolean hasAttemptedToAddFragmentTwice) {
     SupportRequestManagerFragment newlyAddedSupportRequestManagerFragment =

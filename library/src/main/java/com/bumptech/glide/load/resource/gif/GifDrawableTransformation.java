@@ -11,6 +11,7 @@ import com.bumptech.glide.load.resource.bitmap.BitmapResource;
 import com.bumptech.glide.util.Preconditions;
 import java.security.MessageDigest;
 import androidx.annotation.Nullable;
+import com.bumptech.glide.NullUnmarked;
 
 /**
  * An {@link com.bumptech.glide.load.Transformation} that wraps a transformation for a {@link
@@ -24,7 +25,7 @@ public class GifDrawableTransformation implements Transformation<GifDrawable> {
     this.wrapped = Preconditions.checkNotNull(wrapped);
   }
 
-  @NonNull
+  @NullUnmarked @NonNull
   @Override
   public Resource<GifDrawable> transform(
       @NonNull Context context,
