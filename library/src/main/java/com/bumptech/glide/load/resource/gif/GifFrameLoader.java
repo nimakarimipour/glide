@@ -46,12 +46,12 @@ class GifFrameLoader {
   private boolean isLoadPending;
   private boolean startFromFirstFrame;
   private RequestBuilder<Bitmap> requestBuilder;
-  private DelayTarget current;
+  @Nullable private DelayTarget current;
   private boolean isCleared;
-  private DelayTarget next;
-  private Bitmap firstFrame;
+  @Nullable private DelayTarget next;
+  @Nullable private Bitmap firstFrame;
   private Transformation<Bitmap> transformation;
-  private DelayTarget pendingTarget;
+  @Nullable private DelayTarget pendingTarget;
   @Nullable private GifFrameLoader.OnEveryFrameListener onEveryFrameListener;
   private int firstFrameSize;
   private int width;
@@ -83,7 +83,7 @@ class GifFrameLoader {
       BitmapPool bitmapPool,
       RequestManager requestManager,
       GifDecoder gifDecoder,
-      Handler handler,
+      @Nullable Handler handler,
       RequestBuilder<Bitmap> requestBuilder,
       Transformation<Bitmap> transformation,
       Bitmap firstFrame) {
@@ -201,7 +201,7 @@ class GifFrameLoader {
     isCleared = true;
   }
 
-  Bitmap getCurrentFrame() {
+  @Nullable Bitmap getCurrentFrame() {
     return current != null ? current.getResource() : firstFrame;
   }
 
@@ -320,7 +320,7 @@ class GifFrameLoader {
     private final Handler handler;
     @Synthetic final int index;
     private final long targetTime;
-    private Bitmap resource;
+    @Nullable private Bitmap resource;
 
     DelayTarget(Handler handler, int index, long targetTime) {
       this.handler = handler;
@@ -328,7 +328,7 @@ class GifFrameLoader {
       this.targetTime = targetTime;
     }
 
-    Bitmap getResource() {
+    @Nullable Bitmap getResource() {
       return resource;
     }
 

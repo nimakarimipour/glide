@@ -4,6 +4,7 @@ import androidx.annotation.NonNull;
 import java.io.FilterInputStream;
 import java.io.IOException;
 import java.io.InputStream;
+import androidx.annotation.Nullable;
 
 /**
  * Adds an exif segment with an orientation attribute to a wrapped {@link InputStream} containing
@@ -65,7 +66,7 @@ public final class ExifOrientationStream extends FilterInputStream {
   private final byte orientation;
   private int position;
 
-  public ExifOrientationStream(InputStream in, int orientation) {
+  public ExifOrientationStream(@Nullable InputStream in, int orientation) {
     super(in);
     if (orientation < -1 || orientation > 8) {
       throw new IllegalArgumentException("Cannot add invalid orientation: " + orientation);

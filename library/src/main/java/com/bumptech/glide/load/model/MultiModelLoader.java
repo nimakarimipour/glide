@@ -36,7 +36,7 @@ class MultiModelLoader<Model, Data> implements ModelLoader<Model, Data> {
     this.exceptionListPool = exceptionListPool;
   }
 
-  @Override
+  @Nullable @Override
   public LoadData<Data> buildLoadData(
       @NonNull Model model, int width, int height, @NonNull Options options) {
     Key sourceKey = null;

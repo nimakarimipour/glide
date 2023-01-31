@@ -19,6 +19,7 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.concurrent.Executor;
 import java.util.concurrent.atomic.AtomicInteger;
+import androidx.annotation.Nullable;
 
 /**
  * A class that manages a load by adding and removing callbacks for for the load and notifying
@@ -49,13 +50,13 @@ class EngineJob<R> implements DecodeJob.Callback<R>, Poolable {
   private boolean onlyRetrieveFromCache;
   private Resource<?> resource;
 
-  @SuppressWarnings("WeakerAccess")
+  @Nullable @SuppressWarnings("WeakerAccess")
   @Synthetic
   DataSource dataSource;
 
   private boolean hasResource;
 
-  @SuppressWarnings("WeakerAccess")
+  @Nullable @SuppressWarnings("WeakerAccess")
   @Synthetic
   GlideException exception;
 
