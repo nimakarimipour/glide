@@ -8,6 +8,7 @@ import java.util.Arrays;
 import java.util.Collections;
 import java.util.HashSet;
 import java.util.Set;
+import com.bumptech.glide.NullUnmarked;
 
 /**
  * Handles http/https Uris by delegating to the {@link ModelLoader} for {@link
@@ -26,7 +27,7 @@ public class UrlUriLoader<Data> implements ModelLoader<Uri, Data> {
     this.urlLoader = urlLoader;
   }
 
-  @Override
+  @NullUnmarked @Override
   public LoadData<Data> buildLoadData(
       @NonNull Uri uri, int width, int height, @NonNull Options options) {
     GlideUrl glideUrl = new GlideUrl(uri.toString());

@@ -15,6 +15,7 @@ import java.util.concurrent.CancellationException;
 import java.util.concurrent.ExecutionException;
 import java.util.concurrent.TimeUnit;
 import java.util.concurrent.TimeoutException;
+import com.bumptech.glide.NullUnmarked;
 
 /**
  * A {@link java.util.concurrent.Future} implementation for Glide that can be used to load resources
@@ -124,7 +125,7 @@ public class RequestFutureTarget<R> implements FutureTarget<R>, RequestListener<
     return isCancelled || resultReceived || loadFailed;
   }
 
-  @Override
+  @NullUnmarked @Override
   public R get() throws InterruptedException, ExecutionException {
     try {
       return doGet(null);
@@ -186,7 +187,7 @@ public class RequestFutureTarget<R> implements FutureTarget<R>, RequestListener<
     // Ignored, synchronized for backwards compatibility.
   }
 
-  private synchronized R doGet(Long timeoutMillis)
+  @NullUnmarked private synchronized R doGet(Long timeoutMillis)
       throws ExecutionException, InterruptedException, TimeoutException {
     if (assertBackgroundThread && !isDone()) {
       Util.assertBackgroundThread();

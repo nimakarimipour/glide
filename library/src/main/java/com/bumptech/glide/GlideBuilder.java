@@ -38,6 +38,8 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 import java.util.Map;
+import com.bumptech.glide.Initializer;
+import com.bumptech.glide.NullUnmarked;
 
 /** A builder class for setting default structural classes for Glide to use. */
 @SuppressWarnings("PMD.ImmutableField")
@@ -74,7 +76,7 @@ public final class GlideBuilder {
    * @param bitmapPool The pool to use.
    * @return This builder.
    */
-  @NonNull
+  @NullUnmarked @NonNull
   public GlideBuilder setBitmapPool(@Nullable BitmapPool bitmapPool) {
     this.bitmapPool = bitmapPool;
     return this;
@@ -87,7 +89,7 @@ public final class GlideBuilder {
    * @param arrayPool The pool to use.
    * @return This builder.
    */
-  @NonNull
+  @NullUnmarked @NonNull
   public GlideBuilder setArrayPool(@Nullable ArrayPool arrayPool) {
     this.arrayPool = arrayPool;
     return this;
@@ -101,7 +103,7 @@ public final class GlideBuilder {
    * @return This builder.
    */
   // Public API.
-  @SuppressWarnings("WeakerAccess")
+  @NullUnmarked @SuppressWarnings("WeakerAccess")
   @NonNull
   public GlideBuilder setMemoryCache(@Nullable MemoryCache memoryCache) {
     this.memoryCache = memoryCache;
@@ -117,7 +119,7 @@ public final class GlideBuilder {
    * @return This builder.
    */
   // Public API.
-  @SuppressWarnings("WeakerAccess")
+  @NullUnmarked @SuppressWarnings("WeakerAccess")
   @NonNull
   public GlideBuilder setDiskCache(@Nullable DiskCache.Factory diskCacheFactory) {
     this.diskCacheFactory = diskCacheFactory;
@@ -161,7 +163,7 @@ public final class GlideBuilder {
    * @see GlideExecutor
    */
   // Public API.
-  @SuppressWarnings("WeakerAccess")
+  @NullUnmarked @SuppressWarnings("WeakerAccess")
   @NonNull
   public GlideBuilder setSourceExecutor(@Nullable GlideExecutor service) {
     this.sourceExecutor = service;
@@ -184,7 +186,7 @@ public final class GlideBuilder {
    * @see GlideExecutor
    */
   // Public API.
-  @SuppressWarnings("WeakerAccess")
+  @NullUnmarked @SuppressWarnings("WeakerAccess")
   @NonNull
   public GlideBuilder setDiskCacheExecutor(@Nullable GlideExecutor service) {
     this.diskCacheExecutor = service;
@@ -204,7 +206,7 @@ public final class GlideBuilder {
    * @return This builder.
    */
   // Public API.
-  @SuppressWarnings("WeakerAccess")
+  @NullUnmarked @SuppressWarnings("WeakerAccess")
   @NonNull
   public GlideBuilder setAnimationExecutor(@Nullable GlideExecutor service) {
     this.animationExecutor = service;
@@ -303,7 +305,7 @@ public final class GlideBuilder {
    * @return This builder.
    */
   // Public API.
-  @SuppressWarnings("WeakerAccess")
+  @NullUnmarked @SuppressWarnings("WeakerAccess")
   @NonNull
   public GlideBuilder setMemorySizeCalculator(@Nullable MemorySizeCalculator calculator) {
     this.memorySizeCalculator = calculator;
@@ -319,7 +321,7 @@ public final class GlideBuilder {
    * @return This builder.
    */
   // Public API.
-  @SuppressWarnings("unused")
+  @NullUnmarked @SuppressWarnings("unused")
   @NonNull
   public GlideBuilder setConnectivityMonitorFactory(@Nullable ConnectivityMonitorFactory factory) {
     this.connectivityMonitorFactory = factory;
@@ -497,7 +499,7 @@ public final class GlideBuilder {
     return this;
   }
 
-  @NonNull
+  @Initializer @NonNull
   Glide build(
       @NonNull Context context,
       List<GlideModule> manifestModules,

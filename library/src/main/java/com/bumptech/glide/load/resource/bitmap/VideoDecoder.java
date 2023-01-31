@@ -22,6 +22,7 @@ import com.bumptech.glide.request.target.Target;
 import java.io.IOException;
 import java.nio.ByteBuffer;
 import java.security.MessageDigest;
+import com.bumptech.glide.NullUnmarked;
 
 /**
  * Decodes video data to Bitmaps from {@link ParcelFileDescriptor}s and {@link
@@ -149,7 +150,7 @@ public class VideoDecoder<T> implements ResourceDecoder<T, Bitmap> {
     return true;
   }
 
-  @Override
+  @NullUnmarked @Override
   public Resource<Bitmap> decode(
       @NonNull T resource, int outWidth, int outHeight, @NonNull Options options)
       throws IOException {

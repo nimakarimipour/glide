@@ -11,6 +11,7 @@ import com.bumptech.glide.load.model.ModelLoaderFactory;
 import com.bumptech.glide.load.model.MultiModelLoaderFactory;
 import com.bumptech.glide.signature.ObjectKey;
 import java.io.InputStream;
+import com.bumptech.glide.NullUnmarked;
 
 /**
  * Loads {@link InputStream}s from media store image {@link Uri}s that point to pre-generated
@@ -25,7 +26,7 @@ public class MediaStoreImageThumbLoader implements ModelLoader<Uri, InputStream>
     this.context = context.getApplicationContext();
   }
 
-  @Override
+  @NullUnmarked @Override
   public LoadData<InputStream> buildLoadData(
       @NonNull Uri model, int width, int height, @NonNull Options options) {
     if (MediaStoreUtil.isThumbnailSize(width, height)) {

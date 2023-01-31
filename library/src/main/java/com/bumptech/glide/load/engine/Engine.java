@@ -24,6 +24,7 @@ import com.bumptech.glide.util.Synthetic;
 import com.bumptech.glide.util.pool.FactoryPools;
 import java.util.Map;
 import java.util.concurrent.Executor;
+import com.bumptech.glide.NullUnmarked;
 
 /** Responsible for starting loads and managing active and cached resources. */
 public class Engine
@@ -42,7 +43,7 @@ public class Engine
   private final DecodeJobFactory decodeJobFactory;
   private final ActiveResources activeResources;
 
-  public Engine(
+  @NullUnmarked public Engine(
       MemoryCache memoryCache,
       DiskCache.Factory diskCacheFactory,
       GlideExecutor diskCacheExecutor,
@@ -152,7 +153,7 @@ public class Engine
    * @param height The target height in pixels of the desired resource.
    * @param cb The callback that will be called when the load completes.
    */
-  public <R> LoadStatus load(
+  @NullUnmarked public <R> LoadStatus load(
       GlideContext glideContext,
       Object model,
       Key signature,
@@ -341,7 +342,7 @@ public class Engine
     return cached;
   }
 
-  private EngineResource<?> getEngineResourceFromCache(Key key) {
+  @NullUnmarked private EngineResource<?> getEngineResourceFromCache(Key key) {
     Resource<?> cached = cache.remove(key);
 
     final EngineResource<?> result;
@@ -439,9 +440,9 @@ public class Engine
   private static class LazyDiskCacheProvider implements DecodeJob.DiskCacheProvider {
 
     private final DiskCache.Factory factory;
-    private volatile DiskCache diskCache;
+    @SuppressWarnings("NullAway.Init") private volatile DiskCache diskCache;
 
-    LazyDiskCacheProvider(DiskCache.Factory factory) {
+    @NullUnmarked LazyDiskCacheProvider(DiskCache.Factory factory) {
       this.factory = factory;
     }
 
@@ -453,7 +454,7 @@ public class Engine
       diskCache.clear();
     }
 
-    @Override
+    @NullUnmarked @Override
     public DiskCache getDiskCache() {
       if (diskCache == null) {
         synchronized (this) {

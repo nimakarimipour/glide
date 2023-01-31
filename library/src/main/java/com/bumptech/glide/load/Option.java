@@ -4,6 +4,7 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import com.bumptech.glide.util.Preconditions;
 import java.security.MessageDigest;
+import com.bumptech.glide.NullUnmarked;
 
 /**
  * Defines available component (decoders, encoders, model loaders etc.) options with optional
@@ -33,7 +34,7 @@ public final class Option<T> {
   private final T defaultValue;
   private final CacheKeyUpdater<T> cacheKeyUpdater;
   private final String key;
-  private volatile byte[] keyBytes;
+  @SuppressWarnings("NullAway.Init") private volatile byte[] keyBytes;
 
   /**
    * Returns a new {@link Option} that does not affect disk cache keys with a {@code null} default
@@ -86,7 +87,7 @@ public final class Option<T> {
     return new Option<>(key, defaultValue, cacheKeyUpdater);
   }
 
-  private Option(
+  @NullUnmarked private Option(
       @NonNull String key, @Nullable T defaultValue, @NonNull CacheKeyUpdater<T> cacheKeyUpdater) {
     this.key = Preconditions.checkNotEmpty(key);
     this.defaultValue = defaultValue;

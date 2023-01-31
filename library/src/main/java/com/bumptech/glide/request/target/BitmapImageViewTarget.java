@@ -2,6 +2,7 @@ package com.bumptech.glide.request.target;
 
 import android.graphics.Bitmap;
 import android.widget.ImageView;
+import com.bumptech.glide.NullUnmarked;
 
 /**
  * A {@link com.bumptech.glide.request.target.Target} that can display an {@link
@@ -30,7 +31,7 @@ public class BitmapImageViewTarget extends ImageViewTarget<Bitmap> {
    *
    * @param resource The bitmap to display.
    */
-  @Override
+  @NullUnmarked @Override
   protected void setResource(Bitmap resource) {
     view.setImageBitmap(resource);
   }

@@ -21,7 +21,7 @@ import java.util.Map;
  */
 public final class LazyHeaders implements Headers {
   private final Map<String, List<LazyHeaderFactory>> headers;
-  private volatile Map<String, String> combinedHeaders;
+  @SuppressWarnings("NullAway.Init") private volatile Map<String, String> combinedHeaders;
 
   LazyHeaders(Map<String, List<LazyHeaderFactory>> headers) {
     this.headers = Collections.unmodifiableMap(headers);

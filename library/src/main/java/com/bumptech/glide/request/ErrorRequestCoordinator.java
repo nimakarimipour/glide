@@ -12,8 +12,8 @@ public final class ErrorRequestCoordinator implements RequestCoordinator, Reques
   private final Object requestLock;
   @Nullable private final RequestCoordinator parent;
 
-  private volatile Request primary;
-  private volatile Request error;
+  @SuppressWarnings("NullAway.Init") private volatile Request primary;
+  @SuppressWarnings("NullAway.Init") private volatile Request error;
 
   @GuardedBy("requestLock")
   private RequestState primaryState = RequestState.CLEARED;

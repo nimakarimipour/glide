@@ -6,6 +6,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import com.bumptech.glide.NullUnmarked;
 
 /**
  * Similar to {@link java.util.LinkedHashMap} when access ordered except that it is access ordered
@@ -121,17 +122,17 @@ class GroupedLinkedMap<K extends Poolable, V> {
 
   private static class LinkedEntry<K, V> {
     @Synthetic final K key;
-    private List<V> values;
+    @SuppressWarnings("NullAway.Init") private List<V> values;
     LinkedEntry<K, V> next;
     LinkedEntry<K, V> prev;
 
     // Used only for the first item in the list which we will treat specially and which will not
     // contain a value.
-    LinkedEntry() {
+    @NullUnmarked LinkedEntry() {
       this(null);
     }
 
-    LinkedEntry(K key) {
+    @NullUnmarked LinkedEntry(K key) {
       next = prev = this;
       this.key = key;
     }

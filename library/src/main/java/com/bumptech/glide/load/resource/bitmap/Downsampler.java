@@ -39,6 +39,7 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Queue;
 import java.util.Set;
+import com.bumptech.glide.NullUnmarked;
 
 /**
  * Downsamples, decodes, and rotates images according to their exif orientation using {@link
@@ -262,7 +263,7 @@ public final class Downsampler {
         EMPTY_CALLBACKS);
   }
 
-  private Resource<Bitmap> decode(
+  @NullUnmarked private Resource<Bitmap> decode(
       ImageReader imageReader,
       int requestedWidth,
       int requestedHeight,
@@ -300,7 +301,7 @@ public final class Downsampler {
     }
   }
 
-  private Bitmap decodeFromWrappedStreams(
+  @NullUnmarked private Bitmap decodeFromWrappedStreams(
       ImageReader imageReader,
       BitmapFactory.Options options,
       DownsampleStrategy downsampleStrategy,
@@ -754,7 +755,7 @@ public final class Downsampler {
     return new int[] {options.outWidth, options.outHeight};
   }
 
-  private static Bitmap decodeStream(
+  @NullUnmarked private static Bitmap decodeStream(
       ImageReader imageReader,
       BitmapFactory.Options options,
       DecodeCallbacks callbacks,
@@ -849,7 +850,7 @@ public final class Downsampler {
             + LogTime.getElapsedMillis(startTime));
   }
 
-  private static String getInBitmapString(BitmapFactory.Options options) {
+  @NullUnmarked private static String getInBitmapString(BitmapFactory.Options options) {
     return getBitmapString(options.inBitmap);
   }
 
@@ -943,7 +944,7 @@ public final class Downsampler {
     }
   }
 
-  @SuppressWarnings("deprecation")
+  @NullUnmarked @SuppressWarnings("deprecation")
   private static void resetOptions(BitmapFactory.Options decodeBitmapOptions) {
     decodeBitmapOptions.inTempStorage = null;
     decodeBitmapOptions.inDither = false;

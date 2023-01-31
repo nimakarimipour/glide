@@ -11,6 +11,7 @@ import com.bumptech.glide.util.Preconditions;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
+import com.bumptech.glide.NullUnmarked;
 
 /**
  * Attempts to decode and transcode resource type from a given data type.
@@ -28,7 +29,7 @@ public class DecodePath<DataType, ResourceType, Transcode> {
   private final Pool<List<Throwable>> listPool;
   private final String failureMessage;
 
-  public DecodePath(
+  @NullUnmarked public DecodePath(
       Class<DataType> dataClass,
       Class<ResourceType> resourceClass,
       Class<Transcode> transcodeClass,
@@ -49,7 +50,7 @@ public class DecodePath<DataType, ResourceType, Transcode> {
             + "}";
   }
 
-  public Resource<Transcode> decode(
+  @NullUnmarked public Resource<Transcode> decode(
       DataRewinder<DataType> rewinder,
       int width,
       int height,

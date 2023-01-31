@@ -19,6 +19,7 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.concurrent.Executor;
 import java.util.concurrent.atomic.AtomicInteger;
+import com.bumptech.glide.NullUnmarked;
 
 /**
  * A class that manages a load by adding and removing callbacks for for the load and notifying
@@ -42,30 +43,30 @@ class EngineJob<R> implements DecodeJob.Callback<R>, Poolable {
   private final GlideExecutor animationExecutor;
   private final AtomicInteger pendingCallbacks = new AtomicInteger();
 
-  private Key key;
+  @SuppressWarnings("NullAway.Init") private Key key;
   private boolean isCacheable;
   private boolean useUnlimitedSourceGeneratorPool;
   private boolean useAnimationPool;
   private boolean onlyRetrieveFromCache;
-  private Resource<?> resource;
+  @SuppressWarnings("NullAway.Init") private Resource<?> resource;
 
-  @SuppressWarnings("WeakerAccess")
+  @SuppressWarnings({ "WeakerAccess", "NullAway.Init" })
   @Synthetic
   DataSource dataSource;
 
   private boolean hasResource;
 
-  @SuppressWarnings("WeakerAccess")
+  @SuppressWarnings({ "WeakerAccess", "NullAway.Init" })
   @Synthetic
   GlideException exception;
 
   private boolean hasLoadFailed;
 
-  @SuppressWarnings("WeakerAccess")
+  @SuppressWarnings({ "WeakerAccess", "NullAway.Init" })
   @Synthetic
   EngineResource<?> engineResource;
 
-  private DecodeJob<R> decodeJob;
+  @SuppressWarnings("NullAway.Init") private DecodeJob<R> decodeJob;
 
   // Checked primarily on the main thread, but also on other threads in reschedule.
   private volatile boolean isCancelled;
@@ -294,7 +295,7 @@ class EngineJob<R> implements DecodeJob.Callback<R>, Poolable {
     }
   }
 
-  private synchronized void release() {
+  @NullUnmarked private synchronized void release() {
     if (key == null) {
       throw new IllegalArgumentException();
     }
@@ -341,7 +342,7 @@ class EngineJob<R> implements DecodeJob.Callback<R>, Poolable {
 
   // We have to post Runnables in a loop. Typically there will be very few callbacks. Acessor method
   // warning seems to be false positive.
-  @SuppressWarnings({
+  @NullUnmarked @SuppressWarnings({
     "WeakerAccess",
     "PMD.AvoidInstantiatingObjectsInLoops",
     "PMD.AccessorMethodGeneration"

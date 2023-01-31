@@ -30,6 +30,7 @@ import com.bumptech.glide.util.Util;
 import java.nio.ByteBuffer;
 import java.util.ArrayList;
 import java.util.List;
+import com.bumptech.glide.NullUnmarked;
 
 class GifFrameLoader {
   private final GifDecoder gifDecoder;
@@ -46,12 +47,12 @@ class GifFrameLoader {
   private boolean isLoadPending;
   private boolean startFromFirstFrame;
   private RequestBuilder<Bitmap> requestBuilder;
-  private DelayTarget current;
+  @SuppressWarnings("NullAway.Init") private DelayTarget current;
   private boolean isCleared;
-  private DelayTarget next;
-  private Bitmap firstFrame;
-  private Transformation<Bitmap> transformation;
-  private DelayTarget pendingTarget;
+  @SuppressWarnings("NullAway.Init") private DelayTarget next;
+  @SuppressWarnings("NullAway.Init") private Bitmap firstFrame;
+  @SuppressWarnings("NullAway.Init") private Transformation<Bitmap> transformation;
+  @SuppressWarnings("NullAway.Init") private DelayTarget pendingTarget;
   @Nullable private GifFrameLoader.OnEveryFrameListener onEveryFrameListener;
   private int firstFrameSize;
   private int width;
@@ -61,7 +62,7 @@ class GifFrameLoader {
     void onFrameReady();
   }
 
-  GifFrameLoader(
+  @NullUnmarked GifFrameLoader(
       Glide glide,
       GifDecoder gifDecoder,
       int width,
@@ -181,7 +182,7 @@ class GifFrameLoader {
     isRunning = false;
   }
 
-  void clear() {
+  @NullUnmarked void clear() {
     callbacks.clear();
     recycleFirstFrame();
     stop();
@@ -205,7 +206,7 @@ class GifFrameLoader {
     return current != null ? current.getResource() : firstFrame;
   }
 
-  private void loadNextFrame() {
+  @NullUnmarked private void loadNextFrame() {
     if (!isRunning || isLoadPending) {
       return;
     }
@@ -232,14 +233,14 @@ class GifFrameLoader {
     requestBuilder.apply(signatureOf(getFrameSignature())).load(gifDecoder).into(next);
   }
 
-  private void recycleFirstFrame() {
+  @NullUnmarked private void recycleFirstFrame() {
     if (firstFrame != null) {
       bitmapPool.put(firstFrame);
       firstFrame = null;
     }
   }
 
-  void setNextStartFromFirstFrame() {
+  @NullUnmarked void setNextStartFromFirstFrame() {
     Preconditions.checkArgument(!isRunning, "Can't restart a running animation");
     startFromFirstFrame = true;
     if (pendingTarget != null) {
@@ -320,9 +321,9 @@ class GifFrameLoader {
     private final Handler handler;
     @Synthetic final int index;
     private final long targetTime;
-    private Bitmap resource;
+    @SuppressWarnings("NullAway.Init") private Bitmap resource;
 
-    DelayTarget(Handler handler, int index, long targetTime) {
+    @NullUnmarked DelayTarget(Handler handler, int index, long targetTime) {
       this.handler = handler;
       this.index = index;
       this.targetTime = targetTime;
@@ -340,7 +341,7 @@ class GifFrameLoader {
       handler.sendMessageAtTime(msg, targetTime);
     }
 
-    @Override
+    @NullUnmarked @Override
     public void onLoadCleared(@Nullable Drawable placeholder) {
       this.resource = null;
     }

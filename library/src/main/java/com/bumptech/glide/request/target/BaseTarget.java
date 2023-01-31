@@ -3,6 +3,7 @@ package com.bumptech.glide.request.target;
 import android.graphics.drawable.Drawable;
 import androidx.annotation.Nullable;
 import com.bumptech.glide.request.Request;
+import com.bumptech.glide.NullUnmarked;
 
 /**
  * A base {@link Target} for loading {@link com.bumptech.glide.load.engine.Resource}s that provides
@@ -27,9 +28,9 @@ import com.bumptech.glide.request.Request;
 @Deprecated
 public abstract class BaseTarget<Z> implements Target<Z> {
 
-  private Request request;
+  @SuppressWarnings("NullAway.Init") private Request request;
 
-  @Override
+  @NullUnmarked @Override
   public void setRequest(@Nullable Request request) {
     this.request = request;
   }

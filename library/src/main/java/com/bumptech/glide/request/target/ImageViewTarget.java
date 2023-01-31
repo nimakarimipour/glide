@@ -6,6 +6,7 @@ import android.widget.ImageView;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import com.bumptech.glide.request.transition.Transition;
+import com.bumptech.glide.NullUnmarked;
 
 /**
  * A base {@link com.bumptech.glide.request.target.Target} for displaying resources in {@link
@@ -61,7 +62,7 @@ public abstract class ImageViewTarget<Z> extends ViewTarget<ImageView, Z>
    *
    * @param placeholder {@inheritDoc}
    */
-  @Override
+  @NullUnmarked @Override
   public void onLoadStarted(@Nullable Drawable placeholder) {
     super.onLoadStarted(placeholder);
     setResourceInternal(null);
@@ -74,7 +75,7 @@ public abstract class ImageViewTarget<Z> extends ViewTarget<ImageView, Z>
    *
    * @param errorDrawable {@inheritDoc}
    */
-  @Override
+  @NullUnmarked @Override
   public void onLoadFailed(@Nullable Drawable errorDrawable) {
     super.onLoadFailed(errorDrawable);
     setResourceInternal(null);
@@ -87,7 +88,7 @@ public abstract class ImageViewTarget<Z> extends ViewTarget<ImageView, Z>
    *
    * @param placeholder {@inheritDoc}
    */
-  @Override
+  @NullUnmarked @Override
   public void onLoadCleared(@Nullable Drawable placeholder) {
     super.onLoadCleared(placeholder);
     if (animatable != null) {

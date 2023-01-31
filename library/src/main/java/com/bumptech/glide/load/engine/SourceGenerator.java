@@ -16,6 +16,7 @@ import com.bumptech.glide.util.LogTime;
 import com.bumptech.glide.util.Synthetic;
 import java.io.IOException;
 import java.util.Collections;
+import com.bumptech.glide.NullUnmarked;
 
 /**
  * Generates {@link com.bumptech.glide.load.data.DataFetcher DataFetchers} from original source data
@@ -35,10 +36,10 @@ class SourceGenerator implements DataFetcherGenerator, DataFetcherGenerator.Fetc
   private final FetcherReadyCallback cb;
 
   private volatile int loadDataListIndex;
-  private volatile DataCacheGenerator sourceCacheGenerator;
-  private volatile Object dataToCache;
-  private volatile ModelLoader.LoadData<?> loadData;
-  private volatile DataCacheKey originalKey;
+  @SuppressWarnings("NullAway.Init") private volatile DataCacheGenerator sourceCacheGenerator;
+  @SuppressWarnings("NullAway.Init") private volatile Object dataToCache;
+  @SuppressWarnings("NullAway.Init") private volatile ModelLoader.LoadData<?> loadData;
+  @SuppressWarnings("NullAway.Init") private volatile DataCacheKey originalKey;
 
   SourceGenerator(DecodeHelper<?> helper, FetcherReadyCallback cb) {
     this.helper = helper;
@@ -46,7 +47,7 @@ class SourceGenerator implements DataFetcherGenerator, DataFetcherGenerator.Fetc
   }
 
   // Concurrent access isn't supported.
-  @SuppressWarnings({"NonAtomicOperationOnVolatileField", "NonAtomicVolatileUpdate"})
+  @NullUnmarked @SuppressWarnings({"NonAtomicOperationOnVolatileField", "NonAtomicVolatileUpdate"})
   @Override
   public boolean startNext() {
     if (dataToCache != null) {
@@ -95,7 +96,7 @@ class SourceGenerator implements DataFetcherGenerator, DataFetcherGenerator.Fetc
     loadData.fetcher.loadData(
         helper.getPriority(),
         new DataCallback<Object>() {
-          @Override
+          @NullUnmarked @Override
           public void onDataReady(@Nullable Object data) {
             if (isCurrentRequest(toStart)) {
               onDataReadyInternal(toStart, data);
@@ -230,7 +231,7 @@ class SourceGenerator implements DataFetcherGenerator, DataFetcherGenerator.Fetc
   }
 
   // Called from source cache generator.
-  @Override
+  @NullUnmarked @Override
   public void onDataFetcherReady(
       Key sourceKey, Object data, DataFetcher<?> fetcher, DataSource dataSource, Key attemptedKey) {
     // This data fetcher will be loading from a File and provide the wrong data source, so override
