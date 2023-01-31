@@ -22,6 +22,7 @@ import java.util.Map;
 import java.util.Map.Entry;
 import com.bumptech.glide.Initializer;
 import androidx.annotation.Nullable;
+import com.bumptech.glide.NullUnmarked;
 
 final class DecodeHelper<Transcode> {
 
@@ -77,7 +78,7 @@ final class DecodeHelper<Transcode> {
     this.isScaleOnlyOrNoTransform = isScaleOnlyOrNoTransform;
   }
 
-  void clear() {
+  @NullUnmarked void clear() {
     glideContext = null;
     model = null;
     signature = null;
@@ -98,7 +99,7 @@ final class DecodeHelper<Transcode> {
     return diskCacheProvider.getDiskCache();
   }
 
-  DiskCacheStrategy getDiskCacheStrategy() {
+  @NullUnmarked DiskCacheStrategy getDiskCacheStrategy() {
     return diskCacheStrategy;
   }
 
@@ -106,7 +107,7 @@ final class DecodeHelper<Transcode> {
     return glideContext.getRegistry().getRewinder(data);
   }
 
-  Priority getPriority() {
+  @NullUnmarked Priority getPriority() {
     return priority;
   }
 
@@ -114,7 +115,7 @@ final class DecodeHelper<Transcode> {
     return options;
   }
 
-  Key getSignature() {
+  @NullUnmarked Key getSignature() {
     return signature;
   }
 
@@ -156,7 +157,7 @@ final class DecodeHelper<Transcode> {
     return isScaleOnlyOrNoTransform;
   }
 
-  @SuppressWarnings("unchecked")
+  @NullUnmarked @SuppressWarnings("unchecked")
   <Z> Transformation<Z> getTransformation(Class<Z> resourceClass) {
     Transformation<Z> result = (Transformation<Z>) transformations.get(resourceClass);
     if (result == null) {

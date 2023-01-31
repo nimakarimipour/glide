@@ -15,6 +15,7 @@ import java.io.InputStream;
 import java.nio.ByteBuffer;
 import java.util.List;
 import androidx.annotation.Nullable;
+import com.bumptech.glide.NullUnmarked;
 
 /**
  * A relatively inefficient decoder for {@link com.bumptech.glide.load.resource.gif.GifDrawable}
@@ -37,7 +38,7 @@ public class StreamGifDecoder implements ResourceDecoder<InputStream, GifDrawabl
     this.byteArrayPool = byteArrayPool;
   }
 
-  @Override
+  @NullUnmarked @Override
   public boolean handles(@NonNull InputStream source, @NonNull Options options) throws IOException {
     return !options.get(GifOptions.DISABLE_ANIMATION)
         && ImageHeaderParserUtils.getType(parsers, source, byteArrayPool) == ImageType.GIF;

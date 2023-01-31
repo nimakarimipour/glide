@@ -11,6 +11,7 @@ import com.bumptech.glide.load.engine.Resource;
 import com.bumptech.glide.load.engine.bitmap_recycle.BitmapPool;
 import java.security.MessageDigest;
 import androidx.annotation.Nullable;
+import com.bumptech.glide.NullUnmarked;
 
 /**
  * Applies a {@link Bitmap} {@link Transformation} to {@link Drawable}s by first attempting to
@@ -43,7 +44,7 @@ public class DrawableTransformation implements Transformation<Drawable> {
     return (Transformation<BitmapDrawable>) (Transformation<?>) this;
   }
 
-  @NonNull
+  @NullUnmarked @NonNull
   @Override
   public Resource<Drawable> transform(
       @NonNull Context context, @NonNull Resource<Drawable> resource, int outWidth, int outHeight) {

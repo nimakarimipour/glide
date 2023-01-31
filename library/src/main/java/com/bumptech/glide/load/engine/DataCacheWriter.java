@@ -6,6 +6,7 @@ import com.bumptech.glide.load.Options;
 import com.bumptech.glide.load.engine.cache.DiskCache;
 import java.io.File;
 import androidx.annotation.Nullable;
+import com.bumptech.glide.NullUnmarked;
 
 /**
  * Writes original source data or downsampled/transformed resource data to cache using the provided
@@ -26,7 +27,7 @@ class DataCacheWriter<DataType> implements DiskCache.Writer {
     this.options = options;
   }
 
-  @Override
+  @NullUnmarked @Override
   public boolean write(@NonNull File file) {
     return encoder.encode(data, file, options);
   }

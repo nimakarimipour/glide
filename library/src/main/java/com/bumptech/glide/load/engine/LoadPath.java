@@ -9,6 +9,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 import androidx.annotation.Nullable;
+import com.bumptech.glide.NullUnmarked;
 
 /**
  * For a given {@link com.bumptech.glide.load.data.DataFetcher} for a given data class, attempts to
@@ -46,7 +47,7 @@ public class LoadPath<Data, ResourceType, Transcode> {
             + "}";
   }
 
-  public Resource<Transcode> load(
+  @NullUnmarked public Resource<Transcode> load(
       DataRewinder<Data> rewinder,
       @NonNull Options options,
       int width,

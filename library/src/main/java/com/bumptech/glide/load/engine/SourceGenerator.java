@@ -16,6 +16,7 @@ import com.bumptech.glide.util.LogTime;
 import com.bumptech.glide.util.Synthetic;
 import java.io.IOException;
 import java.util.Collections;
+import com.bumptech.glide.NullUnmarked;
 
 /**
  * Generates {@link com.bumptech.glide.load.data.DataFetcher DataFetchers} from original source data
@@ -37,7 +38,7 @@ class SourceGenerator implements DataFetcherGenerator, DataFetcherGenerator.Fetc
   private volatile int loadDataListIndex;
   @Nullable private volatile DataCacheGenerator sourceCacheGenerator;
   @Nullable private volatile Object dataToCache;
-  private volatile ModelLoader.LoadData<?> loadData;
+  @SuppressWarnings("NullAway.Init") private volatile ModelLoader.LoadData<?> loadData;
   @Nullable private volatile DataCacheKey originalKey;
 
   SourceGenerator(DecodeHelper<?> helper, FetcherReadyCallback cb) {
@@ -46,7 +47,7 @@ class SourceGenerator implements DataFetcherGenerator, DataFetcherGenerator.Fetc
   }
 
   // Concurrent access isn't supported.
-  @SuppressWarnings({"NonAtomicOperationOnVolatileField", "NonAtomicVolatileUpdate"})
+  @NullUnmarked @SuppressWarnings({"NonAtomicOperationOnVolatileField", "NonAtomicVolatileUpdate"})
   @Override
   public boolean startNext() {
     if (dataToCache != null) {

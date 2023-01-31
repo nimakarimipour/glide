@@ -6,6 +6,7 @@ import androidx.annotation.VisibleForTesting;
 import com.bumptech.glide.util.LruCache;
 import com.bumptech.glide.util.Util;
 import java.util.Queue;
+import com.bumptech.glide.NullUnmarked;
 
 /**
  * A simple cache that can be used by {@link ModelLoader} and {@link ModelLoaderFactory} to cache
@@ -76,7 +77,7 @@ public class ModelCache<A, B> {
 
     private int height;
     private int width;
-    private A model;
+    @SuppressWarnings("NullAway.Init") private A model;
 
     @SuppressWarnings("unchecked")
     static <A> ModelKey<A> get(A model, int width, int height) {
@@ -92,7 +93,7 @@ public class ModelCache<A, B> {
       return modelKey;
     }
 
-    private ModelKey() {}
+    @NullUnmarked private ModelKey() {}
 
     private void init(A model, int width, int height) {
       this.model = model;

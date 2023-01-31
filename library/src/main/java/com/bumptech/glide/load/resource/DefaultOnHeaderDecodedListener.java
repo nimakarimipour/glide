@@ -21,6 +21,7 @@ import com.bumptech.glide.load.resource.bitmap.HardwareConfigState;
 import com.bumptech.glide.request.target.Target;
 import com.bumptech.glide.util.Synthetic;
 import androidx.annotation.Nullable;
+import com.bumptech.glide.NullUnmarked;
 
 /**
  * Downsamples, decodes, and rotates images according to their exif orientation using {@link
@@ -43,7 +44,7 @@ public final class DefaultOnHeaderDecodedListener implements OnHeaderDecodedList
   private final boolean isHardwareConfigAllowed;
   @Nullable private final PreferredColorSpace preferredColorSpace;
 
-  public DefaultOnHeaderDecodedListener(
+  @NullUnmarked public DefaultOnHeaderDecodedListener(
       int requestedWidth, int requestedHeight, @NonNull Options options) {
     this.requestedWidth = requestedWidth;
     this.requestedHeight = requestedHeight;
@@ -55,7 +56,7 @@ public final class DefaultOnHeaderDecodedListener implements OnHeaderDecodedList
     preferredColorSpace = options.get(Downsampler.PREFERRED_COLOR_SPACE);
   }
 
-  @Override
+  @NullUnmarked @Override
   public void onHeaderDecoded(
       @NonNull ImageDecoder decoder, @NonNull ImageInfo info, @NonNull Source source) {
     if (hardwareConfigState.isHardwareConfigAllowed(

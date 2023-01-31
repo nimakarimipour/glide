@@ -26,6 +26,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 import androidx.annotation.Nullable;
+import com.bumptech.glide.NullUnmarked;
 
 /**
  * A class responsible for decoding resources either from cached data or from the original source
@@ -51,24 +52,24 @@ class DecodeJob<R>
   private final DeferredEncodeManager<?> deferredEncodeManager = new DeferredEncodeManager<>();
   private final ReleaseManager releaseManager = new ReleaseManager();
 
-  private GlideContext glideContext;
-  private Key signature;
+  @SuppressWarnings("NullAway.Init") private GlideContext glideContext;
+  @SuppressWarnings("NullAway.Init") private Key signature;
   @Nullable private Priority priority;
   @Nullable private EngineKey loadKey;
   private int width;
   private int height;
-  private DiskCacheStrategy diskCacheStrategy;
-  private Options options;
-  private Callback<R> callback;
+  @SuppressWarnings("NullAway.Init") private DiskCacheStrategy diskCacheStrategy;
+  @SuppressWarnings("NullAway.Init") private Options options;
+  @SuppressWarnings("NullAway.Init") private Callback<R> callback;
   private int order;
-  private Stage stage;
-  private RunReason runReason;
+  @SuppressWarnings("NullAway.Init") private Stage stage;
+  @SuppressWarnings("NullAway.Init") private RunReason runReason;
   private long startFetchTime;
   private boolean onlyRetrieveFromCache;
   @Nullable private Object model;
 
   @Nullable private Thread currentThread;
-  private Key currentSourceKey;
+  @SuppressWarnings("NullAway.Init") private Key currentSourceKey;
   @Nullable private Key currentAttemptingKey;
   @Nullable private Object currentData;
   @Nullable private DataSource currentDataSource;
@@ -84,7 +85,7 @@ class DecodeJob<R>
     this.pool = pool;
   }
 
-  DecodeJob<R> init(
+  @NullUnmarked DecodeJob<R> init(
       GlideContext glideContext,
       @Nullable Object model,
       EngineKey loadKey,
@@ -171,7 +172,7 @@ class DecodeJob<R>
     }
   }
 
-  private void releaseInternal() {
+  @NullUnmarked private void releaseInternal() {
     releaseManager.reset();
     deferredEncodeManager.clear();
     decodeHelper.clear();
@@ -205,7 +206,7 @@ class DecodeJob<R>
     return result;
   }
 
-  private int getPriority() {
+  @NullUnmarked private int getPriority() {
     return priority.ordinal();
   }
 
@@ -376,7 +377,7 @@ class DecodeJob<R>
     callback.reschedule(this);
   }
 
-  @Override
+  @NullUnmarked @Override
   public void onDataFetcherReady(
       Key sourceKey, @Nullable Object data, DataFetcher<?> fetcher, DataSource dataSource, Key attemptedKey) {
     this.currentSourceKey = sourceKey;
@@ -476,7 +477,7 @@ class DecodeJob<R>
     }
   }
 
-  @Nullable private <Data> Resource<R> decodeFromData(
+  @NullUnmarked @Nullable private <Data> Resource<R> decodeFromData(
       @Nullable DataFetcher<?> fetcher, @Nullable Data data, @Nullable DataSource dataSource) throws GlideException {
     try {
       if (data == null) {
@@ -526,7 +527,7 @@ class DecodeJob<R>
     return options;
   }
 
-  private <Data, ResourceType> Resource<R> runLoadPath(
+  @NullUnmarked private <Data, ResourceType> Resource<R> runLoadPath(
       Data data, @Nullable DataSource dataSource, @Nullable LoadPath<Data, ResourceType, R> path)
       throws GlideException {
     Options options = getOptionsWithHardwareConfig(dataSource);
@@ -628,7 +629,7 @@ class DecodeJob<R>
 
     private final DataSource dataSource;
 
-    @Synthetic
+    @NullUnmarked @Synthetic
     DecodeCallback(@Nullable DataSource dataSource) {
       this.dataSource = dataSource;
     }
@@ -697,7 +698,7 @@ class DecodeJob<R>
       this.toEncode = (LockedResource<Z>) toEncode;
     }
 
-    void encode(DiskCacheProvider diskCacheProvider, Options options) {
+    @NullUnmarked void encode(DiskCacheProvider diskCacheProvider, Options options) {
       GlideTrace.beginSection("DecodeJob.encode");
       try {
         diskCacheProvider

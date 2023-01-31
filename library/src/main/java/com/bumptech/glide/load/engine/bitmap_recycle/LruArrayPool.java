@@ -9,6 +9,7 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.NavigableMap;
 import java.util.TreeMap;
+import com.bumptech.glide.NullUnmarked;
 
 /**
  * A fixed size Array Pool that evicts arrays using an LRU strategy to keep the pool under the
@@ -148,7 +149,7 @@ public final class LruArrayPool implements ArrayPool {
     evictToSize(maxSize);
   }
 
-  private void evictToSize(int size) {
+  @NullUnmarked private void evictToSize(int size) {
     while (currentSize > size) {
       Object evicted = groupedMap.removeLast();
       Preconditions.checkNotNull(evicted);
@@ -184,7 +185,7 @@ public final class LruArrayPool implements ArrayPool {
     return sizes;
   }
 
-  @SuppressWarnings("unchecked")
+  @NullUnmarked @SuppressWarnings("unchecked")
   private <T> ArrayAdapterInterface<T> getAdapterFromObject(@Nullable T object) {
     return (ArrayAdapterInterface<T>) getAdapterFromType(object.getClass());
   }
@@ -207,7 +208,7 @@ public final class LruArrayPool implements ArrayPool {
   }
 
   // VisibleForTesting
-  int getCurrentSize() {
+  @NullUnmarked int getCurrentSize() {
     int currentSize = 0;
     for (Class<?> type : sortedSizes.keySet()) {
       for (Integer size : sortedSizes.get(type).keySet()) {

@@ -11,6 +11,7 @@ import com.bumptech.glide.load.Key;
 import java.io.File;
 import java.io.IOException;
 import androidx.annotation.Nullable;
+import com.bumptech.glide.NullUnmarked;
 
 /**
  * The default DiskCache implementation. There must be no more than one active instance for a given
@@ -106,7 +107,7 @@ public class DiskLruCacheWrapper implements DiskCache {
     return result;
   }
 
-  @Override
+  @NullUnmarked @Override
   public void put(@Nullable Key key, Writer writer) {
     // We want to make sure that puts block so that data is available when put completes. We may
     // actually not write any data if we find that data is written by the time we acquire the lock.

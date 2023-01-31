@@ -27,6 +27,7 @@ import java.io.IOException;
 import java.nio.ByteBuffer;
 import java.util.List;
 import java.util.Queue;
+import com.bumptech.glide.NullUnmarked;
 
 /**
  * An {@link com.bumptech.glide.load.ResourceDecoder} that decodes {@link
@@ -76,7 +77,7 @@ public class ByteBufferGifDecoder implements ResourceDecoder<ByteBuffer, GifDraw
     this.parserPool = parserPool;
   }
 
-  @Override
+  @NullUnmarked @Override
   public boolean handles(@NonNull ByteBuffer source, @NonNull Options options) throws IOException {
     return !options.get(GifOptions.DISABLE_ANIMATION)
         && ImageHeaderParserUtils.getType(parsers, source) == ImageType.GIF;
