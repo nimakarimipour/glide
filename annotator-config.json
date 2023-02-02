@@ -1,5 +1,5 @@
 {
-  "BUILD_COMMAND": "cd /Users/nima/Developer/NullAwayFixer/Projects/glide && ./gradlew :library:compileDebugJavaWithJavac",
+  "BUILD_COMMAND": "cd /Users/anonymous/NullAwayFixer/Projects/glide && ./gradlew :library:compileDebugJavaWithJavac",
   "ANNOTATION": {
     "INITIALIZER": "com.bumptech.glide.Initializer",
     "NULLABLE": "androidx.annotation.Nullable",
