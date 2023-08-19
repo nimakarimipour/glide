@@ -2,7 +2,7 @@ package com.bumptech.glide.load.engine.cache;
 
 import android.content.Context;
 import java.io.File;
-import com.bumptech.glide.NullUnmarked;
+
 
 /**
  * Creates an {@link com.bumptech.glide.disklrucache.DiskLruCache} based disk cache in the external
@@ -32,7 +32,7 @@ public final class ExternalCacheDiskCacheFactory extends DiskLruCacheFactory {
       final Context context, final String diskCacheName, int diskCacheSize) {
     super(
         new CacheDirectoryGetter() {
-          @NullUnmarked @Override
+           @Override
           public File getCacheDirectory() {
             File cacheDirectory = context.getExternalCacheDir();
             if (cacheDirectory == null) {

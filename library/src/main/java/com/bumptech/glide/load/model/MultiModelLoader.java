@@ -14,7 +14,7 @@ import com.bumptech.glide.util.Preconditions;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
-import com.bumptech.glide.NullUnmarked;
+
 
 /**
  * Allows attempting multiple ModelLoaders registered for a given model and data class.
@@ -37,7 +37,7 @@ class MultiModelLoader<Model, Data> implements ModelLoader<Model, Data> {
     this.exceptionListPool = exceptionListPool;
   }
 
-  @NullUnmarked @Override
+   @Override
   public LoadData<Data> buildLoadData(
       @NonNull Model model, int width, int height, @NonNull Options options) {
     Key sourceKey = null;
@@ -79,12 +79,12 @@ class MultiModelLoader<Model, Data> implements ModelLoader<Model, Data> {
     private final List<DataFetcher<Data>> fetchers;
     private final Pool<List<Throwable>> throwableListPool;
     private int currentIndex;
-    @SuppressWarnings("NullAway.Init") private Priority priority;
-    @SuppressWarnings("NullAway.Init") private DataCallback<? super Data> callback;
+     private Priority priority;
+     private DataCallback<? super Data> callback;
     @Nullable private List<Throwable> exceptions;
     private boolean isCancelled;
 
-    @NullUnmarked MultiFetcher(
+     MultiFetcher(
         @NonNull List<DataFetcher<Data>> fetchers,
         @NonNull Pool<List<Throwable>> throwableListPool) {
       this.throwableListPool = throwableListPool;

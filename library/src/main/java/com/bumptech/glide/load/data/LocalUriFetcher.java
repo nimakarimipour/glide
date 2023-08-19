@@ -20,7 +20,7 @@ public abstract class LocalUriFetcher<T> implements DataFetcher<T> {
   private static final String TAG = "LocalUriFetcher";
   private final Uri uri;
   private final ContentResolver contentResolver;
-  @SuppressWarnings("NullAway.Init") private T data;
+   private T data;
 
   /**
    * Opens an input stream for a uri pointing to a local asset. Only certain uris are supported

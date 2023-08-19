@@ -12,7 +12,7 @@ import com.bumptech.glide.load.DataSource;
  */
 public class ViewAnimationFactory<R> implements TransitionFactory<R> {
   private final ViewTransition.ViewTransitionAnimationFactory viewTransitionAnimationFactory;
-  @SuppressWarnings("NullAway.Init") private Transition<R> transition;
+   private Transition<R> transition;
 
   // Public API.
   @SuppressWarnings("unused")

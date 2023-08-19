@@ -8,7 +8,7 @@ import com.bumptech.glide.load.engine.Resource;
 /** A simple class that ignores all puts and returns null for all gets. */
 public class MemoryCacheAdapter implements MemoryCache {
 
-  @SuppressWarnings("NullAway.Init") private ResourceRemovedListener listener;
+   private ResourceRemovedListener listener;
 
   @Override
   public long getCurrentSize() {

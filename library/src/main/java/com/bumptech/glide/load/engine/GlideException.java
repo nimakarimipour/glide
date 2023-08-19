@@ -11,7 +11,7 @@ import java.io.PrintWriter;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
-import com.bumptech.glide.NullUnmarked;
+
 
 /** An exception with zero or more causes indicating why a load in Glide failed. */
 // Public API.
@@ -22,9 +22,9 @@ public final class GlideException extends Exception {
   private static final StackTraceElement[] EMPTY_ELEMENTS = new StackTraceElement[0];
 
   private final List<Throwable> causes;
-  @SuppressWarnings("NullAway.Init") private Key key;
-  @SuppressWarnings("NullAway.Init") private DataSource dataSource;
-  @SuppressWarnings("NullAway.Init") private Class<?> dataClass;
+   private Key key;
+   private DataSource dataSource;
+   private Class<?> dataClass;
   private String detailMessage;
   @Nullable private Exception exception;
 
@@ -42,7 +42,7 @@ public final class GlideException extends Exception {
     this.causes = causes;
   }
 
-  @NullUnmarked void setLoggingDetails(Key key, DataSource dataSource) {
+   void setLoggingDetails(Key key, DataSource dataSource) {
     setLoggingDetails(key, dataSource, null);
   }
 

@@ -44,7 +44,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 import java.util.concurrent.Executor;
-import com.bumptech.glide.NullUnmarked;
+
 
 /**
  * A generic class that can handle setting options and staring loads for generic resource types.
@@ -781,7 +781,7 @@ public class RequestBuilder<TranscodeType> extends BaseRequestOptions<RequestBui
     return into(target, targetListener, /*options=*/ this, callbackExecutor);
   }
 
-  @NullUnmarked private <Y extends Target<TranscodeType>> Y into(
+   private <Y extends Target<TranscodeType>> Y into(
       @NonNull Y target,
       @Nullable RequestListener<TranscodeType> targetListener,
       BaseRequestOptions<?> options,
@@ -1040,7 +1040,7 @@ public class RequestBuilder<TranscodeType> extends BaseRequestOptions<RequestBui
         callbackExecutor);
   }
 
-  @NullUnmarked private Request buildRequestRecursive(
+   private Request buildRequestRecursive(
       Object requestLock,
       Target<TranscodeType> target,
       @Nullable RequestListener<TranscodeType> targetListener,
@@ -1099,7 +1099,7 @@ public class RequestBuilder<TranscodeType> extends BaseRequestOptions<RequestBui
     return errorRequestCoordinator;
   }
 
-  @NullUnmarked private Request buildThumbnailRequestRecursive(
+   private Request buildThumbnailRequestRecursive(
       Object requestLock,
       Target<TranscodeType> target,
       RequestListener<TranscodeType> targetListener,
@@ -1221,7 +1221,7 @@ public class RequestBuilder<TranscodeType> extends BaseRequestOptions<RequestBui
     }
   }
 
-  @NullUnmarked private Request obtainRequest(
+   private Request obtainRequest(
       Object requestLock,
       Target<TranscodeType> target,
       RequestListener<TranscodeType> targetListener,

@@ -27,11 +27,11 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 import java.util.concurrent.Executor;
-import com.bumptech.glide.NullUnmarked;
+
 
 /** Uses {@link android.net.ConnectivityManager} to identify connectivity changes. */
 final class SingletonConnectivityReceiver {
-  @SuppressWarnings("NullAway.Init") private static volatile SingletonConnectivityReceiver instance;
+   private static volatile SingletonConnectivityReceiver instance;
   private static final String TAG = "ConnectivityMonitor";
 
   private final FrameworkConnectivityMonitor frameworkConnectivityMonitor;
@@ -54,7 +54,7 @@ final class SingletonConnectivityReceiver {
     return instance;
   }
 
-  @NullUnmarked @VisibleForTesting
+   @VisibleForTesting
   static void reset() {
     instance = null;
   }

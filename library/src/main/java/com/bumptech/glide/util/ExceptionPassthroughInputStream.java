@@ -6,7 +6,7 @@ import androidx.annotation.Nullable;
 import java.io.IOException;
 import java.io.InputStream;
 import java.util.Queue;
-import com.bumptech.glide.NullUnmarked;
+
 
 /**
  * An {@link java.io.InputStream} that catches, stores and rethrows {@link java.io.IOException}s
@@ -27,8 +27,8 @@ public final class ExceptionPassthroughInputStream extends InputStream {
   @GuardedBy("POOL")
   private static final Queue<ExceptionPassthroughInputStream> POOL = Util.createQueue(0);
 
-  @SuppressWarnings("NullAway.Init") private InputStream wrapped;
-  @SuppressWarnings("NullAway.Init") private IOException exception;
+   private InputStream wrapped;
+   private IOException exception;
 
   @NonNull
   public static ExceptionPassthroughInputStream obtain(@NonNull InputStream toWrap) {
@@ -130,7 +130,7 @@ public final class ExceptionPassthroughInputStream extends InputStream {
     return exception;
   }
 
-  @NullUnmarked public void release() {
+   public void release() {
     exception = null;
     wrapped = null;
     synchronized (POOL) {

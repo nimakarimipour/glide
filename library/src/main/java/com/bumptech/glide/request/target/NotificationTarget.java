@@ -10,7 +10,7 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import com.bumptech.glide.request.transition.Transition;
 import com.bumptech.glide.util.Preconditions;
-import com.bumptech.glide.NullUnmarked;
+
 
 /**
  * This class is used to display downloaded Bitmap inside an ImageView of a Notification through
@@ -40,7 +40,7 @@ public class NotificationTarget extends CustomTarget<Bitmap> {
    * @param notification The Notification object that we want to update.
    * @param notificationId The notificationId of the Notification that we want to load the Bitmap.
    */
-  @NullUnmarked public NotificationTarget(
+   public NotificationTarget(
       Context context,
       int viewId,
       RemoteViews remoteViews,

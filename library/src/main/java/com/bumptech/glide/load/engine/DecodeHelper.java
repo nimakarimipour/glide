@@ -20,8 +20,8 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 import java.util.Map.Entry;
-import com.bumptech.glide.Initializer;
-import com.bumptech.glide.NullUnmarked;
+
+
 
 final class DecodeHelper<Transcode> {
 
@@ -45,7 +45,7 @@ final class DecodeHelper<Transcode> {
   private boolean isTransformationRequired;
   private boolean isScaleOnlyOrNoTransform;
 
-  @Initializer @SuppressWarnings("unchecked")
+   @SuppressWarnings("unchecked")
   <R> void init(
       GlideContext glideContext,
       Object model,
@@ -77,7 +77,7 @@ final class DecodeHelper<Transcode> {
     this.isScaleOnlyOrNoTransform = isScaleOnlyOrNoTransform;
   }
 
-  @NullUnmarked void clear() {
+   void clear() {
     glideContext = null;
     model = null;
     signature = null;
@@ -148,7 +148,7 @@ final class DecodeHelper<Transcode> {
     return getLoadPath(dataClass) != null;
   }
 
-  @NullUnmarked <Data> LoadPath<Data, ?, Transcode> getLoadPath(Class<Data> dataClass) {
+   <Data> LoadPath<Data, ?, Transcode> getLoadPath(Class<Data> dataClass) {
     return glideContext.getRegistry().getLoadPath(dataClass, resourceClass, transcodeClass);
   }
 

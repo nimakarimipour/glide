@@ -23,7 +23,7 @@ final class ActiveResources {
   @VisibleForTesting final Map<Key, ResourceWeakReference> activeEngineResources = new HashMap<>();
   private final ReferenceQueue<EngineResource<?>> resourceReferenceQueue = new ReferenceQueue<>();
 
-  @SuppressWarnings("NullAway.Init") private ResourceListener listener;
+   private ResourceListener listener;
 
   private volatile boolean isShutdown;
   @Nullable private volatile DequeuedResourceCallback cb;

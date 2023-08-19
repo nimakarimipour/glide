@@ -14,7 +14,7 @@ import java.util.Arrays;
 import java.util.Collections;
 import java.util.HashSet;
 import java.util.Set;
-import com.bumptech.glide.NullUnmarked;
+
 
 /**
  * An {@link com.bumptech.glide.load.engine.bitmap_recycle.BitmapPool} implementation that uses an
@@ -192,7 +192,7 @@ public class LruBitmapPool implements BitmapPool {
     }
   }
 
-  @NullUnmarked @Nullable
+   @Nullable
   private synchronized Bitmap getDirtyOrNull(
       int width, int height, @Nullable Bitmap.Config config) {
     assertNotHardwareConfig(config);

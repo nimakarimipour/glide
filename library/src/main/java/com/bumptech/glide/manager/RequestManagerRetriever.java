@@ -32,7 +32,7 @@ import com.bumptech.glide.util.Util;
 import java.util.Collection;
 import java.util.HashMap;
 import java.util.Map;
-import com.bumptech.glide.NullUnmarked;
+
 
 /**
  * A collection of static methods for creating new {@link com.bumptech.glide.RequestManager}s or
@@ -54,7 +54,7 @@ public class RequestManagerRetriever implements Handler.Callback {
   private static final String FRAGMENT_INDEX_KEY = "key";
 
   /** The top application level RequestManager. */
-  @SuppressWarnings("NullAway.Init") private volatile RequestManager applicationManager;
+   private volatile RequestManager applicationManager;
 
   /** Pending adds for RequestManagerFragments. */
   @SuppressWarnings("deprecation")
@@ -494,7 +494,7 @@ public class RequestManagerRetriever implements Handler.Callback {
   }
 
   // We care about the instance specifically.
-  @NullUnmarked @SuppressWarnings({"ReferenceEquality", "PMD.CompareObjectsWithEquals"})
+   @SuppressWarnings({"ReferenceEquality", "PMD.CompareObjectsWithEquals"})
   private boolean verifyOurFragmentWasAddedOrCantBeAdded(
       android.app.FragmentManager fm, boolean hasAttemptedToAddFragmentTwice) {
     RequestManagerFragment newlyAddedRequestManagerFragment =
@@ -563,7 +563,7 @@ public class RequestManagerRetriever implements Handler.Callback {
   }
 
   // We care about the instance specifically.
-  @NullUnmarked @SuppressWarnings({"ReferenceEquality", "PMD.CompareObjectsWithEquals"})
+   @SuppressWarnings({"ReferenceEquality", "PMD.CompareObjectsWithEquals"})
   private boolean verifyOurSupportFragmentWasAddedOrCantBeAdded(
       FragmentManager supportFm, boolean hasAttemptedToAddFragmentTwice) {
     SupportRequestManagerFragment newlyAddedSupportRequestManagerFragment =

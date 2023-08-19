@@ -9,7 +9,7 @@ import com.bumptech.glide.load.model.ModelLoader.LoadData;
 import com.bumptech.glide.util.pool.GlideTrace;
 import java.io.File;
 import java.util.List;
-import com.bumptech.glide.NullUnmarked;
+
 
 /**
  * Generates {@link com.bumptech.glide.load.data.DataFetcher DataFetchers} from cache files
@@ -22,10 +22,10 @@ class DataCacheGenerator implements DataFetcherGenerator, DataFetcher.DataCallba
   private final FetcherReadyCallback cb;
 
   private int sourceIdIndex = -1;
-  @SuppressWarnings("NullAway.Init") private Key sourceKey;
-  @SuppressWarnings("NullAway.Init") private List<ModelLoader<File, ?>> modelLoaders;
+   private Key sourceKey;
+   private List<ModelLoader<File, ?>> modelLoaders;
   private int modelLoaderIndex;
-  @SuppressWarnings("NullAway.Init") private volatile LoadData<?> loadData;
+   private volatile LoadData<?> loadData;
   // PMD is wrong here, this File must be an instance variable because it may be used across
   // multiple calls to startNext.
   @SuppressWarnings({ "PMD.SingularField", "NullAway.Init" })
@@ -43,7 +43,7 @@ class DataCacheGenerator implements DataFetcherGenerator, DataFetcher.DataCallba
     this.cb = cb;
   }
 
-  @NullUnmarked @Override
+   @Override
   public boolean startNext() {
     GlideTrace.beginSection("DataCacheGenerator.startNext");
     try {
@@ -96,7 +96,7 @@ class DataCacheGenerator implements DataFetcherGenerator, DataFetcher.DataCallba
     }
   }
 
-  @NullUnmarked @Override
+   @Override
   public void onDataReady(Object data) {
     cb.onDataFetcherReady(sourceKey, data, loadData.fetcher, DataSource.DATA_DISK_CACHE, sourceKey);
   }

@@ -90,7 +90,7 @@ public class RequestManager
   // the list each time a request is started.
   private final CopyOnWriteArrayList<RequestListener<Object>> defaultRequestListeners;
 
-  @SuppressWarnings("NullAway.Init") @GuardedBy("this")
+   @GuardedBy("this")
   private RequestOptions requestOptions;
 
   private boolean pauseAllRequestsOnTrimMemoryModerate;

@@ -14,7 +14,7 @@ import com.bumptech.glide.util.Synthetic;
 import java.util.Collections;
 import java.util.HashSet;
 import java.util.Set;
-import com.bumptech.glide.NullUnmarked;
+
 
 /**
  * A view-less {@link androidx.fragment.app.Fragment} used to safely store an {@link
@@ -87,7 +87,7 @@ public class SupportRequestManagerFragment extends Fragment {
    * Returns the set of fragments that this RequestManagerFragment's parent is a parent to. (i.e.
    * our parent is the fragment that we are annotating).
    */
-  @NullUnmarked @Synthetic
+   @Synthetic
   @NonNull
   Set<SupportRequestManagerFragment> getDescendantRequestManagerFragments() {
     if (rootRequestManagerFragment == null) {

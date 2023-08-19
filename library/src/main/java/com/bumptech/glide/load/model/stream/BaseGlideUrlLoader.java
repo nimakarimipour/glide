@@ -14,7 +14,7 @@ import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Collections;
 import java.util.List;
-import com.bumptech.glide.NullUnmarked;
+
 
 /**
  * A base class for loading data over http/https. Can be subclassed for use with any model that can
@@ -37,7 +37,7 @@ public abstract class BaseGlideUrlLoader<Model> implements ModelLoader<Model, In
     this.modelCache = modelCache;
   }
 
-  @NullUnmarked @Override
+   @Override
   @Nullable
   public LoadData<InputStream> buildLoadData(
       @NonNull Model model, int width, int height, @NonNull Options options) {

@@ -4,7 +4,7 @@ import android.graphics.drawable.Drawable;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import androidx.annotation.Nullable;
-import com.bumptech.glide.NullUnmarked;
+
 
 /**
  * Avoids extra calls to {@link android.view.View#requestLayout} when loading more than once image
@@ -37,7 +37,7 @@ public abstract class ThumbnailImageViewTarget<T> extends ImageViewTarget<T> {
     super(view, waitForLayout);
   }
 
-  @NullUnmarked @Override
+   @Override
   protected void setResource(@Nullable T resource) {
     ViewGroup.LayoutParams layoutParams = view.getLayoutParams();
     Drawable result = getDrawable(resource);

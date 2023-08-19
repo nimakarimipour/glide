@@ -15,7 +15,7 @@ public final class GlideSuppliers {
 
   public static <T> GlideSupplier<T> memorize(final GlideSupplier<T> supplier) {
     return new GlideSupplier<T>() {
-      @SuppressWarnings("NullAway.Init") private volatile T instance;
+       private volatile T instance;
 
       @Override
       public T get() {

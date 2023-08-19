@@ -18,7 +18,7 @@ import com.bumptech.glide.load.DataSource;
 public class DrawableCrossFadeFactory implements TransitionFactory<Drawable> {
   private final int duration;
   private final boolean isCrossFadeEnabled;
-  @SuppressWarnings("NullAway.Init") private DrawableCrossFadeTransition resourceTransition;
+   private DrawableCrossFadeTransition resourceTransition;
 
   protected DrawableCrossFadeFactory(int duration, boolean isCrossFadeEnabled) {
     this.duration = duration;

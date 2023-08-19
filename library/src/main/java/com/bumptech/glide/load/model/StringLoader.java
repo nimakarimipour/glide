@@ -9,7 +9,7 @@ import androidx.annotation.Nullable;
 import com.bumptech.glide.load.Options;
 import java.io.File;
 import java.io.InputStream;
-import com.bumptech.glide.NullUnmarked;
+
 
 /**
  * A model loader for handling certain string models. Handles paths, urls, and any uri string with a
@@ -26,7 +26,7 @@ public class StringLoader<Data> implements ModelLoader<String, Data> {
     this.uriLoader = uriLoader;
   }
 
-  @NullUnmarked @Override
+   @Override
   public LoadData<Data> buildLoadData(
       @NonNull String model, int width, int height, @NonNull Options options) {
     Uri uri = parseUri(model);

@@ -8,7 +8,7 @@ import com.bumptech.glide.util.Preconditions;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
-import com.bumptech.glide.NullUnmarked;
+
 
 /**
  * For a given {@link com.bumptech.glide.load.data.DataFetcher} for a given data class, attempts to
@@ -27,7 +27,7 @@ public class LoadPath<Data, ResourceType, Transcode> {
   private final List<? extends DecodePath<Data, ResourceType, Transcode>> decodePaths;
   private final String failureMessage;
 
-  @NullUnmarked public LoadPath(
+   public LoadPath(
       Class<Data> dataClass,
       Class<ResourceType> resourceClass,
       Class<Transcode> transcodeClass,

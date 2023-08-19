@@ -13,7 +13,7 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.NavigableMap;
 import java.util.TreeMap;
-import com.bumptech.glide.NullUnmarked;
+
 
 /**
  * Keys {@link android.graphics.Bitmap Bitmaps} using both {@link
@@ -199,9 +199,9 @@ public class SizeConfigStrategy implements LruPoolStrategy {
     private final KeyPool pool;
 
     @Synthetic int size;
-    @SuppressWarnings("NullAway.Init") private Bitmap.Config config;
+     private Bitmap.Config config;
 
-    @NullUnmarked public Key(KeyPool pool) {
+     public Key(KeyPool pool) {
       this.pool = pool;
     }
 

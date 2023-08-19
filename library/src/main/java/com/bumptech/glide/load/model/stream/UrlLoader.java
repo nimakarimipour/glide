@@ -8,7 +8,7 @@ import com.bumptech.glide.load.model.ModelLoaderFactory;
 import com.bumptech.glide.load.model.MultiModelLoaderFactory;
 import java.io.InputStream;
 import java.net.URL;
-import com.bumptech.glide.NullUnmarked;
+
 
 /**
  * A wrapper class that translates {@link java.net.URL} objects into {@link
@@ -25,7 +25,7 @@ public class UrlLoader implements ModelLoader<URL, InputStream> {
     this.glideUrlLoader = glideUrlLoader;
   }
 
-  @NullUnmarked @Override
+   @Override
   public LoadData<InputStream> buildLoadData(
       @NonNull URL model, int width, int height, @NonNull Options options) {
     return glideUrlLoader.buildLoadData(new GlideUrl(model), width, height, options);

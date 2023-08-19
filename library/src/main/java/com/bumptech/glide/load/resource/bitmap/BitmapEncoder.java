@@ -18,7 +18,7 @@ import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.OutputStream;
-import com.bumptech.glide.NullUnmarked;
+
 
 /**
  * An {@link com.bumptech.glide.load.ResourceEncoder} that writes {@link android.graphics.Bitmap}s
@@ -65,7 +65,7 @@ public class BitmapEncoder implements ResourceEncoder<Bitmap> {
     arrayPool = null;
   }
 
-  @NullUnmarked @Override
+   @Override
   public boolean encode(
       @NonNull Resource<Bitmap> resource, @NonNull File file, @NonNull Options options) {
     final Bitmap bitmap = resource.get();

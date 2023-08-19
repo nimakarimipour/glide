@@ -25,7 +25,7 @@ import com.bumptech.glide.util.pool.StateVerifier;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
-import com.bumptech.glide.NullUnmarked;
+
 
 /**
  * A class responsible for decoding resources either from cached data or from the original source
@@ -51,30 +51,30 @@ class DecodeJob<R>
   private final DeferredEncodeManager<?> deferredEncodeManager = new DeferredEncodeManager<>();
   private final ReleaseManager releaseManager = new ReleaseManager();
 
-  @SuppressWarnings("NullAway.Init") private GlideContext glideContext;
-  @SuppressWarnings("NullAway.Init") private Key signature;
-  @SuppressWarnings("NullAway.Init") private Priority priority;
-  @SuppressWarnings("NullAway.Init") private EngineKey loadKey;
+   private GlideContext glideContext;
+   private Key signature;
+   private Priority priority;
+   private EngineKey loadKey;
   private int width;
   private int height;
-  @SuppressWarnings("NullAway.Init") private DiskCacheStrategy diskCacheStrategy;
-  @SuppressWarnings("NullAway.Init") private Options options;
-  @SuppressWarnings("NullAway.Init") private Callback<R> callback;
+   private DiskCacheStrategy diskCacheStrategy;
+   private Options options;
+   private Callback<R> callback;
   private int order;
-  @SuppressWarnings("NullAway.Init") private Stage stage;
-  @SuppressWarnings("NullAway.Init") private RunReason runReason;
+   private Stage stage;
+   private RunReason runReason;
   private long startFetchTime;
   private boolean onlyRetrieveFromCache;
-  @SuppressWarnings("NullAway.Init") private Object model;
+   private Object model;
 
-  @SuppressWarnings("NullAway.Init") private Thread currentThread;
-  @SuppressWarnings("NullAway.Init") private Key currentSourceKey;
-  @SuppressWarnings("NullAway.Init") private Key currentAttemptingKey;
-  @SuppressWarnings("NullAway.Init") private Object currentData;
-  @SuppressWarnings("NullAway.Init") private DataSource currentDataSource;
-  @SuppressWarnings("NullAway.Init") private DataFetcher<?> currentFetcher;
+   private Thread currentThread;
+   private Key currentSourceKey;
+   private Key currentAttemptingKey;
+   private Object currentData;
+   private DataSource currentDataSource;
+   private DataFetcher<?> currentFetcher;
 
-  @SuppressWarnings("NullAway.Init") private volatile DataFetcherGenerator currentGenerator;
+   private volatile DataFetcherGenerator currentGenerator;
   private volatile boolean isCallbackNotified;
   private volatile boolean isCancelled;
   private boolean isLoadingFromAlternateCacheKey;
@@ -171,7 +171,7 @@ class DecodeJob<R>
     }
   }
 
-  @NullUnmarked private void releaseInternal() {
+   private void releaseInternal() {
     releaseManager.reset();
     deferredEncodeManager.clear();
     decodeHelper.clear();
@@ -288,7 +288,7 @@ class DecodeJob<R>
     }
   }
 
-  @NullUnmarked private DataFetcherGenerator getNextGenerator() {
+   private DataFetcherGenerator getNextGenerator() {
     switch (stage) {
       case RESOURCE_CACHE:
         return new ResourceCacheGenerator(decodeHelper, this);
@@ -376,7 +376,7 @@ class DecodeJob<R>
     callback.reschedule(this);
   }
 
-  @NullUnmarked @Override
+   @Override
   public void onDataFetcherReady(
       Key sourceKey, Object data, DataFetcher<?> fetcher, DataSource dataSource, Key attemptedKey) {
     this.currentSourceKey = sourceKey;
@@ -476,7 +476,7 @@ class DecodeJob<R>
     }
   }
 
-  @NullUnmarked private <Data> Resource<R> decodeFromData(
+   private <Data> Resource<R> decodeFromData(
       DataFetcher<?> fetcher, Data data, DataSource dataSource) throws GlideException {
     try {
       if (data == null) {
@@ -540,7 +540,7 @@ class DecodeJob<R>
     }
   }
 
-  @NullUnmarked private void logWithTimeAndKey(String message, long startTime) {
+   private void logWithTimeAndKey(String message, long startTime) {
     logWithTimeAndKey(message, startTime, null /*extraArgs*/);
   }
 
@@ -563,7 +563,7 @@ class DecodeJob<R>
     return stateVerifier;
   }
 
-  @NullUnmarked @Synthetic
+   @Synthetic
   @NonNull
   <Z> Resource<Z> onResourceDecoded(DataSource dataSource, @NonNull Resource<Z> decoded) {
     @SuppressWarnings("unchecked")
@@ -682,11 +682,11 @@ class DecodeJob<R>
    * requestors.
    */
   private static class DeferredEncodeManager<Z> {
-    @SuppressWarnings("NullAway.Init") private Key key;
-    @SuppressWarnings("NullAway.Init") private ResourceEncoder<Z> encoder;
-    @SuppressWarnings("NullAway.Init") private LockedResource<Z> toEncode;
+     private Key key;
+     private ResourceEncoder<Z> encoder;
+     private LockedResource<Z> toEncode;
 
-    @NullUnmarked @Synthetic
+     @Synthetic
     DeferredEncodeManager() {}
 
     // We just need the encoder and resource type to match, which this will enforce.
@@ -713,7 +713,7 @@ class DecodeJob<R>
       return toEncode != null;
     }
 
-    @NullUnmarked void clear() {
+     void clear() {
       key = null;
       encoder = null;
       toEncode = null;

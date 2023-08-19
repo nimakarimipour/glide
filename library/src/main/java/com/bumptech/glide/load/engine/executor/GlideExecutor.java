@@ -21,7 +21,7 @@ import java.util.concurrent.ThreadPoolExecutor;
 import java.util.concurrent.TimeUnit;
 import java.util.concurrent.TimeoutException;
 import java.util.concurrent.atomic.AtomicInteger;
-import com.bumptech.glide.NullUnmarked;
+
 
 /** A prioritized {@link ThreadPoolExecutor} for running jobs in Glide. */
 public final class GlideExecutor implements ExecutorService {
@@ -448,10 +448,10 @@ public final class GlideExecutor implements ExecutorService {
     @NonNull
     private UncaughtThrowableStrategy uncaughtThrowableStrategy = UncaughtThrowableStrategy.DEFAULT;
 
-    @SuppressWarnings("NullAway.Init") private String name;
+     private String name;
     private long threadTimeoutMillis;
 
-    @NullUnmarked @Synthetic
+     @Synthetic
     Builder(boolean preventNetworkOperations) {
       this.preventNetworkOperations = preventNetworkOperations;
     }

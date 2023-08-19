@@ -10,7 +10,7 @@ import com.bumptech.glide.load.Transformation;
 import com.bumptech.glide.load.engine.Resource;
 import com.bumptech.glide.load.engine.bitmap_recycle.BitmapPool;
 import java.security.MessageDigest;
-import com.bumptech.glide.NullUnmarked;
+
 
 /**
  * Applies a {@link Bitmap} {@link Transformation} to {@link Drawable}s by first attempting to
@@ -70,7 +70,7 @@ public class DrawableTransformation implements Transformation<Drawable> {
   }
 
   // It's clearer to cast the result in a separate line from obtaining it.
-  @NullUnmarked @SuppressWarnings({"unchecked", "PMD.UnnecessaryLocalBeforeReturn"})
+   @SuppressWarnings({"unchecked", "PMD.UnnecessaryLocalBeforeReturn"})
   private Resource<Drawable> newDrawableResource(Context context, Resource<Bitmap> transformed) {
     Resource<? extends Drawable> result =
         LazyBitmapDrawableResource.obtain(context.getResources(), transformed);

@@ -18,7 +18,7 @@ import java.net.MalformedURLException;
 import java.net.URISyntaxException;
 import java.net.URL;
 import java.util.Map;
-import com.bumptech.glide.NullUnmarked;
+
 
 /** A DataFetcher that retrieves an {@link java.io.InputStream} for a Url. */
 public class HttpUrlFetcher implements DataFetcher<InputStream> {
@@ -36,8 +36,8 @@ public class HttpUrlFetcher implements DataFetcher<InputStream> {
   private final int timeout;
   private final HttpUrlConnectionFactory connectionFactory;
 
-  @SuppressWarnings("NullAway.Init") private HttpURLConnection urlConnection;
-  @SuppressWarnings("NullAway.Init") private InputStream stream;
+   private HttpURLConnection urlConnection;
+   private InputStream stream;
   private volatile boolean isCancelled;
 
   public HttpUrlFetcher(GlideUrl glideUrl, int timeout) {
@@ -51,7 +51,7 @@ public class HttpUrlFetcher implements DataFetcher<InputStream> {
     this.connectionFactory = connectionFactory;
   }
 
-  @NullUnmarked @Override
+   @Override
   public void loadData(
       @NonNull Priority priority, @NonNull DataCallback<? super InputStream> callback) {
     long startTime = LogTime.getLogTime();
@@ -70,7 +70,7 @@ public class HttpUrlFetcher implements DataFetcher<InputStream> {
     }
   }
 
-  @NullUnmarked private InputStream loadDataWithRedirects(
+   private InputStream loadDataWithRedirects(
       URL url, int redirects, URL lastUrl, Map<String, String> headers) throws HttpException {
     if (redirects >= MAXIMUM_REDIRECTS) {
       throw new HttpException(
@@ -193,7 +193,7 @@ public class HttpUrlFetcher implements DataFetcher<InputStream> {
     return stream;
   }
 
-  @NullUnmarked @Override
+   @Override
   public void cleanup() {
     if (stream != null) {
       try {

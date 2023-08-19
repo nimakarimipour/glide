@@ -17,7 +17,7 @@ public abstract class AssetPathFetcher<T> implements DataFetcher<T> {
   private static final String TAG = "AssetPathFetcher";
   private final String assetPath;
   private final AssetManager assetManager;
-  @SuppressWarnings("NullAway.Init") private T data;
+   private T data;
 
   // Public API.
   @SuppressWarnings("WeakerAccess")

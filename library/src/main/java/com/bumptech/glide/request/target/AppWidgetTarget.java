@@ -10,7 +10,7 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import com.bumptech.glide.request.transition.Transition;
 import com.bumptech.glide.util.Preconditions;
-import com.bumptech.glide.NullUnmarked;
+
 
 /**
  * This class is used in order to display downloaded Bitmap inside an ImageView of an AppWidget
@@ -41,7 +41,7 @@ public class AppWidgetTarget extends CustomTarget<Bitmap> {
    * @param remoteViews RemoteViews object which contains the ImageView that will load the bitmap.
    * @param widgetIds The int[] that contains the widget ids of an application.
    */
-  @NullUnmarked public AppWidgetTarget(
+   public AppWidgetTarget(
       Context context,
       int width,
       int height,
@@ -85,7 +85,7 @@ public class AppWidgetTarget extends CustomTarget<Bitmap> {
    * @param remoteViews RemoteViews object which contains the ImageView that will load the bitmap.
    * @param componentName The ComponentName that refers to our AppWidget.
    */
-  @NullUnmarked public AppWidgetTarget(
+   public AppWidgetTarget(
       Context context,
       int width,
       int height,

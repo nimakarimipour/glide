@@ -26,7 +26,7 @@ import com.bumptech.glide.util.pool.GlideTrace;
 import com.bumptech.glide.util.pool.StateVerifier;
 import java.util.List;
 import java.util.concurrent.Executor;
-import com.bumptech.glide.NullUnmarked;
+
 
 /**
  * A {@link Request} that loads a {@link com.bumptech.glide.load.engine.Resource} into a given
@@ -94,10 +94,10 @@ public final class SingleRequest<R> implements Request, SizeReadyCallback, Resou
 
   private final Executor callbackExecutor;
 
-  @SuppressWarnings("NullAway.Init") @GuardedBy("requestLock")
+   @GuardedBy("requestLock")
   private Resource<R> resource;
 
-  @SuppressWarnings("NullAway.Init") @GuardedBy("requestLock")
+   @GuardedBy("requestLock")
   private Engine.LoadStatus loadStatus;
 
   @GuardedBy("requestLock")
@@ -288,7 +288,7 @@ public final class SingleRequest<R> implements Request, SizeReadyCallback, Resou
    *
    * @see #clear()
    */
-  @NullUnmarked @GuardedBy("requestLock")
+   @GuardedBy("requestLock")
   private void cancel() {
     assertNotCallingCallbacks();
     stateVerifier.throwIfRecycled();
@@ -319,7 +319,7 @@ public final class SingleRequest<R> implements Request, SizeReadyCallback, Resou
    *
    * @see #cancel()
    */
-  @NullUnmarked @Override
+   @Override
   public void clear() {
     Resource<R> toRelease = null;
     synchronized (requestLock) {
@@ -384,7 +384,7 @@ public final class SingleRequest<R> implements Request, SizeReadyCallback, Resou
     }
   }
 
-  @NullUnmarked @GuardedBy("requestLock")
+   @GuardedBy("requestLock")
   private Drawable getErrorDrawable() {
     if (errorDrawable == null) {
       errorDrawable = requestOptions.getErrorPlaceholder();
@@ -395,7 +395,7 @@ public final class SingleRequest<R> implements Request, SizeReadyCallback, Resou
     return errorDrawable;
   }
 
-  @NullUnmarked @GuardedBy("requestLock")
+   @GuardedBy("requestLock")
   private Drawable getPlaceholderDrawable() {
     if (placeholderDrawable == null) {
       placeholderDrawable = requestOptions.getPlaceholderDrawable();
@@ -406,7 +406,7 @@ public final class SingleRequest<R> implements Request, SizeReadyCallback, Resou
     return placeholderDrawable;
   }
 
-  @NullUnmarked @GuardedBy("requestLock")
+   @GuardedBy("requestLock")
   private Drawable getFallbackDrawable() {
     if (fallbackDrawable == null) {
       fallbackDrawable = requestOptions.getFallbackDrawable();
@@ -446,7 +446,7 @@ public final class SingleRequest<R> implements Request, SizeReadyCallback, Resou
   }
 
   /** A callback method that should never be invoked directly. */
-  @NullUnmarked @Override
+   @Override
   public void onSizeReady(int width, int height) {
     stateVerifier.throwIfRecycled();
     synchronized (requestLock) {
@@ -538,7 +538,7 @@ public final class SingleRequest<R> implements Request, SizeReadyCallback, Resou
   }
 
   /** A callback method that should never be invoked directly. */
-  @NullUnmarked @SuppressWarnings("unchecked")
+   @SuppressWarnings("unchecked")
   @Override
   public void onResourceReady(
       Resource<?> resource, DataSource dataSource, boolean isLoadedFromAlternateCacheKey) {
@@ -613,7 +613,7 @@ public final class SingleRequest<R> implements Request, SizeReadyCallback, Resou
    *     </code>
    */
   // We're using experimental APIs...
-  @NullUnmarked @SuppressWarnings({"deprecation", "PMD.UnusedFormalParameter"})
+   @SuppressWarnings({"deprecation", "PMD.UnusedFormalParameter"})
   @GuardedBy("requestLock")
   private void onResourceReady(
       Resource<R> resource, R result, DataSource dataSource, boolean isAlternateCacheKey) {
@@ -677,7 +677,7 @@ public final class SingleRequest<R> implements Request, SizeReadyCallback, Resou
     return requestLock;
   }
 
-  @NullUnmarked private void onLoadFailed(GlideException e, int maxLogLevel) {
+   private void onLoadFailed(GlideException e, int maxLogLevel) {
     stateVerifier.throwIfRecycled();
     synchronized (requestLock) {
       e.setOrigin(requestOrigin);
