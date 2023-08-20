@@ -27,6 +27,7 @@ import java.io.IOException;
 import java.nio.ByteBuffer;
 import java.util.List;
 import java.util.Queue;
+import org.jspecify.annotations.NullUnmarked;
 
 
 /**
@@ -77,13 +78,13 @@ public class ByteBufferGifDecoder implements ResourceDecoder<ByteBuffer, GifDraw
     this.parserPool = parserPool;
   }
 
-   @Override
+   @NullUnmarked @Override
   public boolean handles(@NonNull ByteBuffer source, @NonNull Options options) throws IOException {
     return !options.get(GifOptions.DISABLE_ANIMATION)
         && ImageHeaderParserUtils.getType(parsers, source) == ImageType.GIF;
   }
 
-   @Override
+   @NullUnmarked @Override
   public GifDrawableResource decode(
       @NonNull ByteBuffer source, int width, int height, @NonNull Options options) {
     final GifHeaderParser parser = parserPool.obtain(source);

@@ -14,6 +14,7 @@ import java.util.Arrays;
 import java.util.Collections;
 import java.util.HashSet;
 import java.util.Set;
+import org.jspecify.annotations.NullUnmarked;
 
 
 /**
@@ -192,7 +193,7 @@ public class LruBitmapPool implements BitmapPool {
     }
   }
 
-   @Nullable
+   @NullUnmarked @Nullable
   private synchronized Bitmap getDirtyOrNull(
       int width, int height, @Nullable Bitmap.Config config) {
     assertNotHardwareConfig(config);

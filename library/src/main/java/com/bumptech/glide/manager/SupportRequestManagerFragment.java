@@ -14,6 +14,7 @@ import com.bumptech.glide.util.Synthetic;
 import java.util.Collections;
 import java.util.HashSet;
 import java.util.Set;
+import org.jspecify.annotations.NullUnmarked;
 
 
 /**
@@ -87,7 +88,7 @@ public class SupportRequestManagerFragment extends Fragment {
    * Returns the set of fragments that this RequestManagerFragment's parent is a parent to. (i.e.
    * our parent is the fragment that we are annotating).
    */
-   @Synthetic
+   @NullUnmarked @Synthetic
   @NonNull
   Set<SupportRequestManagerFragment> getDescendantRequestManagerFragments() {
     if (rootRequestManagerFragment == null) {

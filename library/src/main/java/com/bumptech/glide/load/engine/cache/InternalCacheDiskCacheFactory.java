@@ -2,6 +2,7 @@ package com.bumptech.glide.load.engine.cache;
 
 import android.content.Context;
 import java.io.File;
+import org.jspecify.annotations.NullUnmarked;
 
 
 /**
@@ -27,7 +28,7 @@ public final class InternalCacheDiskCacheFactory extends DiskLruCacheFactory {
       final Context context, final String diskCacheName, long diskCacheSize) {
     super(
         new CacheDirectoryGetter() {
-           @Override
+           @NullUnmarked @Override
           public File getCacheDirectory() {
             File cacheDirectory = context.getCacheDir();
             if (cacheDirectory == null) {

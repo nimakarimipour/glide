@@ -11,6 +11,7 @@ import com.bumptech.glide.load.model.ModelLoader;
 import com.bumptech.glide.load.model.ModelLoaderFactory;
 import com.bumptech.glide.load.model.MultiModelLoaderFactory;
 import java.io.InputStream;
+import org.jspecify.annotations.NullUnmarked;
 
 
 /**
@@ -39,7 +40,7 @@ public class HttpGlideUrlLoader implements ModelLoader<GlideUrl, InputStream> {
     this.modelCache = modelCache;
   }
 
-   @Override
+   @NullUnmarked @Override
   public LoadData<InputStream> buildLoadData(
       @NonNull GlideUrl model, int width, int height, @NonNull Options options) {
     // GlideUrls memoize parsed URLs so caching them saves a few object instantiations and time

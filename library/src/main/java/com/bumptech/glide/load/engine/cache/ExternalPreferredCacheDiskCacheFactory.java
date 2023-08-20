@@ -3,6 +3,7 @@ package com.bumptech.glide.load.engine.cache;
 import android.content.Context;
 import androidx.annotation.Nullable;
 import java.io.File;
+import org.jspecify.annotations.NullUnmarked;
 
 
 /**
@@ -43,7 +44,7 @@ public final class ExternalPreferredCacheDiskCacheFactory extends DiskLruCacheFa
             return cacheDirectory;
           }
 
-           @Override
+           @NullUnmarked @Override
           public File getCacheDirectory() {
             File internalCacheDirectory = getInternalCacheDirectory();
 

@@ -13,6 +13,7 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.NavigableMap;
 import java.util.TreeMap;
+import org.jspecify.annotations.NullUnmarked;
 
 
 /**
@@ -199,9 +200,9 @@ public class SizeConfigStrategy implements LruPoolStrategy {
     private final KeyPool pool;
 
     @Synthetic int size;
-     private Bitmap.Config config;
+     @SuppressWarnings("NullAway.Init") private Bitmap.Config config;
 
-     public Key(KeyPool pool) {
+     @NullUnmarked public Key(KeyPool pool) {
       this.pool = pool;
     }
 

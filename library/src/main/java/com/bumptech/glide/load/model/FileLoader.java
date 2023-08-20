@@ -13,6 +13,7 @@ import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.InputStream;
+import org.jspecify.annotations.NullUnmarked;
 
 
 /**
@@ -59,9 +60,9 @@ public class FileLoader<Data> implements ModelLoader<File, Data> {
   private static final class FileFetcher<Data> implements DataFetcher<Data> {
     private final File file;
     private final FileOpener<Data> opener;
-     private Data data;
+     @SuppressWarnings("NullAway.Init") private Data data;
 
-     FileFetcher(File file, FileOpener<Data> opener) {
+     @NullUnmarked FileFetcher(File file, FileOpener<Data> opener) {
       this.file = file;
       this.opener = opener;
     }

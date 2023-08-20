@@ -11,6 +11,7 @@ import com.bumptech.glide.util.Preconditions;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
+import org.jspecify.annotations.NullUnmarked;
 
 
 /**
@@ -29,7 +30,7 @@ public class DecodePath<DataType, ResourceType, Transcode> {
   private final Pool<List<Throwable>> listPool;
   private final String failureMessage;
 
-   public DecodePath(
+   @NullUnmarked public DecodePath(
       Class<DataType> dataClass,
       Class<ResourceType> resourceClass,
       Class<Transcode> transcodeClass,
@@ -50,7 +51,7 @@ public class DecodePath<DataType, ResourceType, Transcode> {
             + "}";
   }
 
-   public Resource<Transcode> decode(
+   @NullUnmarked public Resource<Transcode> decode(
       DataRewinder<DataType> rewinder,
       int width,
       int height,

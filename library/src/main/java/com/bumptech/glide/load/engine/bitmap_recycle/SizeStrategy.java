@@ -8,6 +8,7 @@ import androidx.annotation.VisibleForTesting;
 import com.bumptech.glide.util.Synthetic;
 import com.bumptech.glide.util.Util;
 import java.util.NavigableMap;
+import org.jspecify.annotations.NullUnmarked;
 
 
 /**
@@ -68,7 +69,7 @@ final class SizeStrategy implements LruPoolStrategy {
     return removed;
   }
 
-   private void decrementBitmapOfSize(Integer size) {
+   @NullUnmarked private void decrementBitmapOfSize(Integer size) {
     Integer current = sortedSizes.get(size);
     if (current == 1) {
       sortedSizes.remove(size);

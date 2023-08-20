@@ -10,6 +10,7 @@ import com.bumptech.glide.signature.ObjectKey;
 import java.io.ByteArrayInputStream;
 import java.io.IOException;
 import java.io.InputStream;
+import org.jspecify.annotations.NullUnmarked;
 
 
 /**
@@ -70,9 +71,9 @@ public final class DataUrlLoader<Model, Data> implements ModelLoader<Model, Data
 
     private final String dataUri;
     private final DataDecoder<Data> reader;
-     private Data data;
+     @SuppressWarnings("NullAway.Init") private Data data;
 
-     DataUriFetcher(String dataUri, DataDecoder<Data> reader) {
+     @NullUnmarked DataUriFetcher(String dataUri, DataDecoder<Data> reader) {
       this.dataUri = dataUri;
       this.reader = reader;
     }

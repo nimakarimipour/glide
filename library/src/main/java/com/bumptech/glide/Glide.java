@@ -44,6 +44,7 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
+import org.jspecify.annotations.NullUnmarked;
 
 
 /**
@@ -55,7 +56,7 @@ public class Glide implements ComponentCallbacks2 {
   private static final String DEFAULT_DISK_CACHE_DIR = "image_manager_disk_cache";
   private static final String TAG = "Glide";
 
-   @GuardedBy("Glide.class")
+   @SuppressWarnings("NullAway.Init") @GuardedBy("Glide.class")
   private static volatile Glide glide;
 
   private static volatile boolean isInitializing;
@@ -190,7 +191,7 @@ public class Glide implements ComponentCallbacks2 {
     HardwareConfigState.getInstance().unblockHardwareBitmaps();
   }
 
-   @VisibleForTesting
+   @NullUnmarked @VisibleForTesting
   public static void tearDown() {
     synchronized (Glide.class) {
       if (glide != null) {
@@ -207,7 +208,7 @@ public class Glide implements ComponentCallbacks2 {
     initializeGlide(context, new GlideBuilder(), generatedAppGlideModule);
   }
 
-   @GuardedBy("Glide.class")
+   @NullUnmarked @GuardedBy("Glide.class")
   @SuppressWarnings("deprecation")
   private static void initializeGlide(
       @NonNull Context context,
@@ -408,7 +409,7 @@ public class Glide implements ComponentCallbacks2 {
    * @param bitmapAttributeBuilders The list of {@link Builder Builders} representing individual
    *     sizes and configurations of {@link Bitmap}s to be pre-filled.
    */
-   @SuppressWarnings("unused") // Public API
+   @NullUnmarked @SuppressWarnings("unused") // Public API
   public synchronized void preFillBitmapPool(
       @NonNull PreFillType.Builder... bitmapAttributeBuilders) {
     if (bitmapPreFiller == null) {
@@ -499,7 +500,7 @@ public class Glide implements ComponentCallbacks2 {
     return oldCategory;
   }
 
-   @NonNull
+   @NullUnmarked @NonNull
   private static RequestManagerRetriever getRetriever(@Nullable Context context) {
     // Context could be null for other reasons (ie the user passes in null), but in practice it will
     // only occur due to errors with the Fragment lifecycle.

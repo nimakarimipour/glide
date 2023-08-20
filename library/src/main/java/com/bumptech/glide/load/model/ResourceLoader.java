@@ -10,6 +10,7 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import com.bumptech.glide.load.Options;
 import java.io.InputStream;
+import org.jspecify.annotations.NullUnmarked;
 
 
 /**
@@ -30,7 +31,7 @@ public class ResourceLoader<Data> implements ModelLoader<Integer, Data> {
     this.uriLoader = uriLoader;
   }
 
-   @Override
+   @NullUnmarked @Override
   public LoadData<Data> buildLoadData(
       @NonNull Integer model, int width, int height, @NonNull Options options) {
     Uri uri = getResourceUri(model);

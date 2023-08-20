@@ -9,6 +9,7 @@ import com.bumptech.glide.request.target.CustomViewTarget;
 import com.bumptech.glide.request.target.SizeReadyCallback;
 import com.bumptech.glide.request.transition.Transition;
 import java.util.Arrays;
+import org.jspecify.annotations.NullUnmarked;
 
 
 /**
@@ -19,7 +20,7 @@ import java.util.Arrays;
  */
 public class ViewPreloadSizeProvider<T>
     implements ListPreloader.PreloadSizeProvider<T>, SizeReadyCallback {
-   private int[] size;
+   @SuppressWarnings("NullAway.Init") private int[] size;
   // We need to keep a strong reference to the Target so that it isn't garbage collected due to a
   // weak reference
   // while we're waiting to get its size.
@@ -58,7 +59,7 @@ public class ViewPreloadSizeProvider<T>
     }
   }
 
-   @Override
+   @NullUnmarked @Override
   public void onSizeReady(int width, int height) {
     size = new int[] {width, height};
     viewTarget = null;

@@ -2,11 +2,12 @@ package com.bumptech.glide.load.engine.cache;
 
 import com.bumptech.glide.load.Key;
 import java.io.File;
+import org.jspecify.annotations.NullUnmarked;
 
 
 /** A simple class that returns null for all gets and ignores all writes. */
 public class DiskCacheAdapter implements DiskCache {
-   @Override
+   @NullUnmarked @Override
   public File get(Key key) {
     // no op, default for overriders
     return null;

@@ -4,6 +4,7 @@ import android.graphics.Bitmap;
 import androidx.annotation.Nullable;
 import androidx.annotation.VisibleForTesting;
 import com.bumptech.glide.util.Preconditions;
+import org.jspecify.annotations.NullUnmarked;
 
 
 /**
@@ -99,7 +100,7 @@ public final class PreFillType {
     private final int width;
     private final int height;
 
-     private Bitmap.Config config;
+     @SuppressWarnings("NullAway.Init") private Bitmap.Config config;
     private int weight = 1;
 
     /**
@@ -119,7 +120,7 @@ public final class PreFillType {
      * @param width The width in pixels of the Bitmaps to prefill.
      * @param height The height in pixels of the Bitmaps to prefill.
      */
-     public Builder(int width, int height) {
+     @NullUnmarked public Builder(int width, int height) {
       if (width <= 0) {
         throw new IllegalArgumentException("Width must be > 0");
       }
@@ -136,7 +137,7 @@ public final class PreFillType {
      * @param config The config to use, or null to use Glide's default.
      * @return This builder.
      */
-     public Builder setConfig(@Nullable Bitmap.Config config) {
+     @NullUnmarked public Builder setConfig(@Nullable Bitmap.Config config) {
       this.config = config;
       return this;
     }

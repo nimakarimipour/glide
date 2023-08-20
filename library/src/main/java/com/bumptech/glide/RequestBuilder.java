@@ -44,6 +44,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 import java.util.concurrent.Executor;
+import org.jspecify.annotations.NullUnmarked;
 
 
 /**
@@ -781,7 +782,7 @@ public class RequestBuilder<TranscodeType> extends BaseRequestOptions<RequestBui
     return into(target, targetListener, /*options=*/ this, callbackExecutor);
   }
 
-   private <Y extends Target<TranscodeType>> Y into(
+   @NullUnmarked private <Y extends Target<TranscodeType>> Y into(
       @NonNull Y target,
       @Nullable RequestListener<TranscodeType> targetListener,
       BaseRequestOptions<?> options,
@@ -1040,7 +1041,7 @@ public class RequestBuilder<TranscodeType> extends BaseRequestOptions<RequestBui
         callbackExecutor);
   }
 
-   private Request buildRequestRecursive(
+   @NullUnmarked private Request buildRequestRecursive(
       Object requestLock,
       Target<TranscodeType> target,
       @Nullable RequestListener<TranscodeType> targetListener,
@@ -1099,7 +1100,7 @@ public class RequestBuilder<TranscodeType> extends BaseRequestOptions<RequestBui
     return errorRequestCoordinator;
   }
 
-   private Request buildThumbnailRequestRecursive(
+   @NullUnmarked private Request buildThumbnailRequestRecursive(
       Object requestLock,
       Target<TranscodeType> target,
       RequestListener<TranscodeType> targetListener,
@@ -1221,7 +1222,7 @@ public class RequestBuilder<TranscodeType> extends BaseRequestOptions<RequestBui
     }
   }
 
-   private Request obtainRequest(
+   @NullUnmarked private Request obtainRequest(
       Object requestLock,
       Target<TranscodeType> target,
       RequestListener<TranscodeType> targetListener,

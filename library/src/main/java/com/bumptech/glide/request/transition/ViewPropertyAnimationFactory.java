@@ -9,7 +9,7 @@ import com.bumptech.glide.load.DataSource;
  */
 public class ViewPropertyAnimationFactory<R> implements TransitionFactory<R> {
   private final ViewPropertyTransition.Animator animator;
-   private ViewPropertyTransition<R> animation;
+   @SuppressWarnings("NullAway.Init") private ViewPropertyTransition<R> animation;
 
   public ViewPropertyAnimationFactory(ViewPropertyTransition.Animator animator) {
     this.animator = animator;

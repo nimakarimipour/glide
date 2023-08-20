@@ -20,6 +20,7 @@ import com.bumptech.glide.load.resource.bitmap.Downsampler;
 import com.bumptech.glide.load.resource.bitmap.HardwareConfigState;
 import com.bumptech.glide.request.target.Target;
 import com.bumptech.glide.util.Synthetic;
+import org.jspecify.annotations.NullUnmarked;
 
 
 /**
@@ -43,7 +44,7 @@ public final class DefaultOnHeaderDecodedListener implements OnHeaderDecodedList
   private final boolean isHardwareConfigAllowed;
   private final PreferredColorSpace preferredColorSpace;
 
-   public DefaultOnHeaderDecodedListener(
+   @NullUnmarked public DefaultOnHeaderDecodedListener(
       int requestedWidth, int requestedHeight, @NonNull Options options) {
     this.requestedWidth = requestedWidth;
     this.requestedHeight = requestedHeight;

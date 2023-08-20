@@ -10,6 +10,7 @@ import com.bumptech.glide.disklrucache.DiskLruCache.Value;
 import com.bumptech.glide.load.Key;
 import java.io.File;
 import java.io.IOException;
+import org.jspecify.annotations.NullUnmarked;
 
 
 /**
@@ -23,13 +24,13 @@ public class DiskLruCacheWrapper implements DiskCache {
 
   private static final int APP_VERSION = 1;
   private static final int VALUE_COUNT = 1;
-   private static DiskLruCacheWrapper wrapper;
+   @SuppressWarnings("NullAway.Init") private static DiskLruCacheWrapper wrapper;
 
   private final SafeKeyGenerator safeKeyGenerator;
   private final File directory;
   private final long maxSize;
   private final DiskCacheWriteLocker writeLocker = new DiskCacheWriteLocker();
-   private DiskLruCache diskLruCache;
+   @SuppressWarnings("NullAway.Init") private DiskLruCache diskLruCache;
 
   /**
    * Get a DiskCache in the given directory and size. If a disk cache has already been created with
@@ -83,7 +84,7 @@ public class DiskLruCacheWrapper implements DiskCache {
     return diskLruCache;
   }
 
-   @Override
+   @NullUnmarked @Override
   public File get(Key key) {
     String safeKey = safeKeyGenerator.getSafeKey(key);
     if (Log.isLoggable(TAG, Log.VERBOSE)) {
@@ -175,7 +176,7 @@ public class DiskLruCacheWrapper implements DiskCache {
     }
   }
 
-   private synchronized void resetDiskCache() {
+   @NullUnmarked private synchronized void resetDiskCache() {
     diskLruCache = null;
   }
 }

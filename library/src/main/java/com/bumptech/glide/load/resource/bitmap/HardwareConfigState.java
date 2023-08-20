@@ -82,7 +82,7 @@ public final class HardwareConfigState {
   /** This constant will be removed in a future version without deprecation, avoid using it. */
   public static final int NO_MAX_FD_COUNT = -1;
 
-   private static volatile HardwareConfigState instance;
+   @SuppressWarnings("NullAway.Init") private static volatile HardwareConfigState instance;
   private static volatile int manualOverrideMaxFdCount = NO_MAX_FD_COUNT;
 
   private final boolean isHardwareConfigAllowedByDeviceModel;

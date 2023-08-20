@@ -1,6 +1,7 @@
 package com.bumptech.glide.load.engine.cache;
 
 import java.io.File;
+import org.jspecify.annotations.NullUnmarked;
 
 
 /**
@@ -58,7 +59,7 @@ public class DiskLruCacheFactory implements DiskCache.Factory {
     this.cacheDirectoryGetter = cacheDirectoryGetter;
   }
 
-   @Override
+   @NullUnmarked @Override
   public DiskCache build() {
     File cacheDir = cacheDirectoryGetter.getCacheDirectory();
 

@@ -10,6 +10,7 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import com.bumptech.glide.request.transition.Transition;
 import com.bumptech.glide.util.Preconditions;
+import org.jspecify.annotations.NullUnmarked;
 
 
 /**
@@ -40,7 +41,7 @@ public class NotificationTarget extends CustomTarget<Bitmap> {
    * @param notification The Notification object that we want to update.
    * @param notificationId The notificationId of the Notification that we want to load the Bitmap.
    */
-   public NotificationTarget(
+   @NullUnmarked public NotificationTarget(
       Context context,
       int viewId,
       RemoteViews remoteViews,

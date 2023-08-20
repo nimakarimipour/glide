@@ -3,6 +3,7 @@ package com.bumptech.glide.load.engine.prefill;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
+import org.jspecify.annotations.NullUnmarked;
 
 
 final class PreFillQueue {
@@ -22,7 +23,7 @@ final class PreFillQueue {
     }
   }
 
-   public PreFillType remove() {
+   @NullUnmarked public PreFillType remove() {
     PreFillType result = keyList.get(keyIndex);
 
     Integer countForResult = bitmapsPerType.get(result);

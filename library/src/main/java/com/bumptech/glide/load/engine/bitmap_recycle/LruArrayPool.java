@@ -9,6 +9,7 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.NavigableMap;
 import java.util.TreeMap;
+import org.jspecify.annotations.NullUnmarked;
 
 
 /**
@@ -149,7 +150,7 @@ public final class LruArrayPool implements ArrayPool {
     evictToSize(maxSize);
   }
 
-   private void evictToSize(int size) {
+   @NullUnmarked private void evictToSize(int size) {
     while (currentSize > size) {
       Object evicted = groupedMap.removeLast();
       Preconditions.checkNotNull(evicted);
@@ -208,7 +209,7 @@ public final class LruArrayPool implements ArrayPool {
   }
 
   // VisibleForTesting
-   int getCurrentSize() {
+   @NullUnmarked int getCurrentSize() {
     int currentSize = 0;
     for (Class<?> type : sortedSizes.keySet()) {
       for (Integer size : sortedSizes.get(type).keySet()) {
@@ -239,9 +240,9 @@ public final class LruArrayPool implements ArrayPool {
   private static final class Key implements Poolable {
     private final KeyPool pool;
     @Synthetic int size;
-     private Class<?> arrayClass;
+     @SuppressWarnings("NullAway.Init") private Class<?> arrayClass;
 
-     Key(KeyPool pool) {
+     @NullUnmarked Key(KeyPool pool) {
       this.pool = pool;
     }
 

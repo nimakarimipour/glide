@@ -6,6 +6,7 @@ import androidx.annotation.Nullable;
 import java.io.IOException;
 import java.io.InputStream;
 import java.util.Queue;
+import org.jspecify.annotations.NullUnmarked;
 
 
 /**
@@ -27,8 +28,8 @@ public final class ExceptionPassthroughInputStream extends InputStream {
   @GuardedBy("POOL")
   private static final Queue<ExceptionPassthroughInputStream> POOL = Util.createQueue(0);
 
-   private InputStream wrapped;
-   private IOException exception;
+   @SuppressWarnings("NullAway.Init") private InputStream wrapped;
+   @SuppressWarnings("NullAway.Init") private IOException exception;
 
   @NonNull
   public static ExceptionPassthroughInputStream obtain(@NonNull InputStream toWrap) {
@@ -130,7 +131,7 @@ public final class ExceptionPassthroughInputStream extends InputStream {
     return exception;
   }
 
-   public void release() {
+   @NullUnmarked public void release() {
     exception = null;
     wrapped = null;
     synchronized (POOL) {

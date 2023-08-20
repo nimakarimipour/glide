@@ -4,6 +4,7 @@ import android.graphics.Bitmap;
 import androidx.annotation.VisibleForTesting;
 import com.bumptech.glide.util.Synthetic;
 import com.bumptech.glide.util.Util;
+import org.jspecify.annotations.NullUnmarked;
 
 
 /**
@@ -21,14 +22,14 @@ class AttributeStrategy implements LruPoolStrategy {
     groupedMap.put(key, bitmap);
   }
 
-   @Override
+   @NullUnmarked @Override
   public Bitmap get(int width, int height, Bitmap.Config config) {
     final Key key = keyPool.get(width, height, config);
 
     return groupedMap.get(key);
   }
 
-   @Override
+   @NullUnmarked @Override
   public Bitmap removeLast() {
     return groupedMap.removeLast();
   }
@@ -83,9 +84,9 @@ class AttributeStrategy implements LruPoolStrategy {
     private int width;
     private int height;
     // Config can be null :(
-     private Bitmap.Config config;
+     @SuppressWarnings("NullAway.Init") private Bitmap.Config config;
 
-     public Key(KeyPool pool) {
+     @NullUnmarked public Key(KeyPool pool) {
       this.pool = pool;
     }
 

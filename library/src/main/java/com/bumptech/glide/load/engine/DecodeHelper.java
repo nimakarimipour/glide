@@ -20,6 +20,8 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 import java.util.Map.Entry;
+import com.uber.nullaway.annotations.Initializer;
+import org.jspecify.annotations.NullUnmarked;
 
 
 
@@ -45,7 +47,7 @@ final class DecodeHelper<Transcode> {
   private boolean isTransformationRequired;
   private boolean isScaleOnlyOrNoTransform;
 
-   @SuppressWarnings("unchecked")
+   @Initializer @SuppressWarnings("unchecked")
   <R> void init(
       GlideContext glideContext,
       Object model,
@@ -77,7 +79,7 @@ final class DecodeHelper<Transcode> {
     this.isScaleOnlyOrNoTransform = isScaleOnlyOrNoTransform;
   }
 
-   void clear() {
+   @NullUnmarked void clear() {
     glideContext = null;
     model = null;
     signature = null;
@@ -148,7 +150,7 @@ final class DecodeHelper<Transcode> {
     return getLoadPath(dataClass) != null;
   }
 
-   <Data> LoadPath<Data, ?, Transcode> getLoadPath(Class<Data> dataClass) {
+   @NullUnmarked <Data> LoadPath<Data, ?, Transcode> getLoadPath(Class<Data> dataClass) {
     return glideContext.getRegistry().getLoadPath(dataClass, resourceClass, transcodeClass);
   }
 

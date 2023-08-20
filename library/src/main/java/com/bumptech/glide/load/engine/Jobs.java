@@ -5,6 +5,7 @@ import com.bumptech.glide.load.Key;
 import java.util.Collections;
 import java.util.HashMap;
 import java.util.Map;
+import org.jspecify.annotations.NullUnmarked;
 
 
 final class Jobs {
@@ -16,7 +17,7 @@ final class Jobs {
     return Collections.unmodifiableMap(jobs);
   }
 
-   EngineJob<?> get(Key key, boolean onlyRetrieveFromCache) {
+   @NullUnmarked EngineJob<?> get(Key key, boolean onlyRetrieveFromCache) {
     return getJobMap(onlyRetrieveFromCache).get(key);
   }
 

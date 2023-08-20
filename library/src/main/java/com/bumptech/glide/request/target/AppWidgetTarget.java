@@ -10,6 +10,7 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import com.bumptech.glide.request.transition.Transition;
 import com.bumptech.glide.util.Preconditions;
+import org.jspecify.annotations.NullUnmarked;
 
 
 /**
@@ -41,7 +42,7 @@ public class AppWidgetTarget extends CustomTarget<Bitmap> {
    * @param remoteViews RemoteViews object which contains the ImageView that will load the bitmap.
    * @param widgetIds The int[] that contains the widget ids of an application.
    */
-   public AppWidgetTarget(
+   @NullUnmarked public AppWidgetTarget(
       Context context,
       int width,
       int height,
@@ -85,7 +86,7 @@ public class AppWidgetTarget extends CustomTarget<Bitmap> {
    * @param remoteViews RemoteViews object which contains the ImageView that will load the bitmap.
    * @param componentName The ComponentName that refers to our AppWidget.
    */
-   public AppWidgetTarget(
+   @NullUnmarked public AppWidgetTarget(
       Context context,
       int width,
       int height,

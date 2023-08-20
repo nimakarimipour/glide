@@ -15,6 +15,7 @@ import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.InputStream;
 import java.util.List;
+import org.jspecify.annotations.NullUnmarked;
 
 
 class ThumbnailStreamOpener {
@@ -70,7 +71,7 @@ class ThumbnailStreamOpener {
     return ImageHeaderParser.UNKNOWN_ORIENTATION;
   }
 
-   public InputStream open(Uri uri) throws FileNotFoundException {
+   @NullUnmarked public InputStream open(Uri uri) throws FileNotFoundException {
     String path = getPath(uri);
     if (TextUtils.isEmpty(path)) {
       return null;

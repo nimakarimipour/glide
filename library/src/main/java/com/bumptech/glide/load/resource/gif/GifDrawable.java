@@ -65,11 +65,11 @@ public class GifDrawable extends Drawable
   private int maxLoopCount = LOOP_FOREVER;
 
   private boolean applyGravity;
-   private Paint paint;
-   private Rect destRect;
+   @SuppressWarnings("NullAway.Init") private Paint paint;
+   @SuppressWarnings("NullAway.Init") private Rect destRect;
 
   /** Callbacks to notify loop completion of a gif, where the loop count is explicitly specified. */
-   private List<AnimationCallback> animationCallbacks;
+   @SuppressWarnings("NullAway.Init") private List<AnimationCallback> animationCallbacks;
 
   /**
    * Constructor for GifDrawable.

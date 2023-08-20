@@ -19,7 +19,7 @@ public final class BitmapPreFiller {
   private final BitmapPool bitmapPool;
   private final DecodeFormat defaultFormat;
 
-   private BitmapPreFillRunner current;
+   @SuppressWarnings("NullAway.Init") private BitmapPreFillRunner current;
 
   public BitmapPreFiller(
       MemoryCache memoryCache, BitmapPool bitmapPool, DecodeFormat defaultFormat) {

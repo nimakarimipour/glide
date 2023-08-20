@@ -8,6 +8,7 @@ import com.bumptech.glide.util.Preconditions;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
+import org.jspecify.annotations.NullUnmarked;
 
 
 /**
@@ -27,7 +28,7 @@ public class LoadPath<Data, ResourceType, Transcode> {
   private final List<? extends DecodePath<Data, ResourceType, Transcode>> decodePaths;
   private final String failureMessage;
 
-   public LoadPath(
+   @NullUnmarked public LoadPath(
       Class<Data> dataClass,
       Class<ResourceType> resourceClass,
       Class<Transcode> transcodeClass,

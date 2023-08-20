@@ -27,7 +27,7 @@ public class ThumbFetcher implements DataFetcher<InputStream> {
   private static final String TAG = "MediaStoreThumbFetcher";
   private final Uri mediaStoreImageUri;
   private final ThumbnailStreamOpener opener;
-   private InputStream inputStream;
+   @SuppressWarnings("NullAway.Init") private InputStream inputStream;
 
   public static ThumbFetcher buildImageFetcher(Context context, Uri uri) {
     return build(context, uri, new ImageThumbnailQuery(context.getContentResolver()));

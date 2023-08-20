@@ -14,6 +14,7 @@ import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Collections;
 import java.util.List;
+import org.jspecify.annotations.NullUnmarked;
 
 
 /**
@@ -37,7 +38,7 @@ public abstract class BaseGlideUrlLoader<Model> implements ModelLoader<Model, In
     this.modelCache = modelCache;
   }
 
-   @Override
+   @NullUnmarked @Override
   @Nullable
   public LoadData<InputStream> buildLoadData(
       @NonNull Model model, int width, int height, @NonNull Options options) {

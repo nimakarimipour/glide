@@ -4,6 +4,7 @@ import android.graphics.drawable.Drawable;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import androidx.annotation.Nullable;
+import org.jspecify.annotations.NullUnmarked;
 
 
 /**
@@ -37,7 +38,7 @@ public abstract class ThumbnailImageViewTarget<T> extends ImageViewTarget<T> {
     super(view, waitForLayout);
   }
 
-   @Override
+   @NullUnmarked @Override
   protected void setResource(@Nullable T resource) {
     ViewGroup.LayoutParams layoutParams = view.getLayoutParams();
     Drawable result = getDrawable(resource);

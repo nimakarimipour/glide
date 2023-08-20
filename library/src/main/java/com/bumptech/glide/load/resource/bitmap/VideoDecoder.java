@@ -22,6 +22,7 @@ import com.bumptech.glide.request.target.Target;
 import java.io.IOException;
 import java.nio.ByteBuffer;
 import java.security.MessageDigest;
+import org.jspecify.annotations.NullUnmarked;
 
 
 /**
@@ -150,7 +151,7 @@ public class VideoDecoder<T> implements ResourceDecoder<T, Bitmap> {
     return true;
   }
 
-   @Override
+   @NullUnmarked @Override
   public Resource<Bitmap> decode(
       @NonNull T resource, int outWidth, int outHeight, @NonNull Options options)
       throws IOException {
