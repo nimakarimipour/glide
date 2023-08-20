@@ -10,6 +10,7 @@ import com.bumptech.glide.load.engine.Resource;
 import com.bumptech.glide.load.engine.bitmap_recycle.BitmapPool;
 import com.bumptech.glide.load.resource.bitmap.BitmapResource;
 import com.bumptech.glide.load.resource.gif.GifDrawable;
+import org.jspecify.annotations.NullUnmarked;
 
 
 /**
@@ -30,7 +31,7 @@ public final class DrawableBytesTranscoder implements ResourceTranscoder<Drawabl
     this.gifDrawableBytesTranscoder = gifDrawableBytesTranscoder;
   }
 
-   @Nullable
+   @NullUnmarked @Nullable
   @Override
   public Resource<byte[]> transcode(
       @NonNull Resource<Drawable> toTranscode, @NonNull Options options) {

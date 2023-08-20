@@ -23,6 +23,8 @@ import com.bumptech.glide.load.engine.bitmap_recycle.ArrayPool;
 import java.io.FilterInputStream;
 import java.io.IOException;
 import java.io.InputStream;
+import androidx.annotation.Nullable;
+import org.jspecify.annotations.NullUnmarked;
 
 
 /**
@@ -40,7 +42,7 @@ import java.io.InputStream;
  */
 public class RecyclableBufferedInputStream extends FilterInputStream {
   /** The buffer containing the current bytes read from the target InputStream. */
-  private volatile byte[] buf;
+  @Nullable private volatile byte[] buf;
 
   /** The total number of bytes inside the byte array {@code buf}. */
   private int count;
@@ -101,7 +103,7 @@ public class RecyclableBufferedInputStream extends FilterInputStream {
    * increase.
    */
   // Public API.
-  @SuppressWarnings("WeakerAccess")
+  @NullUnmarked @SuppressWarnings("WeakerAccess")
   public synchronized void fixMarkLimit() {
     marklimit = buf.length;
   }
@@ -119,7 +121,7 @@ public class RecyclableBufferedInputStream extends FilterInputStream {
    *
    * @throws IOException if an error occurs while closing this stream.
    */
-   @Override
+   @NullUnmarked @Override
   public void close() throws IOException {
     if (buf != null) {
       byteArrayPool.put(buf);

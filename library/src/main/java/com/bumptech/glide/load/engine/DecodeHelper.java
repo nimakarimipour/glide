@@ -20,6 +20,9 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 import java.util.Map.Entry;
+import com.uber.nullaway.annotations.Initializer;
+import androidx.annotation.Nullable;
+import org.jspecify.annotations.NullUnmarked;
 
 
 
@@ -35,17 +38,17 @@ final class DecodeHelper<Transcode> {
   private Class<?> resourceClass;
   private DecodeJob.DiskCacheProvider diskCacheProvider;
   private Options options;
-  private Map<Class<?>, Transformation<?>> transformations;
+  @Nullable private Map<Class<?>, Transformation<?>> transformations;
   private Class<Transcode> transcodeClass;
   private boolean isLoadDataSet;
   private boolean isCacheKeysSet;
-  private Key signature;
-  private Priority priority;
-  private DiskCacheStrategy diskCacheStrategy;
+  @Nullable private Key signature;
+  @Nullable private Priority priority;
+  @Nullable private DiskCacheStrategy diskCacheStrategy;
   private boolean isTransformationRequired;
   private boolean isScaleOnlyOrNoTransform;
 
-   @SuppressWarnings("unchecked")
+   @Initializer @SuppressWarnings("unchecked")
   <R> void init(
       GlideContext glideContext,
       Object model,
@@ -77,7 +80,7 @@ final class DecodeHelper<Transcode> {
     this.isScaleOnlyOrNoTransform = isScaleOnlyOrNoTransform;
   }
 
-   void clear() {
+   @NullUnmarked void clear() {
     glideContext = null;
     model = null;
     signature = null;
@@ -98,7 +101,7 @@ final class DecodeHelper<Transcode> {
     return diskCacheProvider.getDiskCache();
   }
 
-  DiskCacheStrategy getDiskCacheStrategy() {
+  @NullUnmarked DiskCacheStrategy getDiskCacheStrategy() {
     return diskCacheStrategy;
   }
 
@@ -106,7 +109,7 @@ final class DecodeHelper<Transcode> {
     return glideContext.getRegistry().getRewinder(data);
   }
 
-  Priority getPriority() {
+  @NullUnmarked Priority getPriority() {
     return priority;
   }
 
@@ -114,7 +117,7 @@ final class DecodeHelper<Transcode> {
     return options;
   }
 
-  Key getSignature() {
+  @NullUnmarked Key getSignature() {
     return signature;
   }
 
@@ -148,7 +151,7 @@ final class DecodeHelper<Transcode> {
     return getLoadPath(dataClass) != null;
   }
 
-   <Data> LoadPath<Data, ?, Transcode> getLoadPath(Class<Data> dataClass) {
+   @Nullable <Data> LoadPath<Data, ?, Transcode> getLoadPath(Class<Data> dataClass) {
     return glideContext.getRegistry().getLoadPath(dataClass, resourceClass, transcodeClass);
   }
 
@@ -156,7 +159,7 @@ final class DecodeHelper<Transcode> {
     return isScaleOnlyOrNoTransform;
   }
 
-  @SuppressWarnings("unchecked")
+  @NullUnmarked @SuppressWarnings("unchecked")
   <Z> Transformation<Z> getTransformation(Class<Z> resourceClass) {
     Transformation<Z> result = (Transformation<Z>) transformations.get(resourceClass);
     if (result == null) {

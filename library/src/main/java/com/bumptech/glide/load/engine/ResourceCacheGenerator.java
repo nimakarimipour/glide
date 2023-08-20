@@ -10,6 +10,8 @@ import com.bumptech.glide.load.model.ModelLoader.LoadData;
 import com.bumptech.glide.util.pool.GlideTrace;
 import java.io.File;
 import java.util.List;
+import androidx.annotation.Nullable;
+import org.jspecify.annotations.NullUnmarked;
 
 
 /**
@@ -23,16 +25,16 @@ class ResourceCacheGenerator implements DataFetcherGenerator, DataFetcher.DataCa
 
   private int sourceIdIndex;
   private int resourceClassIndex = -1;
-   private Key sourceKey;
-   private List<ModelLoader<File, ?>> modelLoaders;
+   @Nullable private Key sourceKey;
+   @Nullable private List<ModelLoader<File, ?>> modelLoaders;
   private int modelLoaderIndex;
-   private volatile LoadData<?> loadData;
+   @Nullable private volatile LoadData<?> loadData;
   // PMD is wrong here, this File must be an instance variable because it may be used across
   // multiple calls to startNext.
-  @SuppressWarnings({ "PMD.SingularField", "NullAway.Init" })
+  @Nullable @SuppressWarnings({ "PMD.SingularField", "NullAway.Init" })
   private File cacheFile;
 
-   private ResourceCacheKey currentKey;
+   @Nullable private ResourceCacheKey currentKey;
 
   ResourceCacheGenerator(DecodeHelper<?> helper, FetcherReadyCallback cb) {
     this.helper = helper;
@@ -40,7 +42,7 @@ class ResourceCacheGenerator implements DataFetcherGenerator, DataFetcher.DataCa
   }
 
   // See TODO below.
-   @SuppressWarnings("PMD.CollapsibleIfStatements")
+   @NullUnmarked @SuppressWarnings("PMD.CollapsibleIfStatements")
   @Override
   public boolean startNext() {
     GlideTrace.beginSection("ResourceCacheGenerator.startNext");
@@ -113,7 +115,7 @@ class ResourceCacheGenerator implements DataFetcherGenerator, DataFetcher.DataCa
     }
   }
 
-  private boolean hasNextModelLoader() {
+  @NullUnmarked private boolean hasNextModelLoader() {
     return modelLoaderIndex < modelLoaders.size();
   }
 
@@ -125,13 +127,13 @@ class ResourceCacheGenerator implements DataFetcherGenerator, DataFetcher.DataCa
     }
   }
 
-   @Override
-  public void onDataReady(Object data) {
+   @NullUnmarked @Override
+  public void onDataReady(@Nullable Object data) {
     cb.onDataFetcherReady(
         sourceKey, data, loadData.fetcher, DataSource.RESOURCE_DISK_CACHE, currentKey);
   }
 
-  @Override
+  @NullUnmarked @Override
   public void onLoadFailed(@NonNull Exception e) {
     cb.onDataFetcherFailed(currentKey, e, loadData.fetcher, DataSource.RESOURCE_DISK_CACHE);
   }

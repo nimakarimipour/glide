@@ -6,6 +6,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import org.jspecify.annotations.NullUnmarked;
 
 
 /**
@@ -51,7 +52,7 @@ class GroupedLinkedMap<K extends Poolable, V> {
     return entry.removeLast();
   }
 
-  @Nullable
+  @NullUnmarked @Nullable
   public V removeLast() {
     LinkedEntry<K, V> last = head.prev;
 
@@ -121,8 +122,8 @@ class GroupedLinkedMap<K extends Poolable, V> {
   }
 
   private static class LinkedEntry<K, V> {
-    @Synthetic final K key;
-     private List<V> values;
+    @Nullable @Synthetic final K key;
+     @Nullable private List<V> values;
     LinkedEntry<K, V> next;
     LinkedEntry<K, V> prev;
 
@@ -132,12 +133,12 @@ class GroupedLinkedMap<K extends Poolable, V> {
       this(null);
     }
 
-     LinkedEntry(K key) {
+     LinkedEntry(@Nullable K key) {
       next = prev = this;
       this.key = key;
     }
 
-    @Nullable
+    @NullUnmarked @Nullable
     public V removeLast() {
       final int valueSize = size();
       return valueSize > 0 ? values.remove(valueSize - 1) : null;

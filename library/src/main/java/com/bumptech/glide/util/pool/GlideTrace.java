@@ -2,13 +2,15 @@ package com.bumptech.glide.util.pool;
 
 import androidx.tracing.Trace;
 import java.util.concurrent.atomic.AtomicInteger;
+import androidx.annotation.Nullable;
+import org.jspecify.annotations.NullUnmarked;
 
 /** Systracing utilities for Glide. */
 public final class GlideTrace {
   // Enable this locally to see tracing statements.
   private static final boolean TRACING_ENABLED = false;
 
-   private static final AtomicInteger COOKIE_CREATOR = TRACING_ENABLED ? new AtomicInteger() : null;
+   @Nullable private static final AtomicInteger COOKIE_CREATOR = TRACING_ENABLED ? new AtomicInteger() : null;
 
   /** Maximum length of a systrace tag. */
   private static final int MAX_LENGTH = 127;
@@ -36,7 +38,7 @@ public final class GlideTrace {
     }
   }
 
-  public static void beginSectionFormat(String format, Object arg1, Object arg2) {
+  public static void beginSectionFormat(String format, Object arg1, @Nullable Object arg2) {
     if (TRACING_ENABLED) {
       Trace.beginSection(truncateTag(String.format(format, arg1, arg2)));
     }
@@ -48,7 +50,7 @@ public final class GlideTrace {
     }
   }
 
-  public static int beginSectionAsync(String tag) {
+  @NullUnmarked public static int beginSectionAsync(String tag) {
     if (TRACING_ENABLED) {
       int cookie = COOKIE_CREATOR.incrementAndGet();
       Trace.beginAsyncSection(truncateTag(tag), cookie);

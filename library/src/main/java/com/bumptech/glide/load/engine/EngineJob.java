@@ -19,6 +19,8 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.concurrent.Executor;
 import java.util.concurrent.atomic.AtomicInteger;
+import androidx.annotation.Nullable;
+import org.jspecify.annotations.NullUnmarked;
 
 
 /**
@@ -43,30 +45,30 @@ class EngineJob<R> implements DecodeJob.Callback<R>, Poolable {
   private final GlideExecutor animationExecutor;
   private final AtomicInteger pendingCallbacks = new AtomicInteger();
 
-   private Key key;
+   @SuppressWarnings("NullAway.Init") private Key key;
   private boolean isCacheable;
   private boolean useUnlimitedSourceGeneratorPool;
   private boolean useAnimationPool;
   private boolean onlyRetrieveFromCache;
-   private Resource<?> resource;
+   @Nullable private Resource<?> resource;
 
-  @SuppressWarnings({ "WeakerAccess", "NullAway.Init" })
+  @Nullable @SuppressWarnings({ "WeakerAccess", "NullAway.Init" })
   @Synthetic
   DataSource dataSource;
 
   private boolean hasResource;
 
-  @SuppressWarnings({ "WeakerAccess", "NullAway.Init" })
+  @Nullable @SuppressWarnings({ "WeakerAccess", "NullAway.Init" })
   @Synthetic
   GlideException exception;
 
   private boolean hasLoadFailed;
 
-  @SuppressWarnings({ "WeakerAccess", "NullAway.Init" })
+  @Nullable @SuppressWarnings({ "WeakerAccess", "NullAway.Init" })
   @Synthetic
   EngineResource<?> engineResource;
 
-   private DecodeJob<R> decodeJob;
+   @SuppressWarnings("NullAway.Init") private DecodeJob<R> decodeJob;
 
   // Checked primarily on the main thread, but also on other threads in reschedule.
   private volatile boolean isCancelled;
@@ -221,7 +223,7 @@ class EngineJob<R> implements DecodeJob.Callback<R>, Poolable {
 
   // We have to post Runnables in a loop. Typically there will be very few callbacks. AccessorMethod
   // seems to be a false positive
-  @SuppressWarnings({
+  @NullUnmarked @SuppressWarnings({
     "WeakerAccess",
     "PMD.AvoidInstantiatingObjectsInLoops",
     "PMD.AccessorMethodGeneration"
@@ -295,7 +297,7 @@ class EngineJob<R> implements DecodeJob.Callback<R>, Poolable {
     }
   }
 
-   private synchronized void release() {
+   @NullUnmarked private synchronized void release() {
     if (key == null) {
       throw new IllegalArgumentException();
     }
@@ -417,7 +419,7 @@ class EngineJob<R> implements DecodeJob.Callback<R>, Poolable {
       this.cb = cb;
     }
 
-    @Override
+    @NullUnmarked @Override
     public void run() {
       // Make sure we always acquire the request lock, then the EngineJob lock to avoid deadlock
       // (b/136032534).
@@ -513,7 +515,7 @@ class EngineJob<R> implements DecodeJob.Callback<R>, Poolable {
   @VisibleForTesting
   static class EngineResourceFactory {
     public <R> EngineResource<R> build(
-        Resource<R> resource, boolean isMemoryCacheable, Key key, ResourceListener listener) {
+        @Nullable Resource<R> resource, boolean isMemoryCacheable, Key key, ResourceListener listener) {
       return new EngineResource<>(
           resource, isMemoryCacheable, /*isRecyclable=*/ true, key, listener);
     }

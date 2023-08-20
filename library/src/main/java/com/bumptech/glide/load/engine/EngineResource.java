@@ -3,6 +3,7 @@ package com.bumptech.glide.load.engine;
 import androidx.annotation.NonNull;
 import com.bumptech.glide.load.Key;
 import com.bumptech.glide.util.Preconditions;
+import androidx.annotation.Nullable;
 
 /**
  * A wrapper resource that allows reference counting a wrapped {@link
@@ -25,11 +26,11 @@ class EngineResource<Z> implements Resource<Z> {
   }
 
   EngineResource(
-      Resource<Z> toWrap,
+      @Nullable Resource<Z> toWrap,
       boolean isMemoryCacheable,
       boolean isRecyclable,
       Key key,
-      ResourceListener listener) {
+      @Nullable ResourceListener listener) {
     resource = Preconditions.checkNotNull(toWrap);
     this.isMemoryCacheable = isMemoryCacheable;
     this.isRecyclable = isRecyclable;

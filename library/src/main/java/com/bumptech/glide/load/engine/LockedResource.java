@@ -6,6 +6,8 @@ import com.bumptech.glide.util.Preconditions;
 import com.bumptech.glide.util.Synthetic;
 import com.bumptech.glide.util.pool.FactoryPools;
 import com.bumptech.glide.util.pool.StateVerifier;
+import androidx.annotation.Nullable;
+import org.jspecify.annotations.NullUnmarked;
 
 
 /**
@@ -26,7 +28,7 @@ final class LockedResource<Z> implements Resource<Z>, FactoryPools.Poolable {
             }
           });
   private final StateVerifier stateVerifier = StateVerifier.newInstance();
-   private Resource<Z> toWrap;
+   @SuppressWarnings("NullAway.Init") private Resource<Z> toWrap;
   private boolean isLocked;
   private boolean isRecycled;
 
@@ -48,7 +50,7 @@ final class LockedResource<Z> implements Resource<Z>, FactoryPools.Poolable {
     this.toWrap = toWrap;
   }
 
-   private void release() {
+   @NullUnmarked private void release() {
     toWrap = null;
     POOL.release(this);
   }

@@ -44,6 +44,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 import java.util.concurrent.Executor;
+import org.jspecify.annotations.NullUnmarked;
 
 
 /**
@@ -781,7 +782,7 @@ public class RequestBuilder<TranscodeType> extends BaseRequestOptions<RequestBui
     return into(target, targetListener, /*options=*/ this, callbackExecutor);
   }
 
-   private <Y extends Target<TranscodeType>> Y into(
+   @NullUnmarked private <Y extends Target<TranscodeType>> Y into(
       @NonNull Y target,
       @Nullable RequestListener<TranscodeType> targetListener,
       BaseRequestOptions<?> options,
@@ -821,8 +822,8 @@ public class RequestBuilder<TranscodeType> extends BaseRequestOptions<RequestBui
   // already been loaded. If the previous request isn't complete, we can wait for it to finish
   // because the previous request must also be using skipMemoryCache for the requests to be
   // equivalent. See #2663 for additional context.
-  private boolean isSkipMemoryCacheWithCompletePreviousRequest(
-      BaseRequestOptions<?> options, Request previous) {
+  @NullUnmarked private boolean isSkipMemoryCacheWithCompletePreviousRequest(
+      BaseRequestOptions<?> options, @Nullable Request previous) {
     return !options.isMemoryCacheable() && previous.isComplete();
   }
 
@@ -1040,7 +1041,7 @@ public class RequestBuilder<TranscodeType> extends BaseRequestOptions<RequestBui
         callbackExecutor);
   }
 
-   private Request buildRequestRecursive(
+   @NullUnmarked private Request buildRequestRecursive(
       Object requestLock,
       Target<TranscodeType> target,
       @Nullable RequestListener<TranscodeType> targetListener,
@@ -1102,7 +1103,7 @@ public class RequestBuilder<TranscodeType> extends BaseRequestOptions<RequestBui
    private Request buildThumbnailRequestRecursive(
       Object requestLock,
       Target<TranscodeType> target,
-      RequestListener<TranscodeType> targetListener,
+      @Nullable RequestListener<TranscodeType> targetListener,
       @Nullable RequestCoordinator parentCoordinator,
       TransitionOptions<?, ? super TranscodeType> transitionOptions,
       Priority priority,
@@ -1224,9 +1225,9 @@ public class RequestBuilder<TranscodeType> extends BaseRequestOptions<RequestBui
    private Request obtainRequest(
       Object requestLock,
       Target<TranscodeType> target,
-      RequestListener<TranscodeType> targetListener,
+      @Nullable RequestListener<TranscodeType> targetListener,
       BaseRequestOptions<?> requestOptions,
-      RequestCoordinator requestCoordinator,
+      @Nullable RequestCoordinator requestCoordinator,
       TransitionOptions<?, ? super TranscodeType> transitionOptions,
       Priority priority,
       int overrideWidth,

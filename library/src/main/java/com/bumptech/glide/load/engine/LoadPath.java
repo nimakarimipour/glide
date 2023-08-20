@@ -8,6 +8,8 @@ import com.bumptech.glide.util.Preconditions;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
+import androidx.annotation.Nullable;
+import org.jspecify.annotations.NullUnmarked;
 
 
 /**
@@ -23,7 +25,7 @@ import java.util.List;
  */
 public class LoadPath<Data, ResourceType, Transcode> {
   private final Class<Data> dataClass;
-  private final Pool<List<Throwable>> listPool;
+  @Nullable private final Pool<List<Throwable>> listPool;
   private final List<? extends DecodePath<Data, ResourceType, Transcode>> decodePaths;
   private final String failureMessage;
 
@@ -32,7 +34,7 @@ public class LoadPath<Data, ResourceType, Transcode> {
       Class<ResourceType> resourceClass,
       Class<Transcode> transcodeClass,
       List<DecodePath<Data, ResourceType, Transcode>> decodePaths,
-      Pool<List<Throwable>> listPool) {
+      @Nullable Pool<List<Throwable>> listPool) {
     this.dataClass = dataClass;
     this.listPool = listPool;
     this.decodePaths = Preconditions.checkNotEmpty(decodePaths);
@@ -46,7 +48,7 @@ public class LoadPath<Data, ResourceType, Transcode> {
             + "}";
   }
 
-  public Resource<Transcode> load(
+  @NullUnmarked public Resource<Transcode> load(
       DataRewinder<Data> rewinder,
       @NonNull Options options,
       int width,

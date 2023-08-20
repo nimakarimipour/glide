@@ -2,6 +2,7 @@ package com.bumptech.glide.load.engine.cache;
 
 import android.content.Context;
 import java.io.File;
+import androidx.annotation.Nullable;
 
 
 /**
@@ -32,7 +33,7 @@ public final class ExternalCacheDiskCacheFactory extends DiskLruCacheFactory {
       final Context context, final String diskCacheName, int diskCacheSize) {
     super(
         new CacheDirectoryGetter() {
-           @Override
+           @Nullable @Override
           public File getCacheDirectory() {
             File cacheDirectory = context.getExternalCacheDir();
             if (cacheDirectory == null) {

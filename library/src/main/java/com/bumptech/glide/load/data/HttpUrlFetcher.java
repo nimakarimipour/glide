@@ -18,6 +18,7 @@ import java.net.MalformedURLException;
 import java.net.URISyntaxException;
 import java.net.URL;
 import java.util.Map;
+import androidx.annotation.Nullable;
 
 
 /** A DataFetcher that retrieves an {@link java.io.InputStream} for a Url. */
@@ -36,8 +37,8 @@ public class HttpUrlFetcher implements DataFetcher<InputStream> {
   private final int timeout;
   private final HttpUrlConnectionFactory connectionFactory;
 
-   private HttpURLConnection urlConnection;
-   private InputStream stream;
+   @Nullable private HttpURLConnection urlConnection;
+   @Nullable private InputStream stream;
   private volatile boolean isCancelled;
 
   public HttpUrlFetcher(GlideUrl glideUrl, int timeout) {
@@ -70,8 +71,8 @@ public class HttpUrlFetcher implements DataFetcher<InputStream> {
     }
   }
 
-   private InputStream loadDataWithRedirects(
-      URL url, int redirects, URL lastUrl, Map<String, String> headers) throws HttpException {
+   @Nullable private InputStream loadDataWithRedirects(
+      URL url, int redirects, @Nullable URL lastUrl, Map<String, String> headers) throws HttpException {
     if (redirects >= MAXIMUM_REDIRECTS) {
       throw new HttpException(
           "Too many (> " + MAXIMUM_REDIRECTS + ") redirects!", INVALID_STATUS_CODE);

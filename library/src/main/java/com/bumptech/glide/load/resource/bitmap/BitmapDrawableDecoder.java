@@ -11,6 +11,7 @@ import com.bumptech.glide.load.engine.Resource;
 import com.bumptech.glide.load.engine.bitmap_recycle.BitmapPool;
 import com.bumptech.glide.util.Preconditions;
 import java.io.IOException;
+import androidx.annotation.Nullable;
 
 
 /**
@@ -52,7 +53,7 @@ public class BitmapDrawableDecoder<DataType> implements ResourceDecoder<DataType
     return decoder.handles(source, options);
   }
 
-   @Override
+   @Nullable @Override
   public Resource<BitmapDrawable> decode(
       @NonNull DataType source, int width, int height, @NonNull Options options)
       throws IOException {

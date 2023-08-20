@@ -10,6 +10,8 @@ import com.bumptech.glide.signature.ObjectKey;
 import java.io.ByteArrayInputStream;
 import java.io.IOException;
 import java.io.InputStream;
+import androidx.annotation.Nullable;
+import org.jspecify.annotations.NullUnmarked;
 
 
 /**
@@ -61,7 +63,7 @@ public final class DataUrlLoader<Model, Data> implements ModelLoader<Model, Data
 
     Data decode(String uri) throws IllegalArgumentException;
 
-    void close(Data data) throws IOException;
+    void close(@Nullable Data data) throws IOException;
 
     Class<Data> getDataClass();
   }
@@ -70,7 +72,7 @@ public final class DataUrlLoader<Model, Data> implements ModelLoader<Model, Data
 
     private final String dataUri;
     private final DataDecoder<Data> reader;
-     private Data data;
+     @Nullable private Data data;
 
      DataUriFetcher(String dataUri, DataDecoder<Data> reader) {
       this.dataUri = dataUri;
@@ -148,8 +150,8 @@ public final class DataUrlLoader<Model, Data> implements ModelLoader<Model, Data
               return new ByteArrayInputStream(bytes);
             }
 
-            @Override
-            public void close(InputStream inputStream) throws IOException {
+            @NullUnmarked @Override
+            public void close(@Nullable InputStream inputStream) throws IOException {
               inputStream.close();
             }
 

@@ -4,6 +4,7 @@ import android.graphics.Bitmap;
 import androidx.annotation.NonNull;
 import com.bumptech.glide.load.engine.bitmap_recycle.BitmapPool;
 import java.security.MessageDigest;
+import androidx.annotation.Nullable;
 
 /**
  * Returns the image with its original size if its dimensions match or are smaller than the

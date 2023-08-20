@@ -1,4 +1,5 @@
 package com.bumptech.glide.util;
+import androidx.annotation.Nullable;
 
 /** Similar to {@link com.google.common.base.Suppliers}, but named to reduce import confusion. */
 public final class GlideSuppliers {
@@ -15,7 +16,7 @@ public final class GlideSuppliers {
 
   public static <T> GlideSupplier<T> memorize(final GlideSupplier<T> supplier) {
     return new GlideSupplier<T>() {
-       private volatile T instance;
+       @Nullable private volatile T instance;
 
       @Override
       public T get() {

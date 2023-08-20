@@ -1,4 +1,6 @@
 package com.bumptech.glide.load.engine.bitmap_recycle;
+import androidx.annotation.Nullable;
+import org.jspecify.annotations.NullUnmarked;
 
 /** Adapter for handling primitive int arrays. */
 @SuppressWarnings("PMD.UseVarargs")
@@ -10,8 +12,8 @@ public final class IntegerArrayAdapter implements ArrayAdapterInterface<int[]> {
     return TAG;
   }
 
-  @Override
-  public int getArrayLength(int[] array) {
+  @NullUnmarked @Override
+  public int getArrayLength(@Nullable int[] array) {
     return array.length;
   }
 

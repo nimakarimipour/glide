@@ -5,6 +5,8 @@ import androidx.annotation.VisibleForTesting;
 import com.bumptech.glide.load.engine.bitmap_recycle.ArrayPool;
 import java.io.IOException;
 import java.io.OutputStream;
+import androidx.annotation.Nullable;
+import org.jspecify.annotations.NullUnmarked;
 
 
 /**
@@ -93,7 +95,7 @@ public final class BufferedOutputStream extends OutputStream {
     release();
   }
 
-   private void release() {
+   @NullUnmarked private void release() {
     if (buffer != null) {
       arrayPool.put(buffer);
       buffer = null;
