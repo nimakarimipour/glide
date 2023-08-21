@@ -22,9 +22,9 @@ public final class GlideException extends Exception {
   private static final StackTraceElement[] EMPTY_ELEMENTS = new StackTraceElement[0];
 
   private final List<Throwable> causes;
-   private Key key;
-   private DataSource dataSource;
-   private Class<?> dataClass;
+   @Nullable private Key key;
+   @Nullable private DataSource dataSource;
+   @Nullable private Class<?> dataClass;
   private String detailMessage;
   @Nullable private Exception exception;
 
@@ -42,11 +42,11 @@ public final class GlideException extends Exception {
     this.causes = causes;
   }
 
-   void setLoggingDetails(Key key, DataSource dataSource) {
+   void setLoggingDetails(@Nullable Key key, DataSource dataSource) {
     setLoggingDetails(key, dataSource, null);
   }
 
-  void setLoggingDetails(Key key, DataSource dataSource, Class<?> dataClass) {
+  void setLoggingDetails(@Nullable Key key, DataSource dataSource, @Nullable Class<?> dataClass) {
     this.key = key;
     this.dataSource = dataSource;
     this.dataClass = dataClass;

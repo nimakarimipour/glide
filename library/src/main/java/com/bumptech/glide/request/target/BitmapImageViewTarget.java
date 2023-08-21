@@ -2,6 +2,7 @@ package com.bumptech.glide.request.target;
 
 import android.graphics.Bitmap;
 import android.widget.ImageView;
+import androidx.annotation.Nullable;
 
 
 /**
@@ -32,7 +33,7 @@ public class BitmapImageViewTarget extends ImageViewTarget<Bitmap> {
    * @param resource The bitmap to display.
    */
    @Override
-  protected void setResource(Bitmap resource) {
+  protected void setResource(@Nullable Bitmap resource) {
     view.setImageBitmap(resource);
   }
 }

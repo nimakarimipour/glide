@@ -186,7 +186,7 @@ public final class LruArrayPool implements ArrayPool {
   }
 
   @SuppressWarnings("unchecked")
-  private <T> ArrayAdapterInterface<T> getAdapterFromObject(T object) {
+  private <T> ArrayAdapterInterface<T> getAdapterFromObject(@Nullable T object) {
     return (ArrayAdapterInterface<T>) getAdapterFromType(object.getClass());
   }
 
@@ -239,7 +239,7 @@ public final class LruArrayPool implements ArrayPool {
   private static final class Key implements Poolable {
     private final KeyPool pool;
     @Synthetic int size;
-     private Class<?> arrayClass;
+     @Nullable private Class<?> arrayClass;
 
      Key(KeyPool pool) {
       this.pool = pool;

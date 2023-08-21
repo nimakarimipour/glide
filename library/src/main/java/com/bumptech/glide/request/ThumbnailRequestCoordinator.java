@@ -199,7 +199,7 @@ public class ThumbnailRequestCoordinator implements RequestCoordinator, Request 
   }
 
   @Override
-  public boolean isEquivalentTo(Request o) {
+  public boolean isEquivalentTo(@Nullable Request o) {
     if (o instanceof ThumbnailRequestCoordinator) {
       ThumbnailRequestCoordinator that = (ThumbnailRequestCoordinator) o;
       return (full == null ? that.full == null : full.isEquivalentTo(that.full))

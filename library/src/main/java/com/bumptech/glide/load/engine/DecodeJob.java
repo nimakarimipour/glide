@@ -25,6 +25,7 @@ import com.bumptech.glide.util.pool.StateVerifier;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
+import androidx.annotation.Nullable;
 
 
 /**
@@ -53,8 +54,8 @@ class DecodeJob<R>
 
    private GlideContext glideContext;
    private Key signature;
-   private Priority priority;
-   private EngineKey loadKey;
+   @Nullable private Priority priority;
+   @Nullable private EngineKey loadKey;
   private int width;
   private int height;
    private DiskCacheStrategy diskCacheStrategy;
@@ -65,16 +66,16 @@ class DecodeJob<R>
    private RunReason runReason;
   private long startFetchTime;
   private boolean onlyRetrieveFromCache;
-   private Object model;
+   @Nullable private Object model;
 
-   private Thread currentThread;
+   @Nullable private Thread currentThread;
    private Key currentSourceKey;
-   private Key currentAttemptingKey;
-   private Object currentData;
-   private DataSource currentDataSource;
-   private DataFetcher<?> currentFetcher;
+   @Nullable private Key currentAttemptingKey;
+   @Nullable private Object currentData;
+   @Nullable private DataSource currentDataSource;
+   @Nullable private DataFetcher<?> currentFetcher;
 
-   private volatile DataFetcherGenerator currentGenerator;
+   @Nullable private volatile DataFetcherGenerator currentGenerator;
   private volatile boolean isCallbackNotified;
   private volatile boolean isCancelled;
   private boolean isLoadingFromAlternateCacheKey;
@@ -86,7 +87,7 @@ class DecodeJob<R>
 
   DecodeJob<R> init(
       GlideContext glideContext,
-      Object model,
+      @Nullable Object model,
       EngineKey loadKey,
       Key signature,
       int width,
@@ -288,7 +289,7 @@ class DecodeJob<R>
     }
   }
 
-   private DataFetcherGenerator getNextGenerator() {
+   @Nullable private DataFetcherGenerator getNextGenerator() {
     switch (stage) {
       case RESOURCE_CACHE:
         return new ResourceCacheGenerator(decodeHelper, this);
@@ -378,7 +379,7 @@ class DecodeJob<R>
 
    @Override
   public void onDataFetcherReady(
-      Key sourceKey, Object data, DataFetcher<?> fetcher, DataSource dataSource, Key attemptedKey) {
+      Key sourceKey, @Nullable Object data, DataFetcher<?> fetcher, DataSource dataSource, Key attemptedKey) {
     this.currentSourceKey = sourceKey;
     this.currentData = data;
     this.currentFetcher = fetcher;
@@ -401,7 +402,7 @@ class DecodeJob<R>
 
   @Override
   public void onDataFetcherFailed(
-      Key attemptedKey, Exception e, DataFetcher<?> fetcher, DataSource dataSource) {
+      @Nullable Key attemptedKey, Exception e, DataFetcher<?> fetcher, DataSource dataSource) {
     fetcher.cleanup();
     GlideException exception = new GlideException("Fetching data failed", e);
     exception.setLoggingDetails(attemptedKey, dataSource, fetcher.getDataClass());
@@ -476,8 +477,8 @@ class DecodeJob<R>
     }
   }
 
-   private <Data> Resource<R> decodeFromData(
-      DataFetcher<?> fetcher, Data data, DataSource dataSource) throws GlideException {
+   @Nullable private <Data> Resource<R> decodeFromData(
+      @Nullable DataFetcher<?> fetcher, @Nullable Data data, DataSource dataSource) throws GlideException {
     try {
       if (data == null) {
         return null;
@@ -527,7 +528,7 @@ class DecodeJob<R>
   }
 
   private <Data, ResourceType> Resource<R> runLoadPath(
-      Data data, DataSource dataSource, LoadPath<Data, ResourceType, R> path)
+      Data data, DataSource dataSource, @Nullable LoadPath<Data, ResourceType, R> path)
       throws GlideException {
     Options options = getOptionsWithHardwareConfig(dataSource);
     DataRewinder<Data> rewinder = glideContext.getRegistry().getRewinder(data);
@@ -544,7 +545,7 @@ class DecodeJob<R>
     logWithTimeAndKey(message, startTime, null /*extraArgs*/);
   }
 
-  private void logWithTimeAndKey(String message, long startTime, String extraArgs) {
+  private void logWithTimeAndKey(String message, long startTime, @Nullable String extraArgs) {
     Log.v(
         TAG,
         message
@@ -682,9 +683,9 @@ class DecodeJob<R>
    * requestors.
    */
   private static class DeferredEncodeManager<Z> {
-     private Key key;
-     private ResourceEncoder<Z> encoder;
-     private LockedResource<Z> toEncode;
+     @Nullable private Key key;
+     @Nullable private ResourceEncoder<Z> encoder;
+     @Nullable private LockedResource<Z> toEncode;
 
      @Synthetic
     DeferredEncodeManager() {}
