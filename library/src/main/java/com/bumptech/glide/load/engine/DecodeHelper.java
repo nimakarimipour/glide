@@ -80,7 +80,6 @@ final class DecodeHelper<Transcode> {
     this.isScaleOnlyOrNoTransform = isScaleOnlyOrNoTransform;
   }
 
-<<<<<<< HEAD
    @NullUnmarked void clear() {
     glideContext = null;
     model = null;
@@ -97,9 +96,6 @@ final class DecodeHelper<Transcode> {
     cacheKeys.clear();
     isCacheKeysSet = false;
   }
-=======
-   void clear() {glideContext = null;model = null;signature = null;resourceClass = null;transcodeClass = null;options = null;priority = null;transformations = null;diskCacheStrategy = null;loadData.clear();isLoadDataSet = false;cacheKeys.clear();isCacheKeysSet = false;}
->>>>>>> base
 
   DiskCache getDiskCache() {
     return diskCacheProvider.getDiskCache();
