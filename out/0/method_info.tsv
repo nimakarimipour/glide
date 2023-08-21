@@ -447,7 +447,11 @@ id	class	method	parent	size	flags	nullable	visibility	non-primitive-return	uri
 476	com.bumptech.glide.load.engine.bitmap_recycle.BitmapPool	trimMemory(int)	0	1	[false]	false	public	false	file:///home/nima/Desktop/docker/benchmarks/glide/library/src/main/java/com/bumptech/glide/load/engine/bitmap_recycle/BitmapPool.java
 477	com.bumptech.glide.load.Transformation	transform(android.content.Context,com.bumptech.glide.load.engine.Resource<T>,int,int)	0	4	[false, false, false, false]	false	public	true	file:///home/nima/Desktop/docker/benchmarks/glide/library/src/main/java/com/bumptech/glide/load/Transformation.java
 478	com.bumptech.glide.load.Key	updateDiskCacheKey(java.security.MessageDigest)	0	1	[false]	false	public	false	file:///home/nima/Desktop/docker/benchmarks/glide/library/src/main/java/com/bumptech/glide/load/Key.java
+<<<<<<< HEAD
 479	com.bumptech.glide.load.Key	equals(java.lang.Object)	193	1	[false]	false	public	false	file:///home/nima/Desktop/docker/benchmarks/glide/library/src/main/java/com/bumptech/glide/load/Key.java
+=======
+479	com.bumptech.glide.load.Key	equals(java.lang.Object)	193	1	[true]	false	public	false	file:///home/nima/Desktop/docker/benchmarks/glide/library/src/main/java/com/bumptech/glide/load/Key.java
+>>>>>>> base
 480	com.bumptech.glide.load.Key	hashCode()	195	0	[]	false	public	false	file:///home/nima/Desktop/docker/benchmarks/glide/library/src/main/java/com/bumptech/glide/load/Key.java
 481	com.bumptech.glide.load.engine.Resource	getResourceClass()	0	0	[]	false	public	true	file:///home/nima/Desktop/docker/benchmarks/glide/library/src/main/java/com/bumptech/glide/load/engine/Resource.java
 482	com.bumptech.glide.load.engine.Resource	get()	0	0	[]	false	public	true	file:///home/nima/Desktop/docker/benchmarks/glide/library/src/main/java/com/bumptech/glide/load/engine/Resource.java
@@ -752,7 +756,11 @@ id	class	method	parent	size	flags	nullable	visibility	non-primitive-return	uri
 791	com.bumptech.glide.load.Options	putAll(com.bumptech.glide.load.Options)	0	1	[false]	false	public	false	file:///home/nima/Desktop/docker/benchmarks/glide/library/src/main/java/com/bumptech/glide/load/Options.java
 792	com.bumptech.glide.load.Options	<T>set(com.bumptech.glide.load.Option<T>,T)	0	2	[false, false]	false	public	true	file:///home/nima/Desktop/docker/benchmarks/glide/library/src/main/java/com/bumptech/glide/load/Options.java
 793	com.bumptech.glide.load.Options	<T>get(com.bumptech.glide.load.Option<T>)	0	1	[false]	true	public	true	file:///home/nima/Desktop/docker/benchmarks/glide/library/src/main/java/com/bumptech/glide/load/Options.java
+<<<<<<< HEAD
 794	com.bumptech.glide.load.Options	equals(java.lang.Object)	479	1	[false]	false	public	false	file:///home/nima/Desktop/docker/benchmarks/glide/library/src/main/java/com/bumptech/glide/load/Options.java
+=======
+794	com.bumptech.glide.load.Options	equals(java.lang.Object)	479	1	[true]	false	public	false	file:///home/nima/Desktop/docker/benchmarks/glide/library/src/main/java/com/bumptech/glide/load/Options.java
+>>>>>>> base
 795	com.bumptech.glide.load.Options	hashCode()	480	0	[]	false	public	false	file:///home/nima/Desktop/docker/benchmarks/glide/library/src/main/java/com/bumptech/glide/load/Options.java
 796	com.bumptech.glide.load.Options	updateDiskCacheKey(java.security.MessageDigest)	478	1	[false]	false	public	false	file:///home/nima/Desktop/docker/benchmarks/glide/library/src/main/java/com/bumptech/glide/load/Options.java
 797	com.bumptech.glide.load.Options	toString()	121	0	[]	false	public	true	file:///home/nima/Desktop/docker/benchmarks/glide/library/src/main/java/com/bumptech/glide/load/Options.java
@@ -1124,7 +1132,11 @@ id	class	method	parent	size	flags	nullable	visibility	non-primitive-return	uri
 1194	com.bumptech.glide.request.ResourceCallback	onLoadFailed(com.bumptech.glide.load.engine.GlideException)	0	1	[true]	false	public	false	file:///home/nima/Desktop/docker/benchmarks/glide/library/src/main/java/com/bumptech/glide/request/ResourceCallback.java
 1195	com.bumptech.glide.request.ResourceCallback	getLock()	0	0	[]	false	public	true	file:///home/nima/Desktop/docker/benchmarks/glide/library/src/main/java/com/bumptech/glide/request/ResourceCallback.java
 1196	com.bumptech.glide.load.engine.EngineKey	EngineKey(java.lang.Object,com.bumptech.glide.load.Key,int,int,java.util.Map<java.lang.Class<?>,com.bumptech.glide.load.Transformation<?>>,java.lang.Class<?>,java.lang.Class<?>,com.bumptech.glide.load.Options)	0	8	[true, false, false, false, false, false, false, false]	false	package	false	file:///home/nima/Desktop/docker/benchmarks/glide/library/src/main/java/com/bumptech/glide/load/engine/EngineKey.java
+<<<<<<< HEAD
 1197	com.bumptech.glide.load.engine.EngineKey	equals(java.lang.Object)	479	1	[false]	false	public	false	file:///home/nima/Desktop/docker/benchmarks/glide/library/src/main/java/com/bumptech/glide/load/engine/EngineKey.java
+=======
+1197	com.bumptech.glide.load.engine.EngineKey	equals(java.lang.Object)	479	1	[true]	false	public	false	file:///home/nima/Desktop/docker/benchmarks/glide/library/src/main/java/com/bumptech/glide/load/engine/EngineKey.java
+>>>>>>> base
 1198	com.bumptech.glide.load.engine.EngineKey	hashCode()	480	0	[]	false	public	false	file:///home/nima/Desktop/docker/benchmarks/glide/library/src/main/java/com/bumptech/glide/load/engine/EngineKey.java
 1199	com.bumptech.glide.load.engine.EngineKey	toString()	121	0	[]	false	public	true	file:///home/nima/Desktop/docker/benchmarks/glide/library/src/main/java/com/bumptech/glide/load/engine/EngineKey.java
 1200	com.bumptech.glide.load.engine.EngineKey	updateDiskCacheKey(java.security.MessageDigest)	478	1	[false]	false	public	false	file:///home/nima/Desktop/docker/benchmarks/glide/library/src/main/java/com/bumptech/glide/load/engine/EngineKey.java
@@ -1186,7 +1198,11 @@ id	class	method	parent	size	flags	nullable	visibility	non-primitive-return	uri
 1257	com.bumptech.glide.load.engine.DecodeHelper	<T>getRewinder(T)	0	1	[false]	false	package	true	file:///home/nima/Desktop/docker/benchmarks/glide/library/src/main/java/com/bumptech/glide/load/engine/DecodeHelper.java
 1258	com.bumptech.glide.load.engine.DecodeHelper	getPriority()	0	0	[]	false	package	true	file:///home/nima/Desktop/docker/benchmarks/glide/library/src/main/java/com/bumptech/glide/load/engine/DecodeHelper.java
 1259	com.bumptech.glide.load.engine.DecodeHelper	getOptions()	0	0	[]	false	package	true	file:///home/nima/Desktop/docker/benchmarks/glide/library/src/main/java/com/bumptech/glide/load/engine/DecodeHelper.java
+<<<<<<< HEAD
 1260	com.bumptech.glide.load.engine.DecodeHelper	getSignature()	0	0	[]	false	package	true	file:///home/nima/Desktop/docker/benchmarks/glide/library/src/main/java/com/bumptech/glide/load/engine/DecodeHelper.java
+=======
+1260	com.bumptech.glide.load.engine.DecodeHelper	getSignature()	0	0	[]	true	package	true	file:///home/nima/Desktop/docker/benchmarks/glide/library/src/main/java/com/bumptech/glide/load/engine/DecodeHelper.java
+>>>>>>> base
 1261	com.bumptech.glide.load.engine.DecodeHelper	getWidth()	0	0	[]	false	package	false	file:///home/nima/Desktop/docker/benchmarks/glide/library/src/main/java/com/bumptech/glide/load/engine/DecodeHelper.java
 1262	com.bumptech.glide.load.engine.DecodeHelper	getHeight()	0	0	[]	false	package	false	file:///home/nima/Desktop/docker/benchmarks/glide/library/src/main/java/com/bumptech/glide/load/engine/DecodeHelper.java
 1263	com.bumptech.glide.load.engine.DecodeHelper	getArrayPool()	0	0	[]	false	package	true	file:///home/nima/Desktop/docker/benchmarks/glide/library/src/main/java/com/bumptech/glide/load/engine/DecodeHelper.java
@@ -1493,7 +1509,11 @@ id	class	method	parent	size	flags	nullable	visibility	non-primitive-return	uri
 1588	com.bumptech.glide.util.Preconditions	<T,Y>checkNotEmpty(T)	0	1	[false]	false	public	true	file:///home/nima/Desktop/docker/benchmarks/glide/library/src/main/java/com/bumptech/glide/util/Preconditions.java
 1589	com.bumptech.glide.signature.ObjectKey	ObjectKey(java.lang.Object)	0	1	[false]	false	public	false	file:///home/nima/Desktop/docker/benchmarks/glide/library/src/main/java/com/bumptech/glide/signature/ObjectKey.java
 1590	com.bumptech.glide.signature.ObjectKey	toString()	121	0	[]	false	public	true	file:///home/nima/Desktop/docker/benchmarks/glide/library/src/main/java/com/bumptech/glide/signature/ObjectKey.java
+<<<<<<< HEAD
 1591	com.bumptech.glide.signature.ObjectKey	equals(java.lang.Object)	479	1	[false]	false	public	false	file:///home/nima/Desktop/docker/benchmarks/glide/library/src/main/java/com/bumptech/glide/signature/ObjectKey.java
+=======
+1591	com.bumptech.glide.signature.ObjectKey	equals(java.lang.Object)	479	1	[true]	false	public	false	file:///home/nima/Desktop/docker/benchmarks/glide/library/src/main/java/com/bumptech/glide/signature/ObjectKey.java
+>>>>>>> base
 1592	com.bumptech.glide.signature.ObjectKey	hashCode()	480	0	[]	false	public	false	file:///home/nima/Desktop/docker/benchmarks/glide/library/src/main/java/com/bumptech/glide/signature/ObjectKey.java
 1593	com.bumptech.glide.signature.ObjectKey	updateDiskCacheKey(java.security.MessageDigest)	478	1	[false]	false	public	false	file:///home/nima/Desktop/docker/benchmarks/glide/library/src/main/java/com/bumptech/glide/signature/ObjectKey.java
 1594	com.bumptech.glide.signature.EmptySignature	obtain()	0	0	[]	false	public	true	file:///home/nima/Desktop/docker/benchmarks/glide/library/src/main/java/com/bumptech/glide/signature/EmptySignature.java
@@ -1502,11 +1522,19 @@ id	class	method	parent	size	flags	nullable	visibility	non-primitive-return	uri
 1597	com.bumptech.glide.signature.EmptySignature	updateDiskCacheKey(java.security.MessageDigest)	478	1	[false]	false	public	false	file:///home/nima/Desktop/docker/benchmarks/glide/library/src/main/java/com/bumptech/glide/signature/EmptySignature.java
 1598	com.bumptech.glide.signature.AndroidResourceSignature	obtain(android.content.Context)	0	1	[false]	false	public	true	file:///home/nima/Desktop/docker/benchmarks/glide/library/src/main/java/com/bumptech/glide/signature/AndroidResourceSignature.java
 1599	com.bumptech.glide.signature.AndroidResourceSignature	AndroidResourceSignature(int,com.bumptech.glide.load.Key)	0	2	[false, false]	false	private	false	file:///home/nima/Desktop/docker/benchmarks/glide/library/src/main/java/com/bumptech/glide/signature/AndroidResourceSignature.java
+<<<<<<< HEAD
 1600	com.bumptech.glide.signature.AndroidResourceSignature	equals(java.lang.Object)	479	1	[false]	false	public	false	file:///home/nima/Desktop/docker/benchmarks/glide/library/src/main/java/com/bumptech/glide/signature/AndroidResourceSignature.java
 1601	com.bumptech.glide.signature.AndroidResourceSignature	hashCode()	480	0	[]	false	public	false	file:///home/nima/Desktop/docker/benchmarks/glide/library/src/main/java/com/bumptech/glide/signature/AndroidResourceSignature.java
 1602	com.bumptech.glide.signature.AndroidResourceSignature	updateDiskCacheKey(java.security.MessageDigest)	478	1	[false]	false	public	false	file:///home/nima/Desktop/docker/benchmarks/glide/library/src/main/java/com/bumptech/glide/signature/AndroidResourceSignature.java
 1603	com.bumptech.glide.signature.MediaStoreSignature	MediaStoreSignature(java.lang.String,long,int)	0	3	[true, false, false]	false	public	false	file:///home/nima/Desktop/docker/benchmarks/glide/library/src/main/java/com/bumptech/glide/signature/MediaStoreSignature.java
 1604	com.bumptech.glide.signature.MediaStoreSignature	equals(java.lang.Object)	479	1	[false]	false	public	false	file:///home/nima/Desktop/docker/benchmarks/glide/library/src/main/java/com/bumptech/glide/signature/MediaStoreSignature.java
+=======
+1600	com.bumptech.glide.signature.AndroidResourceSignature	equals(java.lang.Object)	479	1	[true]	false	public	false	file:///home/nima/Desktop/docker/benchmarks/glide/library/src/main/java/com/bumptech/glide/signature/AndroidResourceSignature.java
+1601	com.bumptech.glide.signature.AndroidResourceSignature	hashCode()	480	0	[]	false	public	false	file:///home/nima/Desktop/docker/benchmarks/glide/library/src/main/java/com/bumptech/glide/signature/AndroidResourceSignature.java
+1602	com.bumptech.glide.signature.AndroidResourceSignature	updateDiskCacheKey(java.security.MessageDigest)	478	1	[false]	false	public	false	file:///home/nima/Desktop/docker/benchmarks/glide/library/src/main/java/com/bumptech/glide/signature/AndroidResourceSignature.java
+1603	com.bumptech.glide.signature.MediaStoreSignature	MediaStoreSignature(java.lang.String,long,int)	0	3	[true, false, false]	false	public	false	file:///home/nima/Desktop/docker/benchmarks/glide/library/src/main/java/com/bumptech/glide/signature/MediaStoreSignature.java
+1604	com.bumptech.glide.signature.MediaStoreSignature	equals(java.lang.Object)	479	1	[true]	false	public	false	file:///home/nima/Desktop/docker/benchmarks/glide/library/src/main/java/com/bumptech/glide/signature/MediaStoreSignature.java
+>>>>>>> base
 1605	com.bumptech.glide.signature.MediaStoreSignature	hashCode()	480	0	[]	false	public	false	file:///home/nima/Desktop/docker/benchmarks/glide/library/src/main/java/com/bumptech/glide/signature/MediaStoreSignature.java
 1606	com.bumptech.glide.signature.MediaStoreSignature	updateDiskCacheKey(java.security.MessageDigest)	478	1	[false]	false	public	false	file:///home/nima/Desktop/docker/benchmarks/glide/library/src/main/java/com/bumptech/glide/signature/MediaStoreSignature.java
 1607	com.bumptech.glide.signature.ApplicationVersionSignature	obtain(android.content.Context)	0	1	[false]	false	public	true	file:///home/nima/Desktop/docker/benchmarks/glide/library/src/main/java/com/bumptech/glide/signature/ApplicationVersionSignature.java
@@ -1690,8 +1718,13 @@ id	class	method	parent	size	flags	nullable	visibility	non-primitive-return	uri
 1787	com.bumptech.glide.load.engine.ResourceCacheGenerator	cancel()	1152	0	[]	false	public	false	file:///home/nima/Desktop/docker/benchmarks/glide/library/src/main/java/com/bumptech/glide/load/engine/ResourceCacheGenerator.java
 1788	com.bumptech.glide.load.engine.ResourceCacheGenerator	onDataReady(java.lang.Object)	799	1	[true]	false	public	false	file:///home/nima/Desktop/docker/benchmarks/glide/library/src/main/java/com/bumptech/glide/load/engine/ResourceCacheGenerator.java
 1789	com.bumptech.glide.load.engine.ResourceCacheGenerator	onLoadFailed(java.lang.Exception)	800	1	[false]	false	public	false	file:///home/nima/Desktop/docker/benchmarks/glide/library/src/main/java/com/bumptech/glide/load/engine/ResourceCacheGenerator.java
+<<<<<<< HEAD
 1790	com.bumptech.glide.load.engine.ResourceCacheKey	ResourceCacheKey(com.bumptech.glide.load.engine.bitmap_recycle.ArrayPool,com.bumptech.glide.load.Key,com.bumptech.glide.load.Key,int,int,com.bumptech.glide.load.Transformation<?>,java.lang.Class<?>,com.bumptech.glide.load.Options)	0	8	[false, false, false, false, false, true, false, false]	false	package	false	file:///home/nima/Desktop/docker/benchmarks/glide/library/src/main/java/com/bumptech/glide/load/engine/ResourceCacheKey.java
 1791	com.bumptech.glide.load.engine.ResourceCacheKey	equals(java.lang.Object)	479	1	[false]	false	public	false	file:///home/nima/Desktop/docker/benchmarks/glide/library/src/main/java/com/bumptech/glide/load/engine/ResourceCacheKey.java
+=======
+1790	com.bumptech.glide.load.engine.ResourceCacheKey	ResourceCacheKey(com.bumptech.glide.load.engine.bitmap_recycle.ArrayPool,com.bumptech.glide.load.Key,com.bumptech.glide.load.Key,int,int,com.bumptech.glide.load.Transformation<?>,java.lang.Class<?>,com.bumptech.glide.load.Options)	0	8	[false, false, true, false, false, true, false, false]	false	package	false	file:///home/nima/Desktop/docker/benchmarks/glide/library/src/main/java/com/bumptech/glide/load/engine/ResourceCacheKey.java
+1791	com.bumptech.glide.load.engine.ResourceCacheKey	equals(java.lang.Object)	479	1	[true]	false	public	false	file:///home/nima/Desktop/docker/benchmarks/glide/library/src/main/java/com/bumptech/glide/load/engine/ResourceCacheKey.java
+>>>>>>> base
 1792	com.bumptech.glide.load.engine.ResourceCacheKey	hashCode()	480	0	[]	false	public	false	file:///home/nima/Desktop/docker/benchmarks/glide/library/src/main/java/com/bumptech/glide/load/engine/ResourceCacheKey.java
 1793	com.bumptech.glide.load.engine.ResourceCacheKey	updateDiskCacheKey(java.security.MessageDigest)	478	1	[false]	false	public	false	file:///home/nima/Desktop/docker/benchmarks/glide/library/src/main/java/com/bumptech/glide/load/engine/ResourceCacheKey.java
 1794	com.bumptech.glide.load.engine.ResourceCacheKey	getResourceClassBytes()	0	0	[]	false	private	true	file:///home/nima/Desktop/docker/benchmarks/glide/library/src/main/java/com/bumptech/glide/load/engine/ResourceCacheKey.java
@@ -1718,9 +1751,15 @@ id	class	method	parent	size	flags	nullable	visibility	non-primitive-return	uri
 1815	com.bumptech.glide.load.engine.DataCacheGenerator	cancel()	1152	0	[]	false	public	false	file:///home/nima/Desktop/docker/benchmarks/glide/library/src/main/java/com/bumptech/glide/load/engine/DataCacheGenerator.java
 1816	com.bumptech.glide.load.engine.DataCacheGenerator	onDataReady(java.lang.Object)	799	1	[true]	false	public	false	file:///home/nima/Desktop/docker/benchmarks/glide/library/src/main/java/com/bumptech/glide/load/engine/DataCacheGenerator.java
 1817	com.bumptech.glide.load.engine.DataCacheGenerator	onLoadFailed(java.lang.Exception)	800	1	[false]	false	public	false	file:///home/nima/Desktop/docker/benchmarks/glide/library/src/main/java/com/bumptech/glide/load/engine/DataCacheGenerator.java
+<<<<<<< HEAD
 1818	com.bumptech.glide.load.engine.DataCacheKey	DataCacheKey(com.bumptech.glide.load.Key,com.bumptech.glide.load.Key)	0	2	[false, false]	false	package	false	file:///home/nima/Desktop/docker/benchmarks/glide/library/src/main/java/com/bumptech/glide/load/engine/DataCacheKey.java
 1819	com.bumptech.glide.load.engine.DataCacheKey	getSourceKey()	0	0	[]	false	package	true	file:///home/nima/Desktop/docker/benchmarks/glide/library/src/main/java/com/bumptech/glide/load/engine/DataCacheKey.java
 1820	com.bumptech.glide.load.engine.DataCacheKey	equals(java.lang.Object)	479	1	[false]	false	public	false	file:///home/nima/Desktop/docker/benchmarks/glide/library/src/main/java/com/bumptech/glide/load/engine/DataCacheKey.java
+=======
+1818	com.bumptech.glide.load.engine.DataCacheKey	DataCacheKey(com.bumptech.glide.load.Key,com.bumptech.glide.load.Key)	0	2	[false, true]	false	package	false	file:///home/nima/Desktop/docker/benchmarks/glide/library/src/main/java/com/bumptech/glide/load/engine/DataCacheKey.java
+1819	com.bumptech.glide.load.engine.DataCacheKey	getSourceKey()	0	0	[]	false	package	true	file:///home/nima/Desktop/docker/benchmarks/glide/library/src/main/java/com/bumptech/glide/load/engine/DataCacheKey.java
+1820	com.bumptech.glide.load.engine.DataCacheKey	equals(java.lang.Object)	479	1	[true]	false	public	false	file:///home/nima/Desktop/docker/benchmarks/glide/library/src/main/java/com/bumptech/glide/load/engine/DataCacheKey.java
+>>>>>>> base
 1821	com.bumptech.glide.load.engine.DataCacheKey	hashCode()	480	0	[]	false	public	false	file:///home/nima/Desktop/docker/benchmarks/glide/library/src/main/java/com/bumptech/glide/load/engine/DataCacheKey.java
 1822	com.bumptech.glide.load.engine.DataCacheKey	toString()	121	0	[]	false	public	true	file:///home/nima/Desktop/docker/benchmarks/glide/library/src/main/java/com/bumptech/glide/load/engine/DataCacheKey.java
 1823	com.bumptech.glide.load.engine.DataCacheKey	updateDiskCacheKey(java.security.MessageDigest)	478	1	[false]	false	public	false	file:///home/nima/Desktop/docker/benchmarks/glide/library/src/main/java/com/bumptech/glide/load/engine/DataCacheKey.java
@@ -1878,7 +1917,11 @@ id	class	method	parent	size	flags	nullable	visibility	non-primitive-return	uri
 1980	com.bumptech.glide.load.model.GlideUrl	toString()	121	0	[]	false	public	true	file:///home/nima/Desktop/docker/benchmarks/glide/library/src/main/java/com/bumptech/glide/load/model/GlideUrl.java
 1981	com.bumptech.glide.load.model.GlideUrl	updateDiskCacheKey(java.security.MessageDigest)	478	1	[false]	false	public	false	file:///home/nima/Desktop/docker/benchmarks/glide/library/src/main/java/com/bumptech/glide/load/model/GlideUrl.java
 1982	com.bumptech.glide.load.model.GlideUrl	getCacheKeyBytes()	0	0	[]	false	private	true	file:///home/nima/Desktop/docker/benchmarks/glide/library/src/main/java/com/bumptech/glide/load/model/GlideUrl.java
+<<<<<<< HEAD
 1983	com.bumptech.glide.load.model.GlideUrl	equals(java.lang.Object)	479	1	[false]	false	public	false	file:///home/nima/Desktop/docker/benchmarks/glide/library/src/main/java/com/bumptech/glide/load/model/GlideUrl.java
+=======
+1983	com.bumptech.glide.load.model.GlideUrl	equals(java.lang.Object)	479	1	[true]	false	public	false	file:///home/nima/Desktop/docker/benchmarks/glide/library/src/main/java/com/bumptech/glide/load/model/GlideUrl.java
+>>>>>>> base
 1984	com.bumptech.glide.load.model.GlideUrl	hashCode()	480	0	[]	false	public	false	file:///home/nima/Desktop/docker/benchmarks/glide/library/src/main/java/com/bumptech/glide/load/model/GlideUrl.java
 1985	com.bumptech.glide.load.HttpException	HttpException(int)	0	1	[false]	false	public	false	file:///home/nima/Desktop/docker/benchmarks/glide/library/src/main/java/com/bumptech/glide/load/HttpException.java
 1986	com.bumptech.glide.load.HttpException	HttpException(java.lang.String)	0	1	[false]	false	public	false	file:///home/nima/Desktop/docker/benchmarks/glide/library/src/main/java/com/bumptech/glide/load/HttpException.java
@@ -1955,7 +1998,11 @@ id	class	method	parent	size	flags	nullable	visibility	non-primitive-return	uri
 2059	com.bumptech.glide.load.MultiTransformation	MultiTransformation(com.bumptech.glide.load.Transformation<T>...)	0	1	[false]	false	public	false	file:///home/nima/Desktop/docker/benchmarks/glide/library/src/main/java/com/bumptech/glide/load/MultiTransformation.java
 2060	com.bumptech.glide.load.MultiTransformation	MultiTransformation(java.util.Collection<? extends com.bumptech.glide.load.Transformation<T>>)	0	1	[false]	false	public	false	file:///home/nima/Desktop/docker/benchmarks/glide/library/src/main/java/com/bumptech/glide/load/MultiTransformation.java
 2061	com.bumptech.glide.load.MultiTransformation	transform(android.content.Context,com.bumptech.glide.load.engine.Resource<T>,int,int)	477	4	[false, false, false, false]	false	public	true	file:///home/nima/Desktop/docker/benchmarks/glide/library/src/main/java/com/bumptech/glide/load/MultiTransformation.java
+<<<<<<< HEAD
 2062	com.bumptech.glide.load.MultiTransformation	equals(java.lang.Object)	479	1	[false]	false	public	false	file:///home/nima/Desktop/docker/benchmarks/glide/library/src/main/java/com/bumptech/glide/load/MultiTransformation.java
+=======
+2062	com.bumptech.glide.load.MultiTransformation	equals(java.lang.Object)	479	1	[true]	false	public	false	file:///home/nima/Desktop/docker/benchmarks/glide/library/src/main/java/com/bumptech/glide/load/MultiTransformation.java
+>>>>>>> base
 2063	com.bumptech.glide.load.MultiTransformation	hashCode()	480	0	[]	false	public	false	file:///home/nima/Desktop/docker/benchmarks/glide/library/src/main/java/com/bumptech/glide/load/MultiTransformation.java
 2064	com.bumptech.glide.load.MultiTransformation	updateDiskCacheKey(java.security.MessageDigest)	478	1	[false]	false	public	false	file:///home/nima/Desktop/docker/benchmarks/glide/library/src/main/java/com/bumptech/glide/load/MultiTransformation.java
 2065	com.bumptech.glide.load.resource.DefaultOnHeaderDecodedListener	DefaultOnHeaderDecodedListener(int,int,com.bumptech.glide.load.Options)	0	3	[false, false, false]	false	public	false	file:///home/nima/Desktop/docker/benchmarks/glide/library/src/main/java/com/bumptech/glide/load/resource/DefaultOnHeaderDecodedListener.java
@@ -2039,7 +2086,11 @@ id	class	method	parent	size	flags	nullable	visibility	non-primitive-return	uri
 2145	com.bumptech.glide.load.resource.bitmap.ImageReader$ParcelFileDescriptorImageReader	getImageOrientation()	2119	0	[]	false	public	false	file:///home/nima/Desktop/docker/benchmarks/glide/library/src/main/java/com/bumptech/glide/load/resource/bitmap/ImageReader.java
 2146	com.bumptech.glide.load.resource.bitmap.ImageReader$ParcelFileDescriptorImageReader	stopGrowingBuffers()	2120	0	[]	false	public	false	file:///home/nima/Desktop/docker/benchmarks/glide/library/src/main/java/com/bumptech/glide/load/resource/bitmap/ImageReader.java
 2147	com.bumptech.glide.load.resource.bitmap.FitCenter	transform(com.bumptech.glide.load.engine.bitmap_recycle.BitmapPool,android.graphics.Bitmap,int,int)	2148	4	[false, false, false, false]	false	protected	true	file:///home/nima/Desktop/docker/benchmarks/glide/library/src/main/java/com/bumptech/glide/load/resource/bitmap/FitCenter.java
+<<<<<<< HEAD
 2149	com.bumptech.glide.load.resource.bitmap.FitCenter	equals(java.lang.Object)	479	1	[false]	false	public	false	file:///home/nima/Desktop/docker/benchmarks/glide/library/src/main/java/com/bumptech/glide/load/resource/bitmap/FitCenter.java
+=======
+2149	com.bumptech.glide.load.resource.bitmap.FitCenter	equals(java.lang.Object)	479	1	[true]	false	public	false	file:///home/nima/Desktop/docker/benchmarks/glide/library/src/main/java/com/bumptech/glide/load/resource/bitmap/FitCenter.java
+>>>>>>> base
 2150	com.bumptech.glide.load.resource.bitmap.FitCenter	hashCode()	480	0	[]	false	public	false	file:///home/nima/Desktop/docker/benchmarks/glide/library/src/main/java/com/bumptech/glide/load/resource/bitmap/FitCenter.java
 2151	com.bumptech.glide.load.resource.bitmap.FitCenter	updateDiskCacheKey(java.security.MessageDigest)	478	1	[false]	false	public	false	file:///home/nima/Desktop/docker/benchmarks/glide/library/src/main/java/com/bumptech/glide/load/resource/bitmap/FitCenter.java
 2152	com.bumptech.glide.load.resource.bitmap.BitmapTransformation	transform(android.content.Context,com.bumptech.glide.load.engine.Resource<android.graphics.Bitmap>,int,int)	477	4	[false, false, false, false]	false	public	true	file:///home/nima/Desktop/docker/benchmarks/glide/library/src/main/java/com/bumptech/glide/load/resource/bitmap/BitmapTransformation.java
@@ -2054,7 +2105,11 @@ id	class	method	parent	size	flags	nullable	visibility	non-primitive-return	uri
 2160	com.bumptech.glide.load.resource.bitmap.BitmapEncoder	getFormat(android.graphics.Bitmap,com.bumptech.glide.load.Options)	0	2	[false, false]	false	private	true	file:///home/nima/Desktop/docker/benchmarks/glide/library/src/main/java/com/bumptech/glide/load/resource/bitmap/BitmapEncoder.java
 2161	com.bumptech.glide.load.resource.bitmap.BitmapEncoder	getEncodeStrategy(com.bumptech.glide.load.Options)	765	1	[false]	false	public	true	file:///home/nima/Desktop/docker/benchmarks/glide/library/src/main/java/com/bumptech/glide/load/resource/bitmap/BitmapEncoder.java
 2162	com.bumptech.glide.load.resource.bitmap.CenterInside	transform(com.bumptech.glide.load.engine.bitmap_recycle.BitmapPool,android.graphics.Bitmap,int,int)	2148	4	[false, false, false, false]	false	protected	true	file:///home/nima/Desktop/docker/benchmarks/glide/library/src/main/java/com/bumptech/glide/load/resource/bitmap/CenterInside.java
+<<<<<<< HEAD
 2163	com.bumptech.glide.load.resource.bitmap.CenterInside	equals(java.lang.Object)	479	1	[false]	false	public	false	file:///home/nima/Desktop/docker/benchmarks/glide/library/src/main/java/com/bumptech/glide/load/resource/bitmap/CenterInside.java
+=======
+2163	com.bumptech.glide.load.resource.bitmap.CenterInside	equals(java.lang.Object)	479	1	[true]	false	public	false	file:///home/nima/Desktop/docker/benchmarks/glide/library/src/main/java/com/bumptech/glide/load/resource/bitmap/CenterInside.java
+>>>>>>> base
 2164	com.bumptech.glide.load.resource.bitmap.CenterInside	hashCode()	480	0	[]	false	public	false	file:///home/nima/Desktop/docker/benchmarks/glide/library/src/main/java/com/bumptech/glide/load/resource/bitmap/CenterInside.java
 2165	com.bumptech.glide.load.resource.bitmap.CenterInside	updateDiskCacheKey(java.security.MessageDigest)	478	1	[false]	false	public	false	file:///home/nima/Desktop/docker/benchmarks/glide/library/src/main/java/com/bumptech/glide/load/resource/bitmap/CenterInside.java
 2166	com.bumptech.glide.load.resource.bitmap.LazyBitmapDrawableResource	obtain(android.content.Context,android.graphics.Bitmap)	0	2	[false, false]	true	public	true	file:///home/nima/Desktop/docker/benchmarks/glide/library/src/main/java/com/bumptech/glide/load/resource/bitmap/LazyBitmapDrawableResource.java
@@ -2105,12 +2160,20 @@ id	class	method	parent	size	flags	nullable	visibility	non-primitive-return	uri
 2214	com.bumptech.glide.load.resource.bitmap.BitmapDrawableTransformation	transform(android.content.Context,com.bumptech.glide.load.engine.Resource<android.graphics.drawable.BitmapDrawable>,int,int)	477	4	[false, false, false, false]	false	public	true	file:///home/nima/Desktop/docker/benchmarks/glide/library/src/main/java/com/bumptech/glide/load/resource/bitmap/BitmapDrawableTransformation.java
 2215	com.bumptech.glide.load.resource.bitmap.BitmapDrawableTransformation	convertToBitmapDrawableResource(com.bumptech.glide.load.engine.Resource<android.graphics.drawable.Drawable>)	0	1	[false]	false	private	true	file:///home/nima/Desktop/docker/benchmarks/glide/library/src/main/java/com/bumptech/glide/load/resource/bitmap/BitmapDrawableTransformation.java
 2216	com.bumptech.glide.load.resource.bitmap.BitmapDrawableTransformation	convertToDrawableResource(com.bumptech.glide.load.engine.Resource<android.graphics.drawable.BitmapDrawable>)	0	1	[false]	false	private	true	file:///home/nima/Desktop/docker/benchmarks/glide/library/src/main/java/com/bumptech/glide/load/resource/bitmap/BitmapDrawableTransformation.java
+<<<<<<< HEAD
 2217	com.bumptech.glide.load.resource.bitmap.BitmapDrawableTransformation	equals(java.lang.Object)	479	1	[false]	false	public	false	file:///home/nima/Desktop/docker/benchmarks/glide/library/src/main/java/com/bumptech/glide/load/resource/bitmap/BitmapDrawableTransformation.java
+=======
+2217	com.bumptech.glide.load.resource.bitmap.BitmapDrawableTransformation	equals(java.lang.Object)	479	1	[true]	false	public	false	file:///home/nima/Desktop/docker/benchmarks/glide/library/src/main/java/com/bumptech/glide/load/resource/bitmap/BitmapDrawableTransformation.java
+>>>>>>> base
 2218	com.bumptech.glide.load.resource.bitmap.BitmapDrawableTransformation	hashCode()	480	0	[]	false	public	false	file:///home/nima/Desktop/docker/benchmarks/glide/library/src/main/java/com/bumptech/glide/load/resource/bitmap/BitmapDrawableTransformation.java
 2219	com.bumptech.glide.load.resource.bitmap.BitmapDrawableTransformation	updateDiskCacheKey(java.security.MessageDigest)	478	1	[false]	false	public	false	file:///home/nima/Desktop/docker/benchmarks/glide/library/src/main/java/com/bumptech/glide/load/resource/bitmap/BitmapDrawableTransformation.java
 2220	com.bumptech.glide.load.resource.bitmap.Rotate	Rotate(int)	0	1	[false]	false	public	false	file:///home/nima/Desktop/docker/benchmarks/glide/library/src/main/java/com/bumptech/glide/load/resource/bitmap/Rotate.java
 2221	com.bumptech.glide.load.resource.bitmap.Rotate	transform(com.bumptech.glide.load.engine.bitmap_recycle.BitmapPool,android.graphics.Bitmap,int,int)	2148	4	[false, false, false, false]	false	protected	true	file:///home/nima/Desktop/docker/benchmarks/glide/library/src/main/java/com/bumptech/glide/load/resource/bitmap/Rotate.java
+<<<<<<< HEAD
 2222	com.bumptech.glide.load.resource.bitmap.Rotate	equals(java.lang.Object)	479	1	[false]	false	public	false	file:///home/nima/Desktop/docker/benchmarks/glide/library/src/main/java/com/bumptech/glide/load/resource/bitmap/Rotate.java
+=======
+2222	com.bumptech.glide.load.resource.bitmap.Rotate	equals(java.lang.Object)	479	1	[true]	false	public	false	file:///home/nima/Desktop/docker/benchmarks/glide/library/src/main/java/com/bumptech/glide/load/resource/bitmap/Rotate.java
+>>>>>>> base
 2223	com.bumptech.glide.load.resource.bitmap.Rotate	hashCode()	480	0	[]	false	public	false	file:///home/nima/Desktop/docker/benchmarks/glide/library/src/main/java/com/bumptech/glide/load/resource/bitmap/Rotate.java
 2224	com.bumptech.glide.load.resource.bitmap.Rotate	updateDiskCacheKey(java.security.MessageDigest)	478	1	[false]	false	public	false	file:///home/nima/Desktop/docker/benchmarks/glide/library/src/main/java/com/bumptech/glide/load/resource/bitmap/Rotate.java
 2225	com.bumptech.glide.load.resource.bitmap.DefaultImageHeaderParser	getType(java.io.InputStream)	770	1	[false]	false	public	true	file:///home/nima/Desktop/docker/benchmarks/glide/library/src/main/java/com/bumptech/glide/load/resource/bitmap/DefaultImageHeaderParser.java
@@ -2180,7 +2243,11 @@ id	class	method	parent	size	flags	nullable	visibility	non-primitive-return	uri
 2289	com.bumptech.glide.request.transition.DrawableCrossFadeTransition	DrawableCrossFadeTransition(int,boolean)	0	2	[false, false]	false	public	false	file:///home/nima/Desktop/docker/benchmarks/glide/library/src/main/java/com/bumptech/glide/request/transition/DrawableCrossFadeTransition.java
 2290	com.bumptech.glide.request.transition.DrawableCrossFadeTransition	transition(android.graphics.drawable.Drawable,com.bumptech.glide.request.transition.Transition.ViewAdapter)	464	2	[false, false]	false	public	false	file:///home/nima/Desktop/docker/benchmarks/glide/library/src/main/java/com/bumptech/glide/request/transition/DrawableCrossFadeTransition.java
 2291	com.bumptech.glide.load.resource.bitmap.CircleCrop	transform(com.bumptech.glide.load.engine.bitmap_recycle.BitmapPool,android.graphics.Bitmap,int,int)	2148	4	[false, false, false, false]	false	protected	true	file:///home/nima/Desktop/docker/benchmarks/glide/library/src/main/java/com/bumptech/glide/load/resource/bitmap/CircleCrop.java
+<<<<<<< HEAD
 2292	com.bumptech.glide.load.resource.bitmap.CircleCrop	equals(java.lang.Object)	479	1	[false]	false	public	false	file:///home/nima/Desktop/docker/benchmarks/glide/library/src/main/java/com/bumptech/glide/load/resource/bitmap/CircleCrop.java
+=======
+2292	com.bumptech.glide.load.resource.bitmap.CircleCrop	equals(java.lang.Object)	479	1	[true]	false	public	false	file:///home/nima/Desktop/docker/benchmarks/glide/library/src/main/java/com/bumptech/glide/load/resource/bitmap/CircleCrop.java
+>>>>>>> base
 2293	com.bumptech.glide.load.resource.bitmap.CircleCrop	hashCode()	480	0	[]	false	public	false	file:///home/nima/Desktop/docker/benchmarks/glide/library/src/main/java/com/bumptech/glide/load/resource/bitmap/CircleCrop.java
 2294	com.bumptech.glide.load.resource.bitmap.CircleCrop	updateDiskCacheKey(java.security.MessageDigest)	478	1	[false]	false	public	false	file:///home/nima/Desktop/docker/benchmarks/glide/library/src/main/java/com/bumptech/glide/load/resource/bitmap/CircleCrop.java
 2295	com.bumptech.glide.load.resource.bitmap.BitmapDrawableResource	BitmapDrawableResource(android.graphics.drawable.BitmapDrawable,com.bumptech.glide.load.engine.bitmap_recycle.BitmapPool)	0	2	[false, false]	false	public	false	file:///home/nima/Desktop/docker/benchmarks/glide/library/src/main/java/com/bumptech/glide/load/resource/bitmap/BitmapDrawableResource.java
@@ -2208,17 +2275,29 @@ id	class	method	parent	size	flags	nullable	visibility	non-primitive-return	uri
 2317	com.bumptech.glide.load.resource.bitmap.DrawableTransformation	asBitmapDrawable()	0	0	[]	false	public	true	file:///home/nima/Desktop/docker/benchmarks/glide/library/src/main/java/com/bumptech/glide/load/resource/bitmap/DrawableTransformation.java
 2318	com.bumptech.glide.load.resource.bitmap.DrawableTransformation	transform(android.content.Context,com.bumptech.glide.load.engine.Resource<android.graphics.drawable.Drawable>,int,int)	477	4	[false, false, false, false]	false	public	true	file:///home/nima/Desktop/docker/benchmarks/glide/library/src/main/java/com/bumptech/glide/load/resource/bitmap/DrawableTransformation.java
 2319	com.bumptech.glide.load.resource.bitmap.DrawableTransformation	newDrawableResource(android.content.Context,com.bumptech.glide.load.engine.Resource<android.graphics.Bitmap>)	0	2	[false, false]	true	private	true	file:///home/nima/Desktop/docker/benchmarks/glide/library/src/main/java/com/bumptech/glide/load/resource/bitmap/DrawableTransformation.java
+<<<<<<< HEAD
 2320	com.bumptech.glide.load.resource.bitmap.DrawableTransformation	equals(java.lang.Object)	479	1	[false]	false	public	false	file:///home/nima/Desktop/docker/benchmarks/glide/library/src/main/java/com/bumptech/glide/load/resource/bitmap/DrawableTransformation.java
+=======
+2320	com.bumptech.glide.load.resource.bitmap.DrawableTransformation	equals(java.lang.Object)	479	1	[true]	false	public	false	file:///home/nima/Desktop/docker/benchmarks/glide/library/src/main/java/com/bumptech/glide/load/resource/bitmap/DrawableTransformation.java
+>>>>>>> base
 2321	com.bumptech.glide.load.resource.bitmap.DrawableTransformation	hashCode()	480	0	[]	false	public	false	file:///home/nima/Desktop/docker/benchmarks/glide/library/src/main/java/com/bumptech/glide/load/resource/bitmap/DrawableTransformation.java
 2322	com.bumptech.glide.load.resource.bitmap.DrawableTransformation	updateDiskCacheKey(java.security.MessageDigest)	478	1	[false]	false	public	false	file:///home/nima/Desktop/docker/benchmarks/glide/library/src/main/java/com/bumptech/glide/load/resource/bitmap/DrawableTransformation.java
 2323	com.bumptech.glide.load.resource.bitmap.RoundedCorners	RoundedCorners(int)	0	1	[false]	false	public	false	file:///home/nima/Desktop/docker/benchmarks/glide/library/src/main/java/com/bumptech/glide/load/resource/bitmap/RoundedCorners.java
 2324	com.bumptech.glide.load.resource.bitmap.RoundedCorners	transform(com.bumptech.glide.load.engine.bitmap_recycle.BitmapPool,android.graphics.Bitmap,int,int)	2148	4	[false, false, false, false]	false	protected	true	file:///home/nima/Desktop/docker/benchmarks/glide/library/src/main/java/com/bumptech/glide/load/resource/bitmap/RoundedCorners.java
+<<<<<<< HEAD
 2325	com.bumptech.glide.load.resource.bitmap.RoundedCorners	equals(java.lang.Object)	479	1	[false]	false	public	false	file:///home/nima/Desktop/docker/benchmarks/glide/library/src/main/java/com/bumptech/glide/load/resource/bitmap/RoundedCorners.java
+=======
+2325	com.bumptech.glide.load.resource.bitmap.RoundedCorners	equals(java.lang.Object)	479	1	[true]	false	public	false	file:///home/nima/Desktop/docker/benchmarks/glide/library/src/main/java/com/bumptech/glide/load/resource/bitmap/RoundedCorners.java
+>>>>>>> base
 2326	com.bumptech.glide.load.resource.bitmap.RoundedCorners	hashCode()	480	0	[]	false	public	false	file:///home/nima/Desktop/docker/benchmarks/glide/library/src/main/java/com/bumptech/glide/load/resource/bitmap/RoundedCorners.java
 2327	com.bumptech.glide.load.resource.bitmap.RoundedCorners	updateDiskCacheKey(java.security.MessageDigest)	478	1	[false]	false	public	false	file:///home/nima/Desktop/docker/benchmarks/glide/library/src/main/java/com/bumptech/glide/load/resource/bitmap/RoundedCorners.java
 2328	com.bumptech.glide.load.resource.bitmap.GranularRoundedCorners	GranularRoundedCorners(float,float,float,float)	0	4	[false, false, false, false]	false	public	false	file:///home/nima/Desktop/docker/benchmarks/glide/library/src/main/java/com/bumptech/glide/load/resource/bitmap/GranularRoundedCorners.java
 2329	com.bumptech.glide.load.resource.bitmap.GranularRoundedCorners	transform(com.bumptech.glide.load.engine.bitmap_recycle.BitmapPool,android.graphics.Bitmap,int,int)	2148	4	[false, false, false, false]	false	protected	true	file:///home/nima/Desktop/docker/benchmarks/glide/library/src/main/java/com/bumptech/glide/load/resource/bitmap/GranularRoundedCorners.java
+<<<<<<< HEAD
 2330	com.bumptech.glide.load.resource.bitmap.GranularRoundedCorners	equals(java.lang.Object)	479	1	[false]	false	public	false	file:///home/nima/Desktop/docker/benchmarks/glide/library/src/main/java/com/bumptech/glide/load/resource/bitmap/GranularRoundedCorners.java
+=======
+2330	com.bumptech.glide.load.resource.bitmap.GranularRoundedCorners	equals(java.lang.Object)	479	1	[true]	false	public	false	file:///home/nima/Desktop/docker/benchmarks/glide/library/src/main/java/com/bumptech/glide/load/resource/bitmap/GranularRoundedCorners.java
+>>>>>>> base
 2331	com.bumptech.glide.load.resource.bitmap.GranularRoundedCorners	hashCode()	480	0	[]	false	public	false	file:///home/nima/Desktop/docker/benchmarks/glide/library/src/main/java/com/bumptech/glide/load/resource/bitmap/GranularRoundedCorners.java
 2332	com.bumptech.glide.load.resource.bitmap.GranularRoundedCorners	updateDiskCacheKey(java.security.MessageDigest)	478	1	[false]	false	public	false	file:///home/nima/Desktop/docker/benchmarks/glide/library/src/main/java/com/bumptech/glide/load/resource/bitmap/GranularRoundedCorners.java
 2333	com.bumptech.glide.load.resource.bitmap.VideoBitmapDecoder	VideoBitmapDecoder(android.content.Context)	0	1	[false]	false	public	false	file:///home/nima/Desktop/docker/benchmarks/glide/library/src/main/java/com/bumptech/glide/load/resource/bitmap/VideoBitmapDecoder.java
@@ -2233,7 +2312,11 @@ id	class	method	parent	size	flags	nullable	visibility	non-primitive-return	uri
 2342	com.bumptech.glide.load.resource.bitmap.ParcelFileDescriptorBitmapDecoder	isSafeToTryDecoding(android.os.ParcelFileDescriptor)	0	1	[false]	false	private	false	file:///home/nima/Desktop/docker/benchmarks/glide/library/src/main/java/com/bumptech/glide/load/resource/bitmap/ParcelFileDescriptorBitmapDecoder.java
 2343	com.bumptech.glide.load.resource.bitmap.ParcelFileDescriptorBitmapDecoder	decode(android.os.ParcelFileDescriptor,int,int,com.bumptech.glide.load.Options)	764	4	[false, false, false, false]	true	public	true	file:///home/nima/Desktop/docker/benchmarks/glide/library/src/main/java/com/bumptech/glide/load/resource/bitmap/ParcelFileDescriptorBitmapDecoder.java
 2344	com.bumptech.glide.load.resource.bitmap.CenterCrop	transform(com.bumptech.glide.load.engine.bitmap_recycle.BitmapPool,android.graphics.Bitmap,int,int)	2148	4	[false, false, false, false]	false	protected	true	file:///home/nima/Desktop/docker/benchmarks/glide/library/src/main/java/com/bumptech/glide/load/resource/bitmap/CenterCrop.java
+<<<<<<< HEAD
 2345	com.bumptech.glide.load.resource.bitmap.CenterCrop	equals(java.lang.Object)	479	1	[false]	false	public	false	file:///home/nima/Desktop/docker/benchmarks/glide/library/src/main/java/com/bumptech/glide/load/resource/bitmap/CenterCrop.java
+=======
+2345	com.bumptech.glide.load.resource.bitmap.CenterCrop	equals(java.lang.Object)	479	1	[true]	false	public	false	file:///home/nima/Desktop/docker/benchmarks/glide/library/src/main/java/com/bumptech/glide/load/resource/bitmap/CenterCrop.java
+>>>>>>> base
 2346	com.bumptech.glide.load.resource.bitmap.CenterCrop	hashCode()	480	0	[]	false	public	false	file:///home/nima/Desktop/docker/benchmarks/glide/library/src/main/java/com/bumptech/glide/load/resource/bitmap/CenterCrop.java
 2347	com.bumptech.glide.load.resource.bitmap.CenterCrop	updateDiskCacheKey(java.security.MessageDigest)	478	1	[false]	false	public	false	file:///home/nima/Desktop/docker/benchmarks/glide/library/src/main/java/com/bumptech/glide/load/resource/bitmap/CenterCrop.java
 2348	com.bumptech.glide.load.resource.bitmap.ExifInterfaceImageHeaderParser	getType(java.io.InputStream)	770	1	[false]	false	public	true	file:///home/nima/Desktop/docker/benchmarks/glide/library/src/main/java/com/bumptech/glide/load/resource/bitmap/ExifInterfaceImageHeaderParser.java
@@ -2334,7 +2417,11 @@ id	class	method	parent	size	flags	nullable	visibility	non-primitive-return	uri
 2449	com.bumptech.glide.load.resource.transcode.GifDrawableBytesTranscoder	transcode(com.bumptech.glide.load.engine.Resource<com.bumptech.glide.load.resource.gif.GifDrawable>,com.bumptech.glide.load.Options)	766	2	[false, false]	true	public	true	file:///home/nima/Desktop/docker/benchmarks/glide/library/src/main/java/com/bumptech/glide/load/resource/transcode/GifDrawableBytesTranscoder.java
 2450	com.bumptech.glide.load.resource.gif.GifDrawableTransformation	GifDrawableTransformation(com.bumptech.glide.load.Transformation<android.graphics.Bitmap>)	0	1	[false]	false	public	false	file:///home/nima/Desktop/docker/benchmarks/glide/library/src/main/java/com/bumptech/glide/load/resource/gif/GifDrawableTransformation.java
 2451	com.bumptech.glide.load.resource.gif.GifDrawableTransformation	transform(android.content.Context,com.bumptech.glide.load.engine.Resource<com.bumptech.glide.load.resource.gif.GifDrawable>,int,int)	477	4	[false, false, false, false]	false	public	true	file:///home/nima/Desktop/docker/benchmarks/glide/library/src/main/java/com/bumptech/glide/load/resource/gif/GifDrawableTransformation.java
+<<<<<<< HEAD
 2452	com.bumptech.glide.load.resource.gif.GifDrawableTransformation	equals(java.lang.Object)	479	1	[false]	false	public	false	file:///home/nima/Desktop/docker/benchmarks/glide/library/src/main/java/com/bumptech/glide/load/resource/gif/GifDrawableTransformation.java
+=======
+2452	com.bumptech.glide.load.resource.gif.GifDrawableTransformation	equals(java.lang.Object)	479	1	[true]	false	public	false	file:///home/nima/Desktop/docker/benchmarks/glide/library/src/main/java/com/bumptech/glide/load/resource/gif/GifDrawableTransformation.java
+>>>>>>> base
 2453	com.bumptech.glide.load.resource.gif.GifDrawableTransformation	hashCode()	480	0	[]	false	public	false	file:///home/nima/Desktop/docker/benchmarks/glide/library/src/main/java/com/bumptech/glide/load/resource/gif/GifDrawableTransformation.java
 2454	com.bumptech.glide.load.resource.gif.GifDrawableTransformation	updateDiskCacheKey(java.security.MessageDigest)	478	1	[false]	false	public	false	file:///home/nima/Desktop/docker/benchmarks/glide/library/src/main/java/com/bumptech/glide/load/resource/gif/GifDrawableTransformation.java
 2455	com.bumptech.glide.load.resource.gif.GifFrameResourceDecoder	GifFrameResourceDecoder(com.bumptech.glide.load.engine.bitmap_recycle.BitmapPool)	0	1	[false]	false	public	false	file:///home/nima/Desktop/docker/benchmarks/glide/library/src/main/java/com/bumptech/glide/load/resource/gif/GifFrameResourceDecoder.java

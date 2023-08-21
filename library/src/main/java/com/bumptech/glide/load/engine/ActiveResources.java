@@ -107,17 +107,8 @@ final class ActiveResources {
   @NullUnmarked @SuppressWarnings({"WeakerAccess", "SynchronizeOnNonFinalField"})
   @Synthetic
   void cleanupActiveReference(@NonNull ResourceWeakReference ref) {
-    synchronized (this) {
-      activeEngineResources.remove(ref.key);
-
-      if (!ref.isCacheable || ref.resource == null) {
-        return;
-      }
-    }
-
-    EngineResource<?> newResource =
-        new EngineResource<>(
-            ref.resource, /*isMemoryCacheable=*/ true, /*isRecyclable=*/ false, ref.key, listener);
+    synchronized (this) {activeEngineResources.remove(ref.key);if (!ref.isCacheable || ref.resource == null) {return;}}
+    EngineResource<?> newResource = new EngineResource<>(ref.resource, /*isMemoryCacheable=*/ true, /*isRecyclable=*/ false, ref.key, listener);
     listener.onResourceReleased(ref.key, newResource);
   }
 
