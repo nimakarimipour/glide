@@ -10,6 +10,7 @@ import com.bumptech.glide.load.Transformation;
 import com.bumptech.glide.load.engine.Resource;
 import com.bumptech.glide.load.engine.bitmap_recycle.BitmapPool;
 import java.security.MessageDigest;
+import androidx.annotation.Nullable;
 
 
 /**
@@ -70,7 +71,7 @@ public class DrawableTransformation implements Transformation<Drawable> {
   }
 
   // It's clearer to cast the result in a separate line from obtaining it.
-   @SuppressWarnings({"unchecked", "PMD.UnnecessaryLocalBeforeReturn"})
+   @Nullable @SuppressWarnings({"unchecked", "PMD.UnnecessaryLocalBeforeReturn"})
   private Resource<Drawable> newDrawableResource(Context context, Resource<Bitmap> transformed) {
     Resource<? extends Drawable> result =
         LazyBitmapDrawableResource.obtain(context.getResources(), transformed);
@@ -78,7 +79,7 @@ public class DrawableTransformation implements Transformation<Drawable> {
   }
 
   @Override
-  public boolean equals(Object o) {
+  public boolean equals(@Nullable Object o) {
     if (o instanceof DrawableTransformation) {
       DrawableTransformation other = (DrawableTransformation) o;
       return wrapped.equals(other.wrapped);

@@ -6,6 +6,7 @@ import com.bumptech.glide.util.Preconditions;
 import com.bumptech.glide.util.Synthetic;
 import com.bumptech.glide.util.pool.FactoryPools;
 import com.bumptech.glide.util.pool.StateVerifier;
+import androidx.annotation.Nullable;
 
 
 /**
@@ -26,7 +27,7 @@ final class LockedResource<Z> implements Resource<Z>, FactoryPools.Poolable {
             }
           });
   private final StateVerifier stateVerifier = StateVerifier.newInstance();
-   private Resource<Z> toWrap;
+   @Nullable private Resource<Z> toWrap;
   private boolean isLocked;
   private boolean isRecycled;
 

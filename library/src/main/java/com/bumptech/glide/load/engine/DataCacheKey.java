@@ -3,24 +3,25 @@ package com.bumptech.glide.load.engine;
 import androidx.annotation.NonNull;
 import com.bumptech.glide.load.Key;
 import java.security.MessageDigest;
+import androidx.annotation.Nullable;
 
 /** A cache key for original source data + any requested signature. */
 final class DataCacheKey implements Key {
 
-  private final Key sourceKey;
-  private final Key signature;
+  @Nullable private final Key sourceKey;
+  @Nullable private final Key signature;
 
-  DataCacheKey(Key sourceKey, Key signature) {
+  DataCacheKey(@Nullable Key sourceKey, @Nullable Key signature) {
     this.sourceKey = sourceKey;
     this.signature = signature;
   }
 
-  Key getSourceKey() {
+  @Nullable Key getSourceKey() {
     return sourceKey;
   }
 
   @Override
-  public boolean equals(Object o) {
+  public boolean equals(@Nullable Object o) {
     if (o instanceof DataCacheKey) {
       DataCacheKey other = (DataCacheKey) o;
       return sourceKey.equals(other.sourceKey) && signature.equals(other.signature);

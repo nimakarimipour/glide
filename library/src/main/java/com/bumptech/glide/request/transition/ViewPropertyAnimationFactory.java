@@ -1,6 +1,7 @@
 package com.bumptech.glide.request.transition;
 
 import com.bumptech.glide.load.DataSource;
+import androidx.annotation.Nullable;
 
 /**
  * A {@link TransitionFactory} that produces ViewPropertyAnimations.
@@ -9,7 +10,7 @@ import com.bumptech.glide.load.DataSource;
  */
 public class ViewPropertyAnimationFactory<R> implements TransitionFactory<R> {
   private final ViewPropertyTransition.Animator animator;
-   private ViewPropertyTransition<R> animation;
+   @Nullable private ViewPropertyTransition<R> animation;
 
   public ViewPropertyAnimationFactory(ViewPropertyTransition.Animator animator) {
     this.animator = animator;
@@ -22,7 +23,7 @@ public class ViewPropertyAnimationFactory<R> implements TransitionFactory<R> {
    * constructor.
    */
   @Override
-  public Transition<R> build(DataSource dataSource, boolean isFirstResource) {
+  public Transition<R> build(@Nullable DataSource dataSource, boolean isFirstResource) {
     if (dataSource == DataSource.MEMORY_CACHE || !isFirstResource) {
       return NoTransition.get();
     }

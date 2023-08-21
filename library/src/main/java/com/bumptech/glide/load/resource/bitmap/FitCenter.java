@@ -4,6 +4,7 @@ import android.graphics.Bitmap;
 import androidx.annotation.NonNull;
 import com.bumptech.glide.load.engine.bitmap_recycle.BitmapPool;
 import java.security.MessageDigest;
+import androidx.annotation.Nullable;
 
 /**
  * Scales the image uniformly (maintaining the image's aspect ratio) so that one of the dimensions
@@ -21,7 +22,7 @@ public class FitCenter extends BitmapTransformation {
   }
 
   @Override
-  public boolean equals(Object o) {
+  public boolean equals(@Nullable Object o) {
     return o instanceof FitCenter;
   }
 

@@ -37,7 +37,7 @@ class MultiModelLoader<Model, Data> implements ModelLoader<Model, Data> {
     this.exceptionListPool = exceptionListPool;
   }
 
-   @Override
+   @Nullable @Override
   public LoadData<Data> buildLoadData(
       @NonNull Model model, int width, int height, @NonNull Options options) {
     Key sourceKey = null;
@@ -79,8 +79,8 @@ class MultiModelLoader<Model, Data> implements ModelLoader<Model, Data> {
     private final List<DataFetcher<Data>> fetchers;
     private final Pool<List<Throwable>> throwableListPool;
     private int currentIndex;
-     private Priority priority;
-     private DataCallback<? super Data> callback;
+     @Nullable private Priority priority;
+     @Nullable private DataCallback<? super Data> callback;
     @Nullable private List<Throwable> exceptions;
     private boolean isCancelled;
 

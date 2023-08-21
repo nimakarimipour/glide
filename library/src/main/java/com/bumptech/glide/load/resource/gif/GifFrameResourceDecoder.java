@@ -8,6 +8,7 @@ import com.bumptech.glide.load.ResourceDecoder;
 import com.bumptech.glide.load.engine.Resource;
 import com.bumptech.glide.load.engine.bitmap_recycle.BitmapPool;
 import com.bumptech.glide.load.resource.bitmap.BitmapResource;
+import androidx.annotation.Nullable;
 
 
 /**
@@ -26,7 +27,7 @@ public final class GifFrameResourceDecoder implements ResourceDecoder<GifDecoder
     return true;
   }
 
-   @Override
+   @Nullable @Override
   public Resource<Bitmap> decode(
       @NonNull GifDecoder source, int width, int height, @NonNull Options options) {
     Bitmap bitmap = source.getNextFrame();

@@ -6,6 +6,7 @@ import com.bumptech.glide.load.engine.bitmap_recycle.BitmapPool;
 import com.bumptech.glide.util.Util;
 import java.nio.ByteBuffer;
 import java.security.MessageDigest;
+import androidx.annotation.Nullable;
 
 /** A {@link BitmapTransformation} which rotates the bitmap. */
 public class Rotate extends BitmapTransformation {
@@ -29,7 +30,7 @@ public class Rotate extends BitmapTransformation {
   }
 
   @Override
-  public boolean equals(Object o) {
+  public boolean equals(@Nullable Object o) {
     if (o instanceof Rotate) {
       Rotate other = (Rotate) o;
       return degreesToRotate == other.degreesToRotate;

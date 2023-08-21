@@ -1,10 +1,11 @@
 package com.bumptech.glide.load.engine;
 
 import com.bumptech.glide.load.Key;
+import androidx.annotation.Nullable;
 
 interface EngineJobListener {
 
-  void onEngineJobComplete(EngineJob<?> engineJob, Key key, EngineResource<?> resource);
+  void onEngineJobComplete(EngineJob<?> engineJob, @Nullable Key key, @Nullable EngineResource<?> resource);
 
-  void onEngineJobCancelled(EngineJob<?> engineJob, Key key);
+  void onEngineJobCancelled(EngineJob<?> engineJob, @Nullable Key key);
 }

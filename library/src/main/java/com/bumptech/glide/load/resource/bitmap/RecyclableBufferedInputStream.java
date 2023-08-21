@@ -23,6 +23,7 @@ import com.bumptech.glide.load.engine.bitmap_recycle.ArrayPool;
 import java.io.FilterInputStream;
 import java.io.IOException;
 import java.io.InputStream;
+import androidx.annotation.Nullable;
 
 
 /**
@@ -40,7 +41,7 @@ import java.io.InputStream;
  */
 public class RecyclableBufferedInputStream extends FilterInputStream {
   /** The buffer containing the current bytes read from the target InputStream. */
-  private volatile byte[] buf;
+  @Nullable private volatile byte[] buf;
 
   /** The total number of bytes inside the byte array {@code buf}. */
   private int count;

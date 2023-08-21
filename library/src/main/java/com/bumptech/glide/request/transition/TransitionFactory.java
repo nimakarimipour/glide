@@ -1,6 +1,7 @@
 package com.bumptech.glide.request.transition;
 
 import com.bumptech.glide.load.DataSource;
+import androidx.annotation.Nullable;
 
 /**
  * A factory class that can produce different {@link Transition}s based on the state of the request.
@@ -15,5 +16,5 @@ public interface TransitionFactory<R> {
    * @param dataSource The {@link com.bumptech.glide.load.DataSource} the resource was loaded from.
    * @param isFirstResource True if this is the first resource to be loaded into the target.
    */
-  Transition<R> build(DataSource dataSource, boolean isFirstResource);
+  Transition<R> build(@Nullable DataSource dataSource, boolean isFirstResource);
 }

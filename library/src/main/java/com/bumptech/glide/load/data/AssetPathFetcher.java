@@ -6,6 +6,7 @@ import androidx.annotation.NonNull;
 import com.bumptech.glide.Priority;
 import com.bumptech.glide.load.DataSource;
 import java.io.IOException;
+import androidx.annotation.Nullable;
 
 /**
  * An abstract class for obtaining data for an asset path using an {@link
@@ -17,7 +18,7 @@ public abstract class AssetPathFetcher<T> implements DataFetcher<T> {
   private static final String TAG = "AssetPathFetcher";
   private final String assetPath;
   private final AssetManager assetManager;
-   private T data;
+   @Nullable private T data;
 
   // Public API.
   @SuppressWarnings("WeakerAccess")

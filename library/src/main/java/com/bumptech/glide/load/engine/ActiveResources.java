@@ -23,7 +23,7 @@ final class ActiveResources {
   @VisibleForTesting final Map<Key, ResourceWeakReference> activeEngineResources = new HashMap<>();
   private final ReferenceQueue<EngineResource<?>> resourceReferenceQueue = new ReferenceQueue<>();
 
-   private ResourceListener listener;
+   @Nullable private ResourceListener listener;
 
   private volatile boolean isShutdown;
   @Nullable private volatile DequeuedResourceCallback cb;
@@ -71,7 +71,7 @@ final class ActiveResources {
     }
   }
 
-  synchronized void activate(Key key, EngineResource<?> resource) {
+  synchronized void activate(@Nullable Key key, EngineResource<?> resource) {
     ResourceWeakReference toPut =
         new ResourceWeakReference(
             key, resource, resourceReferenceQueue, isActiveResourceRetentionAllowed);
@@ -82,7 +82,7 @@ final class ActiveResources {
     }
   }
 
-  synchronized void deactivate(Key key) {
+  synchronized void deactivate(@Nullable Key key) {
     ResourceWeakReference removed = activeEngineResources.remove(key);
     if (removed != null) {
       removed.reset();

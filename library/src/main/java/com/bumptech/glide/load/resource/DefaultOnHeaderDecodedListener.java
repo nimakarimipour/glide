@@ -20,6 +20,7 @@ import com.bumptech.glide.load.resource.bitmap.Downsampler;
 import com.bumptech.glide.load.resource.bitmap.HardwareConfigState;
 import com.bumptech.glide.request.target.Target;
 import com.bumptech.glide.util.Synthetic;
+import androidx.annotation.Nullable;
 
 
 /**
@@ -38,10 +39,10 @@ public final class DefaultOnHeaderDecodedListener implements OnHeaderDecodedList
 
   private final int requestedWidth;
   private final int requestedHeight;
-  private final DecodeFormat decodeFormat;
-  private final DownsampleStrategy strategy;
+  @Nullable private final DecodeFormat decodeFormat;
+  @Nullable private final DownsampleStrategy strategy;
   private final boolean isHardwareConfigAllowed;
-  private final PreferredColorSpace preferredColorSpace;
+  @Nullable private final PreferredColorSpace preferredColorSpace;
 
    public DefaultOnHeaderDecodedListener(
       int requestedWidth, int requestedHeight, @NonNull Options options) {

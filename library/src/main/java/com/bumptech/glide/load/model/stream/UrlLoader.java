@@ -8,6 +8,7 @@ import com.bumptech.glide.load.model.ModelLoaderFactory;
 import com.bumptech.glide.load.model.MultiModelLoaderFactory;
 import java.io.InputStream;
 import java.net.URL;
+import androidx.annotation.Nullable;
 
 
 /**
@@ -25,7 +26,7 @@ public class UrlLoader implements ModelLoader<URL, InputStream> {
     this.glideUrlLoader = glideUrlLoader;
   }
 
-   @Override
+   @Nullable @Override
   public LoadData<InputStream> buildLoadData(
       @NonNull URL model, int width, int height, @NonNull Options options) {
     return glideUrlLoader.buildLoadData(new GlideUrl(model), width, height, options);

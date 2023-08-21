@@ -9,28 +9,29 @@ import com.bumptech.glide.util.LruCache;
 import com.bumptech.glide.util.Util;
 import java.nio.ByteBuffer;
 import java.security.MessageDigest;
+import androidx.annotation.Nullable;
 
 /** A cache key for downsampled and transformed resource data + any requested signature. */
 final class ResourceCacheKey implements Key {
   private static final LruCache<Class<?>, byte[]> RESOURCE_CLASS_BYTES = new LruCache<>(50);
   private final ArrayPool arrayPool;
-  private final Key sourceKey;
-  private final Key signature;
+  @Nullable private final Key sourceKey;
+  @Nullable private final Key signature;
   private final int width;
   private final int height;
   private final Class<?> decodedResourceClass;
-  private final Options options;
-  private final Transformation<?> transformation;
+  @Nullable private final Options options;
+  @Nullable private final Transformation<?> transformation;
 
   ResourceCacheKey(
       ArrayPool arrayPool,
-      Key sourceKey,
-      Key signature,
+      @Nullable Key sourceKey,
+      @Nullable Key signature,
       int width,
       int height,
-      Transformation<?> appliedTransformation,
+      @Nullable Transformation<?> appliedTransformation,
       Class<?> decodedResourceClass,
-      Options options) {
+      @Nullable Options options) {
     this.arrayPool = arrayPool;
     this.sourceKey = sourceKey;
     this.signature = signature;
@@ -42,7 +43,7 @@ final class ResourceCacheKey implements Key {
   }
 
   @Override
-  public boolean equals(Object o) {
+  public boolean equals(@Nullable Object o) {
     if (o instanceof ResourceCacheKey) {
       ResourceCacheKey other = (ResourceCacheKey) o;
       return height == other.height

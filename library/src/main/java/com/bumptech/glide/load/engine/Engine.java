@@ -75,12 +75,12 @@ public class Engine
       GlideExecutor sourceExecutor,
       GlideExecutor sourceUnlimitedExecutor,
       GlideExecutor animationExecutor,
-      Jobs jobs,
-      EngineKeyFactory keyFactory,
-      ActiveResources activeResources,
-      EngineJobFactory engineJobFactory,
-      DecodeJobFactory decodeJobFactory,
-      ResourceRecycler resourceRecycler,
+      @Nullable Jobs jobs,
+      @Nullable EngineKeyFactory keyFactory,
+      @Nullable ActiveResources activeResources,
+      @Nullable EngineJobFactory engineJobFactory,
+      @Nullable DecodeJobFactory decodeJobFactory,
+      @Nullable ResourceRecycler resourceRecycler,
       boolean isActiveResourceRetentionAllowed) {
     this.cache = cache;
     this.diskCacheProvider = new LazyDiskCacheProvider(diskCacheFactory);
@@ -153,9 +153,9 @@ public class Engine
    * @param height The target height in pixels of the desired resource.
    * @param cb The callback that will be called when the load completes.
    */
-   public <R> LoadStatus load(
+   @Nullable public <R> LoadStatus load(
       GlideContext glideContext,
-      Object model,
+      @Nullable Object model,
       Key signature,
       int width,
       int height,
@@ -225,7 +225,7 @@ public class Engine
 
   private <R> LoadStatus waitForExistingOrStartNewJob(
       GlideContext glideContext,
-      Object model,
+      @Nullable Object model,
       Key signature,
       int width,
       int height,
@@ -333,7 +333,7 @@ public class Engine
     return active;
   }
 
-  private EngineResource<?> loadFromCache(Key key) {
+  @Nullable private EngineResource<?> loadFromCache(Key key) {
     EngineResource<?> cached = getEngineResourceFromCache(key);
     if (cached != null) {
       cached.acquire();
@@ -342,7 +342,7 @@ public class Engine
     return cached;
   }
 
-   private EngineResource<?> getEngineResourceFromCache(Key key) {
+   @Nullable private EngineResource<?> getEngineResourceFromCache(Key key) {
     Resource<?> cached = cache.remove(key);
 
     final EngineResource<?> result;
@@ -370,7 +370,7 @@ public class Engine
   @SuppressWarnings("unchecked")
   @Override
   public synchronized void onEngineJobComplete(
-      EngineJob<?> engineJob, Key key, EngineResource<?> resource) {
+      EngineJob<?> engineJob, @Nullable Key key, @Nullable EngineResource<?> resource) {
     // A null resource indicates that the load failed, usually due to an exception.
     if (resource != null && resource.isMemoryCacheable()) {
       activeResources.activate(key, resource);
@@ -380,7 +380,7 @@ public class Engine
   }
 
   @Override
-  public synchronized void onEngineJobCancelled(EngineJob<?> engineJob, Key key) {
+  public synchronized void onEngineJobCancelled(EngineJob<?> engineJob, @Nullable Key key) {
     jobs.removeIfCurrent(key, engineJob);
   }
 
@@ -392,7 +392,7 @@ public class Engine
   }
 
   @Override
-  public void onResourceReleased(Key cacheKey, EngineResource<?> resource) {
+  public void onResourceReleased(@Nullable Key cacheKey, EngineResource<?> resource) {
     activeResources.deactivate(cacheKey);
     if (resource.isMemoryCacheable()) {
       cache.put(cacheKey, resource);
@@ -440,7 +440,7 @@ public class Engine
   private static class LazyDiskCacheProvider implements DecodeJob.DiskCacheProvider {
 
     private final DiskCache.Factory factory;
-     private volatile DiskCache diskCache;
+     @Nullable private volatile DiskCache diskCache;
 
      LazyDiskCacheProvider(DiskCache.Factory factory) {
       this.factory = factory;
@@ -494,7 +494,7 @@ public class Engine
     @SuppressWarnings("unchecked")
     <R> DecodeJob<R> build(
         GlideContext glideContext,
-        Object model,
+        @Nullable Object model,
         EngineKey loadKey,
         Key signature,
         int width,

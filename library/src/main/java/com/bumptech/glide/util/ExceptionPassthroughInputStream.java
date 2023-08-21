@@ -27,8 +27,8 @@ public final class ExceptionPassthroughInputStream extends InputStream {
   @GuardedBy("POOL")
   private static final Queue<ExceptionPassthroughInputStream> POOL = Util.createQueue(0);
 
-   private InputStream wrapped;
-   private IOException exception;
+   @Nullable private InputStream wrapped;
+   @Nullable private IOException exception;
 
   @NonNull
   public static ExceptionPassthroughInputStream obtain(@NonNull InputStream toWrap) {
