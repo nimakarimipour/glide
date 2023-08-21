@@ -1,6 +1,7 @@
 package com.bumptech.glide.load.engine.cache;
 
 import java.io.File;
+import androidx.annotation.Nullable;
 
 
 /**
@@ -18,7 +19,7 @@ public class DiskLruCacheFactory implements DiskCache.Factory {
 
   /** Interface called out of UI thread to get the cache folder. */
   public interface CacheDirectoryGetter {
-    File getCacheDirectory();
+    @Nullable File getCacheDirectory();
   }
 
   public DiskLruCacheFactory(final String diskCacheFolder, long diskCacheSize) {
@@ -58,7 +59,7 @@ public class DiskLruCacheFactory implements DiskCache.Factory {
     this.cacheDirectoryGetter = cacheDirectoryGetter;
   }
 
-   @Override
+   @Nullable @Override
   public DiskCache build() {
     File cacheDir = cacheDirectoryGetter.getCacheDirectory();
 

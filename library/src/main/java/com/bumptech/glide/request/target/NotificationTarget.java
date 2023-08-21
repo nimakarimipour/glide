@@ -25,7 +25,7 @@ public class NotificationTarget extends CustomTarget<Bitmap> {
   private final RemoteViews remoteViews;
   private final Context context;
   private final int notificationId;
-  private final String notificationTag;
+  @Nullable private final String notificationTag;
   private final Notification notification;
   private final int viewId;
 
@@ -68,7 +68,7 @@ public class NotificationTarget extends CustomTarget<Bitmap> {
       RemoteViews remoteViews,
       Notification notification,
       int notificationId,
-      String notificationTag) {
+      @Nullable String notificationTag) {
     this(
         context,
         SIZE_ORIGINAL,
@@ -104,7 +104,7 @@ public class NotificationTarget extends CustomTarget<Bitmap> {
       RemoteViews remoteViews,
       Notification notification,
       int notificationId,
-      String notificationTag) {
+      @Nullable String notificationTag) {
     super(width, height);
     this.context = Preconditions.checkNotNull(context, "Context must not be null!");
     this.notification =

@@ -36,8 +36,8 @@ class SourceGenerator implements DataFetcherGenerator, DataFetcherGenerator.Fetc
   private final FetcherReadyCallback cb;
 
   private volatile int loadDataListIndex;
-   private volatile DataCacheGenerator sourceCacheGenerator;
-   private volatile Object dataToCache;
+   @Nullable private volatile DataCacheGenerator sourceCacheGenerator;
+   @Nullable private volatile Object dataToCache;
    private volatile ModelLoader.LoadData<?> loadData;
    private volatile DataCacheKey originalKey;
 
@@ -200,7 +200,7 @@ class SourceGenerator implements DataFetcherGenerator, DataFetcherGenerator.Fetc
 
   @SuppressWarnings("WeakerAccess")
   @Synthetic
-  void onDataReadyInternal(LoadData<?> loadData, Object data) {
+  void onDataReadyInternal(LoadData<?> loadData, @Nullable Object data) {
     DiskCacheStrategy diskCacheStrategy = helper.getDiskCacheStrategy();
     if (data != null && diskCacheStrategy.isDataCacheable(loadData.fetcher.getDataSource())) {
       dataToCache = data;
@@ -233,7 +233,7 @@ class SourceGenerator implements DataFetcherGenerator, DataFetcherGenerator.Fetc
   // Called from source cache generator.
    @Override
   public void onDataFetcherReady(
-      Key sourceKey, Object data, DataFetcher<?> fetcher, DataSource dataSource, Key attemptedKey) {
+      Key sourceKey, @Nullable Object data, DataFetcher<?> fetcher, DataSource dataSource, Key attemptedKey) {
     // This data fetcher will be loading from a File and provide the wrong data source, so override
     // with the data source of the original fetcher
     cb.onDataFetcherReady(sourceKey, data, fetcher, loadData.fetcher.getDataSource(), sourceKey);

@@ -31,10 +31,10 @@ public final class Option<T> {
         }
       };
 
-  private final T defaultValue;
+  @Nullable private final T defaultValue;
   private final CacheKeyUpdater<T> cacheKeyUpdater;
   private final String key;
-   private volatile byte[] keyBytes;
+   @Nullable private volatile byte[] keyBytes;
 
   /**
    * Returns a new {@link Option} that does not affect disk cache keys with a {@code null} default

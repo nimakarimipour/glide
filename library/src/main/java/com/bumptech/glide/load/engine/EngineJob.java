@@ -19,6 +19,7 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.concurrent.Executor;
 import java.util.concurrent.atomic.AtomicInteger;
+import androidx.annotation.Nullable;
 
 
 /**
@@ -50,13 +51,13 @@ class EngineJob<R> implements DecodeJob.Callback<R>, Poolable {
   private boolean onlyRetrieveFromCache;
    private Resource<?> resource;
 
-  @SuppressWarnings({ "WeakerAccess", "NullAway.Init" })
+  @Nullable @SuppressWarnings({ "WeakerAccess", "NullAway.Init" })
   @Synthetic
   DataSource dataSource;
 
   private boolean hasResource;
 
-  @SuppressWarnings({ "WeakerAccess", "NullAway.Init" })
+  @Nullable @SuppressWarnings({ "WeakerAccess", "NullAway.Init" })
   @Synthetic
   GlideException exception;
 

@@ -21,6 +21,7 @@ import java.util.concurrent.ThreadPoolExecutor;
 import java.util.concurrent.TimeUnit;
 import java.util.concurrent.TimeoutException;
 import java.util.concurrent.atomic.AtomicInteger;
+import androidx.annotation.Nullable;
 
 
 /** A prioritized {@link ThreadPoolExecutor} for running jobs in Glide. */
@@ -448,7 +449,7 @@ public final class GlideExecutor implements ExecutorService {
     @NonNull
     private UncaughtThrowableStrategy uncaughtThrowableStrategy = UncaughtThrowableStrategy.DEFAULT;
 
-     private String name;
+     @Nullable private String name;
     private long threadTimeoutMillis;
 
      @Synthetic

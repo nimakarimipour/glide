@@ -24,6 +24,7 @@ import com.bumptech.glide.util.Preconditions;
 import java.nio.ByteBuffer;
 import java.util.ArrayList;
 import java.util.List;
+import androidx.annotation.Nullable;
 
 /**
  * An animated {@link android.graphics.drawable.Drawable} that plays the frames of an animated GIF.
@@ -65,11 +66,11 @@ public class GifDrawable extends Drawable
   private int maxLoopCount = LOOP_FOREVER;
 
   private boolean applyGravity;
-   private Paint paint;
-   private Rect destRect;
+   @Nullable private Paint paint;
+   @Nullable private Rect destRect;
 
   /** Callbacks to notify loop completion of a gif, where the loop count is explicitly specified. */
-   private List<AnimationCallback> animationCallbacks;
+   @Nullable private List<AnimationCallback> animationCallbacks;
 
   /**
    * Constructor for GifDrawable.

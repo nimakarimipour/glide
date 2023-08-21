@@ -55,7 +55,7 @@ public class Glide implements ComponentCallbacks2 {
   private static final String DEFAULT_DISK_CACHE_DIR = "image_manager_disk_cache";
   private static final String TAG = "Glide";
 
-   @GuardedBy("Glide.class")
+   @Nullable @GuardedBy("Glide.class")
   private static volatile Glide glide;
 
   private static volatile boolean isInitializing;

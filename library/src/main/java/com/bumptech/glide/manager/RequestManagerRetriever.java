@@ -54,7 +54,7 @@ public class RequestManagerRetriever implements Handler.Callback {
   private static final String FRAGMENT_INDEX_KEY = "key";
 
   /** The top application level RequestManager. */
-   private volatile RequestManager applicationManager;
+   @Nullable private volatile RequestManager applicationManager;
 
   /** Pending adds for RequestManagerFragments. */
   @SuppressWarnings("deprecation")

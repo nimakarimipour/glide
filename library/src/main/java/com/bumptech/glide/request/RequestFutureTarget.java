@@ -125,7 +125,7 @@ public class RequestFutureTarget<R> implements FutureTarget<R>, RequestListener<
     return isCancelled || resultReceived || loadFailed;
   }
 
-   @Override
+   @Nullable @Override
   public R get() throws InterruptedException, ExecutionException {
     try {
       return doGet(null);
@@ -134,7 +134,7 @@ public class RequestFutureTarget<R> implements FutureTarget<R>, RequestListener<
     }
   }
 
-  @Override
+  @Nullable @Override
   public R get(long time, @NonNull TimeUnit timeUnit)
       throws InterruptedException, ExecutionException, TimeoutException {
     return doGet(timeUnit.toMillis(time));
@@ -187,7 +187,7 @@ public class RequestFutureTarget<R> implements FutureTarget<R>, RequestListener<
     // Ignored, synchronized for backwards compatibility.
   }
 
-   private synchronized R doGet(Long timeoutMillis)
+   @Nullable private synchronized R doGet(@Nullable Long timeoutMillis)
       throws ExecutionException, InterruptedException, TimeoutException {
     if (assertBackgroundThread && !isDone()) {
       Util.assertBackgroundThread();
@@ -242,7 +242,7 @@ public class RequestFutureTarget<R> implements FutureTarget<R>, RequestListener<
 
   @Override
   public synchronized boolean onLoadFailed(
-      @Nullable GlideException e, Object model, Target<R> target, boolean isFirstResource) {
+      @Nullable GlideException e, @Nullable Object model, Target<R> target, boolean isFirstResource) {
     loadFailed = true;
     exception = e;
     waiter.notifyAll(this);
@@ -251,7 +251,7 @@ public class RequestFutureTarget<R> implements FutureTarget<R>, RequestListener<
 
   @Override
   public synchronized boolean onResourceReady(
-      R resource, Object model, Target<R> target, DataSource dataSource, boolean isFirstResource) {
+      R resource, @Nullable Object model, Target<R> target, DataSource dataSource, boolean isFirstResource) {
     // We might get a null result.
     resultReceived = true;
     this.resource = resource;

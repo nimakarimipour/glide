@@ -68,7 +68,7 @@ public final class SingleRequest<R> implements Request, SizeReadyCallback, Resou
 
   @Nullable private final RequestListener<R> targetListener;
 
-  private final RequestCoordinator requestCoordinator;
+  @Nullable private final RequestCoordinator requestCoordinator;
 
   private final Context context;
 
@@ -94,10 +94,10 @@ public final class SingleRequest<R> implements Request, SizeReadyCallback, Resou
 
   private final Executor callbackExecutor;
 
-   @GuardedBy("requestLock")
+   @Nullable @GuardedBy("requestLock")
   private Resource<R> resource;
 
-   @GuardedBy("requestLock")
+   @Nullable @GuardedBy("requestLock")
   private Engine.LoadStatus loadStatus;
 
   @GuardedBy("requestLock")
@@ -138,7 +138,7 @@ public final class SingleRequest<R> implements Request, SizeReadyCallback, Resou
       Context context,
       GlideContext glideContext,
       Object requestLock,
-      Object model,
+      @Nullable Object model,
       Class<R> transcodeClass,
       BaseRequestOptions<?> requestOptions,
       int overrideWidth,
@@ -147,7 +147,7 @@ public final class SingleRequest<R> implements Request, SizeReadyCallback, Resou
       Target<R> target,
       RequestListener<R> targetListener,
       @Nullable List<RequestListener<R>> requestListeners,
-      RequestCoordinator requestCoordinator,
+      @Nullable RequestCoordinator requestCoordinator,
       Engine engine,
       TransitionFactory<? super R> animationFactory,
       Executor callbackExecutor) {
@@ -185,7 +185,7 @@ public final class SingleRequest<R> implements Request, SizeReadyCallback, Resou
       Target<R> target,
       @Nullable RequestListener<R> targetListener,
       @Nullable List<RequestListener<R>> requestListeners,
-      RequestCoordinator requestCoordinator,
+      @Nullable RequestCoordinator requestCoordinator,
       Engine engine,
       TransitionFactory<? super R> animationFactory,
       Executor callbackExecutor) {
@@ -384,7 +384,7 @@ public final class SingleRequest<R> implements Request, SizeReadyCallback, Resou
     }
   }
 
-   @GuardedBy("requestLock")
+   @Nullable @GuardedBy("requestLock")
   private Drawable getErrorDrawable() {
     if (errorDrawable == null) {
       errorDrawable = requestOptions.getErrorPlaceholder();
@@ -395,7 +395,7 @@ public final class SingleRequest<R> implements Request, SizeReadyCallback, Resou
     return errorDrawable;
   }
 
-   @GuardedBy("requestLock")
+   @Nullable @GuardedBy("requestLock")
   private Drawable getPlaceholderDrawable() {
     if (placeholderDrawable == null) {
       placeholderDrawable = requestOptions.getPlaceholderDrawable();
@@ -406,7 +406,7 @@ public final class SingleRequest<R> implements Request, SizeReadyCallback, Resou
     return placeholderDrawable;
   }
 
-   @GuardedBy("requestLock")
+   @Nullable @GuardedBy("requestLock")
   private Drawable getFallbackDrawable() {
     if (fallbackDrawable == null) {
       fallbackDrawable = requestOptions.getFallbackDrawable();
@@ -541,7 +541,7 @@ public final class SingleRequest<R> implements Request, SizeReadyCallback, Resou
    @SuppressWarnings("unchecked")
   @Override
   public void onResourceReady(
-      Resource<?> resource, DataSource dataSource, boolean isLoadedFromAlternateCacheKey) {
+      @Nullable Resource<?> resource, @Nullable DataSource dataSource, boolean isLoadedFromAlternateCacheKey) {
     stateVerifier.throwIfRecycled();
     Resource<?> toRelease = null;
     try {
@@ -667,7 +667,7 @@ public final class SingleRequest<R> implements Request, SizeReadyCallback, Resou
 
   /** A callback method that should never be invoked directly. */
   @Override
-  public void onLoadFailed(GlideException e) {
+  public void onLoadFailed(@Nullable GlideException e) {
     onLoadFailed(e, Log.WARN);
   }
 
@@ -677,7 +677,7 @@ public final class SingleRequest<R> implements Request, SizeReadyCallback, Resou
     return requestLock;
   }
 
-   private void onLoadFailed(GlideException e, int maxLogLevel) {
+   private void onLoadFailed(@Nullable GlideException e, int maxLogLevel) {
     stateVerifier.throwIfRecycled();
     synchronized (requestLock) {
       e.setOrigin(requestOrigin);

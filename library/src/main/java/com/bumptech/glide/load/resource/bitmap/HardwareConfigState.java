@@ -11,6 +11,7 @@ import com.bumptech.glide.util.Util;
 import java.io.File;
 import java.util.Arrays;
 import java.util.concurrent.atomic.AtomicBoolean;
+import androidx.annotation.Nullable;
 
 /**
  * State and constants for interacting with {@link android.graphics.Bitmap.Config#HARDWARE} on
@@ -82,7 +83,7 @@ public final class HardwareConfigState {
   /** This constant will be removed in a future version without deprecation, avoid using it. */
   public static final int NO_MAX_FD_COUNT = -1;
 
-   private static volatile HardwareConfigState instance;
+   @Nullable private static volatile HardwareConfigState instance;
   private static volatile int manualOverrideMaxFdCount = NO_MAX_FD_COUNT;
 
   private final boolean isHardwareConfigAllowedByDeviceModel;

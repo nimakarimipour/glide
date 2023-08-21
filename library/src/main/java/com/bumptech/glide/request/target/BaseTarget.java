@@ -28,7 +28,7 @@ import com.bumptech.glide.request.Request;
 @Deprecated
 public abstract class BaseTarget<Z> implements Target<Z> {
 
-   private Request request;
+   @Nullable private Request request;
 
    @Override
   public void setRequest(@Nullable Request request) {

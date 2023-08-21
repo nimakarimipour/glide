@@ -22,8 +22,8 @@ import com.bumptech.glide.util.Preconditions;
 // Public API.
 @SuppressWarnings("WeakerAccess")
 public class AppWidgetTarget extends CustomTarget<Bitmap> {
-  private final int[] widgetIds;
-  private final ComponentName componentName;
+  @Nullable private final int[] widgetIds;
+  @Nullable private final ComponentName componentName;
   private final RemoteViews remoteViews;
   private final Context context;
   private final int viewId;

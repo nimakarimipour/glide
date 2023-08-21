@@ -25,7 +25,7 @@ public class ExceptionCatchingInputStream extends InputStream {
   private static final Queue<ExceptionCatchingInputStream> QUEUE = Util.createQueue(0);
 
    private InputStream wrapped;
-   private IOException exception;
+   @Nullable private IOException exception;
 
   @NonNull
   public static ExceptionCatchingInputStream obtain(@NonNull InputStream toWrap) {

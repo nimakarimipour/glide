@@ -8,6 +8,7 @@ import java.util.Arrays;
 import java.util.Collections;
 import java.util.HashSet;
 import java.util.Set;
+import androidx.annotation.Nullable;
 
 
 /**
@@ -27,7 +28,7 @@ public class UrlUriLoader<Data> implements ModelLoader<Uri, Data> {
     this.urlLoader = urlLoader;
   }
 
-   @Override
+   @Nullable @Override
   public LoadData<Data> buildLoadData(
       @NonNull Uri uri, int width, int height, @NonNull Options options) {
     GlideUrl glideUrl = new GlideUrl(uri.toString());
