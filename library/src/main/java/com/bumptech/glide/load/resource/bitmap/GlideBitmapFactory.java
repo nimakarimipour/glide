@@ -242,10 +242,10 @@ final class GlideBitmapFactory {
     private static final ColorMatrixColorFilter OPAQUE_FILTER =
         new ColorMatrixColorFilter(
             new float[] {
-                0f, 0f, 0f, 1f, 0f,
-                0f, 0f, 0f, 1f, 0f,
-                0f, 0f, 0f, 1f, 0f,
-                0f, 0f, 0f, 0f, 255f
+              0f, 0f, 0f, 1f, 0f,
+              0f, 0f, 0f, 1f, 0f,
+              0f, 0f, 0f, 1f, 0f,
+              0f, 0f, 0f, 0f, 255f
             });
 
     private GainmapCopier() {}

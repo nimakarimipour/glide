@@ -541,6 +541,7 @@ public class RequestBuilder<TranscodeType> extends BaseRequestOptions<RequestBui
     isModelSet = true;
     return selfOrThrowIfLocked();
   }
+
   /**
    * Returns an object to load the given {@link Bitmap}.
    *

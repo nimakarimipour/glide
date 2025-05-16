@@ -242,9 +242,7 @@ public final class Util {
   }
 
   public static boolean bothBaseRequestOptionsNullEquivalentOrEquals(
-      @Nullable BaseRequestOptions<?> a,
-      @Nullable BaseRequestOptions<?> b
-  ) {
+      @Nullable BaseRequestOptions<?> a, @Nullable BaseRequestOptions<?> b) {
     if (a == null) {
       return b == null;
     }

@@ -359,9 +359,9 @@ public final class DefaultImageHeaderParser implements ImageHeaderParser {
    * contains multi-picture format (MPF) data.
    *
    * @param reader must be set at the start of an APP2 segment, past the APP2 label and length
-   *      bytes.
-   * @param tempArray for storing temporary array. Must be at least the size of
-   *     {@code app2SegmentLength}.
+   *     bytes.
+   * @param tempArray for storing temporary array. Must be at least the size of {@code
+   *     app2SegmentLength}.
    * @param app2SegmentLength the length of the APP2 segment.
    * @throws IOException if an EOF is reached before anything was read.
    */
