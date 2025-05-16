@@ -30,3 +30,5 @@ docs/**/*
 !.idea/inspectionProfiles
 !.idea/inspectionProfiles/Project_Default.xml
 
+annotator-our/
+*.log
