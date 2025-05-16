@@ -19,6 +19,8 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.concurrent.Executor;
 import java.util.concurrent.atomic.AtomicInteger;
+import com.uber.nullaway.annotations.Initializer;
+import javax.annotation.Nullable;
 
 /**
  * A class that manages a load by adding and removing callbacks for for the load and notifying
@@ -47,21 +49,21 @@ class EngineJob<R> implements DecodeJob.Callback<R>, Poolable {
   private boolean useUnlimitedSourceGeneratorPool;
   private boolean useAnimationPool;
   private boolean onlyRetrieveFromCache;
-  private Resource<?> resource;
+  @Nullable private Resource<?> resource;
 
-  @SuppressWarnings("WeakerAccess")
+  @Nullable @SuppressWarnings("WeakerAccess")
   @Synthetic
   DataSource dataSource;
 
   private boolean hasResource;
 
-  @SuppressWarnings("WeakerAccess")
+  @Nullable @SuppressWarnings("WeakerAccess")
   @Synthetic
   GlideException exception;
 
   private boolean hasLoadFailed;
 
-  @SuppressWarnings("WeakerAccess")
+  @Nullable @SuppressWarnings("WeakerAccess")
   @Synthetic
   EngineResource<?> engineResource;
 
@@ -313,9 +315,9 @@ class EngineJob<R> implements DecodeJob.Callback<R>, Poolable {
     pool.release(this);
   }
 
-  @Override
+  @Initializer @Override
   public void onResourceReady(
-      Resource<R> resource, DataSource dataSource, boolean isLoadedFromAlternateCacheKey) {
+      Resource<R> resource, @Nullable DataSource dataSource, boolean isLoadedFromAlternateCacheKey) {
     synchronized (this) {
       this.resource = resource;
       this.dataSource = dataSource;
@@ -512,7 +514,7 @@ class EngineJob<R> implements DecodeJob.Callback<R>, Poolable {
   @VisibleForTesting
   static class EngineResourceFactory {
     public <R> EngineResource<R> build(
-        Resource<R> resource, boolean isMemoryCacheable, Key key, ResourceListener listener) {
+        @Nullable Resource<R> resource, boolean isMemoryCacheable, Key key, ResourceListener listener) {
       return new EngineResource<>(
           resource, isMemoryCacheable, /* isRecyclable= */ true, key, listener);
     }

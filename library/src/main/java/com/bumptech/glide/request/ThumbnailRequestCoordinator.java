@@ -2,6 +2,7 @@ package com.bumptech.glide.request;
 
 import androidx.annotation.GuardedBy;
 import androidx.annotation.Nullable;
+import com.uber.nullaway.annotations.Initializer;
 
 /**
  * A coordinator that coordinates two individual {@link Request}s that load a small thumbnail
@@ -29,7 +30,7 @@ public class ThumbnailRequestCoordinator implements RequestCoordinator, Request 
     this.parent = parent;
   }
 
-  public void setRequests(Request full, Request thumb) {
+  @Initializer public void setRequests(Request full, Request thumb) {
     this.full = full;
     this.thumb = thumb;
   }
@@ -200,7 +201,7 @@ public class ThumbnailRequestCoordinator implements RequestCoordinator, Request 
   }
 
   @Override
-  public boolean isEquivalentTo(Request o) {
+  public boolean isEquivalentTo(@Nullable Request o) {
     if (o instanceof ThumbnailRequestCoordinator) {
       ThumbnailRequestCoordinator that = (ThumbnailRequestCoordinator) o;
       return (full == null ? that.full == null : full.isEquivalentTo(that.full))

@@ -2,6 +2,7 @@ package com.bumptech.glide.request;
 
 import androidx.annotation.GuardedBy;
 import androidx.annotation.Nullable;
+import com.uber.nullaway.annotations.Initializer;
 
 /**
  * Runs a single primary {@link Request} until it completes and then a fallback error request only
@@ -26,7 +27,7 @@ public final class ErrorRequestCoordinator implements RequestCoordinator, Reques
     this.parent = parent;
   }
 
-  public void setRequests(Request primary, Request error) {
+  @Initializer public void setRequests(Request primary, Request error) {
     this.primary = primary;
     this.error = error;
   }
@@ -91,7 +92,7 @@ public final class ErrorRequestCoordinator implements RequestCoordinator, Reques
   }
 
   @Override
-  public boolean isEquivalentTo(Request o) {
+  public boolean isEquivalentTo(@Nullable Request o) {
     if (o instanceof ErrorRequestCoordinator) {
       ErrorRequestCoordinator other = (ErrorRequestCoordinator) o;
       return primary.isEquivalentTo(other.primary) && error.isEquivalentTo(other.error);

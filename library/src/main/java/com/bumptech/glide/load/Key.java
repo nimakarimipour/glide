@@ -3,6 +3,7 @@ package com.bumptech.glide.load;
 import androidx.annotation.NonNull;
 import java.nio.charset.Charset;
 import java.security.MessageDigest;
+import javax.annotation.Nullable;
 
 /**
  * An interface that uniquely identifies some put of data. Implementations must implement {@link

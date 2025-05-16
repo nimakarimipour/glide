@@ -47,5 +47,5 @@ public abstract class ThumbnailImageViewTarget<T> extends ImageViewTarget<T> {
     view.setImageDrawable(result);
   }
 
-  protected abstract Drawable getDrawable(T resource);
+  @Nullable protected abstract Drawable getDrawable(@Nullable T resource);
 }

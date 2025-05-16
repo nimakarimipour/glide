@@ -1218,7 +1218,7 @@ public abstract class BaseRequestOptions<T extends BaseRequestOptions<T>> implem
    * additional fields, such as listeners and models, that should not be considered when checking
    * for equality.
    */
-  public final boolean isEquivalentTo(BaseRequestOptions<?> other) {
+  public final boolean isEquivalentTo(@Nullable BaseRequestOptions<?> other) {
     return Float.compare(other.sizeMultiplier, sizeMultiplier) == 0
         && errorId == other.errorId
         && Util.bothNullOrEqual(errorPlaceholder, other.errorPlaceholder)

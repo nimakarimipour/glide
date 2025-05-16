@@ -2,13 +2,14 @@ package com.bumptech.glide.util;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import com.uber.nullaway.annotations.Initializer;
 
 /** A key of two {@link Class}es to be used in hashed collections. */
 @SuppressWarnings({"PMD.ConstructorCallsOverridableMethod"})
 public class MultiClassKey {
   private Class<?> first;
   private Class<?> second;
-  private Class<?> third;
+  @Nullable private Class<?> third;
 
   public MultiClassKey() {
     // leave them null
@@ -27,7 +28,7 @@ public class MultiClassKey {
     set(first, second, null);
   }
 
-  public void set(@NonNull Class<?> first, @NonNull Class<?> second, @Nullable Class<?> third) {
+  @Initializer public void set(@NonNull Class<?> first, @NonNull Class<?> second, @Nullable Class<?> third) {
     this.first = first;
     this.second = second;
     this.third = third;

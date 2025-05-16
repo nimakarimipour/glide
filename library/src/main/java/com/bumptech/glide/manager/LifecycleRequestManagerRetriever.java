@@ -15,6 +15,7 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
+import javax.annotation.Nullable;
 
 final class LifecycleRequestManagerRetriever {
   @Synthetic final Map<Lifecycle, RequestManager> lifecycleToRequestManager = new HashMap<>();
@@ -24,7 +25,7 @@ final class LifecycleRequestManagerRetriever {
     this.factory = factory;
   }
 
-  RequestManager getOnly(Lifecycle lifecycle) {
+  @Nullable RequestManager getOnly(Lifecycle lifecycle) {
     Util.assertMainThread();
     return lifecycleToRequestManager.get(lifecycle);
   }

@@ -13,6 +13,7 @@ import com.bumptech.glide.util.Util;
 import java.io.File;
 import java.util.Arrays;
 import java.util.concurrent.atomic.AtomicBoolean;
+import javax.annotation.Nullable;
 
 /**
  * State and constants for interacting with {@link android.graphics.Bitmap.Config#HARDWARE} on
@@ -70,7 +71,7 @@ public final class HardwareConfigState {
    */
   @Deprecated public static final int NO_MAX_FD_COUNT = -1;
 
-  private static volatile HardwareConfigState instance;
+  @Nullable private static volatile HardwareConfigState instance;
 
   private final int sdkBasedMaxFdCount;
 

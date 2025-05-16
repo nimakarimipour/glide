@@ -32,7 +32,7 @@ public class RequestManagerRetriever implements Handler.Callback {
   @VisibleForTesting static final String FRAGMENT_TAG = "com.bumptech.glide.manager";
 
   /** The top application level RequestManager. */
-  private volatile RequestManager applicationManager;
+  @Nullable private volatile RequestManager applicationManager;
 
   private final RequestManagerFactory factory;
 

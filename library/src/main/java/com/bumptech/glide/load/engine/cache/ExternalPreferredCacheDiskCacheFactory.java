@@ -42,7 +42,7 @@ public final class ExternalPreferredCacheDiskCacheFactory extends DiskLruCacheFa
             return cacheDirectory;
           }
 
-          @Override
+          @Nullable @Override
           public File getCacheDirectory() {
             File internalCacheDirectory = getInternalCacheDirectory();
 

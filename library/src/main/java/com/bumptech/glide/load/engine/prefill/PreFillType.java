@@ -28,7 +28,7 @@ public final class PreFillType {
    *     {@link android.graphics.Bitmap} against any other sizes/configurations that may be being
    *     pre-filled.
    */
-  PreFillType(int width, int height, Bitmap.Config config, int weight) {
+  PreFillType(int width, int height, @Nullable Bitmap.Config config, int weight) {
     this.config = Preconditions.checkNotNull(config, "Config must not be null");
     this.width = width;
     this.height = height;
@@ -98,7 +98,7 @@ public final class PreFillType {
     private final int width;
     private final int height;
 
-    private Bitmap.Config config;
+    @Nullable private Bitmap.Config config;
     private int weight = 1;
 
     /**
@@ -141,7 +141,7 @@ public final class PreFillType {
     }
 
     /** Returns the current {@link android.graphics.Bitmap.Config}. */
-    Bitmap.Config getConfig() {
+    @Nullable Bitmap.Config getConfig() {
       return config;
     }
 

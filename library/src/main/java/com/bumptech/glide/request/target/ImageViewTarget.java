@@ -51,7 +51,7 @@ public abstract class ImageViewTarget<Z> extends ViewTarget<ImageView, Z>
    * @param drawable {@inheritDoc}
    */
   @Override
-  public void setDrawable(Drawable drawable) {
+  public void setDrawable(@Nullable Drawable drawable) {
     view.setImageDrawable(drawable);
   }
 

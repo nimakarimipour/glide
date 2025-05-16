@@ -58,7 +58,7 @@ public class Glide implements ComponentCallbacks2 {
           + "is attached or after the Fragment is destroyed).";
   private static final String TAG = "Glide";
 
-  @GuardedBy("Glide.class")
+  @Nullable @GuardedBy("Glide.class")
   private static volatile Glide glide;
 
   private static volatile boolean isInitializing;

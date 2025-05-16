@@ -50,7 +50,7 @@ public interface DiskCache {
    * @param key The key to write to.
    * @param writer An interface that will write data given an OutputStream for the key.
    */
-  void put(Key key, Writer writer);
+  void put(@Nullable Key key, Writer writer);
 
   /**
    * Remove the key and value from the cache.

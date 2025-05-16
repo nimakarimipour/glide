@@ -2,6 +2,7 @@ package com.bumptech.glide.request;
 
 import com.bumptech.glide.load.DataSource;
 import com.bumptech.glide.request.target.Target;
+import javax.annotation.Nullable;
 
 /**
  * An extension of {@link RequestListener} with additional parameters.
@@ -30,9 +31,9 @@ public abstract class ExperimentalRequestListener<ResourceT> implements RequestL
    */
   public abstract boolean onResourceReady(
       ResourceT resource,
-      Object model,
+      @Nullable Object model,
       Target<ResourceT> target,
-      DataSource dataSource,
+      @Nullable DataSource dataSource,
       boolean isFirstResource,
       boolean isAlternateCacheKey);
 }

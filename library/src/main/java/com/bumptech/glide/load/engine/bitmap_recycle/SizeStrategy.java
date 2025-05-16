@@ -82,7 +82,7 @@ final class SizeStrategy implements LruPoolStrategy {
   }
 
   @Override
-  public String logBitmap(int width, int height, Bitmap.Config config) {
+  public String logBitmap(int width, int height, @Nullable Bitmap.Config config) {
     int size = Util.getBitmapByteSize(width, height, config);
     return getBitmapString(size);
   }

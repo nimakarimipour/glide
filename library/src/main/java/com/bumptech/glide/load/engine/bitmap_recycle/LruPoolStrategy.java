@@ -14,7 +14,7 @@ interface LruPoolStrategy {
 
   String logBitmap(Bitmap bitmap);
 
-  String logBitmap(int width, int height, Bitmap.Config config);
+  String logBitmap(int width, int height, @Nullable Bitmap.Config config);
 
   int getSize(Bitmap bitmap);
 }

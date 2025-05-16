@@ -60,7 +60,7 @@ public interface RequestListener<R> {
    *     Target#onLoadFailed(Drawable)} to be called on {@code target}.
    */
   boolean onLoadFailed(
-      @Nullable GlideException e, Object model, Target<R> target, boolean isFirstResource);
+      @Nullable GlideException e, @Nullable Object model, Target<R> target, boolean isFirstResource);
 
   /**
    * Called when a load completes successfully, immediately before {@link
@@ -85,5 +85,5 @@ public interface RequestListener<R> {
    *     Target#onResourceReady(Object, Transition)} to be called on {@code target}.
    */
   boolean onResourceReady(
-      R resource, Object model, Target<R> target, DataSource dataSource, boolean isFirstResource);
+      R resource, @Nullable Object model, Target<R> target, @Nullable DataSource dataSource, boolean isFirstResource);
 }

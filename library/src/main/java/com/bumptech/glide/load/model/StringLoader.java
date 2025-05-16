@@ -25,7 +25,7 @@ public class StringLoader<Data> implements ModelLoader<String, Data> {
     this.uriLoader = uriLoader;
   }
 
-  @Override
+  @Nullable @Override
   public LoadData<Data> buildLoadData(
       @NonNull String model, int width, int height, @NonNull Options options) {
     Uri uri = parseUri(model);
