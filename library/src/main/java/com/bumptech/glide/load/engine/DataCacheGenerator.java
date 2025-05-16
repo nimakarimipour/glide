@@ -23,7 +23,7 @@ class DataCacheGenerator implements DataFetcherGenerator, DataFetcher.DataCallba
 
   private int sourceIdIndex = -1;
   @Nullable private Key sourceKey;
-  private List<ModelLoader<File, ?>> modelLoaders;
+  @Nullable private List<ModelLoader<File, ?>> modelLoaders;
   private int modelLoaderIndex;
   @Nullable private volatile LoadData<?> loadData;
 
