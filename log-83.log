@@ -1,0 +1,98 @@
+====================
+Type='DEREFERENCE_NULLABLE', message='dereferenced expression wrapped is @Nullable'
+/home/nima/Developer/nullness-benchmarks/glide/library/src/main/java/com/bumptech/glide/request/target/FixedSizeDrawable.java:35
+    this(new State(wrapped.getConstantState(), width, height), wrapped);
+Log:
+---NullAway.lambda$resolveRemainingErrors$17---
+==============================
+---NullAway.lambda$resolveRemainingErrors$17---
+TOP LEVEL CALL TO FIX ERROR: Type='DEREFERENCE_NULLABLE', message='dereferenced expression wrapped is @Nullable'
+/home/nima/Developer/nullness-benchmarks/glide/library/src/main/java/com/bumptech/glide/request/target/FixedSizeDrawable.java:35
+    this(new State(wrapped.getConstantState(), width, height), wrapped);
+---ChatGPT.ask---
+Asking ChatGPT:
+I want to resolve a warning reported by NullAway.
+The error is of the type of "DEREFERENCE_NULLABLE" and the full error message is: "dereferenced expression wrapped is @Nullable".
+The line with the error is: "    this(new State(wrapped.getConstantState(), width, height), wrapped);".
+
+The error is within "the method: FixedSizeDrawable(android.graphics.drawable.Drawable,int,int)" and the code surrounding the error is:
+```java
+import com.bumptech.glide.util.Synthetic;
+import javax.annotation.Nullable;
+
+/**
+ * A wrapper drawable to square the wrapped drawable so that it expands to fill a square with
+ * exactly the given side length. The goal of this drawable is to ensure that square thumbnail
+ * drawables always match the size of the view they will be displayed in to avoid a costly
+ * requestLayout call. This class should not be used with views or drawables that are not square.
+ */
+public class FixedSizeDrawable extends Drawable {
+  private final Matrix matrix;
+  private final RectF wrappedRect;
+  private final RectF bounds;
+  private Drawable wrapped;
+  private State state;
+  private boolean mutated;
+
+  // Public API.
+  @SuppressWarnings("WeakerAccess")
+  public FixedSizeDrawable(@Nullable Drawable wrapped, int width, int height) {
+    this(new State(wrapped.getConstantState(), width, height), wrapped);
+  }
+
+  FixedSizeDrawable(State state, Drawable wrapped) {
+    this.state = Preconditions.checkNotNull(state);
+    this.wrapped = Preconditions.checkNotNull(wrapped);
+
+    // We will do our own scaling.
+    wrapped.setBounds(0, 0, wrapped.getIntrinsicWidth(), wrapped.getIntrinsicHeight());
+
+    matrix = new Matrix();
+    wrappedRect = new RectF(0, 0, wrapped.getIntrinsicWidth(), wrapped.getIntrinsicHeight());
+    bounds = new RectF();
+  }
+
+  @Override
+  public void setBounds(int left, int top, int right, int bottom) {
+    super.setBounds(left, top, right, bottom);
+    bounds.set(left, top, right, bottom);
+    updateMatrix();
+```
+
+Give me the fixed code snippet (ONLY THE METHOD REWRITE OF "FixedSizeDrawable(android.graphics.drawable.Drawable,int,int)") in XML format in <response> tag like the example below. I will apply the fix to my codebase.
+Do not import any additional libraries or classes or java comments.
+If you can provide the fixed code snippet, provide it in the following format and place the code snippet in the <code> tag within ```java block.
+<response>
+  <success>true</success>
+  <code><![CDATA[
+  ```java
+  Your fixed code snippet here
+  ```
+    ]]>
+  </code>
+</response>
+
+---ChatGPT.sendRequestToOpenAI---
+Sending request to OpenAI...
+---ChatGPT.sendRequestToOpenAI---
+Response received from OpenAI.
+---Response.<init>---
+Creating Response:
+```xml
+<response>
+  <success>true</success>
+  <code><![CDATA[
+  ```java
+  public FixedSizeDrawable(Drawable wrapped, int width, int height) {
+    this(new State(wrapped != null ? wrapped.getConstantState() : null, width, height), wrapped);
+  }
+  ```
+    ]]>
+  </code>
+</response>
+```
+---Response.<init>---
+Response created:
+public FixedSizeDrawable(Drawable wrapped, int width, int height) {
+    this(new State(wrapped != null ? wrapped.getConstantState() : null, width, height), wrapped);
+  }

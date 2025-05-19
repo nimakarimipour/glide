@@ -30,10 +30,9 @@ public class FixedSizeDrawable extends Drawable {
   private boolean mutated;
 
   // Public API.
-  @SuppressWarnings("WeakerAccess")
-  public FixedSizeDrawable(@Nullable Drawable wrapped, int width, int height) {
-    this(new State(wrapped.getConstantState(), width, height), wrapped);
-  }
+  public FixedSizeDrawable(Drawable wrapped, int width, int height) {
+      this(new State(wrapped != null ? wrapped.getConstantState() : null, width, height), wrapped);
+    }
 
   FixedSizeDrawable(State state, Drawable wrapped) {
     this.state = Preconditions.checkNotNull(state);
