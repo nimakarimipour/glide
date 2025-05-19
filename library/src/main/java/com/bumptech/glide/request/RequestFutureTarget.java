@@ -255,17 +255,18 @@ public class RequestFutureTarget<R> implements FutureTarget<R>, RequestListener<
   }
 
   @Override
-    public synchronized boolean onResourceReady(
-        @NonNull R resource,
-        Object model,
-        Target<R> target,
-        @NonNull DataSource dataSource,
-        boolean isFirstResource) {
-      resultReceived = true;
-      this.resource = resource;
-      waiter.notifyAll(this);
-      return false;
-    }
+  public synchronized boolean onResourceReady(
+      @NonNull R resource,
+      @NonNull Object model,
+      Target<R> target,
+      @NonNull DataSource dataSource,
+      boolean isFirstResource) {
+    // We might get a null result.
+    resultReceived = true;
+    this.resource = resource;
+    waiter.notifyAll(this);
+    return false;
+  }
 
   @Override
   public String toString() {
