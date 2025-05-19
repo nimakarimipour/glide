@@ -136,11 +136,13 @@ class GroupedLinkedMap<K extends Poolable, V> {
       this.key = key;
     }
 
-    @Nullable
     public V removeLast() {
-      final int valueSize = size();
-      return valueSize > 0 ? values.remove(valueSize - 1) : null;
-    }
+          final int valueSize = size();
+          if (values != null && valueSize > 0) {
+              return values.remove(valueSize - 1);
+          }
+          return null;
+      }
 
     public int size() {
       return values != null ? values.size() : 0;
