@@ -46,9 +46,9 @@ public class ExceptionCatchingInputStream extends InputStream {
     }
   }
 
-  ExceptionCatchingInputStream() {
-    // Do nothing.
-  }
+  ExceptionCatchingInputStream(@NonNull InputStream toWrap) {
+      setInputStream(toWrap);
+    }
 
   void setInputStream(@NonNull InputStream toWrap) {
     wrapped = toWrap;
