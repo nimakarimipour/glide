@@ -125,24 +125,21 @@ public class Glide implements ComponentCallbacks2 {
    * @return the singleton
    */
   @NonNull
-    @SuppressWarnings("GuardedBy")
-    public static Glide get(@NonNull Context context) {
-      if (glide == null) {
-        GeneratedAppGlideModule annotationGeneratedModule =
-            getAnnotationGeneratedGlideModules(context.getApplicationContext());
-        synchronized (Glide.class) {
-          if (glide == null) {
-            checkAndInitializeGlide(context, annotationGeneratedModule);
-          }
+  // Double checked locking is safe here.
+  @SuppressWarnings("GuardedBy")
+  public static Glide get(@NonNull Context context) {
+    if (glide == null) {
+      GeneratedAppGlideModule annotationGeneratedModule =
+          getAnnotationGeneratedGlideModules(context.getApplicationContext());
+      synchronized (Glide.class) {
+        if (glide == null) {
+          checkAndInitializeGlide(context, annotationGeneratedModule);
         }
       }
-      
-      if (glide == null) {
-        throw new IllegalStateException("Glide instance is not initialized");
-      }
-  
-      return glide;
     }
+
+    return glide;
+  }
 
   @GuardedBy("Glide.class")
   @VisibleForTesting
