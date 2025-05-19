@@ -1,0 +1,102 @@
+====================
+Type='UNBOX_NULLABLE', message='unboxing of a @Nullable value'
+/home/nima/Developer/nullness-benchmarks/glide/library/src/main/java/com/bumptech/glide/load/resource/gif/StreamGifDecoder.java:42
+    return !options.get(GifOptions.DISABLE_ANIMATION)
+Log:
+---NullAway.lambda$resolveRemainingErrors$17---
+==============================
+---NullAway.lambda$resolveRemainingErrors$17---
+TOP LEVEL CALL TO FIX ERROR: Type='UNBOX_NULLABLE', message='unboxing of a @Nullable value'
+/home/nima/Developer/nullness-benchmarks/glide/library/src/main/java/com/bumptech/glide/load/resource/gif/StreamGifDecoder.java:42
+    return !options.get(GifOptions.DISABLE_ANIMATION)
+---ChatGPT.ask---
+Asking ChatGPT:
+I want to resolve a warning reported by NullAway.
+The error is of the type of "UNBOX_NULLABLE" and the full error message is: "unboxing of a @Nullable value".
+The line with the error is: "    return !options.get(GifOptions.DISABLE_ANIMATION)".
+
+The error is within "the method: handles(java.io.InputStream,com.bumptech.glide.load.Options)" and the code surrounding the error is:
+```java
+ * buffer to a wrapped decoder.
+ */
+public class StreamGifDecoder implements ResourceDecoder<InputStream, GifDrawable> {
+  private static final String TAG = "StreamGifDecoder";
+
+  private final List<ImageHeaderParser> parsers;
+  private final ResourceDecoder<ByteBuffer, GifDrawable> byteBufferDecoder;
+  private final ArrayPool byteArrayPool;
+
+  public StreamGifDecoder(
+      List<ImageHeaderParser> parsers,
+      ResourceDecoder<ByteBuffer, GifDrawable> byteBufferDecoder,
+      ArrayPool byteArrayPool) {
+    this.parsers = parsers;
+    this.byteBufferDecoder = byteBufferDecoder;
+    this.byteArrayPool = byteArrayPool;
+  }
+
+  @Override
+  public boolean handles(@NonNull InputStream source, @NonNull Options options) throws IOException {
+    return !options.get(GifOptions.DISABLE_ANIMATION)
+        && ImageHeaderParserUtils.getType(parsers, source, byteArrayPool) == ImageType.GIF;
+  }
+
+  @Nullable
+  @Override
+  public Resource<GifDrawable> decode(
+      @NonNull InputStream source, int width, int height, @NonNull Options options)
+      throws IOException {
+    byte[] data = inputStreamToBytes(source);
+    if (data == null) {
+      return null;
+    }
+    ByteBuffer byteBuffer = ByteBuffer.wrap(data);
+    return byteBufferDecoder.decode(byteBuffer, width, height, options);
+  }
+
+  @Nullable
+  private static byte[] inputStreamToBytes(InputStream is) {
+    final int bufferSize = 16384;
+```
+
+Give me the fixed code snippet (ONLY THE METHOD REWRITE OF "handles(java.io.InputStream,com.bumptech.glide.load.Options)") in XML format in <response> tag like the example below. I will apply the fix to my codebase.
+Do not import any additional libraries or classes or java comments.
+If you can provide the fixed code snippet, provide it in the following format and place the code snippet in the <code> tag within ```java block.
+<response>
+  <success>true</success>
+  <code><![CDATA[
+  ```java
+  Your fixed code snippet here
+  ```
+    ]]>
+  </code>
+</response>
+
+---ChatGPT.sendRequestToOpenAI---
+Sending request to OpenAI...
+---ChatGPT.sendRequestToOpenAI---
+Response received from OpenAI.
+---Response.<init>---
+Creating Response:
+<response>
+  <success>true</success>
+  <code><![CDATA[
+  ```java
+  @Override
+  public boolean handles(@NonNull InputStream source, @NonNull Options options) throws IOException {
+      Boolean disableAnimation = options.get(GifOptions.DISABLE_ANIMATION);
+      return disableAnimation != null && !disableAnimation
+          && ImageHeaderParserUtils.getType(parsers, source, byteArrayPool) == ImageType.GIF;
+  }
+  ```
+  ]]>
+  </code>
+</response>
+---Response.<init>---
+Response created:
+@Override
+  public boolean handles(@NonNull InputStream source, @NonNull Options options) throws IOException {
+      Boolean disableAnimation = options.get(GifOptions.DISABLE_ANIMATION);
+      return disableAnimation != null && !disableAnimation
+          && ImageHeaderParserUtils.getType(parsers, source, byteArrayPool) == ImageType.GIF;
+  }
