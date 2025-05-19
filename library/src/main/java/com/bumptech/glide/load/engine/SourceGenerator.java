@@ -233,7 +233,11 @@ class SourceGenerator implements DataFetcherGenerator, DataFetcherGenerator.Fetc
   // Called from source cache generator.
   @Override
   public void onDataFetcherReady(
-      @Nullable Key sourceKey, @Nullable Object data, DataFetcher<?> fetcher, DataSource dataSource, @Nullable Key attemptedKey) {
+      @Nullable Key sourceKey,
+      @Nullable Object data,
+      DataFetcher<?> fetcher,
+      DataSource dataSource,
+      @Nullable Key attemptedKey) {
     // This data fetcher will be loading from a File and provide the wrong data source, so override
     // with the data source of the original fetcher
     cb.onDataFetcherReady(sourceKey, data, fetcher, loadData.fetcher.getDataSource(), sourceKey);

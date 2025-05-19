@@ -168,7 +168,8 @@ public class VideoDecoder<T> implements ResourceDecoder<T, Bitmap> {
     return true;
   }
 
-  @Nullable @Override
+  @Nullable
+  @Override
   public Resource<Bitmap> decode(
       @NonNull T resource, int outWidth, int outHeight, @NonNull Options options)
       throws IOException {

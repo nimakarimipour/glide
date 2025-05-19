@@ -30,7 +30,8 @@ public class ThumbnailRequestCoordinator implements RequestCoordinator, Request 
     this.parent = parent;
   }
 
-  @Initializer public void setRequests(Request full, Request thumb) {
+  @Initializer
+  public void setRequests(Request full, Request thumb) {
     this.full = full;
     this.thumb = thumb;
   }

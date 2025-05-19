@@ -29,7 +29,8 @@ class DataCacheGenerator implements DataFetcherGenerator, DataFetcher.DataCallba
 
   // PMD is wrong here, this File must be an instance variable because it may be used across
   // multiple calls to startNext.
-  @Nullable @SuppressWarnings("PMD.SingularField")
+  @Nullable
+  @SuppressWarnings("PMD.SingularField")
   private File cacheFile;
 
   DataCacheGenerator(DecodeHelper<?> helper, FetcherReadyCallback cb) {

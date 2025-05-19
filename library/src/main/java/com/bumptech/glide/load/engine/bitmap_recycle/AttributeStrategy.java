@@ -21,14 +21,16 @@ class AttributeStrategy implements LruPoolStrategy {
     groupedMap.put(key, bitmap);
   }
 
-  @Nullable @Override
+  @Nullable
+  @Override
   public Bitmap get(int width, int height, Bitmap.Config config) {
     final Key key = keyPool.get(width, height, config);
 
     return groupedMap.get(key);
   }
 
-  @Nullable @Override
+  @Nullable
+  @Override
   public Bitmap removeLast() {
     return groupedMap.removeLast();
   }

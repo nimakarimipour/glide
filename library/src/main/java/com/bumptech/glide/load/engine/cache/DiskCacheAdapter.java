@@ -6,7 +6,8 @@ import javax.annotation.Nullable;
 
 /** A simple class that returns null for all gets and ignores all writes. */
 public class DiskCacheAdapter implements DiskCache {
-  @Nullable @Override
+  @Nullable
+  @Override
   public File get(Key key) {
     // no op, default for overriders
     return null;

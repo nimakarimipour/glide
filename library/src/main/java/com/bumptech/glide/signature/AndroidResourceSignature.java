@@ -7,7 +7,6 @@ import com.bumptech.glide.load.Key;
 import com.bumptech.glide.util.Util;
 import java.nio.ByteBuffer;
 import java.security.MessageDigest;
-import javax.annotation.Nullable;
 
 /** Includes information about the package as well as whether or not the device is in night mode. */
 public final class AndroidResourceSignature implements Key {

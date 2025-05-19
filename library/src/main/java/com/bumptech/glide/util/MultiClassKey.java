@@ -28,7 +28,8 @@ public class MultiClassKey {
     set(first, second, null);
   }
 
-  @Initializer public void set(@NonNull Class<?> first, @NonNull Class<?> second, @Nullable Class<?> third) {
+  @Initializer
+  public void set(@NonNull Class<?> first, @NonNull Class<?> second, @Nullable Class<?> third) {
     this.first = first;
     this.second = second;
     this.third = third;

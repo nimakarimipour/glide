@@ -5,13 +5,13 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import com.bumptech.glide.load.DataSource;
 import com.bumptech.glide.load.Key;
+import com.uber.nullaway.annotations.Initializer;
 import java.io.IOException;
 import java.io.PrintStream;
 import java.io.PrintWriter;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
-import com.uber.nullaway.annotations.Initializer;
 
 /** An exception with zero or more causes indicating why a load in Glide failed. */
 // Public API.
@@ -46,7 +46,9 @@ public final class GlideException extends Exception {
     setLoggingDetails(key, dataSource, null);
   }
 
-  @Initializer void setLoggingDetails(@Nullable Key key, @Nullable DataSource dataSource, @Nullable Class<?> dataClass) {
+  @Initializer
+  void setLoggingDetails(
+      @Nullable Key key, @Nullable DataSource dataSource, @Nullable Class<?> dataClass) {
     this.key = key;
     this.dataSource = dataSource;
     this.dataClass = dataClass;

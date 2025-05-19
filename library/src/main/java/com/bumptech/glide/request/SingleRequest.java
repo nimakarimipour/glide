@@ -94,10 +94,12 @@ public final class SingleRequest<R> implements Request, SizeReadyCallback, Resou
 
   private final Executor callbackExecutor;
 
-  @Nullable @GuardedBy("requestLock")
+  @Nullable
+  @GuardedBy("requestLock")
   private Resource<R> resource;
 
-  @Nullable @GuardedBy("requestLock")
+  @Nullable
+  @GuardedBy("requestLock")
   private Engine.LoadStatus loadStatus;
 
   @GuardedBy("requestLock")
@@ -384,7 +386,8 @@ public final class SingleRequest<R> implements Request, SizeReadyCallback, Resou
     }
   }
 
-  @Nullable @GuardedBy("requestLock")
+  @Nullable
+  @GuardedBy("requestLock")
   private Drawable getErrorDrawable() {
     if (errorDrawable == null) {
       errorDrawable = requestOptions.getErrorPlaceholder();
@@ -395,7 +398,8 @@ public final class SingleRequest<R> implements Request, SizeReadyCallback, Resou
     return errorDrawable;
   }
 
-  @Nullable @GuardedBy("requestLock")
+  @Nullable
+  @GuardedBy("requestLock")
   private Drawable getPlaceholderDrawable() {
     if (placeholderDrawable == null) {
       placeholderDrawable = requestOptions.getPlaceholderDrawable();
@@ -406,7 +410,8 @@ public final class SingleRequest<R> implements Request, SizeReadyCallback, Resou
     return placeholderDrawable;
   }
 
-  @Nullable @GuardedBy("requestLock")
+  @Nullable
+  @GuardedBy("requestLock")
   private Drawable getFallbackDrawable() {
     if (fallbackDrawable == null) {
       fallbackDrawable = requestOptions.getFallbackDrawable();
@@ -541,7 +546,9 @@ public final class SingleRequest<R> implements Request, SizeReadyCallback, Resou
   @SuppressWarnings("unchecked")
   @Override
   public void onResourceReady(
-      @Nullable Resource<?> resource, @Nullable DataSource dataSource, boolean isLoadedFromAlternateCacheKey) {
+      @Nullable Resource<?> resource,
+      @Nullable DataSource dataSource,
+      boolean isLoadedFromAlternateCacheKey) {
     stateVerifier.throwIfRecycled();
     Resource<?> toRelease = null;
     try {
@@ -616,7 +623,10 @@ public final class SingleRequest<R> implements Request, SizeReadyCallback, Resou
   @SuppressWarnings({"deprecation", "PMD.UnusedFormalParameter"})
   @GuardedBy("requestLock")
   private void onResourceReady(
-      Resource<R> resource, R result, @Nullable DataSource dataSource, boolean isAlternateCacheKey) {
+      Resource<R> resource,
+      R result,
+      @Nullable DataSource dataSource,
+      boolean isAlternateCacheKey) {
     // We must call isFirstReadyResource before setting status.
     boolean isFirstResource = isFirstReadyResource();
     status = Status.COMPLETE;

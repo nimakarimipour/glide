@@ -22,10 +22,10 @@ import com.bumptech.glide.util.Synthetic;
 import com.bumptech.glide.util.pool.FactoryPools.Poolable;
 import com.bumptech.glide.util.pool.GlideTrace;
 import com.bumptech.glide.util.pool.StateVerifier;
+import com.uber.nullaway.annotations.Initializer;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
-import com.uber.nullaway.annotations.Initializer;
 import javax.annotation.Nullable;
 
 /**
@@ -85,7 +85,8 @@ class DecodeJob<R>
     this.pool = pool;
   }
 
-  @Initializer DecodeJob<R> init(
+  @Initializer
+  DecodeJob<R> init(
       GlideContext glideContext,
       @Nullable Object model,
       EngineKey loadKey,
@@ -289,7 +290,8 @@ class DecodeJob<R>
     }
   }
 
-  @Nullable private DataFetcherGenerator getNextGenerator() {
+  @Nullable
+  private DataFetcherGenerator getNextGenerator() {
     switch (stage) {
       case RESOURCE_CACHE:
         return new ResourceCacheGenerator(decodeHelper, this);
@@ -336,7 +338,9 @@ class DecodeJob<R>
   }
 
   private void notifyComplete(
-      Resource<R> resource, @Nullable DataSource dataSource, boolean isLoadedFromAlternateCacheKey) {
+      Resource<R> resource,
+      @Nullable DataSource dataSource,
+      boolean isLoadedFromAlternateCacheKey) {
     setNotifiedOrThrow();
     callback.onResourceReady(resource, dataSource, isLoadedFromAlternateCacheKey);
   }
@@ -385,7 +389,11 @@ class DecodeJob<R>
 
   @Override
   public void onDataFetcherReady(
-      Key sourceKey, @Nullable Object data, DataFetcher<?> fetcher, DataSource dataSource, Key attemptedKey) {
+      Key sourceKey,
+      @Nullable Object data,
+      DataFetcher<?> fetcher,
+      DataSource dataSource,
+      Key attemptedKey) {
     this.currentSourceKey = sourceKey;
     this.currentData = data;
     this.currentFetcher = fetcher;
@@ -446,7 +454,9 @@ class DecodeJob<R>
   }
 
   private void notifyEncodeAndRelease(
-      Resource<R> resource, @Nullable DataSource dataSource, boolean isLoadedFromAlternateCacheKey) {
+      Resource<R> resource,
+      @Nullable DataSource dataSource,
+      boolean isLoadedFromAlternateCacheKey) {
     GlideTrace.beginSection("DecodeJob.notifyEncodeAndRelease");
     try {
       if (resource instanceof Initializable) {
@@ -481,8 +491,10 @@ class DecodeJob<R>
     }
   }
 
-  @Nullable private <Data> Resource<R> decodeFromData(
-      @Nullable DataFetcher<?> fetcher, @Nullable Data data, @Nullable DataSource dataSource) throws GlideException {
+  @Nullable
+  private <Data> Resource<R> decodeFromData(
+      @Nullable DataFetcher<?> fetcher, @Nullable Data data, @Nullable DataSource dataSource)
+      throws GlideException {
     try {
       if (data == null) {
         return null;
@@ -695,7 +707,8 @@ class DecodeJob<R>
     DeferredEncodeManager() {}
 
     // We just need the encoder and resource type to match, which this will enforce.
-    @Initializer @SuppressWarnings("unchecked")
+    @Initializer
+    @SuppressWarnings("unchecked")
     <X> void init(Key key, ResourceEncoder<X> encoder, LockedResource<X> toEncode) {
       this.key = key;
       this.encoder = (ResourceEncoder<Z>) encoder;
@@ -728,7 +741,9 @@ class DecodeJob<R>
   interface Callback<R> {
 
     void onResourceReady(
-        Resource<R> resource, @Nullable DataSource dataSource, boolean isLoadedFromAlternateCacheKey);
+        Resource<R> resource,
+        @Nullable DataSource dataSource,
+        boolean isLoadedFromAlternateCacheKey);
 
     void onLoadFailed(GlideException e);
 

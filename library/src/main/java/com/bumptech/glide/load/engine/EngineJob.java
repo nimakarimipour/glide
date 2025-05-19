@@ -14,12 +14,12 @@ import com.bumptech.glide.util.Preconditions;
 import com.bumptech.glide.util.Synthetic;
 import com.bumptech.glide.util.pool.FactoryPools.Poolable;
 import com.bumptech.glide.util.pool.StateVerifier;
+import com.uber.nullaway.annotations.Initializer;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
 import java.util.concurrent.Executor;
 import java.util.concurrent.atomic.AtomicInteger;
-import com.uber.nullaway.annotations.Initializer;
 import javax.annotation.Nullable;
 
 /**
@@ -51,19 +51,22 @@ class EngineJob<R> implements DecodeJob.Callback<R>, Poolable {
   private boolean onlyRetrieveFromCache;
   @Nullable private Resource<?> resource;
 
-  @Nullable @SuppressWarnings("WeakerAccess")
+  @Nullable
+  @SuppressWarnings("WeakerAccess")
   @Synthetic
   DataSource dataSource;
 
   private boolean hasResource;
 
-  @Nullable @SuppressWarnings("WeakerAccess")
+  @Nullable
+  @SuppressWarnings("WeakerAccess")
   @Synthetic
   GlideException exception;
 
   private boolean hasLoadFailed;
 
-  @Nullable @SuppressWarnings("WeakerAccess")
+  @Nullable
+  @SuppressWarnings("WeakerAccess")
   @Synthetic
   EngineResource<?> engineResource;
 
@@ -315,9 +318,12 @@ class EngineJob<R> implements DecodeJob.Callback<R>, Poolable {
     pool.release(this);
   }
 
-  @Initializer @Override
+  @Initializer
+  @Override
   public void onResourceReady(
-      Resource<R> resource, @Nullable DataSource dataSource, boolean isLoadedFromAlternateCacheKey) {
+      Resource<R> resource,
+      @Nullable DataSource dataSource,
+      boolean isLoadedFromAlternateCacheKey) {
     synchronized (this) {
       this.resource = resource;
       this.dataSource = dataSource;
@@ -514,7 +520,10 @@ class EngineJob<R> implements DecodeJob.Callback<R>, Poolable {
   @VisibleForTesting
   static class EngineResourceFactory {
     public <R> EngineResource<R> build(
-        @Nullable Resource<R> resource, boolean isMemoryCacheable, Key key, ResourceListener listener) {
+        @Nullable Resource<R> resource,
+        boolean isMemoryCacheable,
+        Key key,
+        ResourceListener listener) {
       return new EngineResource<>(
           resource, isMemoryCacheable, /* isRecyclable= */ true, key, listener);
     }

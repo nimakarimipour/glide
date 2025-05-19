@@ -69,7 +69,8 @@ class ThumbnailStreamOpener {
     return ImageHeaderParser.UNKNOWN_ORIENTATION;
   }
 
-  @Nullable public InputStream open(Uri uri) throws FileNotFoundException {
+  @Nullable
+  public InputStream open(Uri uri) throws FileNotFoundException {
     String path = getPath(uri);
     if (TextUtils.isEmpty(path)) {
       return null;

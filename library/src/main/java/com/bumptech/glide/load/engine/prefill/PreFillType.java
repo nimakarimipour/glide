@@ -141,7 +141,8 @@ public final class PreFillType {
     }
 
     /** Returns the current {@link android.graphics.Bitmap.Config}. */
-    @Nullable Bitmap.Config getConfig() {
+    @Nullable
+    Bitmap.Config getConfig() {
       return config;
     }
 

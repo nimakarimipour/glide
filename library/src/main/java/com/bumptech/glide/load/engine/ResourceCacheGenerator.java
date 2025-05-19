@@ -30,7 +30,8 @@ class ResourceCacheGenerator implements DataFetcherGenerator, DataFetcher.DataCa
 
   // PMD is wrong here, this File must be an instance variable because it may be used across
   // multiple calls to startNext.
-  @Nullable @SuppressWarnings("PMD.SingularField")
+  @Nullable
+  @SuppressWarnings("PMD.SingularField")
   private File cacheFile;
 
   @Nullable private ResourceCacheKey currentKey;

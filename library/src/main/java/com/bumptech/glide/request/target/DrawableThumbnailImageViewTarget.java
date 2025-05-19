@@ -23,7 +23,8 @@ public class DrawableThumbnailImageViewTarget extends ThumbnailImageViewTarget<D
     super(view, waitForLayout);
   }
 
-  @Nullable @Override
+  @Nullable
+  @Override
   protected Drawable getDrawable(@Nullable Drawable resource) {
     return resource;
   }

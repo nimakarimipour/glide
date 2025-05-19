@@ -18,7 +18,8 @@ public class DiskLruCacheFactory implements DiskCache.Factory {
 
   /** Interface called out of UI thread to get the cache folder. */
   public interface CacheDirectoryGetter {
-    @Nullable File getCacheDirectory();
+    @Nullable
+    File getCacheDirectory();
   }
 
   public DiskLruCacheFactory(final String diskCacheFolder, long diskCacheSize) {
@@ -58,7 +59,8 @@ public class DiskLruCacheFactory implements DiskCache.Factory {
     this.cacheDirectoryGetter = cacheDirectoryGetter;
   }
 
-  @Nullable @Override
+  @Nullable
+  @Override
   public DiskCache build() {
     File cacheDir = cacheDirectoryGetter.getCacheDirectory();
 

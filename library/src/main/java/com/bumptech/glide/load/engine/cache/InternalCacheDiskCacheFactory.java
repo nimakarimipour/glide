@@ -27,7 +27,8 @@ public final class InternalCacheDiskCacheFactory extends DiskLruCacheFactory {
       final Context context, final String diskCacheName, long diskCacheSize) {
     super(
         new CacheDirectoryGetter() {
-          @Nullable @Override
+          @Nullable
+          @Override
           public File getCacheDirectory() {
             File cacheDirectory = context.getCacheDir();
             if (cacheDirectory == null) {

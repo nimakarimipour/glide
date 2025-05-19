@@ -83,7 +83,8 @@ public class DiskLruCacheWrapper implements DiskCache {
     return diskLruCache;
   }
 
-  @Nullable @Override
+  @Nullable
+  @Override
   public File get(Key key) {
     String safeKey = safeKeyGenerator.getSafeKey(key);
     if (Log.isLoggable(TAG, Log.VERBOSE)) {

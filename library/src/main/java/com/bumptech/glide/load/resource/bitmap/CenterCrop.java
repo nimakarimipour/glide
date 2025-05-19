@@ -4,7 +4,6 @@ import android.graphics.Bitmap;
 import androidx.annotation.NonNull;
 import com.bumptech.glide.load.engine.bitmap_recycle.BitmapPool;
 import java.security.MessageDigest;
-import javax.annotation.Nullable;
 
 /**
  * Scale the image so that either the width of the image matches the given width and the height of

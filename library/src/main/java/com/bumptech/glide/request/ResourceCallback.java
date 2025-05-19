@@ -17,7 +17,9 @@ public interface ResourceCallback {
    * @param resource The loaded resource.
    */
   void onResourceReady(
-      @Nullable Resource<?> resource, @Nullable DataSource dataSource, boolean isLoadedFromAlternateCacheKey);
+      @Nullable Resource<?> resource,
+      @Nullable DataSource dataSource,
+      boolean isLoadedFromAlternateCacheKey);
 
   /**
    * Called when a resource fails to load successfully.

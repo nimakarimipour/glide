@@ -25,7 +25,8 @@ final class LifecycleRequestManagerRetriever {
     this.factory = factory;
   }
 
-  @Nullable RequestManager getOnly(Lifecycle lifecycle) {
+  @Nullable
+  RequestManager getOnly(Lifecycle lifecycle) {
     Util.assertMainThread();
     return lifecycleToRequestManager.get(lifecycle);
   }

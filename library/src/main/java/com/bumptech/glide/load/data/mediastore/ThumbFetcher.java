@@ -69,7 +69,8 @@ public class ThumbFetcher implements DataFetcher<InputStream> {
     }
   }
 
-  @Nullable private InputStream openThumbInputStream() throws FileNotFoundException {
+  @Nullable
+  private InputStream openThumbInputStream() throws FileNotFoundException {
     InputStream result = opener.open(mediaStoreImageUri);
 
     int orientation = -1;

@@ -26,7 +26,8 @@ public final class GifFrameResourceDecoder implements ResourceDecoder<GifDecoder
     return true;
   }
 
-  @Nullable @Override
+  @Nullable
+  @Override
   public Resource<Bitmap> decode(
       @NonNull GifDecoder source, int width, int height, @NonNull Options options) {
     Bitmap bitmap = source.getNextFrame();

@@ -43,7 +43,8 @@ public class StreamGifDecoder implements ResourceDecoder<InputStream, GifDrawabl
         && ImageHeaderParserUtils.getType(parsers, source, byteArrayPool) == ImageType.GIF;
   }
 
-  @Nullable @Override
+  @Nullable
+  @Override
   public Resource<GifDrawable> decode(
       @NonNull InputStream source, int width, int height, @NonNull Options options)
       throws IOException {
@@ -55,7 +56,8 @@ public class StreamGifDecoder implements ResourceDecoder<InputStream, GifDrawabl
     return byteBufferDecoder.decode(byteBuffer, width, height, options);
   }
 
-  @Nullable private static byte[] inputStreamToBytes(InputStream is) {
+  @Nullable
+  private static byte[] inputStreamToBytes(InputStream is) {
     final int bufferSize = 16384;
     ByteArrayOutputStream buffer = new ByteArrayOutputStream(bufferSize);
     try {

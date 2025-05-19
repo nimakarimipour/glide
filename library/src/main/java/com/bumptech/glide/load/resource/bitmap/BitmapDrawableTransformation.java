@@ -9,7 +9,6 @@ import com.bumptech.glide.load.Transformation;
 import com.bumptech.glide.load.engine.Resource;
 import com.bumptech.glide.util.Preconditions;
 import java.security.MessageDigest;
-import javax.annotation.Nullable;
 
 /**
  * Transforms {@link android.graphics.drawable.BitmapDrawable}s.

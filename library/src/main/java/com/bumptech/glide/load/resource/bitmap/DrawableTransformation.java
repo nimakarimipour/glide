@@ -70,7 +70,8 @@ public class DrawableTransformation implements Transformation<Drawable> {
   }
 
   // It's clearer to cast the result in a separate line from obtaining it.
-  @Nullable @SuppressWarnings({"unchecked", "PMD.UnnecessaryLocalBeforeReturn"})
+  @Nullable
+  @SuppressWarnings({"unchecked", "PMD.UnnecessaryLocalBeforeReturn"})
   private Resource<Drawable> newDrawableResource(Context context, Resource<Bitmap> transformed) {
     Resource<? extends Drawable> result =
         LazyBitmapDrawableResource.obtain(context.getResources(), transformed);

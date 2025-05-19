@@ -50,7 +50,8 @@ public class DecodePath<DataType, ResourceType, Transcode> {
             + "}";
   }
 
-  @Nullable public Resource<Transcode> decode(
+  @Nullable
+  public Resource<Transcode> decode(
       DataRewinder<DataType> rewinder,
       int width,
       int height,

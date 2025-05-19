@@ -1,4 +1,5 @@
 package com.bumptech.glide.load.engine.bitmap_recycle;
+
 import javax.annotation.Nullable;
 
 /** Adapter for handling primitive byte arrays. */

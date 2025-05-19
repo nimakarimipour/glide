@@ -27,10 +27,10 @@ import com.bumptech.glide.signature.ObjectKey;
 import com.bumptech.glide.util.Preconditions;
 import com.bumptech.glide.util.Synthetic;
 import com.bumptech.glide.util.Util;
+import com.uber.nullaway.annotations.Initializer;
 import java.nio.ByteBuffer;
 import java.util.ArrayList;
 import java.util.List;
-import com.uber.nullaway.annotations.Initializer;
 
 class GifFrameLoader {
   private final GifDecoder gifDecoder;
@@ -101,7 +101,8 @@ class GifFrameLoader {
     setFrameTransformation(transformation, firstFrame);
   }
 
-  @Initializer void setFrameTransformation(Transformation<Bitmap> transformation, Bitmap firstFrame) {
+  @Initializer
+  void setFrameTransformation(Transformation<Bitmap> transformation, Bitmap firstFrame) {
     this.transformation = Preconditions.checkNotNull(transformation);
     this.firstFrame = Preconditions.checkNotNull(firstFrame);
     requestBuilder = requestBuilder.apply(new RequestOptions().transform(transformation));
@@ -115,7 +116,8 @@ class GifFrameLoader {
     return transformation;
   }
 
-  @Nullable Bitmap getFirstFrame() {
+  @Nullable
+  Bitmap getFirstFrame() {
     return firstFrame;
   }
 
@@ -202,7 +204,8 @@ class GifFrameLoader {
     isCleared = true;
   }
 
-  @Nullable Bitmap getCurrentFrame() {
+  @Nullable
+  Bitmap getCurrentFrame() {
     return current != null ? current.getResource() : firstFrame;
   }
 
@@ -329,7 +332,8 @@ class GifFrameLoader {
       this.targetTime = targetTime;
     }
 
-    @Nullable Bitmap getResource() {
+    @Nullable
+    Bitmap getResource() {
       return resource;
     }
 

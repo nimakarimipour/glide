@@ -4,7 +4,6 @@ import android.graphics.Bitmap;
 import androidx.annotation.NonNull;
 import com.bumptech.glide.load.engine.bitmap_recycle.BitmapPool;
 import java.security.MessageDigest;
-import javax.annotation.Nullable;
 
 /**
  * A Glide {@link BitmapTransformation} to circle crop an image. Behaves similar to a {@link

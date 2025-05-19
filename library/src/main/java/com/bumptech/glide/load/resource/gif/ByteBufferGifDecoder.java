@@ -82,7 +82,8 @@ public class ByteBufferGifDecoder implements ResourceDecoder<ByteBuffer, GifDraw
         && ImageHeaderParserUtils.getType(parsers, source) == ImageType.GIF;
   }
 
-  @Nullable @Override
+  @Nullable
+  @Override
   public GifDrawableResource decode(
       @NonNull ByteBuffer source, int width, int height, @NonNull Options options) {
     final GifHeaderParser parser = parserPool.obtain(source);

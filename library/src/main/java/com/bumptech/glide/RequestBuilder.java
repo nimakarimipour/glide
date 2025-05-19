@@ -1296,7 +1296,8 @@ public class RequestBuilder<TranscodeType> extends BaseRequestOptions<RequestBui
         callbackExecutor);
   }
 
-  @Nullable Object getModel() {
+  @Nullable
+  Object getModel() {
     return model;
   }
 

@@ -22,7 +22,8 @@ public class ByteBufferBitmapDecoder implements ResourceDecoder<ByteBuffer, Bitm
     return downsampler.handles(source);
   }
 
-  @Nullable @Override
+  @Nullable
+  @Override
   public Resource<Bitmap> decode(
       @NonNull ByteBuffer source, int width, int height, @NonNull Options options)
       throws IOException {

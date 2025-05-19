@@ -16,7 +16,8 @@ final class Jobs {
     return Collections.unmodifiableMap(jobs);
   }
 
-  @Nullable EngineJob<?> get(Key key, boolean onlyRetrieveFromCache) {
+  @Nullable
+  EngineJob<?> get(Key key, boolean onlyRetrieveFromCache) {
     return getJobMap(onlyRetrieveFromCache).get(key);
   }
 

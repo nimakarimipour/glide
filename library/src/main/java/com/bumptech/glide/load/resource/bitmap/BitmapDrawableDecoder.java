@@ -52,7 +52,8 @@ public class BitmapDrawableDecoder<DataType> implements ResourceDecoder<DataType
     return decoder.handles(source, options);
   }
 
-  @Nullable @Override
+  @Nullable
+  @Override
   public Resource<BitmapDrawable> decode(
       @NonNull DataType source, int width, int height, @NonNull Options options)
       throws IOException {

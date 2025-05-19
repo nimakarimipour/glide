@@ -26,7 +26,8 @@ public class MediaStoreImageThumbLoader implements ModelLoader<Uri, InputStream>
     this.context = context.getApplicationContext();
   }
 
-  @Nullable @Override
+  @Nullable
+  @Override
   public LoadData<InputStream> buildLoadData(
       @NonNull Uri model, int width, int height, @NonNull Options options) {
     if (MediaStoreUtil.isThumbnailSize(width, height)) {

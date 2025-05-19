@@ -152,7 +152,8 @@ public class Engine
    * @param height The target height in pixels of the desired resource.
    * @param cb The callback that will be called when the load completes.
    */
-  @Nullable public <R> LoadStatus load(
+  @Nullable
+  public <R> LoadStatus load(
       GlideContext glideContext,
       @Nullable Object model,
       Key signature,
@@ -332,7 +333,8 @@ public class Engine
     return active;
   }
 
-  @Nullable private EngineResource<?> loadFromCache(Key key) {
+  @Nullable
+  private EngineResource<?> loadFromCache(Key key) {
     EngineResource<?> cached = getEngineResourceFromCache(key);
     if (cached != null) {
       cached.acquire();
@@ -341,7 +343,8 @@ public class Engine
     return cached;
   }
 
-  @Nullable private EngineResource<?> getEngineResourceFromCache(Key key) {
+  @Nullable
+  private EngineResource<?> getEngineResourceFromCache(Key key) {
     Resource<?> cached = cache.remove(key);
 
     final EngineResource<?> result;

@@ -32,7 +32,8 @@ public final class ExternalCacheDiskCacheFactory extends DiskLruCacheFactory {
       final Context context, final String diskCacheName, int diskCacheSize) {
     super(
         new CacheDirectoryGetter() {
-          @Nullable @Override
+          @Nullable
+          @Override
           public File getCacheDirectory() {
             File cacheDirectory = context.getExternalCacheDir();
             if (cacheDirectory == null) {

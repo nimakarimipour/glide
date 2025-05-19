@@ -27,7 +27,8 @@ public class UrlUriLoader<Data> implements ModelLoader<Uri, Data> {
     this.urlLoader = urlLoader;
   }
 
-  @Nullable @Override
+  @Nullable
+  @Override
   public LoadData<Data> buildLoadData(
       @NonNull Uri uri, int width, int height, @NonNull Options options) {
     GlideUrl glideUrl = new GlideUrl(uri.toString());

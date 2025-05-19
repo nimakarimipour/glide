@@ -174,7 +174,8 @@ public final class Downsampler {
    *
    * @see #decode(InputStream, int, int, Options, DecodeCallbacks)
    */
-  @Nullable public Resource<Bitmap> decode(InputStream is, int outWidth, int outHeight, Options options)
+  @Nullable
+  public Resource<Bitmap> decode(InputStream is, int outWidth, int outHeight, Options options)
       throws IOException {
     return decode(is, outWidth, outHeight, options, EMPTY_CALLBACKS);
   }
@@ -183,7 +184,8 @@ public final class Downsampler {
    * Identical to {@link #decode(InputStream, int, int, Options)}, except that it accepts a {@link
    * ByteBuffer} in place of an {@link InputStream}.
    */
-  @Nullable public Resource<Bitmap> decode(
+  @Nullable
+  public Resource<Bitmap> decode(
       ByteBuffer buffer, int requestedWidth, int requestedHeight, Options options)
       throws IOException {
     return decode(
@@ -214,7 +216,8 @@ public final class Downsampler {
    * @return A new bitmap containing the image from the given InputStream, or recycle if recycle is
    *     not null.
    */
-  @Nullable public Resource<Bitmap> decode(
+  @Nullable
+  public Resource<Bitmap> decode(
       InputStream is,
       int requestedWidth,
       int requestedHeight,
@@ -251,7 +254,8 @@ public final class Downsampler {
         EMPTY_CALLBACKS);
   }
 
-  @Nullable @RequiresApi(Build.VERSION_CODES.LOLLIPOP)
+  @Nullable
+  @RequiresApi(Build.VERSION_CODES.LOLLIPOP)
   public Resource<Bitmap> decode(
       ParcelFileDescriptor parcelFileDescriptor, int outWidth, int outHeight, Options options)
       throws IOException {
@@ -264,7 +268,8 @@ public final class Downsampler {
         EMPTY_CALLBACKS);
   }
 
-  @Nullable private Resource<Bitmap> decode(
+  @Nullable
+  private Resource<Bitmap> decode(
       ImageReader imageReader,
       int requestedWidth,
       int requestedHeight,
@@ -302,7 +307,8 @@ public final class Downsampler {
     }
   }
 
-  @Nullable private Bitmap decodeFromWrappedStreams(
+  @Nullable
+  private Bitmap decodeFromWrappedStreams(
       ImageReader imageReader,
       BitmapFactory.Options options,
       @Nullable DownsampleStrategy downsampleStrategy,
@@ -756,7 +762,8 @@ public final class Downsampler {
     return new int[] {options.outWidth, options.outHeight};
   }
 
-  @Nullable private static Bitmap decodeStream(
+  @Nullable
+  private static Bitmap decodeStream(
       ImageReader imageReader,
       BitmapFactory.Options options,
       DecodeCallbacks callbacks,
@@ -851,7 +858,8 @@ public final class Downsampler {
             + LogTime.getElapsedMillis(startTime));
   }
 
-  @Nullable private static String getInBitmapString(BitmapFactory.Options options) {
+  @Nullable
+  private static String getInBitmapString(BitmapFactory.Options options) {
     return getBitmapString(options.inBitmap);
   }
 

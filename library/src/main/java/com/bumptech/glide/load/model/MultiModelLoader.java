@@ -11,10 +11,10 @@ import com.bumptech.glide.load.data.DataFetcher;
 import com.bumptech.glide.load.data.DataFetcher.DataCallback;
 import com.bumptech.glide.load.engine.GlideException;
 import com.bumptech.glide.util.Preconditions;
+import com.uber.nullaway.annotations.Initializer;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
-import com.uber.nullaway.annotations.Initializer;
 
 /**
  * Allows attempting multiple ModelLoaders registered for a given model and data class.
@@ -37,7 +37,8 @@ class MultiModelLoader<Model, Data> implements ModelLoader<Model, Data> {
     this.exceptionListPool = exceptionListPool;
   }
 
-  @Nullable @Override
+  @Nullable
+  @Override
   public LoadData<Data> buildLoadData(
       @NonNull Model model, int width, int height, @NonNull Options options) {
     Key sourceKey = null;
@@ -93,7 +94,8 @@ class MultiModelLoader<Model, Data> implements ModelLoader<Model, Data> {
       currentIndex = 0;
     }
 
-    @Initializer @Override
+    @Initializer
+    @Override
     public void loadData(@NonNull Priority priority, @NonNull DataCallback<? super Data> callback) {
       this.priority = priority;
       this.callback = callback;

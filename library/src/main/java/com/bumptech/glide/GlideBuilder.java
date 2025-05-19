@@ -34,11 +34,11 @@ import com.bumptech.glide.request.RequestListener;
 import com.bumptech.glide.request.RequestOptions;
 import com.bumptech.glide.request.target.Target;
 import com.bumptech.glide.util.Preconditions;
+import com.uber.nullaway.annotations.Initializer;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 import java.util.Map;
-import com.uber.nullaway.annotations.Initializer;
 
 /** A builder class for setting default structural classes for Glide to use. */
 @SuppressWarnings("PMD.ImmutableField")
@@ -525,7 +525,8 @@ public final class GlideBuilder {
     return this;
   }
 
-  @Initializer @NonNull
+  @Initializer
+  @NonNull
   Glide build(
       @NonNull Context context,
       List<GlideModule> manifestModules,

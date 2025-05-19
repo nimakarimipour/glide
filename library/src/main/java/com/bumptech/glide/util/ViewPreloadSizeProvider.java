@@ -23,7 +23,8 @@ public class ViewPreloadSizeProvider<T>
   // We need to keep a strong reference to the Target so that it isn't garbage collected due to a
   // weak reference
   // while we're waiting to get its size.
-  @Nullable @SuppressWarnings("unused")
+  @Nullable
+  @SuppressWarnings("unused")
   private SizeViewTarget viewTarget;
 
   /**

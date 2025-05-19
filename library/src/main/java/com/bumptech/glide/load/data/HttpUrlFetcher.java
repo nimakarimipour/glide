@@ -11,6 +11,7 @@ import com.bumptech.glide.load.model.GlideUrl;
 import com.bumptech.glide.util.ContentLengthInputStream;
 import com.bumptech.glide.util.LogTime;
 import com.bumptech.glide.util.Synthetic;
+import com.uber.nullaway.annotations.Initializer;
 import java.io.IOException;
 import java.io.InputStream;
 import java.net.HttpURLConnection;
@@ -18,7 +19,6 @@ import java.net.MalformedURLException;
 import java.net.URISyntaxException;
 import java.net.URL;
 import java.util.Map;
-import com.uber.nullaway.annotations.Initializer;
 import javax.annotation.Nullable;
 
 /** A DataFetcher that retrieves an {@link java.io.InputStream} for a Url. */
@@ -72,8 +72,11 @@ public class HttpUrlFetcher implements DataFetcher<InputStream> {
     }
   }
 
-  @Nullable @Initializer private InputStream loadDataWithRedirects(
-      URL url, int redirects, @Nullable URL lastUrl, Map<String, String> headers) throws HttpException {
+  @Nullable
+  @Initializer
+  private InputStream loadDataWithRedirects(
+      URL url, int redirects, @Nullable URL lastUrl, Map<String, String> headers)
+      throws HttpException {
     if (redirects >= MAXIMUM_REDIRECTS) {
       throw new HttpException(
           "Too many (> " + MAXIMUM_REDIRECTS + ") redirects!", INVALID_STATUS_CODE);

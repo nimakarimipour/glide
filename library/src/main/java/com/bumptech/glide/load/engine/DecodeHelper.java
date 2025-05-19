@@ -15,12 +15,12 @@ import com.bumptech.glide.load.engine.cache.DiskCache;
 import com.bumptech.glide.load.model.ModelLoader;
 import com.bumptech.glide.load.model.ModelLoader.LoadData;
 import com.bumptech.glide.load.resource.UnitTransformation;
+import com.uber.nullaway.annotations.Initializer;
 import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 import java.util.Map.Entry;
-import com.uber.nullaway.annotations.Initializer;
 import javax.annotation.Nullable;
 
 final class DecodeHelper<Transcode> {
@@ -45,7 +45,8 @@ final class DecodeHelper<Transcode> {
   private boolean isTransformationRequired;
   private boolean isScaleOnlyOrNoTransform;
 
-  @Initializer @SuppressWarnings("unchecked")
+  @Initializer
+  @SuppressWarnings("unchecked")
   <R> void init(
       GlideContext glideContext,
       Object model,
@@ -148,7 +149,8 @@ final class DecodeHelper<Transcode> {
     return getLoadPath(dataClass) != null;
   }
 
-  @Nullable <Data> LoadPath<Data, ?, Transcode> getLoadPath(Class<Data> dataClass) {
+  @Nullable
+  <Data> LoadPath<Data, ?, Transcode> getLoadPath(Class<Data> dataClass) {
     return glideContext.getRegistry().getLoadPath(dataClass, resourceClass, transcodeClass);
   }
 

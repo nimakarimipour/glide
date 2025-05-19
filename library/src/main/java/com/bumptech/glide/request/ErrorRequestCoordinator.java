@@ -27,7 +27,8 @@ public final class ErrorRequestCoordinator implements RequestCoordinator, Reques
     this.parent = parent;
   }
 
-  @Initializer public void setRequests(Request primary, Request error) {
+  @Initializer
+  public void setRequests(Request primary, Request error) {
     this.primary = primary;
     this.error = error;
   }

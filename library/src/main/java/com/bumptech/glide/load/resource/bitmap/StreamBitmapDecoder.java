@@ -31,7 +31,8 @@ public class StreamBitmapDecoder implements ResourceDecoder<InputStream, Bitmap>
     return downsampler.handles(source);
   }
 
-  @Nullable @Override
+  @Nullable
+  @Override
   public Resource<Bitmap> decode(
       @NonNull InputStream source, int width, int height, @NonNull Options options)
       throws IOException {
@@ -93,7 +94,8 @@ public class StreamBitmapDecoder implements ResourceDecoder<InputStream, Bitmap>
     }
 
     @Override
-    public void onDecodeComplete(BitmapPool bitmapPool, @Nullable Bitmap downsampled) throws IOException {
+    public void onDecodeComplete(BitmapPool bitmapPool, @Nullable Bitmap downsampled)
+        throws IOException {
       // BitmapFactory swallows exceptions during decodes and in some cases when inBitmap is non
       // null, may catch and log a stack trace but still return a non null bitmap. To avoid
       // displaying partially decoded bitmaps, we catch exceptions reading from the stream in our

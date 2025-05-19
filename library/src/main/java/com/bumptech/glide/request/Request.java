@@ -1,4 +1,5 @@
 package com.bumptech.glide.request;
+
 import javax.annotation.Nullable;
 
 /** A request that loads a resource for an {@link com.bumptech.glide.request.target.Target}. */

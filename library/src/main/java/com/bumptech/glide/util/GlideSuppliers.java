@@ -1,4 +1,5 @@
 package com.bumptech.glide.util;
+
 import javax.annotation.Nullable;
 
 /** Similar to {@link com.google.common.base.Suppliers}, but named to reduce import confusion. */
