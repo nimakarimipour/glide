@@ -1,0 +1,89 @@
+====================
+Type='DEREFERENCE_NULLABLE', message='dereferenced expression loadData is @Nullable'
+/home/nima/Developer/nullness-benchmarks/glide/library/src/main/java/com/bumptech/glide/load/engine/DataCacheGenerator.java:108
+    cb.onDataFetcherFailed(sourceKey, e, loadData.fetcher, DataSource.DATA_DISK_CACHE);
+Log:
+---NullAway.lambda$resolveRemainingErrors$17---
+==============================
+---NullAway.lambda$resolveRemainingErrors$17---
+TOP LEVEL CALL TO FIX ERROR: Type='DEREFERENCE_NULLABLE', message='dereferenced expression loadData is @Nullable'
+/home/nima/Developer/nullness-benchmarks/glide/library/src/main/java/com/bumptech/glide/load/engine/DataCacheGenerator.java:108
+    cb.onDataFetcherFailed(sourceKey, e, loadData.fetcher, DataSource.DATA_DISK_CACHE);
+---ChatGPT.ask---
+Asking ChatGPT:
+I want to resolve a warning reported by NullAway.
+The error is of the type of "DEREFERENCE_NULLABLE" and the full error message is: "dereferenced expression loadData is @Nullable".
+The line with the error is: "    cb.onDataFetcherFailed(sourceKey, e, loadData.fetcher, DataSource.DATA_DISK_CACHE);".
+
+The error is within "the method: onLoadFailed(java.lang.Exception)" and the code surrounding the error is:
+```java
+
+  private boolean hasNextModelLoader() {
+    return modelLoaderIndex < modelLoaders.size();
+  }
+
+  @Override
+  public void cancel() {
+    LoadData<?> local = loadData;
+    if (local != null) {
+      local.fetcher.cancel();
+    }
+  }
+
+  @Override
+  public void onDataReady(@Nullable Object data) {
+    cb.onDataFetcherReady(sourceKey, data, loadData.fetcher, DataSource.DATA_DISK_CACHE, sourceKey);
+  }
+
+  @Override
+  public void onLoadFailed(@NonNull Exception e) {
+    cb.onDataFetcherFailed(sourceKey, e, loadData.fetcher, DataSource.DATA_DISK_CACHE);
+  }
+}
+```
+
+Give me the fixed code snippet (ONLY THE METHOD REWRITE OF "onLoadFailed(java.lang.Exception)") in XML format in <response> tag like the example below. I will apply the fix to my codebase.
+Do not import any additional libraries or classes or java comments.
+If you can provide the fixed code snippet, provide it in the following format and place the code snippet in the <code> tag within ```java block.
+<response>
+  <success>true</success>
+  <code><![CDATA[
+  ```java
+  Your fixed code snippet here
+  ```
+    ]]>
+  </code>
+</response>
+
+---ChatGPT.sendRequestToOpenAI---
+Sending request to OpenAI...
+---ChatGPT.sendRequestToOpenAI---
+Response received from OpenAI.
+---Response.<init>---
+Creating Response:
+Here is your fixed code snippet in the requested format:
+
+```xml
+<response>
+  <success>true</success>
+  <code><![CDATA[
+  ```java
+  @Override
+  public void onLoadFailed(@NonNull Exception e) {
+    if (loadData != null) {
+      cb.onDataFetcherFailed(sourceKey, e, loadData.fetcher, DataSource.DATA_DISK_CACHE);
+    }
+  }
+  ```
+    ]]>
+  </code>
+</response>
+```
+---Response.<init>---
+Response created:
+@Override
+  public void onLoadFailed(@NonNull Exception e) {
+    if (loadData != null) {
+      cb.onDataFetcherFailed(sourceKey, e, loadData.fetcher, DataSource.DATA_DISK_CACHE);
+    }
+  }
