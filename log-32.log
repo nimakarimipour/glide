@@ -1,0 +1,116 @@
+====================
+Type='WRONG_OVERRIDE_PARAM', message='parameter model is @NonNull, but parameter in superclass method com.bumptech.glide.request.RequestListener.onResourceReady(R,java.lang.Object,com.bumptech.glide.request.target.Target<R>,com.bumptech.glide.load.DataSource,boolean) is @Nullable'
+/home/nima/Developer/nullness-benchmarks/glide/library/src/main/java/com/bumptech/glide/request/RequestFutureTarget.java:257
+  @Override
+Log:
+---NullAway.lambda$resolveRemainingErrors$17---
+==============================
+---NullAway.lambda$resolveRemainingErrors$17---
+TOP LEVEL CALL TO FIX ERROR: Type='WRONG_OVERRIDE_PARAM', message='parameter model is @NonNull, but parameter in superclass method com.bumptech.glide.request.RequestListener.onResourceReady(R,java.lang.Object,com.bumptech.glide.request.target.Target<R>,com.bumptech.glide.load.DataSource,boolean) is @Nullable'
+/home/nima/Developer/nullness-benchmarks/glide/library/src/main/java/com/bumptech/glide/request/RequestFutureTarget.java:257
+  @Override
+---ChatGPT.ask---
+Asking ChatGPT:
+I want to resolve a warning reported by NullAway.
+The error is of the type of "WRONG_OVERRIDE_PARAM" and the full error message is: "parameter model is @NonNull, but parameter in superclass method com.bumptech.glide.request.RequestListener.onResourceReady(R,java.lang.Object,com.bumptech.glide.request.target.Target<R>,com.bumptech.glide.load.DataSource,boolean) is @Nullable".
+The line with the error is: "  @Override".
+
+The error is within "the method: onResourceReady(R,java.lang.Object,com.bumptech.glide.request.target.Target,com.bumptech.glide.load.DataSource,boolean)" and the code surrounding the error is:
+```java
+    // Do nothing.
+  }
+
+  @Override
+  public void onDestroy() {
+    // Do nothing.
+  }
+
+  @Override
+  public synchronized boolean onLoadFailed(
+      @Nullable GlideException e,
+      @Nullable Object model,
+      @NonNull Target<R> target,
+      boolean isFirstResource) {
+    loadFailed = true;
+    exception = e;
+    waiter.notifyAll(this);
+    return false;
+  }
+
+  @Override
+  public synchronized boolean onResourceReady(
+      @NonNull R resource,
+      @NonNull Object model,
+      Target<R> target,
+      @NonNull DataSource dataSource,
+      boolean isFirstResource) {
+    // We might get a null result.
+    resultReceived = true;
+    this.resource = resource;
+    waiter.notifyAll(this);
+    return false;
+  }
+
+  @Override
+  public String toString() {
+    String toString = super.toString() + "[status=";
+    final String status;
+    Request pendingRequest = null;
+    synchronized (this) {
+```
+
+Give me the fixed code snippet (ONLY THE METHOD REWRITE OF "onResourceReady(R,java.lang.Object,com.bumptech.glide.request.target.Target,com.bumptech.glide.load.DataSource,boolean)") in XML format in <response> tag like the example below. I will apply the fix to my codebase.
+Do not import any additional libraries or classes or java comments.
+If you can provide the fixed code snippet, provide it in the following format and place the code snippet in the <code> tag within ```java block.
+<response>
+  <success>true</success>
+  <code><![CDATA[
+  ```java
+  Your fixed code snippet here
+  ```
+    ]]>
+  </code>
+</response>
+
+---ChatGPT.sendRequestToOpenAI---
+Sending request to OpenAI...
+---ChatGPT.sendRequestToOpenAI---
+Response received from OpenAI.
+---Response.<init>---
+Creating Response:
+```xml
+<response>
+  <success>true</success>
+  <code><![CDATA[
+  ```java
+  @Override
+  public synchronized boolean onResourceReady(
+      @NonNull R resource,
+      Object model,
+      Target<R> target,
+      @NonNull DataSource dataSource,
+      boolean isFirstResource) {
+    resultReceived = true;
+    this.resource = resource;
+    waiter.notifyAll(this);
+    return false;
+  }
+  ```
+    ]]>
+  </code>
+</response>
+```
+---Response.<init>---
+Response created:
+@Override
+  public synchronized boolean onResourceReady(
+      @NonNull R resource,
+      Object model,
+      Target<R> target,
+      @NonNull DataSource dataSource,
+      boolean isFirstResource) {
+    resultReceived = true;
+    this.resource = resource;
+    waiter.notifyAll(this);
+    return false;
+  }
