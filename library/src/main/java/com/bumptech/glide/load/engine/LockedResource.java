@@ -37,9 +37,9 @@ final class LockedResource<Z> implements Resource<Z>, FactoryPools.Poolable {
     return result;
   }
 
-  LockedResource() {
-      this.toWrap = null;
-    }
+  @SuppressWarnings("WeakerAccess")
+  @Synthetic
+  LockedResource() {}
 
   private void init(Resource<Z> toWrap) {
     isRecycled = false;
