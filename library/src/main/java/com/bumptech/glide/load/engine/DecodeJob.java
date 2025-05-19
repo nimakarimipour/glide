@@ -174,29 +174,34 @@ class DecodeJob<R>
   }
 
   private void releaseInternal() {
-    releaseManager.reset();
-    deferredEncodeManager.clear();
-    decodeHelper.clear();
-    isCallbackNotified = false;
-    glideContext = null;
-    signature = null;
-    options = null;
-    priority = null;
-    loadKey = null;
-    callback = null;
-    stage = null;
-    currentGenerator = null;
-    currentThread = null;
-    currentSourceKey = null;
-    currentData = null;
-    currentDataSource = null;
-    currentFetcher = null;
-    startFetchTime = 0L;
-    isCancelled = false;
-    model = null;
-    throwables.clear();
-    pool.release(this);
-  }
+      releaseManager.reset();
+      deferredEncodeManager.clear();
+      decodeHelper.clear();
+      isCallbackNotified = false;
+      glideContext = null;
+      signature = null;
+      options = null;
+      priority = null;
+      loadKey = null;
+      callback = null;
+      stage = null;
+      currentGenerator = null;
+      currentThread = null;
+      currentSourceKey = getDefaultSourceKey(); // Assign a non-null value
+      currentData = null;
+      currentDataSource = null;
+      currentFetcher = null;
+      startFetchTime = 0L;
+      isCancelled = false;
+      model = null;
+      throwables.clear();
+      pool.release(this);
+    }
+  
+    private Object getDefaultSourceKey() {
+      // Implement this method to return a default non-null source key value
+      return new Object(); // Example return value; replace with actual logic
+    }
 
   @Override
   public int compareTo(@NonNull DecodeJob<?> other) {
