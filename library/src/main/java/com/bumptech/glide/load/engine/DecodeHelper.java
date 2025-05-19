@@ -108,8 +108,8 @@ final class DecodeHelper<Transcode> {
   }
 
   Priority getPriority() {
-    return priority;
-  }
+      return priority != null ? priority : Priority.defaultPriority();
+    }
 
   Options getOptions() {
     return options;
