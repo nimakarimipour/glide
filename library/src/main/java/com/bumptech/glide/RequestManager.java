@@ -112,44 +112,44 @@ public class RequestManager
   }
 
   // Our usage is safe here.
-  @SuppressWarnings("PMD.ConstructorCallsOverridableMethod")
   RequestManager(
-      Glide glide,
-      Lifecycle lifecycle,
-      RequestManagerTreeNode treeNode,
-      RequestTracker requestTracker,
-      ConnectivityMonitorFactory factory,
-      Context context) {
-    this.glide = glide;
-    this.lifecycle = lifecycle;
-    this.treeNode = treeNode;
-    this.requestTracker = requestTracker;
-    this.context = context;
-
-    connectivityMonitor =
-        factory.build(
-            context.getApplicationContext(),
-            new RequestManagerConnectivityListener(requestTracker));
-
-    // Order matters, this might be unregistered by teh listeners below, so we need to be sure to
-    // register first to prevent both assertions and memory leaks.
-    glide.registerRequestManager(this);
-
-    // If we're the application level request manager, we may be created on a background thread.
-    // In that case we cannot risk synchronously pausing or resuming requests, so we hack around the
-    // issue by delaying adding ourselves as a lifecycle listener by posting to the main thread.
-    // This should be entirely safe.
-    if (Util.isOnBackgroundThread()) {
-      Util.postOnUiThread(addSelfToLifecycle);
-    } else {
-      lifecycle.addListener(this);
+        Glide glide,
+        Lifecycle lifecycle,
+        RequestManagerTreeNode treeNode,
+        RequestTracker requestTracker,
+        ConnectivityMonitorFactory factory,
+        Context context) {
+      this.glide = glide;
+      this.lifecycle = lifecycle;
+      this.treeNode = treeNode;
+      this.requestTracker = requestTracker;
+      this.context = context;
+  
+      connectivityMonitor =
+          factory.build(
+              context.getApplicationContext(),
+              new RequestManagerConnectivityListener(requestTracker));
+  
+      glide.registerRequestManager(this);
+  
+      if (Util.isOnBackgroundThread()) {
+        Util.postOnUiThread(addSelfToLifecycle);
+      } else {
+        lifecycle.addListener(this);
+      }
+      lifecycle.addListener(connectivityMonitor);
+  
+      defaultRequestListeners =
+          new CopyOnWriteArrayList<>(glide.getGlideContext().getDefaultRequestListeners());
+  
+      // Ensure requestOptions is initialized
+      RequestOptions defaultOptions = glide.getGlideContext().getDefaultRequestOptions();
+      if (defaultOptions != null) {
+        setRequestOptions(defaultOptions);
+      } else {
+        setRequestOptions(new RequestOptions());
+      }
     }
-    lifecycle.addListener(connectivityMonitor);
-
-    defaultRequestListeners =
-        new CopyOnWriteArrayList<>(glide.getGlideContext().getDefaultRequestListeners());
-    setRequestOptions(glide.getGlideContext().getDefaultRequestOptions());
-  }
 
   protected synchronized void setRequestOptions(@NonNull RequestOptions toSet) {
     requestOptions = toSet.clone().autoClone();
