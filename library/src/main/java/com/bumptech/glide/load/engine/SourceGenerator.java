@@ -47,40 +47,49 @@ class SourceGenerator implements DataFetcherGenerator, DataFetcherGenerator.Fetc
 
   // Concurrent access isn't supported.
   @SuppressWarnings({"NonAtomicOperationOnVolatileField", "NonAtomicVolatileUpdate"})
-    @Override
-    public boolean startNext() {
-      if (dataToCache != null) {
-        Object data = dataToCache;
-        dataToCache = null;
-        try {
-          boolean isDataInCache = cacheData(data);
-          if (!isDataInCache) {
-            return true;
-          }
-        } catch (IOException e) {
-          if (Log.isLoggable(TAG, Log.DEBUG)) {
-            Log.d(TAG, "Failed to properly rewind or write data to cache", e);
-          }
+  @Override
+  public boolean startNext() {
+    if (dataToCache != null) {
+      Object data = dataToCache;
+      dataToCache = null;
+      try {
+        boolean isDataInCache = cacheData(data);
+        // If we failed to write the data to cache, the cacheData method will try to decode the
+        // original data directly instead of going through the disk cache. Since cacheData has
+        // already called our callback at this point, there's nothing more to do but return.
+        if (!isDataInCache) {
+          return true;
+        }
+        // If we were able to write the data to cache successfully, we now need to proceed to call
+        // the sourceCacheGenerator below to load the data from cache.
+      } catch (IOException e) {
+        // An IOException means we weren't able to write data to cache or we weren't able to rewind
+        // it after a disk cache write failed. In either case we can just move on and try the next
+        // fetch below.
+        if (Log.isLoggable(TAG, Log.DEBUG)) {
+          Log.d(TAG, "Failed to properly rewind or write data to cache", e);
         }
       }
-  
-      if (sourceCacheGenerator != null && sourceCacheGenerator.startNext()) {
-        return true;
-      }
-      sourceCacheGenerator = null;
-  
-      boolean started = false;
-      while (!started && hasNextModelLoader()) {
-        LoadData<?> nextLoadData = helper.getLoadData().get(loadDataListIndex++);
-        if (nextLoadData != null
-            && (helper.getDiskCacheStrategy().isDataCacheable(nextLoadData.fetcher.getDataSource())
-                || helper.hasLoadPath(nextLoadData.fetcher.getDataClass()))) {
-          started = true;
-          startNextLoad(nextLoadData);
-        }
-      }
-      return started;
     }
+
+    if (sourceCacheGenerator != null && sourceCacheGenerator.startNext()) {
+      return true;
+    }
+    sourceCacheGenerator = null;
+
+    loadData = null;
+    boolean started = false;
+    while (!started && hasNextModelLoader()) {
+      loadData = helper.getLoadData().get(loadDataListIndex++);
+      if (loadData != null
+          && (helper.getDiskCacheStrategy().isDataCacheable(loadData.fetcher.getDataSource())
+              || helper.hasLoadPath(loadData.fetcher.getDataClass()))) {
+        started = true;
+        startNextLoad(loadData);
+      }
+    }
+    return started;
+  }
 
   private void startNextLoad(final LoadData<?> toStart) {
     loadData.fetcher.loadData(
