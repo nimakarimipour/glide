@@ -130,9 +130,10 @@ public final class ExceptionPassthroughInputStream extends InputStream {
   }
 
   public void release() {
-      exception = null;
-      synchronized (POOL) {
-        POOL.offer(this);
-      }
+    exception = null;
+    wrapped = null;
+    synchronized (POOL) {
+      POOL.offer(this);
     }
+  }
 }
