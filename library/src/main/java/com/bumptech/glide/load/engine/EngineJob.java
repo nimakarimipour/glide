@@ -300,22 +300,23 @@ class EngineJob<R> implements DecodeJob.Callback<R>, Poolable {
   }
 
   private synchronized void release() {
-      if (key == null) {
-        throw new IllegalArgumentException();
-      }
-      cbs.clear();
-      key = null;
-      engineResource = null;
-      resource = null;
-      hasLoadFailed = false;
-      isCancelled = false;
-      hasResource = false;
-      isLoadedFromAlternateCacheKey = false;
-      decodeJob.release(/* isRemovedFromQueue= */ false);
-      exception = null;
-      dataSource = null;
-      pool.release(this);
+    if (key == null) {
+      throw new IllegalArgumentException();
     }
+    cbs.clear();
+    key = null;
+    engineResource = null;
+    resource = null;
+    hasLoadFailed = false;
+    isCancelled = false;
+    hasResource = false;
+    isLoadedFromAlternateCacheKey = false;
+    decodeJob.release(/* isRemovedFromQueue= */ false);
+    decodeJob = null;
+    exception = null;
+    dataSource = null;
+    pool.release(this);
+  }
 
   @Initializer
   @Override
