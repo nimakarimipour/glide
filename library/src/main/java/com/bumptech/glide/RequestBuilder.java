@@ -827,39 +827,32 @@ public class RequestBuilder<TranscodeType> extends BaseRequestOptions<RequestBui
   }
 
   private <Y extends Target<TranscodeType>> Y into(
-      @NonNull Y target,
-      @Nullable RequestListener<TranscodeType> targetListener,
-      BaseRequestOptions<?> options,
-      Executor callbackExecutor) {
-    Preconditions.checkNotNull(target);
-    if (!isModelSet) {
-      throw new IllegalArgumentException("You must call #load() before calling #into()");
-    }
-
-    Request request = buildRequest(target, targetListener, options, callbackExecutor);
-
-    Request previous = target.getRequest();
-    if (request.isEquivalentTo(previous)
-        && !isSkipMemoryCacheWithCompletePreviousRequest(options, previous)) {
-      // If the request is completed, beginning again will ensure the result is re-delivered,
-      // triggering RequestListeners and Targets. If the request is failed, beginning again will
-      // restart the request, giving it another chance to complete. If the request is already
-      // running, we can let it continue running without interruption.
-      if (!Preconditions.checkNotNull(previous).isRunning()) {
-        // Use the previous request rather than the new one to allow for optimizations like skipping
-        // setting placeholders, tracking and un-tracking Targets, and obtaining View dimensions
-        // that are done in the individual Request.
-        previous.begin();
+        @NonNull Y target,
+        RequestListener<TranscodeType> targetListener,
+        BaseRequestOptions<?> options,
+        Executor callbackExecutor) {
+      Preconditions.checkNotNull(target);
+      if (!isModelSet) {
+        throw new IllegalArgumentException("You must call #load() before calling #into()");
       }
+  
+      Request request = buildRequest(target, targetListener, options, callbackExecutor);
+  
+      Request previous = target.getRequest();
+      if (previous != null && request.isEquivalentTo(previous)
+          && !isSkipMemoryCacheWithCompletePreviousRequest(options, previous)) {
+        if (!previous.isRunning()) {
+          previous.begin();
+        }
+        return target;
+      }
+  
+      requestManager.clear(target);
+      target.setRequest(request);
+      requestManager.track(target, request);
+  
       return target;
     }
-
-    requestManager.clear(target);
-    target.setRequest(request);
-    requestManager.track(target, request);
-
-    return target;
-  }
 
   // If the caller is using skipMemoryCache and the previous request is finished, calling begin on
   // the previous request will complete from memory because it will just use the resource that had
