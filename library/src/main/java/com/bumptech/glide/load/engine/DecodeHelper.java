@@ -100,8 +100,8 @@ final class DecodeHelper<Transcode> {
   }
 
   DiskCacheStrategy getDiskCacheStrategy() {
-    return diskCacheStrategy;
-  }
+      return diskCacheStrategy != null ? diskCacheStrategy : DiskCacheStrategy.DEFAULT; // Use a default non-null value
+    }
 
   <T> DataRewinder<T> getRewinder(T data) {
     return glideContext.getRegistry().getRewinder(data);
