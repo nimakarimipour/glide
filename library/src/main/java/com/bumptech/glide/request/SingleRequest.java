@@ -696,51 +696,50 @@ public final class SingleRequest<R> implements Request, SizeReadyCallback, Resou
     return requestLock;
   }
 
-  private void onLoadFailed(GlideException e, int maxLogLevel) {
-      stateVerifier.throwIfRecycled();
-      synchronized (requestLock) {
-        if (e != null) {
-          e.setOrigin(requestOrigin);
+  private void onLoadFailed(@Nullable GlideException e, int maxLogLevel) {
+    stateVerifier.throwIfRecycled();
+    synchronized (requestLock) {
+      e.setOrigin(requestOrigin);
+      int logLevel = glideContext.getLogLevel();
+      if (logLevel <= maxLogLevel) {
+        Log.w(
+            GLIDE_TAG,
+            "Load failed for [" + model + "] with dimensions [" + width + "x" + height + "]",
+            e);
+        if (logLevel <= Log.INFO) {
+          e.logRootCauses(GLIDE_TAG);
         }
-        int logLevel = glideContext.getLogLevel();
-        if (logLevel <= maxLogLevel) {
-          Log.w(
-              GLIDE_TAG,
-              "Load failed for [" + model + "] with dimensions [" + width + "x" + height + "]",
-              e);
-          if (logLevel <= Log.INFO && e != null) {
-            e.logRootCauses(GLIDE_TAG);
-          }
-        }
-  
-        loadStatus = null;
-        status = Status.FAILED;
-  
-        notifyRequestCoordinatorLoadFailed();
-  
-        isCallingCallbacks = true;
-        try {
-          boolean anyListenerHandledUpdatingTarget = false;
-          if (requestListeners != null) {
-            for (RequestListener<R> listener : requestListeners) {
-              anyListenerHandledUpdatingTarget |=
-                  listener.onLoadFailed(e, model, target, isFirstReadyResource());
-            }
-          }
-          anyListenerHandledUpdatingTarget |=
-              targetListener != null
-                  && targetListener.onLoadFailed(e, model, target, isFirstReadyResource());
-  
-          if (!anyListenerHandledUpdatingTarget) {
-            setErrorPlaceholder();
-          }
-        } finally {
-          isCallingCallbacks = false;
-        }
-  
-        GlideTrace.endSectionAsync(TAG, cookie);
       }
+
+      loadStatus = null;
+      status = Status.FAILED;
+
+      notifyRequestCoordinatorLoadFailed();
+
+      isCallingCallbacks = true;
+      try {
+        // TODO: what if this is a thumbnail request?
+        boolean anyListenerHandledUpdatingTarget = false;
+        if (requestListeners != null) {
+          for (RequestListener<R> listener : requestListeners) {
+            anyListenerHandledUpdatingTarget |=
+                listener.onLoadFailed(e, model, target, isFirstReadyResource());
+          }
+        }
+        anyListenerHandledUpdatingTarget |=
+            targetListener != null
+                && targetListener.onLoadFailed(e, model, target, isFirstReadyResource());
+
+        if (!anyListenerHandledUpdatingTarget) {
+          setErrorPlaceholder();
+        }
+      } finally {
+        isCallingCallbacks = false;
+      }
+
+      GlideTrace.endSectionAsync(TAG, cookie);
     }
+  }
 
   @Override
   public boolean isEquivalentTo(@Nullable Request o) {
