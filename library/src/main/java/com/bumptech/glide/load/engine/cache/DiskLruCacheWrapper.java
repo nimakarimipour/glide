@@ -108,45 +108,44 @@ public class DiskLruCacheWrapper implements DiskCache {
   }
 
   @Override
-  public void put(@Nullable Key key, Writer writer) {
-    // We want to make sure that puts block so that data is available when put completes. We may
-    // actually not write any data if we find that data is written by the time we acquire the lock.
-    String safeKey = safeKeyGenerator.getSafeKey(key);
-    writeLocker.acquire(safeKey);
-    try {
-      if (Log.isLoggable(TAG, Log.VERBOSE)) {
-        Log.v(TAG, "Put: Obtained: " + safeKey + " for for Key: " + key);
+    public void put(Key key, Writer writer) {
+      if (key == null) {
+        throw new IllegalArgumentException("Key must not be null");
       }
+      String safeKey = safeKeyGenerator.getSafeKey(key);
+      writeLocker.acquire(safeKey);
       try {
-        // We assume we only need to put once, so if data was written while we were trying to get
-        // the lock, we can simply abort.
-        DiskLruCache diskCache = getDiskCache();
-        Value current = diskCache.get(safeKey);
-        if (current != null) {
-          return;
-        }
-
-        DiskLruCache.Editor editor = diskCache.edit(safeKey);
-        if (editor == null) {
-          throw new IllegalStateException("Had two simultaneous puts for: " + safeKey);
+        if (Log.isLoggable(TAG, Log.VERBOSE)) {
+          Log.v(TAG, "Put: Obtained: " + safeKey + " for Key: " + key);
         }
         try {
-          File file = editor.getFile(0);
-          if (writer.write(file)) {
-            editor.commit();
+          DiskLruCache diskCache = getDiskCache();
+          Value current = diskCache.get(safeKey);
+          if (current != null) {
+            return;
           }
-        } finally {
-          editor.abortUnlessCommitted();
+  
+          DiskLruCache.Editor editor = diskCache.edit(safeKey);
+          if (editor == null) {
+            throw new IllegalStateException("Had two simultaneous puts for: " + safeKey);
+          }
+          try {
+            File file = editor.getFile(0);
+            if (writer.write(file)) {
+              editor.commit();
+            }
+          } finally {
+            editor.abortUnlessCommitted();
+          }
+        } catch (IOException e) {
+          if (Log.isLoggable(TAG, Log.WARN)) {
+            Log.w(TAG, "Unable to put to disk cache", e);
+          }
         }
-      } catch (IOException e) {
-        if (Log.isLoggable(TAG, Log.WARN)) {
-          Log.w(TAG, "Unable to put to disk cache", e);
-        }
+      } finally {
+        writeLocker.release(safeKey);
       }
-    } finally {
-      writeLocker.release(safeKey);
     }
-  }
 
   @Override
   public void delete(Key key) {
