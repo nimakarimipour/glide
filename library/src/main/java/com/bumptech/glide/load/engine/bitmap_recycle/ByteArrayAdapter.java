@@ -13,12 +13,9 @@ public final class ByteArrayAdapter implements ArrayAdapterInterface<byte[]> {
   }
 
   @Override
-    public int getArrayLength(@Nullable byte[] array) {
-      if (array == null) {
-        throw new IllegalArgumentException("Array cannot be null");
-      }
-      return array.length;
-    }
+  public int getArrayLength(@Nullable byte[] array) {
+    return array.length;
+  }
 
   @Override
   public byte[] newArray(int length) {
