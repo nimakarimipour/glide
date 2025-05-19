@@ -86,54 +86,56 @@ class DecodeJob<R>
   }
 
   @Initializer
-  DecodeJob<R> init(
-      GlideContext glideContext,
-      @Nullable Object model,
-      EngineKey loadKey,
-      Key signature,
-      int width,
-      int height,
-      Class<?> resourceClass,
-      Class<R> transcodeClass,
-      Priority priority,
-      DiskCacheStrategy diskCacheStrategy,
-      Map<Class<?>, Transformation<?>> transformations,
-      boolean isTransformationRequired,
-      boolean isScaleOnlyOrNoTransform,
-      boolean onlyRetrieveFromCache,
-      Options options,
-      Callback<R> callback,
-      int order) {
-    decodeHelper.init(
-        glideContext,
-        model,
-        signature,
-        width,
-        height,
-        diskCacheStrategy,
-        resourceClass,
-        transcodeClass,
-        priority,
-        options,
-        transformations,
-        isTransformationRequired,
-        isScaleOnlyOrNoTransform,
-        diskCacheProvider);
-    this.glideContext = glideContext;
-    this.signature = signature;
-    this.priority = priority;
-    this.loadKey = loadKey;
-    this.width = width;
-    this.height = height;
-    this.diskCacheStrategy = diskCacheStrategy;
-    this.onlyRetrieveFromCache = onlyRetrieveFromCache;
-    this.options = options;
-    this.callback = callback;
-    this.order = order;
-    this.runReason = RunReason.INITIALIZE;
-    this.model = model;
-    return this;
-  }
+    DecodeJob<R> init(
+        GlideContext glideContext,
+        Object model,
+        EngineKey loadKey,
+        Key signature,
+        int width,
+        int height,
+        Class<?> resourceClass,
+        Class<R> transcodeClass,
+        Priority priority,
+        DiskCacheStrategy diskCacheStrategy,
+        Map<Class<?>, Transformation<?>> transformations,
+        boolean isTransformationRequired,
+        boolean isScaleOnlyOrNoTransform,
+        boolean onlyRetrieveFromCache,
+        Options options,
+        Callback<R> callback,
+        int order) {
+      decodeHelper.init(
+          glideContext,
+          model,
+          signature,
+          width,
+          height,
+          diskCacheStrategy,
+          resourceClass,
+          transcodeClass,
+          priority,
+          options,
+          transformations,
+          isTransformationRequired,
+          isScaleOnlyOrNoTransform,
+          diskCacheProvider);
+      this.glideContext = glideContext;
+      this.signature = signature;
+      this.priority = priority;
+      this.loadKey = loadKey;
+      this.width = width;
+      this.height = height;
+      this.diskCacheStrategy = diskCacheStrategy;
+      this.onlyRetrieveFromCache = onlyRetrieveFromCache;
+      this.options = options;
+      this.callback = callback;
+      this.order = order;
+      this.runReason = RunReason.INITIALIZE;
+      this.model = model;
+      this.stage = Stage.INITIALIZE; // Ensure stage is initialized
+      this.currentSourceKey = null; // Ensure currentSourceKey is initialized
+      return this;
+    }
 
   /**
    * Returns true if this job will attempt to decode a resource from the disk cache, and false if it
