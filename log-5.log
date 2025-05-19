@@ -1,0 +1,98 @@
+====================
+Type='METHOD_NO_INIT', message='initializer method does not guarantee @NonNull field wrapped (line 29) is initialized along all control-flow paths (remember to check for exceptions or early returns).'
+/home/nima/Developer/nullness-benchmarks/glide/library/src/main/java/com/bumptech/glide/util/ExceptionPassthroughInputStream.java:54
+  ExceptionPassthroughInputStream() {
+Log:
+---NullAway.lambda$resolveRemainingErrors$17---
+==============================
+---NullAway.lambda$resolveRemainingErrors$17---
+TOP LEVEL CALL TO FIX ERROR: Type='METHOD_NO_INIT', message='initializer method does not guarantee @NonNull field wrapped (line 29) is initialized along all control-flow paths (remember to check for exceptions or early returns).'
+/home/nima/Developer/nullness-benchmarks/glide/library/src/main/java/com/bumptech/glide/util/ExceptionPassthroughInputStream.java:54
+  ExceptionPassthroughInputStream() {
+---ChatGPT.ask---
+Asking ChatGPT:
+I want to resolve a warning reported by NullAway.
+The error is of the type of "METHOD_NO_INIT" and the full error message is: "initializer method does not guarantee @NonNull field wrapped (line 29) is initialized along all control-flow paths (remember to check for exceptions or early returns).".
+The line with the error is: "  ExceptionPassthroughInputStream() {".
+
+The error is within "the method: ExceptionPassthroughInputStream()" and the code surrounding the error is:
+```java
+    ExceptionPassthroughInputStream result;
+    synchronized (POOL) {
+      result = POOL.poll();
+    }
+    if (result == null) {
+      result = new ExceptionPassthroughInputStream();
+    }
+    result.setInputStream(toWrap);
+    return result;
+  }
+
+  // Exposed for testing.
+  static void clearQueue() {
+    synchronized (POOL) {
+      while (!POOL.isEmpty()) {
+        POOL.remove();
+      }
+    }
+  }
+
+  ExceptionPassthroughInputStream() {
+    // Do nothing.
+  }
+
+  void setInputStream(@NonNull InputStream toWrap) {
+    wrapped = toWrap;
+  }
+
+  @Override
+  public int available() throws IOException {
+    return wrapped.available();
+  }
+
+  @Override
+  public void close() throws IOException {
+    wrapped.close();
+  }
+
+  @Override
+  public void mark(int readLimit) {
+```
+
+Give me the fixed code snippet (ONLY THE METHOD REWRITE OF "ExceptionPassthroughInputStream()") in XML format in <response> tag like the example below. I will apply the fix to my codebase.
+Do not import any additional libraries or classes or java comments.
+If you can provide the fixed code snippet, provide it in the following format and place the code snippet in the <code> tag within ```java block.
+<response>
+  <success>true</success>
+  <code><![CDATA[
+  ```java
+  Your fixed code snippet here
+  ```
+    ]]>
+  </code>
+</response>
+
+---ChatGPT.sendRequestToOpenAI---
+Sending request to OpenAI...
+---ChatGPT.sendRequestToOpenAI---
+Response received from OpenAI.
+---Response.<init>---
+Creating Response:
+```xml
+<response>
+  <success>true</success>
+  <code><![CDATA[
+  ```java
+  ExceptionPassthroughInputStream() {
+    this.wrapped = new ByteArrayInputStream(new byte[0]);
+  }
+  ```
+    ]]>
+  </code>
+</response>
+```
+---Response.<init>---
+Response created:
+ExceptionPassthroughInputStream() {
+    this.wrapped = new ByteArrayInputStream(new byte[0]);
+  }
