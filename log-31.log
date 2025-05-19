@@ -1,0 +1,130 @@
+====================
+Type='RETURN_NULLABLE', message='returning @Nullable expression from method with @NonNull return type'
+/home/nima/Developer/nullness-benchmarks/glide/library/src/main/java/com/bumptech/glide/Glide.java:141
+    return glide;
+Log:
+---NullAway.lambda$resolveRemainingErrors$17---
+==============================
+---NullAway.lambda$resolveRemainingErrors$17---
+TOP LEVEL CALL TO FIX ERROR: Type='RETURN_NULLABLE', message='returning @Nullable expression from method with @NonNull return type'
+/home/nima/Developer/nullness-benchmarks/glide/library/src/main/java/com/bumptech/glide/Glide.java:141
+    return glide;
+---ChatGPT.ask---
+Asking ChatGPT:
+I want to resolve a warning reported by NullAway.
+The error is of the type of "RETURN_NULLABLE" and the full error message is: "returning @Nullable expression from method with @NonNull return type".
+The line with the error is: "    return glide;".
+
+The error is within "the method: get(android.content.Context)" and the code surrounding the error is:
+```java
+
+  /**
+   * Get the singleton.
+   *
+   * @return the singleton
+   */
+  @NonNull
+  // Double checked locking is safe here.
+  @SuppressWarnings("GuardedBy")
+  public static Glide get(@NonNull Context context) {
+    if (glide == null) {
+      GeneratedAppGlideModule annotationGeneratedModule =
+          getAnnotationGeneratedGlideModules(context.getApplicationContext());
+      synchronized (Glide.class) {
+        if (glide == null) {
+          checkAndInitializeGlide(context, annotationGeneratedModule);
+        }
+      }
+    }
+
+    return glide;
+  }
+
+  @GuardedBy("Glide.class")
+  @VisibleForTesting
+  static void checkAndInitializeGlide(
+      @NonNull Context context, @Nullable GeneratedAppGlideModule generatedAppGlideModule) {
+    // In the thread running initGlide(), one or more classes may call Glide.get(context).
+    // Without this check, those calls could trigger infinite recursion.
+    if (isInitializing) {
+      throw new IllegalStateException(
+          "Glide has been called recursively, this is probably an internal library error!");
+    }
+    isInitializing = true;
+    try {
+      initializeGlide(context, generatedAppGlideModule);
+    } finally {
+      isInitializing = false;
+    }
+  }
+```
+
+Give me the fixed code snippet (ONLY THE METHOD REWRITE OF "get(android.content.Context)") in XML format in <response> tag like the example below. I will apply the fix to my codebase.
+Do not import any additional libraries or classes or java comments.
+If you can provide the fixed code snippet, provide it in the following format and place the code snippet in the <code> tag within ```java block.
+<response>
+  <success>true</success>
+  <code><![CDATA[
+  ```java
+  Your fixed code snippet here
+  ```
+    ]]>
+  </code>
+</response>
+
+---ChatGPT.sendRequestToOpenAI---
+Sending request to OpenAI...
+---ChatGPT.sendRequestToOpenAI---
+Response received from OpenAI.
+---Response.<init>---
+Creating Response:
+```xml
+<response>
+  <success>true</success>
+  <code><![CDATA[
+  ```java
+  @NonNull
+  @SuppressWarnings("GuardedBy")
+  public static Glide get(@NonNull Context context) {
+    if (glide == null) {
+      GeneratedAppGlideModule annotationGeneratedModule =
+          getAnnotationGeneratedGlideModules(context.getApplicationContext());
+      synchronized (Glide.class) {
+        if (glide == null) {
+          checkAndInitializeGlide(context, annotationGeneratedModule);
+        }
+      }
+    }
+    
+    if (glide == null) {
+      throw new IllegalStateException("Glide instance is not initialized");
+    }
+
+    return glide;
+  }
+  ```
+    ]]>
+  </code>
+</response>
+```
+---Response.<init>---
+Response created:
+@NonNull
+  @SuppressWarnings("GuardedBy")
+  public static Glide get(@NonNull Context context) {
+    if (glide == null) {
+      GeneratedAppGlideModule annotationGeneratedModule =
+          getAnnotationGeneratedGlideModules(context.getApplicationContext());
+      synchronized (Glide.class) {
+        if (glide == null) {
+          checkAndInitializeGlide(context, annotationGeneratedModule);
+        }
+      }
+    }
+    
+    if (glide == null) {
+      throw new IllegalStateException("Glide instance is not initialized");
+    }
+
+    return glide;
+  }
