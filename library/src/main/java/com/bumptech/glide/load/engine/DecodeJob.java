@@ -544,20 +544,18 @@ class DecodeJob<R>
   }
 
   private <Data, ResourceType> Resource<R> runLoadPath(
-        Data data, DataSource dataSource, LoadPath<Data, ResourceType, R> path)
-        throws GlideException {
-      if (path == null) {
-        throw new GlideException("LoadPath is null");
-      }
-      Options options = getOptionsWithHardwareConfig(dataSource);
-      DataRewinder<Data> rewinder = glideContext.getRegistry().getRewinder(data);
-      try {
-        return path.load(
-            rewinder, options, width, height, new DecodeCallback<ResourceType>(dataSource));
-      } finally {
-        rewinder.cleanup();
-      }
+      Data data, @Nullable DataSource dataSource, @Nullable LoadPath<Data, ResourceType, R> path)
+      throws GlideException {
+    Options options = getOptionsWithHardwareConfig(dataSource);
+    DataRewinder<Data> rewinder = glideContext.getRegistry().getRewinder(data);
+    try {
+      // ResourceType in DecodeCallback below is required for compilation to work with gradle.
+      return path.load(
+          rewinder, options, width, height, new DecodeCallback<ResourceType>(dataSource));
+    } finally {
+      rewinder.cleanup();
     }
+  }
 
   private void logWithTimeAndKey(String message, long startTime) {
     logWithTimeAndKey(message, startTime, null /*extraArgs*/);
