@@ -92,10 +92,7 @@ public class ModelCache<A, B> {
       return modelKey;
     }
 
-    private ModelKey() {
-        // Providing default initialization for `model` to satisfy @NonNull contract
-        this.model = null; // Consider initializing model with a default non-null value if possible
-      }
+    private ModelKey() {}
 
     private void init(A model, int width, int height) {
       this.model = model;
