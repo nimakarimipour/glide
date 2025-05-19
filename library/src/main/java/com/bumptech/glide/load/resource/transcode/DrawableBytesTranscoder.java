@@ -29,19 +29,21 @@ public final class DrawableBytesTranscoder implements ResourceTranscoder<Drawabl
     this.gifDrawableBytesTranscoder = gifDrawableBytesTranscoder;
   }
 
-  @Nullable
   @Override
-  public Resource<byte[]> transcode(
-      @NonNull Resource<Drawable> toTranscode, @NonNull Options options) {
-    Drawable drawable = toTranscode.get();
-    if (drawable instanceof BitmapDrawable) {
-      return bitmapBytesTranscoder.transcode(
-          BitmapResource.obtain(((BitmapDrawable) drawable).getBitmap(), bitmapPool), options);
-    } else if (drawable instanceof GifDrawable) {
-      return gifDrawableBytesTranscoder.transcode(toGifDrawableResource(toTranscode), options);
+    public Resource<byte[]> transcode(
+        @NonNull Resource<Drawable> toTranscode, @NonNull Options options) {
+      Drawable drawable = toTranscode.get();
+      if (drawable instanceof BitmapDrawable) {
+        Bitmap bitmap = ((BitmapDrawable) drawable).getBitmap();
+        if (bitmap != null) {
+          return bitmapBytesTranscoder.transcode(
+              BitmapResource.obtain(bitmap, bitmapPool), options);
+        }
+      } else if (drawable instanceof GifDrawable) {
+        return gifDrawableBytesTranscoder.transcode(toGifDrawableResource(toTranscode), options);
+      }
+      return null;
     }
-    return null;
-  }
 
   @SuppressWarnings("unchecked")
   @NonNull
