@@ -388,30 +388,30 @@ class DecodeJob<R>
   }
 
   @Override
-    public void onDataFetcherReady(
-        @Nullable Key sourceKey,
-        Object data,
-        DataFetcher<?> fetcher,
-        DataSource dataSource,
-        Key attemptedKey) {
-      this.currentSourceKey = sourceKey;
-      this.currentData = data;
-      this.currentFetcher = fetcher;
-      this.currentDataSource = dataSource;
-      this.currentAttemptingKey = attemptedKey;
-      this.isLoadingFromAlternateCacheKey = sourceKey != null && sourceKey != decodeHelper.getCacheKeys().get(0);
-  
-      if (Thread.currentThread() != currentThread) {
-        reschedule(RunReason.DECODE_DATA);
-      } else {
-        GlideTrace.beginSection("DecodeJob.decodeFromRetrievedData");
-        try {
-          decodeFromRetrievedData();
-        } finally {
-          GlideTrace.endSection();
-        }
+  public void onDataFetcherReady(
+      Key sourceKey,
+      @Nullable Object data,
+      DataFetcher<?> fetcher,
+      DataSource dataSource,
+      Key attemptedKey) {
+    this.currentSourceKey = sourceKey;
+    this.currentData = data;
+    this.currentFetcher = fetcher;
+    this.currentDataSource = dataSource;
+    this.currentAttemptingKey = attemptedKey;
+    this.isLoadingFromAlternateCacheKey = sourceKey != decodeHelper.getCacheKeys().get(0);
+
+    if (Thread.currentThread() != currentThread) {
+      reschedule(RunReason.DECODE_DATA);
+    } else {
+      GlideTrace.beginSection("DecodeJob.decodeFromRetrievedData");
+      try {
+        decodeFromRetrievedData();
+      } finally {
+        GlideTrace.endSection();
       }
     }
+  }
 
   @Override
   public void onDataFetcherFailed(
