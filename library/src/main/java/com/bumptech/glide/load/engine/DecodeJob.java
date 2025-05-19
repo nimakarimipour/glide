@@ -732,10 +732,12 @@ class DecodeJob<R>
     }
 
     void clear() {
-      key = null;
-      encoder = null;
-      toEncode = null;
-    }
+          key = null;
+          encoder = null;
+          if (toEncode != null) {
+              toEncode.unlock();
+          }
+      }
   }
 
   interface Callback<R> {
