@@ -32,7 +32,7 @@ final class DecodeHelper<Transcode> {
   private Object model;
   private int width;
   private int height;
-  @Nullable private Class<?> resourceClass;
+  private Class<?> resourceClass;
   private DecodeJob.DiskCacheProvider diskCacheProvider;
   private Options options;
   @Nullable private Map<Class<?>, Transformation<?>> transformations;
