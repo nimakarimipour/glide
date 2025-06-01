@@ -46,49 +46,48 @@ class DataCacheGenerator implements DataFetcherGenerator, DataFetcher.DataCallba
   }
 
   @Override
-  public boolean startNext() {
-    GlideTrace.beginSection("DataCacheGenerator.startNext");
-    try {
-      while (modelLoaders == null || !hasNextModelLoader()) {
-        sourceIdIndex++;
-        if (sourceIdIndex >= cacheKeys.size()) {
-          return false;
+    public boolean startNext() {
+      GlideTrace.beginSection("DataCacheGenerator.startNext");
+      try {
+        while (modelLoaders == null || !hasNextModelLoader()) {
+          sourceIdIndex++;
+          if (sourceIdIndex >= cacheKeys.size()) {
+            return false;
+          }
+  
+          Key sourceId = cacheKeys.get(sourceIdIndex);
+          // PMD.AvoidInstantiatingObjectsInLoops The loop iterates a limited number of times
+          // and the actions it performs are much more expensive than a single allocation.
+          @SuppressWarnings("PMD.AvoidInstantiatingObjectsInLoops")
+          Key originalKey = new DataCacheKey(sourceId, helper.getSignature());
+          cacheFile = helper.getDiskCache().get(originalKey);
+          if (cacheFile != null) {
+            this.sourceKey = sourceId;
+            modelLoaders = helper.getModelLoaders(cacheFile);
+            modelLoaderIndex = 0;
+          }
         }
-
-        Key sourceId = cacheKeys.get(sourceIdIndex);
-        // PMD.AvoidInstantiatingObjectsInLoops The loop iterates a limited number of times
-        // and the actions it performs are much more expensive than a single allocation.
-        @SuppressWarnings("PMD.AvoidInstantiatingObjectsInLoops")
-        Key originalKey = new DataCacheKey(sourceId, helper.getSignature());
-        cacheFile = helper.getDiskCache().get(originalKey);
-        if (cacheFile != null) {
-          this.sourceKey = sourceId;
-          modelLoaders = helper.getModelLoaders(cacheFile);
-          modelLoaderIndex = 0;
+  
+        loadData = null;
+        boolean started = false;
+        while (cacheFile != null && !started && hasNextModelLoader()) {
+          ModelLoader<File, ?> modelLoader = modelLoaders.get(modelLoaderIndex++);
+          loadData = modelLoader.buildLoadData(
+              cacheFile, helper.getWidth(), helper.getHeight(), helper.getOptions());
+          if (loadData != null && helper.hasLoadPath(loadData.fetcher.getDataClass())) {
+            started = true;
+            loadData.fetcher.loadData(helper.getPriority(), this);
+          }
         }
+        return started;
+      } finally {
+        GlideTrace.endSection();
       }
-
-      loadData = null;
-      boolean started = false;
-      while (!started && hasNextModelLoader()) {
-        ModelLoader<File, ?> modelLoader = modelLoaders.get(modelLoaderIndex++);
-        loadData =
-            modelLoader.buildLoadData(
-                cacheFile, helper.getWidth(), helper.getHeight(), helper.getOptions());
-        if (loadData != null && helper.hasLoadPath(loadData.fetcher.getDataClass())) {
-          started = true;
-          loadData.fetcher.loadData(helper.getPriority(), this);
-        }
-      }
-      return started;
-    } finally {
-      GlideTrace.endSection();
     }
-  }
 
   private boolean hasNextModelLoader() {
-    return modelLoaderIndex < modelLoaders.size();
-  }
+        return modelLoaders != null && modelLoaderIndex < modelLoaders.size();
+    }
 
   @Override
   public void cancel() {
