@@ -27,6 +27,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 import javax.annotation.Nullable;
+import edu.ucr.cs.riple.annotator.util.Nullability;
 
 /**
  * A class responsible for decoding resources either from cached data or from the original source
@@ -59,7 +60,7 @@ class DecodeJob<R>
   private int width;
   private int height;
   private DiskCacheStrategy diskCacheStrategy;
-  private Options options;
+  @Nullable private Options options;
   private Callback<R> callback;
   private int order;
   private Stage stage;
@@ -517,31 +518,27 @@ class DecodeJob<R>
     return runLoadPath(data, dataSource, path);
   }
 
-  @NonNull
-  private Options getOptionsWithHardwareConfig(@Nullable DataSource dataSource) {
-    Options options = this.options;
-    if (Build.VERSION.SDK_INT < Build.VERSION_CODES.O) {
+  @SuppressWarnings("NullAway") @NonNull
+    private Options getOptionsWithHardwareConfig(DataSource dataSource) {
+      Options options = this.options;
+      if (Build.VERSION.SDK_INT < Build.VERSION_CODES.O) {
+        return options;
+      }
+  
+      boolean isHardwareConfigSafe =
+          dataSource == DataSource.RESOURCE_DISK_CACHE || decodeHelper.isScaleOnlyOrNoTransform();
+      Boolean isHardwareConfigAllowed = NullabilityUtil.castToNonnull(options, "initialized earlier").get(Downsampler.ALLOW_HARDWARE_CONFIG);
+  
+      if (isHardwareConfigAllowed != null && (!isHardwareConfigAllowed || isHardwareConfigSafe)) {
+        return options;
+      }
+  
+      options = new Options();
+      options.putAll(this.options);
+      options.set(Downsampler.ALLOW_HARDWARE_CONFIG, isHardwareConfigSafe);
+  
       return options;
     }
-
-    boolean isHardwareConfigSafe =
-        dataSource == DataSource.RESOURCE_DISK_CACHE || decodeHelper.isScaleOnlyOrNoTransform();
-    Boolean isHardwareConfigAllowed = options.get(Downsampler.ALLOW_HARDWARE_CONFIG);
-
-    // If allow hardware config is defined, we can use it if it's set to false or if it's safe to
-    // use the hardware config for the request.
-    if (isHardwareConfigAllowed != null && (!isHardwareConfigAllowed || isHardwareConfigSafe)) {
-      return options;
-    }
-
-    // If allow hardware config is undefined or is set to true but it's unsafe for us to use the
-    // hardware config for this request, we need to override the config.
-    options = new Options();
-    options.putAll(this.options);
-    options.set(Downsampler.ALLOW_HARDWARE_CONFIG, isHardwareConfigSafe);
-
-    return options;
-  }
 
   private <Data, ResourceType> Resource<R> runLoadPath(
       Data data, @Nullable DataSource dataSource, @Nullable LoadPath<Data, ResourceType, R> path)
@@ -715,7 +712,7 @@ class DecodeJob<R>
       this.toEncode = (LockedResource<Z>) toEncode;
     }
 
-    void encode(DiskCacheProvider diskCacheProvider, Options options) {
+    void encode(DiskCacheProvider diskCacheProvider, @Nullable Options options) {
       GlideTrace.beginSection("DecodeJob.encode");
       try {
         diskCacheProvider
