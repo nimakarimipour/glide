@@ -62,14 +62,14 @@ class DecodeJob<R>
   private Options options;
   private Callback<R> callback;
   private int order;
-  @Nullable private Stage stage;
+  private Stage stage;
   private RunReason runReason;
   private long startFetchTime;
   private boolean onlyRetrieveFromCache;
   @Nullable private Object model;
 
   @Nullable private Thread currentThread;
-  @Nullable private Key currentSourceKey;
+  private Key currentSourceKey;
   @Nullable private Key currentAttemptingKey;
   @Nullable private Object currentData;
   @Nullable private DataSource currentDataSource;
