@@ -62,7 +62,7 @@ class DecodeJob<R>
   private Options options;
   private Callback<R> callback;
   private int order;
-  @Nullable private Stage stage;
+  private Stage stage;
   private RunReason runReason;
   private long startFetchTime;
   private boolean onlyRetrieveFromCache;
@@ -354,7 +354,7 @@ class DecodeJob<R>
     isCallbackNotified = true;
   }
 
-  private Stage getNextStage(@Nullable Stage current) {
+  private Stage getNextStage(Stage current) {
     switch (current) {
       case INITIALIZE:
         return diskCacheStrategy.decodeCachedResource()
