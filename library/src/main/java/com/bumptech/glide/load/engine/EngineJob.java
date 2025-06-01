@@ -115,7 +115,7 @@ class EngineJob<R> implements DecodeJob.Callback<R>, Poolable {
     this.engineResourceFactory = engineResourceFactory;
   }
 
-  @Initializer @VisibleForTesting
+  @VisibleForTesting
   synchronized EngineJob<R> init(
       Key key,
       boolean isCacheable,
