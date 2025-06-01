@@ -44,10 +44,13 @@ public abstract class DrawableResource<T extends Drawable> implements Resource<T
 
   @Override
   public void initialize() {
-    if (drawable instanceof BitmapDrawable) {
-      ((BitmapDrawable) drawable).getBitmap().prepareToDraw();
-    } else if (drawable instanceof GifDrawable) {
-      ((GifDrawable) drawable).getFirstFrame().prepareToDraw();
-    }
+      if (drawable instanceof BitmapDrawable) {
+          ((BitmapDrawable) drawable).getBitmap().prepareToDraw();
+      } else if (drawable instanceof GifDrawable) {
+          Bitmap firstFrame = ((GifDrawable) drawable).getFirstFrame();
+          if (firstFrame != null) {
+              firstFrame.prepareToDraw();
+          }
+      }
   }
 }
