@@ -23,7 +23,7 @@ public class ExceptionCatchingInputStream extends InputStream {
 
   private static final Queue<ExceptionCatchingInputStream> QUEUE = Util.createQueue(0);
 
-  @Nullable private InputStream wrapped;
+  private InputStream wrapped;
   @Nullable private IOException exception;
 
   @NonNull
@@ -55,104 +55,77 @@ public class ExceptionCatchingInputStream extends InputStream {
   }
 
   @Override
-    public int available() throws IOException {
-      if (wrapped == null) {
-        throw new IOException("Wrapped InputStream is null.");
-      }
-      return wrapped.available();
-    }
+  public int available() throws IOException {
+    return wrapped.available();
+  }
 
   @Override
-    public void close() throws IOException {
-        if (wrapped != null) {
-            wrapped.close();
-        }
-    }
+  public void close() throws IOException {
+    wrapped.close();
+  }
 
   @Override
-    public void mark(int readLimit) {
-      if (wrapped != null) {
-        wrapped.mark(readLimit);
-      }
-    }
+  public void mark(int readLimit) {
+    wrapped.mark(readLimit);
+  }
 
   @Override
-    public boolean markSupported() {
-      if (wrapped == null) {
-        throw new NullPointerException("The wrapped InputStream is null.");
-      }
-      return wrapped.markSupported();
-    }
+  public boolean markSupported() {
+    return wrapped.markSupported();
+  }
 
   @Override
-    public int read(byte[] buffer) {
-      if (wrapped == null) {
-        throw new IllegalStateException("InputStream has not been initialized.");
-      }
-      int read;
-      try {
-        read = wrapped.read(buffer);
-      } catch (IOException e) {
-        exception = e;
-        read = -1;
-      }
-      return read;
+  public int read(byte[] buffer) {
+    int read;
+    try {
+      read = wrapped.read(buffer);
+    } catch (IOException e) {
+      exception = e;
+      read = -1;
     }
+    return read;
+  }
 
   @Override
-    public int read(byte[] buffer, int byteOffset, int byteCount) {
-      int read;
-      try {
-        if (wrapped == null) {
-          throw new NullPointerException("Wrapped InputStream is null");
-        }
-        read = wrapped.read(buffer, byteOffset, byteCount);
-      } catch (IOException e) {
-        exception = e;
-        read = -1;
-      }
-      return read;
+  public int read(byte[] buffer, int byteOffset, int byteCount) {
+    int read;
+    try {
+      read = wrapped.read(buffer, byteOffset, byteCount);
+    } catch (IOException e) {
+      exception = e;
+      read = -1;
     }
+    return read;
+  }
 
   @Override
-    public synchronized void reset() throws IOException {
-      if (wrapped != null) {
-        wrapped.reset();
-      } else {
-        throw new IOException("Wrapped InputStream is null");
-      }
-    }
+  public synchronized void reset() throws IOException {
+    wrapped.reset();
+  }
 
   @Override
-      public long skip(long byteCount) {
-        long skipped;
-        if (wrapped != null) {
-          try {
-            skipped = wrapped.skip(byteCount);
-          } catch (IOException e) {
-            exception = e;
-            skipped = 0;
-          }
-        } else {
-          skipped = 0;
-        }
-        return skipped;
-      }
+  public long skip(long byteCount) {
+    long skipped;
+    try {
+      skipped = wrapped.skip(byteCount);
+    } catch (IOException e) {
+      exception = e;
+      skipped = 0;
+    }
+    return skipped;
+  }
 
   @Override
-    public int read() {
-      int result;
-      if (wrapped == null) {
-        throw new NullPointerException("InputStream is not set");
-      }
-      try {
-        result = wrapped.read();
-      } catch (IOException e) {
-        exception = e;
-        result = -1;
-      }
-      return result;
+  public int read() {
+    int result;
+    try {
+      result = wrapped.read();
+    } catch (IOException e) {
+      exception = e;
+      result = -1;
     }
+    return result;
+  }
 
   @Nullable
   public IOException getException() {
