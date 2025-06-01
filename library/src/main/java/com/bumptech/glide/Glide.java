@@ -126,8 +126,7 @@ public class Glide implements ComponentCallbacks2 {
    */
   @NonNull
   // Double checked locking is safe here.
-  // Double checked locking is safe here.
-@SuppressWarnings({ "GuardedBy", "NullAway" })
+  @SuppressWarnings("GuardedBy")
   public static Glide get(@NonNull Context context) {
     if (glide == null) {
       GeneratedAppGlideModule annotationGeneratedModule =
