@@ -9,7 +9,6 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.NavigableMap;
 import java.util.TreeMap;
-import edu.ucr.cs.riple.annotator.util.Nullability;
 
 /**
  * A fixed size Array Pool that evicts arrays using an LRU strategy to keep the pool under the
@@ -151,18 +150,16 @@ public final class LruArrayPool implements ArrayPool {
   }
 
   private void evictToSize(int size) {
-      while (currentSize > size) {
-        Object evicted = groupedMap.removeLast();
-        Preconditions.checkNotNull(evicted);
-        ArrayAdapterInterface<Object> arrayAdapter = getAdapterFromObject(evicted);
-        currentSize -= arrayAdapter.getArrayLength(evicted) * arrayAdapter.getElementSizeInBytes();
-        decrementArrayOfSize(
-            arrayAdapter.getArrayLength(NullabilityUtil.castToNonnull(evicted, "checked not null")),
-            evicted.getClass());
-        if (Log.isLoggable(arrayAdapter.getTag(), Log.VERBOSE)) {
-          Log.v(arrayAdapter.getTag(), "evicted: " + arrayAdapter.getArrayLength(evicted));
-        }
+    while (currentSize > size) {
+      Object evicted = groupedMap.removeLast();
+      Preconditions.checkNotNull(evicted);
+      ArrayAdapterInterface<Object> arrayAdapter = getAdapterFromObject(evicted);
+      currentSize -= arrayAdapter.getArrayLength(evicted) * arrayAdapter.getElementSizeInBytes();
+      decrementArrayOfSize(arrayAdapter.getArrayLength(evicted), evicted.getClass());
+      if (Log.isLoggable(arrayAdapter.getTag(), Log.VERBOSE)) {
+        Log.v(arrayAdapter.getTag(), "evicted: " + arrayAdapter.getArrayLength(evicted));
       }
+    }
   }
 
   private void decrementArrayOfSize(int size, Class<?> arrayClass) {
