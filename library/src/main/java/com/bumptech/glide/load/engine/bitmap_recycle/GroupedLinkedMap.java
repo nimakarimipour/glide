@@ -50,27 +50,32 @@ class GroupedLinkedMap<K extends Poolable, V> {
     return entry.removeLast();
   }
 
-  @Nullable public V removeLast() {
-      LinkedEntry<K, V> last = head.prev;
-  
-      while (!last.equals(head)) {
-        V removed = last.removeLast();
-        if (removed != null) {
-          return removed;
-        } else {
-          removeEntry(last);
-          keyToEntry.remove(last.key);
-          if (last.key == null) {
-            return null;
-          }
-          last.key.offer();
-        }
-  
-        last = last.prev;
+  @Nullable
+  public V removeLast() {
+    LinkedEntry<K, V> last = head.prev;
+
+    while (!last.equals(head)) {
+      V removed = last.removeLast();
+      if (removed != null) {
+        return removed;
+      } else {
+        // We will clean up empty lru entries since they are likely to have been one off or
+        // unusual sizes and
+        // are not likely to be requested again so the gc thrash should be minimal. Doing so will
+        // speed up our
+        // removeLast operation in the future and prevent our linked list from growing to
+        // arbitrarily large
+        // sizes.
+        removeEntry(last);
+        keyToEntry.remove(last.key);
+        last.key.offer();
       }
-  
-      return null;
+
+      last = last.prev;
     }
+
+    return null;
+  }
 
   @Override
   public String toString() {
