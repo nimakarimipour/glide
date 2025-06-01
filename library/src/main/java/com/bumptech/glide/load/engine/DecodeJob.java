@@ -27,7 +27,6 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 import javax.annotation.Nullable;
-import edu.ucr.cs.riple.annotator.util.Nullability;
 
 /**
  * A class responsible for decoding resources either from cached data or from the original source
@@ -492,23 +491,24 @@ class DecodeJob<R>
     }
   }
 
+  @Nullable
   private <Data> Resource<R> decodeFromData(
-         DataFetcher<?> fetcher, Data data, DataSource dataSource)
-        throws GlideException {
-      try {
-        if (data == null) {
-          return null;
-        }
-        long startTime = LogTime.getLogTime();
-        Resource<R> result = decodeFromFetcher(data, dataSource);
-        if (Log.isLoggable(TAG, Log.VERBOSE)) {
-          logWithTimeAndKey("Decoded result " + result, startTime);
-        }
-        return result;
-      } finally {
-        NullabilityUtil.castToNonnull(fetcher, "never assigned to null").cleanup();
+      @Nullable DataFetcher<?> fetcher, @Nullable Data data, @Nullable DataSource dataSource)
+      throws GlideException {
+    try {
+      if (data == null) {
+        return null;
       }
+      long startTime = LogTime.getLogTime();
+      Resource<R> result = decodeFromFetcher(data, dataSource);
+      if (Log.isLoggable(TAG, Log.VERBOSE)) {
+        logWithTimeAndKey("Decoded result " + result, startTime);
+      }
+      return result;
+    } finally {
+      fetcher.cleanup();
     }
+  }
 
   @SuppressWarnings("unchecked")
   private <Data> Resource<R> decodeFromFetcher(Data data, @Nullable DataSource dataSource)
