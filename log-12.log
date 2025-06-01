@@ -1,0 +1,118 @@
+====================
+Type='RETURN_NULLABLE', message='returning @Nullable expression from method with @NonNull return type'
+/home/nima/Developer/nullness-benchmarks/glide/library/src/main/java/com/bumptech/glide/load/engine/DecodeHelper.java:111
+    return priority;
+Log:
+---NullAway.lambda$resolveRemainingErrors$17---
+==============================
+---NullAway.lambda$resolveRemainingErrors$17---
+12 : TOP LEVEL CALL TO FIX ERROR: Type='RETURN_NULLABLE', message='returning @Nullable expression from method with @NonNull return type'
+/home/nima/Developer/nullness-benchmarks/glide/library/src/main/java/com/bumptech/glide/load/engine/DecodeHelper.java:111
+    return priority;
+---AdvancedNullAwayCodeFix.fix---
+Fixing error: Type='RETURN_NULLABLE', message='returning @Nullable expression from method with @NonNull return type'
+/home/nima/Developer/nullness-benchmarks/glide/library/src/main/java/com/bumptech/glide/load/engine/DecodeHelper.java:111
+    return priority;
+---AdvancedNullAwayCodeFix.resolveNullableReturnError---
+Checking if the method is actually returning nullable.
+---ChatGPT.checkNullabilityPossibilityAtErrorPoint---
+Asking if the expression can be null at error point point
+---ChatGPT.ask---
+Asking ChatGPT:
+In the method below, is there a possibility that the expression "return priority;" at line "return priority;" is null?
+Priority getPriority() {
+    return priority;
+}
+Give a single-word answer in XML format. If it is possible for the expression to be null, respond with:
+```xml
+<response>
+    <reason><![CDATA[YOUR REASON]]></reason>
+    <value>YES</value>
+</response>
+```
+If it is not possible for the expression to be null, respond with:
+```xml
+<response>
+    <reason><![CDATA[YOUR REASON]]></reason>
+    <value>NO</value>
+</response>
+```
+If you are unsure or need more information, respond with where you can ask for more details or what specific information you need.
+
+If additional information is required, list each request inside a `<request>` tag. If no additional information is needed, omit the `<requests>` section.
+
+Respond with:
+```xml
+<response>
+    <reason><![CDATA[YOUR REASON]]></reason>
+    <value>UNKNOWN</value>
+    <!-- Include <requests> only if additional information is needed -->
+    <requests>
+        <request><![CDATA[YOUR REQUEST 1]]></request>
+        <request><![CDATA[YOUR REQUEST 2]]></request>
+    </requests>
+</response>
+```
+---ChatGPT.sendRequestToOpenAI---
+Retrieving response from cache
+---Response.<init>---
+Creating Response:
+```xml
+<response>
+    <reason><![CDATA[The method getPriority() returns a field 'priority' which can potentially be null depending on how it is initialized or modified. Without further information on the initialization or modifications to 'priority', it is possible for this field to be null.]]></reason>
+    <value>YES</value>
+</response>
+```
+---Response.<init>---
+Response created:
+Agreement: The method getPriority() returns a field 'priority' which can potentially be null depending on how it is initialized or modified. Without further information on the initialization or modifications to 'priority', it is possible for this field to be null.
+---AdvancedNullAwayCodeFix.resolveNullableReturnError---
+Checking if the method is a getter for field.
+---AdvancedNullAwayCodeFix.resolveNullableReturnError---
+The method is identified as a getter method for field: priority
+---AdvancedNullAwayCodeFix.resolveNullableReturnError---
+Checking if the field is nullable.
+---AdvancedNullAwayCodeFix.investigateFieldNullability---
+Investigating field nullability.
+---AdvancedNullAwayCodeFix.investigateFieldNullability---
+Checking if there is any method initializing field: priority
+---AdvancedNullAwayCodeFix.resolveNullableReturnError---
+Field is nullable, keeping the annotation on the field.
+---AdvancedNullAwayCodeFix.resolveNullableReturnError---
+Made the method nullable and resolving triggered errors.
+---AdvancedNullAwayCodeFix.fixTriggeredErrorsForLocation---
+Fixing triggered errors for location: OnMethod{method='getPriority()', clazz='com.bumptech.glide.load.engine.DecodeHelper'}
+---AdvancedNullAwayCodeFix.fixTriggeredErrorsForLocation---
+Triggered errors size: 3
+---AdvancedNullAwayCodeFix.fixTriggeredErrorsForLocation---
+Adding annotations for resolvable errors, size: 0
+---AdvancedNullAwayCodeFix.fixTriggeredErrorsForLocation---
+Resolving unresolvable error for triggered error: Type='PASS_NULLABLE', message='passing @Nullable parameter 'helper.getPriority()' where @NonNull is required'
+/home/nima/Developer/nullness-benchmarks/glide/library/src/main/java/com/bumptech/glide/load/engine/ResourceCacheGenerator.java:108
+          loadData.fetcher.loadData(helper.getPriority(), this);
+---AdvancedNullAwayCodeFix.fix---
+Fixing error: Type='PASS_NULLABLE', message='passing @Nullable parameter 'helper.getPriority()' where @NonNull is required'
+/home/nima/Developer/nullness-benchmarks/glide/library/src/main/java/com/bumptech/glide/load/engine/ResourceCacheGenerator.java:108
+          loadData.fetcher.loadData(helper.getPriority(), this);
+---AdvancedNullAwayCodeFix.fix---
+Error type not supported: PASS_NULLABLE. Error message: passing @Nullable parameter 'helper.getPriority()' where @NonNull is required
+---AdvancedNullAwayCodeFix.fixTriggeredErrorsForLocation---
+Resolving unresolvable error for triggered error: Type='PASS_NULLABLE', message='passing @Nullable parameter 'helper.getPriority()' where @NonNull is required'
+/home/nima/Developer/nullness-benchmarks/glide/library/src/main/java/com/bumptech/glide/load/engine/SourceGenerator.java:95
+    loadData.fetcher.loadData(
+---AdvancedNullAwayCodeFix.fix---
+Fixing error: Type='PASS_NULLABLE', message='passing @Nullable parameter 'helper.getPriority()' where @NonNull is required'
+/home/nima/Developer/nullness-benchmarks/glide/library/src/main/java/com/bumptech/glide/load/engine/SourceGenerator.java:95
+    loadData.fetcher.loadData(
+---AdvancedNullAwayCodeFix.fix---
+Error type not supported: PASS_NULLABLE. Error message: passing @Nullable parameter 'helper.getPriority()' where @NonNull is required
+---AdvancedNullAwayCodeFix.fixTriggeredErrorsForLocation---
+Resolving unresolvable error for triggered error: Type='PASS_NULLABLE', message='passing @Nullable parameter 'helper.getPriority()' where @NonNull is required'
+/home/nima/Developer/nullness-benchmarks/glide/library/src/main/java/com/bumptech/glide/load/engine/DataCacheGenerator.java:80
+          loadData.fetcher.loadData(helper.getPriority(), this);
+---AdvancedNullAwayCodeFix.fix---
+Fixing error: Type='PASS_NULLABLE', message='passing @Nullable parameter 'helper.getPriority()' where @NonNull is required'
+/home/nima/Developer/nullness-benchmarks/glide/library/src/main/java/com/bumptech/glide/load/engine/DataCacheGenerator.java:80
+          loadData.fetcher.loadData(helper.getPriority(), this);
+---AdvancedNullAwayCodeFix.fix---
+Error type not supported: PASS_NULLABLE. Error message: passing @Nullable parameter 'helper.getPriority()' where @NonNull is required
