@@ -6,7 +6,6 @@ import androidx.annotation.VisibleForTesting;
 import com.bumptech.glide.util.LruCache;
 import com.bumptech.glide.util.Util;
 import java.util.Queue;
-import com.uber.nullaway.annotations.Initializer;
 
 /**
  * A simple cache that can be used by {@link ModelLoader} and {@link ModelLoaderFactory} to cache
@@ -95,7 +94,7 @@ public class ModelCache<A, B> {
 
     private ModelKey() {}
 
-    @Initializer private void init(A model, int width, int height) {
+    private void init(A model, int width, int height) {
       this.model = model;
       this.width = width;
       this.height = height;
