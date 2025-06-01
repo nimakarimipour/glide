@@ -30,10 +30,7 @@ public class GifDrawableResource extends DrawableResource<GifDrawable> implement
   }
 
   @Override
-    public void initialize() {
-      Bitmap firstFrame = drawable.getFirstFrame();
-      if (firstFrame != null) {
-        firstFrame.prepareToDraw();
-      }
-    }
+  public void initialize() {
+    drawable.getFirstFrame().prepareToDraw();
+  }
 }
