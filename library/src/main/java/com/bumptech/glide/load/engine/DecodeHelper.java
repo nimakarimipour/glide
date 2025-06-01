@@ -34,7 +34,7 @@ final class DecodeHelper<Transcode> {
   private int height;
   private Class<?> resourceClass;
   private DecodeJob.DiskCacheProvider diskCacheProvider;
-  private Options options;
+  @Nullable private Options options;
   @Nullable private Map<Class<?>, Transformation<?>> transformations;
   private Class<Transcode> transcodeClass;
   private boolean isLoadDataSet;
@@ -111,7 +111,7 @@ final class DecodeHelper<Transcode> {
     return priority;
   }
 
-  Options getOptions() {
+  @Nullable Options getOptions() {
     return options;
   }
 
