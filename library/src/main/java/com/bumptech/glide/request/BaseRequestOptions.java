@@ -37,7 +37,6 @@ import com.bumptech.glide.util.CachedHashCodeArrayMap;
 import com.bumptech.glide.util.Preconditions;
 import com.bumptech.glide.util.Util;
 import java.util.Map;
-import edu.ucr.cs.riple.annotator.util.Nullability;
 
 /**
  * A base object to allow method sharing between {@link RequestOptions} and {@link
@@ -1219,28 +1218,28 @@ public abstract class BaseRequestOptions<T extends BaseRequestOptions<T>> implem
    * additional fields, such as listeners and models, that should not be considered when checking
    * for equality.
    */
-  public final boolean isEquivalentTo( @Nullable BaseRequestOptions<?> other) {
-      return Float.compare(Nullability.castToNonnull(other).sizeMultiplier, sizeMultiplier) == 0
-          && errorId == other.errorId
-          && Util.bothNullOrEqual(errorPlaceholder, other.errorPlaceholder)
-          && placeholderId == other.placeholderId
-          && Util.bothNullOrEqual(placeholderDrawable, other.placeholderDrawable)
-          && fallbackId == other.fallbackId
-          && Util.bothNullOrEqual(fallbackDrawable, other.fallbackDrawable)
-          && isCacheable == other.isCacheable
-          && overrideHeight == other.overrideHeight
-          && overrideWidth == other.overrideWidth
-          && isTransformationRequired == other.isTransformationRequired
-          && isTransformationAllowed == other.isTransformationAllowed
-          && useUnlimitedSourceGeneratorsPool == other.useUnlimitedSourceGeneratorsPool
-          && onlyRetrieveFromCache == other.onlyRetrieveFromCache
-          && diskCacheStrategy.equals(other.diskCacheStrategy)
-          && priority == other.priority
-          && options.equals(other.options)
-          && transformations.equals(other.transformations)
-          && resourceClass.equals(other.resourceClass)
-          && Util.bothNullOrEqual(signature, other.signature)
-          && Util.bothNullOrEqual(theme, other.theme);
+  public final boolean isEquivalentTo(@Nullable BaseRequestOptions<?> other) {
+    return Float.compare(other.sizeMultiplier, sizeMultiplier) == 0
+        && errorId == other.errorId
+        && Util.bothNullOrEqual(errorPlaceholder, other.errorPlaceholder)
+        && placeholderId == other.placeholderId
+        && Util.bothNullOrEqual(placeholderDrawable, other.placeholderDrawable)
+        && fallbackId == other.fallbackId
+        && Util.bothNullOrEqual(fallbackDrawable, other.fallbackDrawable)
+        && isCacheable == other.isCacheable
+        && overrideHeight == other.overrideHeight
+        && overrideWidth == other.overrideWidth
+        && isTransformationRequired == other.isTransformationRequired
+        && isTransformationAllowed == other.isTransformationAllowed
+        && useUnlimitedSourceGeneratorsPool == other.useUnlimitedSourceGeneratorsPool
+        && onlyRetrieveFromCache == other.onlyRetrieveFromCache
+        && diskCacheStrategy.equals(other.diskCacheStrategy)
+        && priority == other.priority
+        && options.equals(other.options)
+        && transformations.equals(other.transformations)
+        && resourceClass.equals(other.resourceClass)
+        && Util.bothNullOrEqual(signature, other.signature)
+        && Util.bothNullOrEqual(theme, other.theme);
   }
 
   @Override
