@@ -174,29 +174,29 @@ class DecodeJob<R>
   }
 
   private void releaseInternal() {
-    releaseManager.reset();
-    deferredEncodeManager.clear();
-    decodeHelper.clear();
-    isCallbackNotified = false;
-    glideContext = null;
-    signature = null;
-    options = null;
-    priority = null;
-    loadKey = null;
-    callback = null;
-    stage = null;
-    currentGenerator = null;
-    currentThread = null;
-    currentSourceKey = null;
-    currentData = null;
-    currentDataSource = null;
-    currentFetcher = null;
-    startFetchTime = 0L;
-    isCancelled = false;
-    model = null;
-    throwables.clear();
-    pool.release(this);
-  }
+      releaseManager.reset();
+      deferredEncodeManager.clear();
+      decodeHelper.clear();
+      isCallbackNotified = false;
+      glideContext = null;
+      signature = null;
+      // options = null; // Removed or replace this line if options cannot be null
+      priority = null;
+      loadKey = null;
+      callback = null;
+      stage = null;
+      currentGenerator = null;
+      currentThread = null;
+      currentSourceKey = null;
+      currentData = null;
+      currentDataSource = null;
+      currentFetcher = null;
+      startFetchTime = 0L;
+      isCancelled = false;
+      model = null;
+      throwables.clear();
+      pool.release(this);
+    }
 
   @Override
   public int compareTo(@NonNull DecodeJob<?> other) {
