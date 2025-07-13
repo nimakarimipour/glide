@@ -3,7 +3,6 @@ package com.bumptech.glide.load.engine.prefill;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
-import edu.ucr.cs.riple.annotator.util.Nullability;
 
 final class PreFillQueue {
 
@@ -23,21 +22,22 @@ final class PreFillQueue {
   }
 
   public PreFillType remove() {
-        PreFillType result = keyList.get(keyIndex);
-  
-        Integer countForResult = bitmapsPerType.get(result);
-        if (Nullability.castToNonnull(countForResult) == 1) {
-          bitmapsPerType.remove(result);
-          keyList.remove(keyIndex);
-        } else {
-          bitmapsPerType.put(result, countForResult - 1);
-        }
-        bitmapsRemaining--;
-  
-        keyIndex = keyList.isEmpty() ? 0 : (keyIndex + 1) % keyList.size();
-  
-        return result;
+    PreFillType result = keyList.get(keyIndex);
+
+    Integer countForResult = bitmapsPerType.get(result);
+    if (countForResult == 1) {
+      bitmapsPerType.remove(result);
+      keyList.remove(keyIndex);
+    } else {
+      bitmapsPerType.put(result, countForResult - 1);
     }
+    bitmapsRemaining--;
+
+    // Avoid divide by 0.
+    keyIndex = keyList.isEmpty() ? 0 : (keyIndex + 1) % keyList.size();
+
+    return result;
+  }
 
   public int getSize() {
     return bitmapsRemaining;
