@@ -22,22 +22,21 @@ final class PreFillQueue {
   }
 
   public PreFillType remove() {
-    PreFillType result = keyList.get(keyIndex);
-
-    Integer countForResult = bitmapsPerType.get(result);
-    if (countForResult == 1) {
-      bitmapsPerType.remove(result);
-      keyList.remove(keyIndex);
-    } else {
-      bitmapsPerType.put(result, countForResult - 1);
+      PreFillType result = keyList.get(keyIndex);
+  
+      Integer countForResult = bitmapsPerType.get(result);
+      if (countForResult != null && countForResult == 1) {
+        bitmapsPerType.remove(result);
+        keyList.remove(keyIndex);
+      } else if (countForResult != null) {
+        bitmapsPerType.put(result, countForResult - 1);
+      }
+      bitmapsRemaining--;
+  
+      keyIndex = keyList.isEmpty() ? 0 : (keyIndex + 1) % keyList.size();
+  
+      return result;
     }
-    bitmapsRemaining--;
-
-    // Avoid divide by 0.
-    keyIndex = keyList.isEmpty() ? 0 : (keyIndex + 1) % keyList.size();
-
-    return result;
-  }
 
   public int getSize() {
     return bitmapsRemaining;
