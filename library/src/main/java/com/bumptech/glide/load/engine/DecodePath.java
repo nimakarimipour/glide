@@ -64,16 +64,19 @@ public class DecodePath<DataType, ResourceType, Transcode> {
   }
 
   @NonNull
-  private Resource<ResourceType> decodeResource(
-      DataRewinder<DataType> rewinder, int width, int height, @NonNull Options options)
-      throws GlideException {
-    List<Throwable> exceptions = Preconditions.checkNotNull(listPool.acquire());
-    try {
-      return decodeResourceWithList(rewinder, width, height, options, exceptions);
-    } finally {
-      listPool.release(exceptions);
+    private Resource<ResourceType> decodeResource(
+        DataRewinder<DataType> rewinder, int width, int height, @NonNull Options options)
+        throws GlideException {
+      if (listPool == null) {
+        throw new NullPointerException("listPool is null");
+      }
+      List<Throwable> exceptions = Preconditions.checkNotNull(listPool.acquire());
+      try {
+        return decodeResourceWithList(rewinder, width, height, options, exceptions);
+      } finally {
+        listPool.release(exceptions);
+      }
     }
-  }
 
   @NonNull
   private Resource<ResourceType> decodeResourceWithList(
