@@ -93,9 +93,9 @@ public final class BufferedOutputStream extends OutputStream {
   }
 
   private void release() {
-    if (buffer != null) {
-      arrayPool.put(buffer);
-      buffer = null;
+      if (buffer != null) {
+        arrayPool.put(buffer);
+      }
+      buffer = new byte[0]; // Assign an empty non-null byte array instead of null
     }
-  }
 }
