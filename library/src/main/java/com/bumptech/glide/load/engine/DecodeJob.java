@@ -27,6 +27,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 import javax.annotation.Nullable;
+import edu.ucr.cs.riple.annotator.util.Nullability;
 
 /**
  * A class responsible for decoding resources either from cached data or from the original source
@@ -62,7 +63,7 @@ class DecodeJob<R>
   private Options options;
   private Callback<R> callback;
   private int order;
-  private Stage stage;
+  @Nullable private Stage stage;
   private RunReason runReason;
   private long startFetchTime;
   private boolean onlyRetrieveFromCache;
@@ -290,21 +291,20 @@ class DecodeJob<R>
     }
   }
 
-  @Nullable
-  private DataFetcherGenerator getNextGenerator() {
-    switch (stage) {
-      case RESOURCE_CACHE:
-        return new ResourceCacheGenerator(decodeHelper, this);
-      case DATA_CACHE:
-        return new DataCacheGenerator(decodeHelper, this);
-      case SOURCE:
-        return new SourceGenerator(decodeHelper, this);
-      case FINISHED:
-        return null;
-      default:
-        throw new IllegalStateException("Unrecognized stage: " + stage);
+  @Nullable private DataFetcherGenerator getNextGenerator() {
+      switch (Nullability.castToNonnull(stage)) {
+        case RESOURCE_CACHE:
+          return new ResourceCacheGenerator(decodeHelper, this);
+        case DATA_CACHE:
+          return new DataCacheGenerator(decodeHelper, this);
+        case SOURCE:
+          return new SourceGenerator(decodeHelper, this);
+        case FINISHED:
+          return null;
+        default:
+          throw new IllegalStateException("Unrecognized stage: " + stage);
+      }
     }
-  }
 
   private void runGenerators() {
     currentThread = Thread.currentThread();
@@ -354,7 +354,7 @@ class DecodeJob<R>
     isCallbackNotified = true;
   }
 
-  private Stage getNextStage(Stage current) {
+  private Stage getNextStage(@Nullable Stage current) {
     switch (current) {
       case INITIALIZE:
         return diskCacheStrategy.decodeCachedResource()
