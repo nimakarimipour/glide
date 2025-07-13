@@ -1219,31 +1219,28 @@ public abstract class BaseRequestOptions<T extends BaseRequestOptions<T>> implem
    * for equality.
    */
   public final boolean isEquivalentTo(@Nullable BaseRequestOptions<?> other) {
-      if (other == null) {
-        return false;
-      }
-      return Float.compare(other.sizeMultiplier, sizeMultiplier) == 0
-          && errorId == other.errorId
-          && Util.bothNullOrEqual(errorPlaceholder, other.errorPlaceholder)
-          && placeholderId == other.placeholderId
-          && Util.bothNullOrEqual(placeholderDrawable, other.placeholderDrawable)
-          && fallbackId == other.fallbackId
-          && Util.bothNullOrEqual(fallbackDrawable, other.fallbackDrawable)
-          && isCacheable == other.isCacheable
-          && overrideHeight == other.overrideHeight
-          && overrideWidth == other.overrideWidth
-          && isTransformationRequired == other.isTransformationRequired
-          && isTransformationAllowed == other.isTransformationAllowed
-          && useUnlimitedSourceGeneratorsPool == other.useUnlimitedSourceGeneratorsPool
-          && onlyRetrieveFromCache == other.onlyRetrieveFromCache
-          && diskCacheStrategy.equals(other.diskCacheStrategy)
-          && priority == other.priority
-          && options.equals(other.options)
-          && transformations.equals(other.transformations)
-          && resourceClass.equals(other.resourceClass)
-          && Util.bothNullOrEqual(signature, other.signature)
-          && Util.bothNullOrEqual(theme, other.theme);
-    }
+    return Float.compare(other.sizeMultiplier, sizeMultiplier) == 0
+        && errorId == other.errorId
+        && Util.bothNullOrEqual(errorPlaceholder, other.errorPlaceholder)
+        && placeholderId == other.placeholderId
+        && Util.bothNullOrEqual(placeholderDrawable, other.placeholderDrawable)
+        && fallbackId == other.fallbackId
+        && Util.bothNullOrEqual(fallbackDrawable, other.fallbackDrawable)
+        && isCacheable == other.isCacheable
+        && overrideHeight == other.overrideHeight
+        && overrideWidth == other.overrideWidth
+        && isTransformationRequired == other.isTransformationRequired
+        && isTransformationAllowed == other.isTransformationAllowed
+        && useUnlimitedSourceGeneratorsPool == other.useUnlimitedSourceGeneratorsPool
+        && onlyRetrieveFromCache == other.onlyRetrieveFromCache
+        && diskCacheStrategy.equals(other.diskCacheStrategy)
+        && priority == other.priority
+        && options.equals(other.options)
+        && transformations.equals(other.transformations)
+        && resourceClass.equals(other.resourceClass)
+        && Util.bothNullOrEqual(signature, other.signature)
+        && Util.bothNullOrEqual(theme, other.theme);
+  }
 
   @Override
   public boolean equals(Object o) {
