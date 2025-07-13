@@ -68,13 +68,13 @@ final class SizeStrategy implements LruPoolStrategy {
   }
 
   private void decrementBitmapOfSize(Integer size) {
-    Integer current = sortedSizes.get(size);
-    if (current == 1) {
-      sortedSizes.remove(size);
-    } else {
-      sortedSizes.put(size, current - 1);
+      Integer current = sortedSizes.get(size);
+      if (current != null && current == 1) {
+        sortedSizes.remove(size);
+      } else if (current != null) {
+        sortedSizes.put(size, current - 1);
+      }
     }
-  }
 
   @Override
   public String logBitmap(Bitmap bitmap) {
