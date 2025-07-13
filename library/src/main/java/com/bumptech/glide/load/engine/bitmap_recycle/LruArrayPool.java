@@ -9,6 +9,7 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.NavigableMap;
 import java.util.TreeMap;
+import edu.ucr.cs.riple.annotator.util.Nullability;
 
 /**
  * A fixed size Array Pool that evicts arrays using an LRU strategy to keep the pool under the
@@ -209,15 +210,15 @@ public final class LruArrayPool implements ArrayPool {
 
   // VisibleForTesting
   int getCurrentSize() {
-    int currentSize = 0;
-    for (Class<?> type : sortedSizes.keySet()) {
-      for (Integer size : sortedSizes.get(type).keySet()) {
-        ArrayAdapterInterface<?> adapter = getAdapterFromType(type);
-        currentSize += size * sortedSizes.get(type).get(size) * adapter.getElementSizeInBytes();
-      }
+        int currentSize = 0;
+        for (Class<?> type : sortedSizes.keySet()) {
+          for (Integer size : sortedSizes.get(type).keySet()) {
+            ArrayAdapterInterface<?> adapter = getAdapterFromType(type);
+            currentSize += size * Nullability.castToNonnull(sortedSizes.get(type).get(size)) * adapter.getElementSizeInBytes();
+          }
+        }
+        return currentSize;
     }
-    return currentSize;
-  }
 
   private static final class KeyPool extends BaseKeyPool<Key> {
 
