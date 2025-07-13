@@ -45,7 +45,7 @@ class EngineJob<R> implements DecodeJob.Callback<R>, Poolable {
   private final GlideExecutor animationExecutor;
   private final AtomicInteger pendingCallbacks = new AtomicInteger();
 
-  private Key key;
+  @SuppressWarnings("NullAway.Init") private Key key;
   private boolean isCacheable;
   private boolean useUnlimitedSourceGeneratorPool;
   private boolean useAnimationPool;
@@ -116,7 +116,7 @@ class EngineJob<R> implements DecodeJob.Callback<R>, Poolable {
     this.engineResourceFactory = engineResourceFactory;
   }
 
-  @VisibleForTesting
+  @Initializer @VisibleForTesting
   synchronized EngineJob<R> init(
       Key key,
       boolean isCacheable,
@@ -206,16 +206,14 @@ class EngineJob<R> implements DecodeJob.Callback<R>, Poolable {
 
   // Exposed for testing.
   void cancel() {
-          if (isDone()) {
-            return;
-          }
-    
-          isCancelled = true;
-          if (decodeJob != null) {
+            if (isDone()) {
+              return;
+            }
+      
+            isCancelled = true;
             Nullability.castToNonnull(decodeJob, "explicit null check").cancel();
-          }
-          engineJobListener.onEngineJobCancelled(this, key);
-    }
+            engineJobListener.onEngineJobCancelled(this, key);
+  }
 
   // Exposed for testing.
   synchronized boolean isCancelled() {
@@ -303,24 +301,24 @@ class EngineJob<R> implements DecodeJob.Callback<R>, Poolable {
   }
 
   private synchronized void release() {
-      if (key == null) {
-        throw new IllegalArgumentException();
-      }
-      cbs.clear();
-      key = null;
-      engineResource = null;
-      resource = null;
-      hasLoadFailed = false;
-      isCancelled = false;
-      hasResource = false;
-      isLoadedFromAlternateCacheKey = false;
-      if (decodeJob != null) {
-        decodeJob.release(/* isRemovedFromQueue= */ false);
-        decodeJob = null;
-      }
-      exception = null;
-      dataSource = null;
-      pool.release(this);
+        if (key == null) {
+          throw new IllegalArgumentException();
+        }
+        cbs.clear();
+        key = null;
+        engineResource = null;
+        resource = null;
+        hasLoadFailed = false;
+        isCancelled = false;
+        hasResource = false;
+        isLoadedFromAlternateCacheKey = false;
+        if (decodeJob != null) {
+          Nullability.castToNonnull(decodeJob, "checked to be nonnull").release(/* isRemovedFromQueue= */ false);
+          decodeJob = null;
+        }
+        exception = null;
+        dataSource = null;
+        pool.release(this);
     }
 
   @Initializer
