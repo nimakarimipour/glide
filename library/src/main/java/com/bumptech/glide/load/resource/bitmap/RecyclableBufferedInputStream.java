@@ -101,10 +101,12 @@ public class RecyclableBufferedInputStream extends FilterInputStream {
    * increase.
    */
   // Public API.
-  @SuppressWarnings("WeakerAccess")
   public synchronized void fixMarkLimit() {
-    marklimit = buf.length;
-  }
+      if (buf == null) {
+        throw new IllegalStateException("Buffer is null");
+      }
+      marklimit = buf.length;
+    }
 
   public synchronized void release() {
     if (buf != null) {
