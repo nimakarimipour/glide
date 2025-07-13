@@ -22,7 +22,6 @@ import java.util.List;
 import java.util.Map;
 import java.util.Map.Entry;
 import javax.annotation.Nullable;
-import edu.ucr.cs.riple.annotator.util.Nullability;
 
 final class DecodeHelper<Transcode> {
 
@@ -211,20 +210,21 @@ final class DecodeHelper<Transcode> {
   }
 
   List<LoadData<?>> getLoadData() {
-        if (!isLoadDataSet) {
-          isLoadDataSet = true;
-          loadData.clear();
-          List<ModelLoader<Object, ?>> modelLoaders = glideContext.getRegistry().getModelLoaders(Nullability.castToNonnull(model));
-          for (int i = 0, size = modelLoaders.size(); i < size; i++) {
-            ModelLoader<Object, ?> modelLoader = modelLoaders.get(i);
-            LoadData<?> current = modelLoader.buildLoadData(Nullability.castToNonnull(model), width, height, options);
-            if (current != null) {
-              loadData.add(current);
-            }
-          }
+    if (!isLoadDataSet) {
+      isLoadDataSet = true;
+      loadData.clear();
+      List<ModelLoader<Object, ?>> modelLoaders = glideContext.getRegistry().getModelLoaders(model);
+      //noinspection ForLoopReplaceableByForEach to improve perf
+      for (int i = 0, size = modelLoaders.size(); i < size; i++) {
+        ModelLoader<Object, ?> modelLoader = modelLoaders.get(i);
+        LoadData<?> current = modelLoader.buildLoadData(model, width, height, options);
+        if (current != null) {
+          loadData.add(current);
         }
-        return loadData;
+      }
     }
+    return loadData;
+  }
 
   List<Key> getCacheKeys() {
     if (!isCacheKeysSet) {
