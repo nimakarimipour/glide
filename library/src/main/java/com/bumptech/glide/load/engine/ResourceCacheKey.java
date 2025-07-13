@@ -10,13 +10,14 @@ import com.bumptech.glide.util.Util;
 import java.nio.ByteBuffer;
 import java.security.MessageDigest;
 import javax.annotation.Nullable;
+import java.util.Objects;
 
 /** A cache key for downsampled and transformed resource data + any requested signature. */
 final class ResourceCacheKey implements Key {
   private static final LruCache<Class<?>, byte[]> RESOURCE_CLASS_BYTES = new LruCache<>(50);
   private final ArrayPool arrayPool;
   private final Key sourceKey;
-  private final Key signature;
+  @Nullable private final Key signature;
   private final int width;
   private final int height;
   private final Class<?> decodedResourceClass;
@@ -43,49 +44,51 @@ final class ResourceCacheKey implements Key {
   }
 
   @Override
-  public boolean equals(Object o) {
-    if (o instanceof ResourceCacheKey) {
-      ResourceCacheKey other = (ResourceCacheKey) o;
-      return height == other.height
-          && width == other.width
-          && Util.bothNullOrEqual(transformation, other.transformation)
-          && decodedResourceClass.equals(other.decodedResourceClass)
-          && sourceKey.equals(other.sourceKey)
-          && signature.equals(other.signature)
-          && options.equals(other.options);
+    public boolean equals(@Nullable Object o) {
+      if (o instanceof ResourceCacheKey) {
+        ResourceCacheKey other = (ResourceCacheKey) o;
+        return height == other.height
+            && width == other.width
+            && Util.bothNullOrEqual(transformation, other.transformation)
+            && Objects.equals(decodedResourceClass, other.decodedResourceClass)
+            && Objects.equals(sourceKey, other.sourceKey)
+            && Objects.equals(signature, other.signature)
+            && Objects.equals(options, other.options);
+      }
+      return false;
     }
-    return false;
-  }
 
   @Override
-  public int hashCode() {
-    int result = sourceKey.hashCode();
-    result = 31 * result + signature.hashCode();
-    result = 31 * result + width;
-    result = 31 * result + height;
-    if (transformation != null) {
-      result = 31 * result + transformation.hashCode();
+    public int hashCode() {
+      int result = sourceKey.hashCode();
+      result = 31 * result + (signature == null ? 1 : signature.hashCode());
+      result = 31 * result + width;
+      result = 31 * result + height;
+      if (transformation != null) {
+        result = 31 * result + transformation.hashCode();
+      }
+      result = 31 * result + decodedResourceClass.hashCode();
+      result = 31 * result + options.hashCode();
+      return result;
     }
-    result = 31 * result + decodedResourceClass.hashCode();
-    result = 31 * result + options.hashCode();
-    return result;
-  }
 
   // TODO: Include relevant options?
   @Override
-  public void updateDiskCacheKey(@NonNull MessageDigest messageDigest) {
-    byte[] dimensions = arrayPool.getExact(8, byte[].class);
-    ByteBuffer.wrap(dimensions).putInt(width).putInt(height).array();
-    signature.updateDiskCacheKey(messageDigest);
-    sourceKey.updateDiskCacheKey(messageDigest);
-    messageDigest.update(dimensions);
-    if (transformation != null) {
-      transformation.updateDiskCacheKey(messageDigest);
+    public void updateDiskCacheKey(@NonNull MessageDigest messageDigest) {
+      byte[] dimensions = arrayPool.getExact(8, byte[].class);
+      ByteBuffer.wrap(dimensions).putInt(width).putInt(height).array();
+      if (signature != null) {
+        signature.updateDiskCacheKey(messageDigest);
+      }
+      sourceKey.updateDiskCacheKey(messageDigest);
+      messageDigest.update(dimensions);
+      if (transformation != null) {
+        transformation.updateDiskCacheKey(messageDigest);
+      }
+      options.updateDiskCacheKey(messageDigest);
+      messageDigest.update(getResourceClassBytes());
+      arrayPool.put(dimensions);
     }
-    options.updateDiskCacheKey(messageDigest);
-    messageDigest.update(getResourceClassBytes());
-    arrayPool.put(dimensions);
-  }
 
   private byte[] getResourceClassBytes() {
     byte[] result = RESOURCE_CLASS_BYTES.get(decodedResourceClass);

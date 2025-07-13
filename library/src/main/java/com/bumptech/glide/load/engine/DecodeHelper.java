@@ -115,7 +115,7 @@ final class DecodeHelper<Transcode> {
     return options;
   }
 
-  Key getSignature() {
+  @Nullable Key getSignature() {
     return signature;
   }
 
