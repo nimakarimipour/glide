@@ -3,14 +3,12 @@ package com.bumptech.glide.load.engine;
 import androidx.annotation.NonNull;
 import com.bumptech.glide.load.Key;
 import java.security.MessageDigest;
-import javax.annotation.Nullable;
-import java.util.Objects;
 
 /** A cache key for original source data + any requested signature. */
 final class DataCacheKey implements Key {
 
   private final Key sourceKey;
-  @Nullable private final Key signature;
+  private final Key signature;
 
   DataCacheKey(Key sourceKey, Key signature) {
     this.sourceKey = sourceKey;
@@ -22,20 +20,20 @@ final class DataCacheKey implements Key {
   }
 
   @Override
-    public boolean equals(Object o) {
-      if (o instanceof DataCacheKey) {
-        DataCacheKey other = (DataCacheKey) o;
-        return Objects.equals(sourceKey, other.sourceKey) && Objects.equals(signature, other.signature);
-      }
-      return false;
+  public boolean equals(Object o) {
+    if (o instanceof DataCacheKey) {
+      DataCacheKey other = (DataCacheKey) o;
+      return sourceKey.equals(other.sourceKey) && signature.equals(other.signature);
     }
+    return false;
+  }
 
   @Override
-    public int hashCode() {
-      int result = sourceKey.hashCode();
-      result = 31 * result + (signature == null ? 1 : signature.hashCode());
-      return result;
-    }
+  public int hashCode() {
+    int result = sourceKey.hashCode();
+    result = 31 * result + signature.hashCode();
+    return result;
+  }
 
   @Override
   public String toString() {
@@ -43,10 +41,8 @@ final class DataCacheKey implements Key {
   }
 
   @Override
-    public void updateDiskCacheKey(@NonNull MessageDigest messageDigest) {
-      sourceKey.updateDiskCacheKey(messageDigest);
-      if (signature != null) {
-        signature.updateDiskCacheKey(messageDigest);
-      }
-    }
+  public void updateDiskCacheKey(@NonNull MessageDigest messageDigest) {
+    sourceKey.updateDiskCacheKey(messageDigest);
+    signature.updateDiskCacheKey(messageDigest);
+  }
 }
