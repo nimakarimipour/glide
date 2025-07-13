@@ -47,19 +47,22 @@ public class LoadPath<Data, ResourceType, Transcode> {
   }
 
   public Resource<Transcode> load(
-      DataRewinder<Data> rewinder,
-      @NonNull Options options,
-      int width,
-      int height,
-      DecodePath.DecodeCallback<ResourceType> decodeCallback)
-      throws GlideException {
-    List<Throwable> throwables = Preconditions.checkNotNull(listPool.acquire());
-    try {
-      return loadWithExceptionList(rewinder, options, width, height, decodeCallback, throwables);
-    } finally {
-      listPool.release(throwables);
+        DataRewinder<Data> rewinder,
+        @NonNull Options options,
+        int width,
+        int height,
+        DecodePath.DecodeCallback<ResourceType> decodeCallback)
+        throws GlideException {
+      if (listPool == null) {
+        throw new NullPointerException("listPool is null");
+      }
+      List<Throwable> throwables = Preconditions.checkNotNull(listPool.acquire());
+      try {
+        return loadWithExceptionList(rewinder, options, width, height, decodeCallback, throwables);
+      } finally {
+        listPool.release(throwables);
+      }
     }
-  }
 
   private Resource<Transcode> loadWithExceptionList(
       DataRewinder<Data> rewinder,
