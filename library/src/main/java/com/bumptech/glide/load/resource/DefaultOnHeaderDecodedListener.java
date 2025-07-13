@@ -21,7 +21,6 @@ import com.bumptech.glide.load.resource.bitmap.HardwareConfigState;
 import com.bumptech.glide.request.target.Target;
 import com.bumptech.glide.util.Synthetic;
 import javax.annotation.Nullable;
-import edu.ucr.cs.riple.annotator.util.Nullability;
 
 /**
  * Downsamples, decodes, and rotates images according to their exif orientation using {@link
@@ -45,15 +44,15 @@ public final class DefaultOnHeaderDecodedListener implements OnHeaderDecodedList
   @Nullable private final PreferredColorSpace preferredColorSpace;
 
   public DefaultOnHeaderDecodedListener(
-        int requestedWidth, int requestedHeight, @NonNull Options options) {
-      this.requestedWidth = requestedWidth;
-      this.requestedHeight = requestedHeight;
-      decodeFormat = options.get(Downsampler.DECODE_FORMAT);
-      strategy = options.get(DownsampleStrategy.OPTION);
-      isHardwareConfigAllowed =
-          Nullability.castToNonnull(options.get(Downsampler.ALLOW_HARDWARE_CONFIG))
-              && options.get(Downsampler.ALLOW_HARDWARE_CONFIG);
-      preferredColorSpace = options.get(Downsampler.PREFERRED_COLOR_SPACE);
+      int requestedWidth, int requestedHeight, @NonNull Options options) {
+    this.requestedWidth = requestedWidth;
+    this.requestedHeight = requestedHeight;
+    decodeFormat = options.get(Downsampler.DECODE_FORMAT);
+    strategy = options.get(DownsampleStrategy.OPTION);
+    isHardwareConfigAllowed =
+        options.get(Downsampler.ALLOW_HARDWARE_CONFIG) != null
+            && options.get(Downsampler.ALLOW_HARDWARE_CONFIG);
+    preferredColorSpace = options.get(Downsampler.PREFERRED_COLOR_SPACE);
   }
 
   @Override
