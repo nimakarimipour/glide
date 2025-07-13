@@ -159,7 +159,7 @@ public class GifDrawable extends Drawable
     return state.frameLoader.getSize();
   }
 
-  public Bitmap getFirstFrame() {
+  @Nullable public Bitmap getFirstFrame() {
     return state.frameLoader.getFirstFrame();
   }
 
