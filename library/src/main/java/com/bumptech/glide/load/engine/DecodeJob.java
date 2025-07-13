@@ -208,8 +208,12 @@ class DecodeJob<R>
   }
 
   private int getPriority() {
-    return priority.ordinal();
-  }
+      if (priority == null) {
+        // Return a default value or handle the null case as needed
+        return 0; // Example default value
+      }
+      return priority.ordinal();
+    }
 
   public void cancel() {
     isCancelled = true;
