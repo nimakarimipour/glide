@@ -495,24 +495,25 @@ class DecodeJob<R>
     }
   }
 
-  @Nullable
-  private <Data> Resource<R> decodeFromData(
-      @Nullable DataFetcher<?> fetcher, @Nullable Data data, @Nullable DataSource dataSource)
-      throws GlideException {
-    try {
-      if (data == null) {
-        return null;
+  @Nullable private <Data> Resource<R> decodeFromData(
+         @Nullable DataFetcher<?> fetcher, @Nullable Data data, @Nullable DataSource dataSource)
+        throws GlideException {
+      try {
+        if (data == null) {
+          return null;
+        }
+        long startTime = LogTime.getLogTime();
+        Resource<R> result = decodeFromFetcher(data, dataSource);
+        if (Log.isLoggable(TAG, Log.VERBOSE)) {
+          logWithTimeAndKey("Decoded result " + result, startTime);
+        }
+        return result;
+      } finally {
+        if (fetcher != null) {
+          fetcher.cleanup();
+        }
       }
-      long startTime = LogTime.getLogTime();
-      Resource<R> result = decodeFromFetcher(data, dataSource);
-      if (Log.isLoggable(TAG, Log.VERBOSE)) {
-        logWithTimeAndKey("Decoded result " + result, startTime);
-      }
-      return result;
-    } finally {
-      fetcher.cleanup();
     }
-  }
 
   @SuppressWarnings("unchecked")
   private <Data> Resource<R> decodeFromFetcher(Data data, @Nullable DataSource dataSource)
