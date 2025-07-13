@@ -27,6 +27,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 import javax.annotation.Nullable;
+import edu.ucr.cs.riple.annotator.util.Nullability;
 
 /**
  * A class responsible for decoding resources either from cached data or from the original source
@@ -581,64 +582,64 @@ class DecodeJob<R>
   }
 
   @Synthetic
-  @NonNull
-  <Z> Resource<Z> onResourceDecoded(@Nullable DataSource dataSource, @NonNull Resource<Z> decoded) {
-    @SuppressWarnings("unchecked")
-    Class<Z> resourceSubClass = (Class<Z>) decoded.get().getClass();
-    Transformation<Z> appliedTransformation = null;
-    Resource<Z> transformed = decoded;
-    if (dataSource != DataSource.RESOURCE_DISK_CACHE) {
-      appliedTransformation = decodeHelper.getTransformation(resourceSubClass);
-      transformed = appliedTransformation.transform(glideContext, decoded, width, height);
-    }
-    // TODO: Make this the responsibility of the Transformation.
-    if (!decoded.equals(transformed)) {
-      decoded.recycle();
-    }
-
-    final EncodeStrategy encodeStrategy;
-    final ResourceEncoder<Z> encoder;
-    if (decodeHelper.isResourceEncoderAvailable(transformed)) {
-      encoder = decodeHelper.getResultEncoder(transformed);
-      encodeStrategy = encoder.getEncodeStrategy(options);
-    } else {
-      encoder = null;
-      encodeStrategy = EncodeStrategy.NONE;
-    }
-
-    Resource<Z> result = transformed;
-    boolean isFromAlternateCacheKey = !decodeHelper.isSourceKey(currentSourceKey);
-    if (diskCacheStrategy.isResourceCacheable(
-        isFromAlternateCacheKey, dataSource, encodeStrategy)) {
-      if (encoder == null) {
-        throw new Registry.NoResultEncoderAvailableException(transformed.get().getClass());
+    @NonNull
+    <Z> Resource<Z> onResourceDecoded( @Nullable DataSource dataSource, @NonNull Resource<Z> decoded) {
+      @SuppressWarnings("unchecked")
+      Class<Z> resourceSubClass = (Class<Z>) decoded.get().getClass();
+      Transformation<Z> appliedTransformation = null;
+      Resource<Z> transformed = decoded;
+      if (dataSource != DataSource.RESOURCE_DISK_CACHE) {
+        appliedTransformation = decodeHelper.getTransformation(resourceSubClass);
+        transformed = appliedTransformation.transform(Nullability.castToNonnull(glideContext), decoded, width, height);
       }
-      final Key key;
-      switch (encodeStrategy) {
-        case SOURCE:
-          key = new DataCacheKey(currentSourceKey, signature);
-          break;
-        case TRANSFORMED:
-          key =
-              new ResourceCacheKey(
-                  decodeHelper.getArrayPool(),
-                  currentSourceKey,
-                  signature,
-                  width,
-                  height,
-                  appliedTransformation,
-                  resourceSubClass,
-                  options);
-          break;
-        default:
-          throw new IllegalArgumentException("Unknown strategy: " + encodeStrategy);
+      // TODO: Make this the responsibility of the Transformation.
+      if (!decoded.equals(transformed)) {
+        decoded.recycle();
       }
-
-      LockedResource<Z> lockedResult = LockedResource.obtain(transformed);
-      deferredEncodeManager.init(key, encoder, lockedResult);
-      result = lockedResult;
-    }
-    return result;
+  
+      final EncodeStrategy encodeStrategy;
+      final ResourceEncoder<Z> encoder;
+      if (decodeHelper.isResourceEncoderAvailable(transformed)) {
+        encoder = decodeHelper.getResultEncoder(transformed);
+        encodeStrategy = encoder.getEncodeStrategy(options);
+      } else {
+        encoder = null;
+        encodeStrategy = EncodeStrategy.NONE;
+      }
+  
+      Resource<Z> result = transformed;
+      boolean isFromAlternateCacheKey = !decodeHelper.isSourceKey(currentSourceKey);
+      if (diskCacheStrategy.isResourceCacheable(
+          isFromAlternateCacheKey, dataSource, encodeStrategy)) {
+        if (encoder == null) {
+          throw new Registry.NoResultEncoderAvailableException(transformed.get().getClass());
+        }
+        final Key key;
+        switch (encodeStrategy) {
+          case SOURCE:
+            key = new DataCacheKey(currentSourceKey, signature);
+            break;
+          case TRANSFORMED:
+            key =
+                new ResourceCacheKey(
+                    decodeHelper.getArrayPool(),
+                    currentSourceKey,
+                    signature,
+                    width,
+                    height,
+                    appliedTransformation,
+                    resourceSubClass,
+                    options);
+            break;
+          default:
+            throw new IllegalArgumentException("Unknown strategy: " + encodeStrategy);
+        }
+  
+        LockedResource<Z> lockedResult = LockedResource.obtain(transformed);
+        deferredEncodeManager.init(key, encoder, lockedResult);
+        result = lockedResult;
+      }
+      return result;
   }
 
   private final class DecodeCallback<Z> implements DecodePath.DecodeCallback<Z> {
