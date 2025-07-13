@@ -6,6 +6,7 @@ import androidx.annotation.Nullable;
 import java.io.IOException;
 import java.io.InputStream;
 import java.util.Queue;
+import edu.ucr.cs.riple.annotator.util.Nullability;
 
 /**
  * An {@link java.io.InputStream} that catches, stores and rethrows {@link java.io.IOException}s
@@ -26,7 +27,7 @@ public final class ExceptionPassthroughInputStream extends InputStream {
   @GuardedBy("POOL")
   private static final Queue<ExceptionPassthroughInputStream> POOL = Util.createQueue(0);
 
-  private InputStream wrapped;
+  @Nullable private InputStream wrapped;
   @Nullable private IOException exception;
 
   @NonNull
@@ -60,69 +61,95 @@ public final class ExceptionPassthroughInputStream extends InputStream {
   }
 
   @Override
-  public int available() throws IOException {
-    return wrapped.available();
-  }
-
-  @Override
-  public void close() throws IOException {
-    wrapped.close();
-  }
-
-  @Override
-  public void mark(int readLimit) {
-    wrapped.mark(readLimit);
-  }
-
-  @Override
-  public boolean markSupported() {
-    return wrapped.markSupported();
-  }
-
-  @Override
-  public int read() throws IOException {
-    try {
-      return wrapped.read();
-    } catch (IOException e) {
-      exception = e;
-      throw e;
+      public int available() throws IOException {
+        if (wrapped == null) {
+          throw new IOException("InputStream is not set");
+        }
+        return Nullability.castToNonnull(wrapped, "explicitly checked for null").available();
     }
-  }
 
   @Override
-  public int read(byte[] buffer) throws IOException {
-    try {
-      return wrapped.read(buffer);
-    } catch (IOException e) {
-      exception = e;
-      throw e;
+      public void close() throws IOException {
+        if (wrapped != null) {
+          Nullability.castToNonnull(wrapped, "checked before use").close();
+        }
     }
-  }
 
   @Override
-  public int read(byte[] buffer, int byteOffset, int byteCount) throws IOException {
-    try {
-      return wrapped.read(buffer, byteOffset, byteCount);
-    } catch (IOException e) {
-      exception = e;
-      throw e;
+      public void mark(int readLimit) {
+        if (wrapped != null) {
+          Nullability.castToNonnull(wrapped, "checked for nullity").mark(readLimit);
+        }
     }
-  }
 
   @Override
-  public synchronized void reset() throws IOException {
-    wrapped.reset();
-  }
-
-  @Override
-  public long skip(long byteCount) throws IOException {
-    try {
-      return wrapped.skip(byteCount);
-    } catch (IOException e) {
-      exception = e;
-      throw e;
+    public boolean markSupported() {
+      if (wrapped == null) {
+        throw new IllegalStateException("InputStream is not set.");
+      }
+      return Nullability.castToNonnull(wrapped, "exception on null").markSupported();
     }
-  }
+
+  @Override
+    public int read() throws IOException {
+      if (wrapped == null) {
+        throw new NullPointerException("InputStream wrapped is null");
+      }
+      try {
+        return wrapped.read();
+      } catch (IOException e) {
+        exception = e;
+        throw e;
+      }
+    }
+
+  @Override
+      public int read(byte[] buffer) throws IOException {
+        if (wrapped == null) {
+          throw new IOException("InputStream is not set.");
+        }
+        try {
+          return Nullability.castToNonnull(wrapped, "explicitly checks for null").read(buffer);
+        } catch (IOException e) {
+          exception = e;
+          throw e;
+        }
+    }
+
+  @Override
+      public int read(byte[] buffer, int byteOffset, int byteCount) throws IOException {
+        if (wrapped == null) {
+          throw new IOException("InputStream is not set.");
+        }
+        try {
+          return Nullability.castToNonnull(wrapped, "null check performed").read(buffer, byteOffset, byteCount);
+        } catch (IOException e) {
+          exception = e;
+          throw e;
+        }
+    }
+
+  @Override
+      public synchronized void reset() throws IOException {
+        if (wrapped != null) {
+          Nullability.castToNonnull(wrapped, "checked to be nonnull").reset();
+        } else {
+          throw new IOException("InputStream is null");
+        }
+    }
+
+  @Override
+      public long skip(long byteCount) throws IOException {
+        if (wrapped == null) {
+          throw new IOException("InputStream is not set");
+        }
+        try {
+          return Nullability.castToNonnull(wrapped, "checked for null").skip(byteCount);
+        } catch (IOException e) {
+          exception = e;
+          throw e;
+        }
+    }
 
   @Nullable
   public IOException getException() {
