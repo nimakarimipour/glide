@@ -29,6 +29,7 @@ import java.security.MessageDigest;
 import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
+import edu.ucr.cs.riple.annotator.util.Nullability;
 
 /**
  * Decodes video data to Bitmaps from {@link ParcelFileDescriptor}s and {@link
@@ -168,48 +169,47 @@ public class VideoDecoder<T> implements ResourceDecoder<T, Bitmap> {
     return true;
   }
 
-  @Nullable
-  @Override
-  public Resource<Bitmap> decode(
-      @NonNull T resource, int outWidth, int outHeight, @NonNull Options options)
-      throws IOException {
-    long frameTimeMicros = options.get(TARGET_FRAME);
-    if (frameTimeMicros < 0 && frameTimeMicros != DEFAULT_FRAME) {
-      throw new IllegalArgumentException(
-          "Requested frame must be non-negative, or DEFAULT_FRAME, given: " + frameTimeMicros);
-    }
-    Integer frameOption = options.get(FRAME_OPTION);
-    if (frameOption == null) {
-      frameOption = DEFAULT_FRAME_OPTION;
-    }
-    DownsampleStrategy downsampleStrategy = options.get(DownsampleStrategy.OPTION);
-    if (downsampleStrategy == null) {
-      downsampleStrategy = DownsampleStrategy.DEFAULT;
-    }
-
-    final Bitmap result;
-    MediaMetadataRetriever mediaMetadataRetriever = factory.build();
-    try {
-      initializer.initializeRetriever(mediaMetadataRetriever, resource);
-      result =
-          decodeFrame(
-              resource,
-              mediaMetadataRetriever,
-              frameTimeMicros,
-              frameOption,
-              outWidth,
-              outHeight,
-              downsampleStrategy);
-    } finally {
-      if (Build.VERSION.SDK_INT >= VERSION_CODES.Q) {
-        mediaMetadataRetriever.close();
-      } else {
-        mediaMetadataRetriever.release();
+  @Nullable @Override
+    public Resource<Bitmap> decode(
+        @NonNull T resource, int outWidth, int outHeight, @NonNull Options options)
+        throws IOException {
+      long frameTimeMicros = Nullability.castToNonnull(options.get(TARGET_FRAME));
+      if (frameTimeMicros < 0 && frameTimeMicros != DEFAULT_FRAME) {
+        throw new IllegalArgumentException(
+            "Requested frame must be non-negative, or DEFAULT_FRAME, given: " + frameTimeMicros);
       }
+      Integer frameOption = options.get(FRAME_OPTION);
+      if (frameOption == null) {
+        frameOption = DEFAULT_FRAME_OPTION;
+      }
+      DownsampleStrategy downsampleStrategy = options.get(DownsampleStrategy.OPTION);
+      if (downsampleStrategy == null) {
+        downsampleStrategy = DownsampleStrategy.DEFAULT;
+      }
+  
+      final Bitmap result;
+      MediaMetadataRetriever mediaMetadataRetriever = factory.build();
+      try {
+        initializer.initializeRetriever(mediaMetadataRetriever, resource);
+        result =
+            decodeFrame(
+                resource,
+                mediaMetadataRetriever,
+                frameTimeMicros,
+                frameOption,
+                outWidth,
+                outHeight,
+                downsampleStrategy);
+      } finally {
+        if (Build.VERSION.SDK_INT >= VERSION_CODES.Q) {
+          mediaMetadataRetriever.close();
+        } else {
+          mediaMetadataRetriever.release();
+        }
+      }
+  
+      return BitmapResource.obtain(result, bitmapPool);
     }
-
-    return BitmapResource.obtain(result, bitmapPool);
-  }
 
   @Nullable
   private Bitmap decodeFrame(
