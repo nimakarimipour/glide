@@ -21,6 +21,7 @@ import java.util.List;
 import java.util.concurrent.Executor;
 import java.util.concurrent.atomic.AtomicInteger;
 import javax.annotation.Nullable;
+import edu.ucr.cs.riple.annotator.util.Nullability;
 
 /**
  * A class that manages a load by adding and removing callbacks for for the load and notifying
@@ -44,7 +45,7 @@ class EngineJob<R> implements DecodeJob.Callback<R>, Poolable {
   private final GlideExecutor animationExecutor;
   private final AtomicInteger pendingCallbacks = new AtomicInteger();
 
-  private Key key;
+  @SuppressWarnings("NullAway.Init") private Key key;
   private boolean isCacheable;
   private boolean useUnlimitedSourceGeneratorPool;
   private boolean useAnimationPool;
@@ -70,7 +71,7 @@ class EngineJob<R> implements DecodeJob.Callback<R>, Poolable {
   @Synthetic
   EngineResource<?> engineResource;
 
-  private DecodeJob<R> decodeJob;
+  @Nullable private DecodeJob<R> decodeJob;
 
   // Checked primarily on the main thread, but also on other threads in reschedule.
   private volatile boolean isCancelled;
@@ -115,7 +116,7 @@ class EngineJob<R> implements DecodeJob.Callback<R>, Poolable {
     this.engineResourceFactory = engineResourceFactory;
   }
 
-  @VisibleForTesting
+  @Initializer @VisibleForTesting
   synchronized EngineJob<R> init(
       Key key,
       boolean isCacheable,
@@ -205,14 +206,16 @@ class EngineJob<R> implements DecodeJob.Callback<R>, Poolable {
 
   // Exposed for testing.
   void cancel() {
-    if (isDone()) {
-      return;
+          if (isDone()) {
+            return;
+          }
+    
+          isCancelled = true;
+          if (decodeJob != null) {
+            Nullability.castToNonnull(decodeJob, "explicit null check").cancel();
+          }
+          engineJobListener.onEngineJobCancelled(this, key);
     }
-
-    isCancelled = true;
-    decodeJob.cancel();
-    engineJobListener.onEngineJobCancelled(this, key);
-  }
 
   // Exposed for testing.
   synchronized boolean isCancelled() {
@@ -300,23 +303,25 @@ class EngineJob<R> implements DecodeJob.Callback<R>, Poolable {
   }
 
   private synchronized void release() {
-    if (key == null) {
-      throw new IllegalArgumentException();
+      if (key == null) {
+        throw new IllegalArgumentException();
+      }
+      cbs.clear();
+      key = null;
+      engineResource = null;
+      resource = null;
+      hasLoadFailed = false;
+      isCancelled = false;
+      hasResource = false;
+      isLoadedFromAlternateCacheKey = false;
+      if (decodeJob != null) {
+        decodeJob.release(/* isRemovedFromQueue= */ false);
+        decodeJob = null;
+      }
+      exception = null;
+      dataSource = null;
+      pool.release(this);
     }
-    cbs.clear();
-    key = null;
-    engineResource = null;
-    resource = null;
-    hasLoadFailed = false;
-    isCancelled = false;
-    hasResource = false;
-    isLoadedFromAlternateCacheKey = false;
-    decodeJob.release(/* isRemovedFromQueue= */ false);
-    decodeJob = null;
-    exception = null;
-    dataSource = null;
-    pool.release(this);
-  }
 
   @Initializer
   @Override
