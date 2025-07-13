@@ -45,6 +45,7 @@ import java.util.Arrays;
 import java.util.List;
 import java.util.Objects;
 import java.util.concurrent.Executor;
+import edu.ucr.cs.riple.annotator.util.Nullability;
 
 /**
  * A generic class that can handle setting options and staring loads for generic resource types.
@@ -1086,62 +1087,61 @@ public class RequestBuilder<TranscodeType> extends BaseRequestOptions<RequestBui
   }
 
   private Request buildRequestRecursive(
-      Object requestLock,
-      Target<TranscodeType> target,
-      @Nullable RequestListener<TranscodeType> targetListener,
-      @Nullable RequestCoordinator parentCoordinator,
-      TransitionOptions<?, ? super TranscodeType> transitionOptions,
-      Priority priority,
-      int overrideWidth,
-      int overrideHeight,
-      BaseRequestOptions<?> requestOptions,
-      Executor callbackExecutor) {
-
-    // Build the ErrorRequestCoordinator first if necessary so we can update parentCoordinator.
-    ErrorRequestCoordinator errorRequestCoordinator = null;
-    if (errorBuilder != null) {
-      errorRequestCoordinator = new ErrorRequestCoordinator(requestLock, parentCoordinator);
-      parentCoordinator = errorRequestCoordinator;
-    }
-
-    Request mainRequest =
-        buildThumbnailRequestRecursive(
-            requestLock,
-            target,
-            targetListener,
-            parentCoordinator,
-            transitionOptions,
-            priority,
-            overrideWidth,
-            overrideHeight,
-            requestOptions,
-            callbackExecutor);
-
-    if (errorRequestCoordinator == null) {
-      return mainRequest;
-    }
-
-    int errorOverrideWidth = errorBuilder.getOverrideWidth();
-    int errorOverrideHeight = errorBuilder.getOverrideHeight();
-    if (Util.isValidDimensions(overrideWidth, overrideHeight) && !errorBuilder.isValidOverride()) {
-      errorOverrideWidth = requestOptions.getOverrideWidth();
-      errorOverrideHeight = requestOptions.getOverrideHeight();
-    }
-
-    Request errorRequest =
-        errorBuilder.buildRequestRecursive(
-            requestLock,
-            target,
-            targetListener,
-            errorRequestCoordinator,
-            errorBuilder.transitionOptions,
-            errorBuilder.getPriority(),
-            errorOverrideWidth,
-            errorOverrideHeight,
-            errorBuilder,
-            callbackExecutor);
-    errorRequestCoordinator.setRequests(mainRequest, errorRequest);
-    return errorRequestCoordinator;
+        Object requestLock,
+        Target<TranscodeType> target,
+         @Nullable RequestListener<TranscodeType> targetListener,
+         @Nullable RequestCoordinator parentCoordinator,
+        TransitionOptions<?, ? super TranscodeType> transitionOptions,
+        Priority priority,
+        int overrideWidth,
+        int overrideHeight,
+        BaseRequestOptions<?> requestOptions,
+        Executor callbackExecutor) {
+  
+      ErrorRequestCoordinator errorRequestCoordinator = null;
+      if (errorBuilder != null) {
+        errorRequestCoordinator = new ErrorRequestCoordinator(requestLock, parentCoordinator);
+        parentCoordinator = errorRequestCoordinator;
+      }
+  
+      Request mainRequest =
+          buildThumbnailRequestRecursive(
+              requestLock,
+              target,
+              targetListener,
+              parentCoordinator,
+              transitionOptions,
+              priority,
+              overrideWidth,
+              overrideHeight,
+              requestOptions,
+              callbackExecutor);
+  
+      if (errorRequestCoordinator == null) {
+        return mainRequest;
+      }
+  
+      int errorOverrideWidth = Nullability.castToNonnull(errorBuilder, "checked for null").getOverrideWidth();
+      int errorOverrideHeight = errorBuilder.getOverrideHeight();
+      if (Util.isValidDimensions(overrideWidth, overrideHeight) && !errorBuilder.isValidOverride()) {
+        errorOverrideWidth = requestOptions.getOverrideWidth();
+        errorOverrideHeight = requestOptions.getOverrideHeight();
+      }
+  
+      Request errorRequest =
+          errorBuilder.buildRequestRecursive(
+              requestLock,
+              target,
+              targetListener,
+              errorRequestCoordinator,
+              errorBuilder.transitionOptions,
+              errorBuilder.getPriority(),
+              errorOverrideWidth,
+              errorOverrideHeight,
+              errorBuilder,
+              callbackExecutor);
+      errorRequestCoordinator.setRequests(mainRequest, errorRequest);
+      return errorRequestCoordinator;
   }
 
   private Request buildThumbnailRequestRecursive(
