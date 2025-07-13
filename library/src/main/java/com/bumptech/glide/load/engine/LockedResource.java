@@ -48,9 +48,9 @@ final class LockedResource<Z> implements Resource<Z>, FactoryPools.Poolable {
   }
 
   private void release() {
-      Preconditions.checkNotNull(toWrap, "toWrap must not be null before releasing.");
-      POOL.release(this);
-    }
+    toWrap = null;
+    POOL.release(this);
+  }
 
   synchronized void unlock() {
     stateVerifier.throwIfRecycled();
