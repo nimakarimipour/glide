@@ -160,12 +160,8 @@ public class GifDrawable extends Drawable
   }
 
   public Bitmap getFirstFrame() {
-        Bitmap firstFrame = state.frameLoader.getFirstFrame();
-        if (firstFrame == null) {
-            throw new IllegalStateException("First frame cannot be null");
-        }
-        return firstFrame;
-    }
+    return state.frameLoader.getFirstFrame();
+  }
 
   // Public API.
   @SuppressWarnings("WeakerAccess")
