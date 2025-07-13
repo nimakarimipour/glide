@@ -16,6 +16,7 @@ import com.bumptech.glide.util.LogTime;
 import com.bumptech.glide.util.Synthetic;
 import java.io.IOException;
 import java.util.Collections;
+import edu.ucr.cs.riple.annotator.util.Nullability;
 
 /**
  * Generates {@link com.bumptech.glide.load.data.DataFetcher DataFetchers} from original source data
@@ -37,7 +38,7 @@ class SourceGenerator implements DataFetcherGenerator, DataFetcherGenerator.Fetc
   private volatile int loadDataListIndex;
   @Nullable private volatile DataCacheGenerator sourceCacheGenerator;
   @Nullable private volatile Object dataToCache;
-  private volatile ModelLoader.LoadData<?> loadData;
+  @Nullable private volatile ModelLoader.LoadData<?> loadData;
   @Nullable private volatile DataCacheKey originalKey;
 
   SourceGenerator(DecodeHelper<?> helper, FetcherReadyCallback cb) {
@@ -92,24 +93,27 @@ class SourceGenerator implements DataFetcherGenerator, DataFetcherGenerator.Fetc
   }
 
   private void startNextLoad(final LoadData<?> toStart) {
-    loadData.fetcher.loadData(
-        helper.getPriority(),
-        new DataCallback<Object>() {
-          @Override
-          public void onDataReady(@Nullable Object data) {
-            if (isCurrentRequest(toStart)) {
-              onDataReadyInternal(toStart, data);
-            }
-          }
-
-          @Override
-          public void onLoadFailed(@NonNull Exception e) {
-            if (isCurrentRequest(toStart)) {
-              onLoadFailedInternal(toStart, e);
-            }
-          }
-        });
-  }
+        LoadData<?> localLoadData = loadData;
+        if (localLoadData != null) {
+            localLoadData.fetcher.loadData(
+                helper.getPriority(),
+                new DataCallback<Object>() {
+                    @Override
+                    public void onDataReady(Object data) {
+                        if (isCurrentRequest(toStart)) {
+                            onDataReadyInternal(toStart, data);
+                        }
+                    }
+  
+                    @Override
+                    public void onLoadFailed(@NonNull Exception e) {
+                        if (isCurrentRequest(toStart)) {
+                            onLoadFailedInternal(toStart, e);
+                        }
+                    }
+                });
+        }
+    }
 
   // We want reference equality explicitly to make sure we ignore results from old requests.
   @SuppressWarnings({"PMD.CompareObjectsWithEquals", "WeakerAccess"})
@@ -129,64 +133,66 @@ class SourceGenerator implements DataFetcherGenerator, DataFetcherGenerator.Fetc
    * attempt to decode from source.
    */
   private boolean cacheData(Object dataToCache) throws IOException {
-    long startTime = LogTime.getLogTime();
-    boolean isLoadingFromSourceData = false;
-    try {
-      DataRewinder<Object> rewinder = helper.getRewinder(dataToCache);
-      Object data = rewinder.rewindAndGet();
-      Encoder<Object> encoder = helper.getSourceEncoder(data);
-      DataCacheWriter<Object> writer = new DataCacheWriter<>(encoder, data, helper.getOptions());
-      DataCacheKey newOriginalKey = new DataCacheKey(loadData.sourceKey, helper.getSignature());
-      DiskCache diskCache = helper.getDiskCache();
-      diskCache.put(newOriginalKey, writer);
-      if (Log.isLoggable(TAG, Log.VERBOSE)) {
-        Log.v(
-            TAG,
-            "Finished encoding source to cache"
-                + ", key: "
-                + newOriginalKey
-                + ", data: "
-                + dataToCache
-                + ", encoder: "
-                + encoder
-                + ", duration: "
-                + LogTime.getElapsedMillis(startTime));
-      }
-
-      if (diskCache.get(newOriginalKey) != null) {
-        originalKey = newOriginalKey;
-        sourceCacheGenerator =
-            new DataCacheGenerator(Collections.singletonList(loadData.sourceKey), helper, this);
-        // We were able to write the data to cache.
-        return true;
-      } else {
-        if (Log.isLoggable(TAG, Log.DEBUG)) {
-          Log.d(
-              TAG,
-              "Attempt to write: "
-                  + originalKey
-                  + ", data: "
-                  + dataToCache
-                  + " to the disk"
-                  + " cache failed, maybe the disk cache is disabled?"
-                  + " Trying to decode the data directly...");
-        }
-
-        isLoadingFromSourceData = true;
-        cb.onDataFetcherReady(
-            loadData.sourceKey,
-            rewinder.rewindAndGet(),
-            loadData.fetcher,
-            loadData.fetcher.getDataSource(),
-            loadData.sourceKey);
-      }
-      // We failed to write the data to cache.
-      return false;
-    } finally {
-      if (!isLoadingFromSourceData) {
-        loadData.fetcher.cleanup();
-      }
-    }
+              long startTime = LogTime.getLogTime();
+              boolean isLoadingFromSourceData = false;
+              LoadData<?> localLoadData = loadData;
+              try {
+                if (localLoadData == null) {
+                    return false; // Or handle the null case appropriately
+                }
+                DataRewinder<Object> rewinder = helper.getRewinder(dataToCache);
+                Object data = rewinder.rewindAndGet();
+                Encoder<Object> encoder = helper.getSourceEncoder(data);
+                DataCacheWriter<Object> writer = new DataCacheWriter<>(encoder, data, helper.getOptions());
+                DataCacheKey newOriginalKey = new DataCacheKey(Nullability.castToNonnull(localLoadData, "initial null check").sourceKey, helper.getSignature());
+                DiskCache diskCache = helper.getDiskCache();
+                diskCache.put(newOriginalKey, writer);
+                if (Log.isLoggable(TAG, Log.VERBOSE)) {
+                  Log.v(
+                      TAG,
+                      "Finished encoding source to cache"
+                          + ", key: "
+                          + newOriginalKey
+                          + ", data: "
+                          + dataToCache
+                          + ", encoder: "
+                          + encoder
+                          + ", duration: "
+                          + LogTime.getElapsedMillis(startTime));
+                }
+        
+                if (diskCache.get(newOriginalKey) != null) {
+                  originalKey = newOriginalKey;
+                  sourceCacheGenerator =
+                      new DataCacheGenerator(Collections.singletonList(localLoadData.sourceKey), helper, this);
+                  return true;
+                } else {
+                  if (Log.isLoggable(TAG, Log.DEBUG)) {
+                    Log.d(
+                        TAG,
+                        "Attempt to write: "
+                            + originalKey
+                            + ", data: "
+                            + dataToCache
+                            + " to the disk"
+                            + " cache failed, maybe the disk cache is disabled?"
+                            + " Trying to decode the data directly...");
+                  }
+        
+                  isLoadingFromSourceData = true;
+                  cb.onDataFetcherReady(
+                      localLoadData.sourceKey,
+                      rewinder.rewindAndGet(),
+                      localLoadData.fetcher,
+                      localLoadData.fetcher.getDataSource(),
+                      localLoadData.sourceKey);
+                }
+                return false;
+              } finally {
+                if (!isLoadingFromSourceData && localLoadData != null) {
+                  Nullability.castToNonnull(localLoadData, "cannot be null").fetcher.cleanup();
+                }
+              }
   }
 
   @Override
@@ -232,20 +238,23 @@ class SourceGenerator implements DataFetcherGenerator, DataFetcherGenerator.Fetc
 
   // Called from source cache generator.
   @Override
-  public void onDataFetcherReady(
-      @Nullable Key sourceKey,
-      @Nullable Object data,
-      DataFetcher<?> fetcher,
-      DataSource dataSource,
-      @Nullable Key attemptedKey) {
-    // This data fetcher will be loading from a File and provide the wrong data source, so override
-    // with the data source of the original fetcher
-    cb.onDataFetcherReady(sourceKey, data, fetcher, loadData.fetcher.getDataSource(), sourceKey);
-  }
+      public void onDataFetcherReady(
+            @Nullable Key sourceKey,
+            @Nullable Object data,
+          DataFetcher<?> fetcher,
+          DataSource dataSource,
+            @Nullable Key attemptedKey) {
+        LoadData<?> localLoadData = loadData;
+        if (localLoadData != null) {
+          cb.onDataFetcherReady(sourceKey, data, fetcher, Nullability.castToNonnull(loadData, "already checked"), sourceKey);
+        }
+      }
 
   @Override
-  public void onDataFetcherFailed(
-      @Nullable Key sourceKey, Exception e, DataFetcher<?> fetcher, DataSource dataSource) {
-    cb.onDataFetcherFailed(sourceKey, e, fetcher, loadData.fetcher.getDataSource());
-  }
+    public void onDataFetcherFailed(
+          @Nullable Key sourceKey, Exception e, DataFetcher<?> fetcher, DataSource dataSource) {
+      if (loadData != null) {
+        cb.onDataFetcherFailed(sourceKey, e, fetcher, Nullability.castToNonnull(loadData, "checked in null check").fetcher.getDataSource());
+      }
+    }
 }
