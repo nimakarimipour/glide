@@ -27,7 +27,6 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 import javax.annotation.Nullable;
-import edu.ucr.cs.riple.annotator.util.Nullability;
 
 /**
  * A class responsible for decoding resources either from cached data or from the original source
@@ -545,16 +544,17 @@ class DecodeJob<R>
   }
 
   private <Data, ResourceType> Resource<R> runLoadPath(
-        Data data,  @Nullable DataSource dataSource,  @Nullable LoadPath<Data, ResourceType, R> path)
-        throws GlideException {
-      Options options = getOptionsWithHardwareConfig(dataSource);
-      DataRewinder<Data> rewinder = glideContext.getRegistry().getRewinder(data);
-      try {
-        return Nullability.castToNonnull(path).load(
-            rewinder, options, width, height, new DecodeCallback<ResourceType>(dataSource));
-      } finally {
-        rewinder.cleanup();
-      }
+      Data data, @Nullable DataSource dataSource, @Nullable LoadPath<Data, ResourceType, R> path)
+      throws GlideException {
+    Options options = getOptionsWithHardwareConfig(dataSource);
+    DataRewinder<Data> rewinder = glideContext.getRegistry().getRewinder(data);
+    try {
+      // ResourceType in DecodeCallback below is required for compilation to work with gradle.
+      return path.load(
+          rewinder, options, width, height, new DecodeCallback<ResourceType>(dataSource));
+    } finally {
+      rewinder.cleanup();
+    }
   }
 
   private void logWithTimeAndKey(String message, long startTime) {
