@@ -1,0 +1,23 @@
+====================
+Type='WRONG_OVERRIDE_PARAM', message='parameter model is @NonNull, but parameter in superclass method com.bumptech.glide.request.RequestListener.onResourceReady(R,java.lang.Object,com.bumptech.glide.request.target.Target<R>,com.bumptech.glide.load.DataSource,boolean) is @Nullable'
+/home/nima/Developer/nullness-benchmarks/glide/library/src/main/java/com/bumptech/glide/request/RequestFutureTarget.java:257
+  @Override
+Log:
+15:03:04.941 TRACE edu.ucr.cs.riple.core.checkers.nullaway.NullAway.lambda$resolveRemainingErrors$19
+==============================
+15:03:04.941 TRACE edu.ucr.cs.riple.core.checkers.nullaway.NullAway.lambda$resolveRemainingErrors$19
+CHATGPT.COUNT = 1
+15:03:04.941 TRACE edu.ucr.cs.riple.core.checkers.nullaway.NullAway.lambda$resolveRemainingErrors$19
+CHATGPT.PROMPTS SIZE = 1
+15:03:04.941 TRACE edu.ucr.cs.riple.core.checkers.nullaway.NullAway.lambda$resolveRemainingErrors$19
+Both set to 0 and cleared 0
+15:03:04.941 TRACE edu.ucr.cs.riple.core.checkers.nullaway.NullAway.lambda$resolveRemainingErrors$19
+32 : TOP LEVEL CALL TO FIX ERROR: Type='WRONG_OVERRIDE_PARAM', message='parameter model is @NonNull, but parameter in superclass method com.bumptech.glide.request.RequestListener.onResourceReady(R,java.lang.Object,com.bumptech.glide.request.target.Target<R>,com.bumptech.glide.load.DataSource,boolean) is @Nullable'
+/home/nima/Developer/nullness-benchmarks/glide/library/src/main/java/com/bumptech/glide/request/RequestFutureTarget.java:257
+  @Override
+15:03:06.680 TRACE edu.ucr.cs.riple.core.checkers.nullaway.codefix.AdvancedNullAwayCodeFix.fix
+Fixing error: Type='WRONG_OVERRIDE_PARAM', message='parameter model is @NonNull, but parameter in superclass method com.bumptech.glide.request.RequestListener.onResourceReady(R,java.lang.Object,com.bumptech.glide.request.target.Target<R>,com.bumptech.glide.load.DataSource,boolean) is @Nullable'
+/home/nima/Developer/nullness-benchmarks/glide/library/src/main/java/com/bumptech/glide/request/RequestFutureTarget.java:257
+  @Override
+15:03:06.680 TRACE edu.ucr.cs.riple.core.checkers.nullaway.codefix.AdvancedNullAwayCodeFix.fix
+Error type not recognized: WRONG_OVERRIDE_PARAM
