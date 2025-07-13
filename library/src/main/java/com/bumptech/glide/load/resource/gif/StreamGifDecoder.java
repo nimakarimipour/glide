@@ -15,7 +15,6 @@ import java.io.InputStream;
 import java.nio.ByteBuffer;
 import java.util.List;
 import javax.annotation.Nullable;
-import edu.ucr.cs.riple.annotator.util.Nullability;
 
 /**
  * A relatively inefficient decoder for {@link com.bumptech.glide.load.resource.gif.GifDrawable}
@@ -39,10 +38,10 @@ public class StreamGifDecoder implements ResourceDecoder<InputStream, GifDrawabl
   }
 
   @Override
-    public boolean handles(@NonNull InputStream source, @NonNull Options options) throws IOException {
-      return !Nullability.castToNonnull(options.get(GifOptions.DISABLE_ANIMATION))
-          && ImageHeaderParserUtils.getType(parsers, source, byteArrayPool) == ImageType.GIF;
-    }
+  public boolean handles(@NonNull InputStream source, @NonNull Options options) throws IOException {
+    return !options.get(GifOptions.DISABLE_ANIMATION)
+        && ImageHeaderParserUtils.getType(parsers, source, byteArrayPool) == ImageType.GIF;
+  }
 
   @Nullable
   @Override
