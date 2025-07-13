@@ -9,7 +9,6 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.NavigableMap;
 import java.util.TreeMap;
-import edu.ucr.cs.riple.annotator.util.Nullability;
 
 /**
  * A fixed size Array Pool that evicts arrays using an LRU strategy to keep the pool under the
@@ -187,9 +186,9 @@ public final class LruArrayPool implements ArrayPool {
   }
 
   @SuppressWarnings("unchecked")
-    private <T> ArrayAdapterInterface<T> getAdapterFromObject(@Nullable T object) {
-      return (ArrayAdapterInterface<T>) getAdapterFromType(Nullability.castToNonnull(object).getClass());
-    }
+  private <T> ArrayAdapterInterface<T> getAdapterFromObject(@Nullable T object) {
+    return (ArrayAdapterInterface<T>) getAdapterFromType(object.getClass());
+  }
 
   @SuppressWarnings("unchecked")
   private <T> ArrayAdapterInterface<T> getAdapterFromType(Class<T> arrayPoolClass) {
