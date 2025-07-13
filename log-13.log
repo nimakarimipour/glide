@@ -1,0 +1,117 @@
+====================
+Type='METHOD_NO_INIT', message='initializer method does not guarantee @NonNull field wrapped (line 26) is initialized along all control-flow paths (remember to check for exceptions or early returns).'
+/home/nima/Developer/nullness-benchmarks/glide/library/src/main/java/com/bumptech/glide/util/ExceptionCatchingInputStream.java:49
+  ExceptionCatchingInputStream() {
+Log:
+14:49:09.637 TRACE edu.ucr.cs.riple.core.checkers.nullaway.NullAway.lambda$resolveRemainingErrors$19
+==============================
+14:49:09.637 TRACE edu.ucr.cs.riple.core.checkers.nullaway.NullAway.lambda$resolveRemainingErrors$19
+CHATGPT.COUNT = 1
+14:49:09.637 TRACE edu.ucr.cs.riple.core.checkers.nullaway.NullAway.lambda$resolveRemainingErrors$19
+CHATGPT.PROMPTS SIZE = 1
+14:49:09.637 TRACE edu.ucr.cs.riple.core.checkers.nullaway.NullAway.lambda$resolveRemainingErrors$19
+Both set to 0 and cleared 0
+14:49:09.637 TRACE edu.ucr.cs.riple.core.checkers.nullaway.NullAway.lambda$resolveRemainingErrors$19
+13 : TOP LEVEL CALL TO FIX ERROR: Type='METHOD_NO_INIT', message='initializer method does not guarantee @NonNull field wrapped (line 26) is initialized along all control-flow paths (remember to check for exceptions or early returns).'
+/home/nima/Developer/nullness-benchmarks/glide/library/src/main/java/com/bumptech/glide/util/ExceptionCatchingInputStream.java:49
+  ExceptionCatchingInputStream() {
+14:49:11.551 TRACE edu.ucr.cs.riple.core.checkers.nullaway.codefix.ChatGPT.ask
+Asking ChatGPT:
+I want to resolve a warning reported by NullAway.
+The error is of the type of "METHOD_NO_INIT" and the full error message is: "initializer method does not guarantee @NonNull field wrapped (line 26) is initialized along all control-flow paths (remember to check for exceptions or early returns).".
+The line with the error is: "  ExceptionCatchingInputStream() {".
+
+The error is within "the method: ExceptionCatchingInputStream()" and the code surrounding the error is:
+```java
+  @NonNull
+  public static ExceptionCatchingInputStream obtain(@NonNull InputStream toWrap) {
+    ExceptionCatchingInputStream result;
+    synchronized (QUEUE) {
+      result = QUEUE.poll();
+    }
+    if (result == null) {
+      result = new ExceptionCatchingInputStream();
+    }
+    result.setInputStream(toWrap);
+    return result;
+  }
+
+  // Exposed for testing.
+  static void clearQueue() {
+    while (!QUEUE.isEmpty()) {
+      QUEUE.remove();
+    }
+  }
+
+  ExceptionCatchingInputStream() {
+    // Do nothing.
+  }
+
+  void setInputStream(@NonNull InputStream toWrap) {
+    wrapped = toWrap;
+  }
+
+  @Override
+  public int available() throws IOException {
+    return wrapped.available();
+  }
+
+  @Override
+  public void close() throws IOException {
+    wrapped.close();
+  }
+
+  @Override
+  public void mark(int readLimit) {
+```
+
+Give me the fixed code snippet (ONLY THE METHOD REWRITE OF "ExceptionCatchingInputStream()") in XML format in <response> tag like the example below. I will apply the fix to my codebase.
+Do not import any additional libraries or classes or java comments.
+If you can provide the fixed code snippet, provide it in the following format and place the code snippet in the <code> tag within ```java block.
+<response>
+  <success>true</success>
+  <code><![CDATA[
+  ```java
+  Your fixed code snippet here
+  ```
+    ]]>
+  </code>
+</response>
+
+14:49:11.551 TRACE edu.ucr.cs.riple.core.checkers.nullaway.codefix.ChatGPT.ask
+Retrieving response from cache
+14:49:11.551 TRACE edu.ucr.cs.riple.core.checkers.nullaway.codefix.Response.tryCreate
+Trying to create Response:
+```xml
+<response>
+  <success>true</success>
+  <code><![CDATA[
+  ```java
+  ExceptionCatchingInputStream(@NonNull InputStream toWrap) {
+    setInputStream(toWrap);
+  }
+  ```
+  ]]>
+  </code>
+</response>
+```
+14:49:11.552 TRACE edu.ucr.cs.riple.core.checkers.nullaway.codefix.Response.<init>
+Creating Response:
+```xml
+<response>
+  <success>true</success>
+  <code><![CDATA[
+  ```java
+  ExceptionCatchingInputStream(@NonNull InputStream toWrap) {
+    setInputStream(toWrap);
+  }
+  ```
+  ]]>
+  </code>
+</response>
+```
+14:49:11.553 TRACE edu.ucr.cs.riple.core.checkers.nullaway.codefix.Response.<init>
+Response created:
+ExceptionCatchingInputStream(@NonNull InputStream toWrap) {
+    setInputStream(toWrap);
+  }
