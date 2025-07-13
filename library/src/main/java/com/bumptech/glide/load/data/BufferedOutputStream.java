@@ -94,9 +94,8 @@ public final class BufferedOutputStream extends OutputStream {
   }
 
   private void release() {
-    if (buffer != null) {
-      arrayPool.put(buffer);
-      buffer = null;
+      if (buffer != null) {
+        arrayPool.put(buffer);
+      }
     }
-  }
 }
