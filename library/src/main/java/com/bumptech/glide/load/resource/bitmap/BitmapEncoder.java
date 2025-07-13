@@ -18,6 +18,7 @@ import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.OutputStream;
+import edu.ucr.cs.riple.annotator.util.Nullability;
 
 /**
  * An {@link com.bumptech.glide.load.ResourceEncoder} that writes {@link android.graphics.Bitmap}s
@@ -65,58 +66,58 @@ public class BitmapEncoder implements ResourceEncoder<Bitmap> {
   }
 
   @Override
-  public boolean encode(
-      @NonNull Resource<Bitmap> resource, @NonNull File file, @NonNull Options options) {
-    final Bitmap bitmap = resource.get();
-    Bitmap.CompressFormat format = getFormat(bitmap, options);
-    GlideTrace.beginSectionFormat(
-        "encode: [%dx%d] %s", bitmap.getWidth(), bitmap.getHeight(), format);
-    try {
-      long start = LogTime.getLogTime();
-      int quality = options.get(COMPRESSION_QUALITY);
-
-      boolean success = false;
-      OutputStream os = null;
+    public boolean encode(
+        @NonNull Resource<Bitmap> resource, @NonNull File file, @NonNull Options options) {
+      final Bitmap bitmap = resource.get();
+      Bitmap.CompressFormat format = getFormat(bitmap, options);
+      GlideTrace.beginSectionFormat(
+          "encode: [%dx%d] %s", bitmap.getWidth(), bitmap.getHeight(), format);
       try {
-        os = new FileOutputStream(file);
-        if (arrayPool != null) {
-          os = new BufferedOutputStream(os, arrayPool);
-        }
-        bitmap.compress(format, quality, os);
-        os.close();
-        success = true;
-      } catch (IOException e) {
-        if (Log.isLoggable(TAG, Log.DEBUG)) {
-          Log.d(TAG, "Failed to encode Bitmap", e);
-        }
-      } finally {
-        if (os != null) {
-          try {
-            os.close();
-          } catch (IOException e) {
-            // Do nothing.
+        long start = LogTime.getLogTime();
+        int quality = Nullability.castToNonnull(options.get(COMPRESSION_QUALITY));
+  
+        boolean success = false;
+        OutputStream os = null;
+        try {
+          os = new FileOutputStream(file);
+          if (arrayPool != null) {
+            os = new BufferedOutputStream(os, arrayPool);
+          }
+          bitmap.compress(format, quality, os);
+          os.close();
+          success = true;
+        } catch (IOException e) {
+          if (Log.isLoggable(TAG, Log.DEBUG)) {
+            Log.d(TAG, "Failed to encode Bitmap", e);
+          }
+        } finally {
+          if (os != null) {
+            try {
+              os.close();
+            } catch (IOException e) {
+              // Do nothing.
+            }
           }
         }
+  
+        if (Log.isLoggable(TAG, Log.VERBOSE)) {
+          Log.v(
+              TAG,
+              "Compressed with type: "
+                  + format
+                  + " of size "
+                  + Util.getBitmapByteSize(bitmap)
+                  + " in "
+                  + LogTime.getElapsedMillis(start)
+                  + ", options format: "
+                  + options.get(COMPRESSION_FORMAT)
+                  + ", hasAlpha: "
+                  + bitmap.hasAlpha());
+        }
+        return success;
+      } finally {
+        GlideTrace.endSection();
       }
-
-      if (Log.isLoggable(TAG, Log.VERBOSE)) {
-        Log.v(
-            TAG,
-            "Compressed with type: "
-                + format
-                + " of size "
-                + Util.getBitmapByteSize(bitmap)
-                + " in "
-                + LogTime.getElapsedMillis(start)
-                + ", options format: "
-                + options.get(COMPRESSION_FORMAT)
-                + ", hasAlpha: "
-                + bitmap.hasAlpha());
-      }
-      return success;
-    } finally {
-      GlideTrace.endSection();
-    }
   }
 
   private Bitmap.CompressFormat getFormat(Bitmap bitmap, Options options) {
