@@ -129,8 +129,8 @@ tasks.withType(JavaCompile) {
     // remove the if condition if you want to run NullAway on test code
     if (!name.toLowerCase().contains("test")) {
         options.errorprone {
-            check("NullAway", CheckSeverity.OFF)
-            check("AnnotatorScanner", CheckSeverity.OFF)
+            check("NullAway", CheckSeverity.ERROR)
+            check("AnnotatorScanner", CheckSeverity.ERROR)
             option("NullAway:AnnotatedPackages", "com.bumptech.glide")
             option("NullAway:UnannotatedSubPackages", "com.bumptech.glide.gifdecoder")
             option("NullAway:UnannotatedSubPackages", "com.bumptech.glide.disklrucache")
