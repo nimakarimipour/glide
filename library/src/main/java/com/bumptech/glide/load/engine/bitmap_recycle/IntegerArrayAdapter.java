@@ -1,7 +1,6 @@
 package com.bumptech.glide.load.engine.bitmap_recycle;
 
 import javax.annotation.Nullable;
-import edu.ucr.cs.riple.annotator.util.Nullability;
 
 /** Adapter for handling primitive int arrays. */
 @SuppressWarnings("PMD.UseVarargs")
@@ -14,9 +13,9 @@ public final class IntegerArrayAdapter implements ArrayAdapterInterface<int[]> {
   }
 
   @Override
-    public int getArrayLength(@Nullable int[] array) {
-      return Nullability.castToNonnull(array).length;
-    }
+  public int getArrayLength(@Nullable int[] array) {
+    return array.length;
+  }
 
   @Override
   public int[] newArray(int length) {
