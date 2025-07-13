@@ -52,8 +52,8 @@ public final class ExceptionPassthroughInputStream extends InputStream {
   }
 
   ExceptionPassthroughInputStream() {
-    // Do nothing.
-  }
+      this.wrapped = new ByteArrayInputStream(new byte[0]);
+    }
 
   void setInputStream(@NonNull InputStream toWrap) {
     wrapped = toWrap;
