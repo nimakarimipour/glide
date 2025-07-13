@@ -116,11 +116,8 @@ final class DecodeHelper<Transcode> {
   }
 
   Key getSignature() {
-      if (signature == null) {
-        throw new IllegalStateException("Signature cannot be null");
-      }
-      return signature;
-    }
+    return signature;
+  }
 
   int getWidth() {
     return width;
