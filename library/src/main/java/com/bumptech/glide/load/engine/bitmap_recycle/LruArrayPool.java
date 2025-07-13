@@ -150,19 +150,17 @@ public final class LruArrayPool implements ArrayPool {
   }
 
   private void evictToSize(int size) {
-      while (currentSize > size) {
-        Object evicted = groupedMap.removeLast();
-        if (evicted == null) {
-          break;
-        }
-        ArrayAdapterInterface<Object> arrayAdapter = getAdapterFromObject(evicted);
-        currentSize -= arrayAdapter.getArrayLength(evicted) * arrayAdapter.getElementSizeInBytes();
-        decrementArrayOfSize(arrayAdapter.getArrayLength(evicted), evicted.getClass());
-        if (Log.isLoggable(arrayAdapter.getTag(), Log.VERBOSE)) {
-          Log.v(arrayAdapter.getTag(), "evicted: " + arrayAdapter.getArrayLength(evicted));
-        }
+    while (currentSize > size) {
+      Object evicted = groupedMap.removeLast();
+      Preconditions.checkNotNull(evicted);
+      ArrayAdapterInterface<Object> arrayAdapter = getAdapterFromObject(evicted);
+      currentSize -= arrayAdapter.getArrayLength(evicted) * arrayAdapter.getElementSizeInBytes();
+      decrementArrayOfSize(arrayAdapter.getArrayLength(evicted), evicted.getClass());
+      if (Log.isLoggable(arrayAdapter.getTag(), Log.VERBOSE)) {
+        Log.v(arrayAdapter.getTag(), "evicted: " + arrayAdapter.getArrayLength(evicted));
       }
     }
+  }
 
   private void decrementArrayOfSize(int size, Class<?> arrayClass) {
     NavigableMap<Integer, Integer> sizes = getSizesForAdapter(arrayClass);
