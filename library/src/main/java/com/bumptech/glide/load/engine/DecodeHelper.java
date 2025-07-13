@@ -22,6 +22,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.Map.Entry;
 import javax.annotation.Nullable;
+import edu.ucr.cs.riple.annotator.util.Nullability;
 
 final class DecodeHelper<Transcode> {
 
@@ -34,7 +35,7 @@ final class DecodeHelper<Transcode> {
   private int height;
   private Class<?> resourceClass;
   private DecodeJob.DiskCacheProvider diskCacheProvider;
-  private Options options;
+  @Nullable private Options options;
   @Nullable private Map<Class<?>, Transformation<?>> transformations;
   private Class<Transcode> transcodeClass;
   private boolean isLoadDataSet;
@@ -111,7 +112,7 @@ final class DecodeHelper<Transcode> {
     return priority;
   }
 
-  Options getOptions() {
+  @Nullable Options getOptions() {
     return options;
   }
 
@@ -210,21 +211,20 @@ final class DecodeHelper<Transcode> {
   }
 
   List<LoadData<?>> getLoadData() {
-    if (!isLoadDataSet) {
-      isLoadDataSet = true;
-      loadData.clear();
-      List<ModelLoader<Object, ?>> modelLoaders = glideContext.getRegistry().getModelLoaders(model);
-      //noinspection ForLoopReplaceableByForEach to improve perf
-      for (int i = 0, size = modelLoaders.size(); i < size; i++) {
-        ModelLoader<Object, ?> modelLoader = modelLoaders.get(i);
-        LoadData<?> current = modelLoader.buildLoadData(model, width, height, options);
-        if (current != null) {
-          loadData.add(current);
+      if (!isLoadDataSet) {
+        isLoadDataSet = true;
+        loadData.clear();
+        List<ModelLoader<Object, ?>> modelLoaders = glideContext.getRegistry().getModelLoaders(model);
+        for (int i = 0, size = modelLoaders.size(); i < size; i++) {
+          ModelLoader<Object, ?> modelLoader = modelLoaders.get(i);
+          LoadData<?> current = modelLoader.buildLoadData(model, width, height, Nullability.castToNonnull(options));
+          if (current != null) {
+            loadData.add(current);
+          }
         }
       }
+      return loadData;
     }
-    return loadData;
-  }
 
   List<Key> getCacheKeys() {
     if (!isCacheKeysSet) {
