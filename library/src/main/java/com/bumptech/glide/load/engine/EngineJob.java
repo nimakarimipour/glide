@@ -425,18 +425,21 @@ class EngineJob<R> implements DecodeJob.Callback<R>, Poolable {
     }
 
     @Override
-      public void run() {
-        synchronized (cb.getLock()) {
-          synchronized (EngineJob.this) {
-            if (engineResource != null && cbs.contains(cb)) {
-              engineResource.acquire();
-              callCallbackOnResourceReady(cb);
-              removeCallback(cb);
-            }
-            decrementPendingCallbacks();
+    public void run() {
+      // Make sure we always acquire the request lock, then the EngineJob lock to avoid deadlock
+      // (b/136032534).
+      synchronized (cb.getLock()) {
+        synchronized (EngineJob.this) {
+          if (cbs.contains(cb)) {
+            // Acquire for this particular callback.
+            engineResource.acquire();
+            callCallbackOnResourceReady(cb);
+            removeCallback(cb);
           }
+          decrementPendingCallbacks();
         }
       }
+    }
   }
 
   static final class ResourceCallbacksAndExecutors
