@@ -44,34 +44,30 @@ public class DrawableTransformation implements Transformation<Drawable> {
   }
 
   @NonNull
-    @Override
-    public Resource<Drawable> transform(
-        @NonNull Context context, @NonNull Resource<Drawable> resource, int outWidth, int outHeight) {
-      BitmapPool bitmapPool = Glide.get(context).getBitmapPool();
-      Drawable drawable = resource.get();
-      Resource<Bitmap> bitmapResourceToTransform =
-          DrawableToBitmapConverter.convert(bitmapPool, drawable, outWidth, outHeight);
-      if (bitmapResourceToTransform == null) {
-        if (isRequired) {
-          throw new IllegalArgumentException("Unable to convert " + drawable + " to a Bitmap");
-        } else {
-          return resource;
-        }
-      }
-      Resource<Bitmap> transformedBitmapResource =
-          wrapped.transform(context, bitmapResourceToTransform, outWidth, outHeight);
-  
-      if (transformedBitmapResource.equals(bitmapResourceToTransform)) {
-        transformedBitmapResource.recycle();
-        return resource;
+  @Override
+  public Resource<Drawable> transform(
+      @NonNull Context context, @NonNull Resource<Drawable> resource, int outWidth, int outHeight) {
+    BitmapPool bitmapPool = Glide.get(context).getBitmapPool();
+    Drawable drawable = resource.get();
+    Resource<Bitmap> bitmapResourceToTransform =
+        DrawableToBitmapConverter.convert(bitmapPool, drawable, outWidth, outHeight);
+    if (bitmapResourceToTransform == null) {
+      if (isRequired) {
+        throw new IllegalArgumentException("Unable to convert " + drawable + " to a Bitmap");
       } else {
-        Resource<Drawable> newDrawableResource = newDrawableResource(context, transformedBitmapResource);
-        if (newDrawableResource == null) {
-          throw new NullPointerException("newDrawableResource should not be null");
-        }
-        return newDrawableResource;
+        return resource;
       }
     }
+    Resource<Bitmap> transformedBitmapResource =
+        wrapped.transform(context, bitmapResourceToTransform, outWidth, outHeight);
+
+    if (transformedBitmapResource.equals(bitmapResourceToTransform)) {
+      transformedBitmapResource.recycle();
+      return resource;
+    } else {
+      return newDrawableResource(context, transformedBitmapResource);
+    }
+  }
 
   // It's clearer to cast the result in a separate line from obtaining it.
   @Nullable
