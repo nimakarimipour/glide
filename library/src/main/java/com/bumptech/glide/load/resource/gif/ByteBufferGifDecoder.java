@@ -27,6 +27,7 @@ import java.io.IOException;
 import java.nio.ByteBuffer;
 import java.util.List;
 import java.util.Queue;
+import edu.ucr.cs.riple.annotator.util.Nullability;
 
 /**
  * An {@link com.bumptech.glide.load.ResourceDecoder} that decodes {@link
@@ -77,10 +78,10 @@ public class ByteBufferGifDecoder implements ResourceDecoder<ByteBuffer, GifDraw
   }
 
   @Override
-  public boolean handles(@NonNull ByteBuffer source, @NonNull Options options) throws IOException {
-    return !options.get(GifOptions.DISABLE_ANIMATION)
-        && ImageHeaderParserUtils.getType(parsers, source) == ImageType.GIF;
-  }
+    public boolean handles(@NonNull ByteBuffer source, @NonNull Options options) throws IOException {
+      return !Nullability.castToNonnull(options.get(GifOptions.DISABLE_ANIMATION))
+          && ImageHeaderParserUtils.getType(parsers, source) == ImageType.GIF;
+    }
 
   @Nullable
   @Override
