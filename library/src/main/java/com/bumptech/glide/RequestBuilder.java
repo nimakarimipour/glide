@@ -45,6 +45,7 @@ import java.util.Arrays;
 import java.util.List;
 import java.util.Objects;
 import java.util.concurrent.Executor;
+import edu.ucr.cs.riple.annotator.util.Nullability;
 
 /**
  * A generic class that can handle setting options and staring loads for generic resource types.
@@ -867,9 +868,9 @@ public class RequestBuilder<TranscodeType> extends BaseRequestOptions<RequestBui
   // because the previous request must also be using skipMemoryCache for the requests to be
   // equivalent. See #2663 for additional context.
   private boolean isSkipMemoryCacheWithCompletePreviousRequest(
-      BaseRequestOptions<?> options, @Nullable Request previous) {
-    return !options.isMemoryCacheable() && previous.isComplete();
-  }
+        BaseRequestOptions<?> options,  @Nullable Request previous) {
+      return !options.isMemoryCacheable() && Nullability.castToNonnull(previous).isComplete();
+    }
 
   /**
    * Sets the {@link ImageView} the resource will be loaded into, cancels any existing loads into
