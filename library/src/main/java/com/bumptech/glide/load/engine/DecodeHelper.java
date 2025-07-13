@@ -79,21 +79,23 @@ final class DecodeHelper<Transcode> {
   }
 
   void clear() {
-    glideContext = null;
-    model = null;
-    signature = null;
-    resourceClass = null;
-    transcodeClass = null;
-    options = null;
-    priority = null;
-    transformations = null;
-    diskCacheStrategy = null;
-
-    loadData.clear();
-    isLoadDataSet = false;
-    cacheKeys.clear();
-    isCacheKeysSet = false;
-  }
+      glideContext = null;
+      // Ensure model is Nullable before setting it to null
+      @Nullable Object modelNullable = model;
+      model = null;
+      signature = null;
+      resourceClass = null;
+      transcodeClass = null;
+      options = null;
+      priority = null;
+      transformations = null;
+      diskCacheStrategy = null;
+  
+      loadData.clear();
+      isLoadDataSet = false;
+      cacheKeys.clear();
+      isCacheKeysSet = false;
+    }
 
   DiskCache getDiskCache() {
     return diskCacheProvider.getDiskCache();
