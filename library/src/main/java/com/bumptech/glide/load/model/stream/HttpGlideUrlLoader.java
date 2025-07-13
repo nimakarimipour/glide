@@ -11,6 +11,7 @@ import com.bumptech.glide.load.model.ModelLoader;
 import com.bumptech.glide.load.model.ModelLoaderFactory;
 import com.bumptech.glide.load.model.MultiModelLoaderFactory;
 import java.io.InputStream;
+import edu.ucr.cs.riple.annotator.util.Nullability;
 
 /**
  * An {@link com.bumptech.glide.load.model.ModelLoader} for translating {@link
@@ -39,20 +40,18 @@ public class HttpGlideUrlLoader implements ModelLoader<GlideUrl, InputStream> {
   }
 
   @Override
-  public LoadData<InputStream> buildLoadData(
-      @NonNull GlideUrl model, int width, int height, @NonNull Options options) {
-    // GlideUrls memoize parsed URLs so caching them saves a few object instantiations and time
-    // spent parsing urls.
-    GlideUrl url = model;
-    if (modelCache != null) {
-      url = modelCache.get(model, 0, 0);
-      if (url == null) {
-        modelCache.put(model, 0, 0, model);
-        url = model;
+    public LoadData<InputStream> buildLoadData(
+        @NonNull GlideUrl model, int width, int height, @NonNull Options options) {
+      GlideUrl url = model;
+      if (modelCache != null) {
+        url = modelCache.get(model, 0, 0);
+        if (url == null) {
+          modelCache.put(model, 0, 0, model);
+          url = model;
+        }
       }
-    }
-    int timeout = options.get(TIMEOUT);
-    return new LoadData<>(url, new HttpUrlFetcher(url, timeout));
+      int timeout = Nullability.castToNonnull(options.get(TIMEOUT));
+      return new LoadData<>(url, new HttpUrlFetcher(url, timeout));
   }
 
   @Override
