@@ -11,7 +11,6 @@ import java.io.ByteArrayInputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import javax.annotation.Nullable;
-import edu.ucr.cs.riple.annotator.util.Nullability;
 
 /**
  * A simple model loader for loading data from a Data URL String.
@@ -150,8 +149,8 @@ public final class DataUrlLoader<Model, Data> implements ModelLoader<Model, Data
             }
 
             @Override
-                        public void close( @Nullable InputStream inputStream) throws IOException {
-                          Nullability.castToNonnull(inputStream).close();
+            public void close(@Nullable InputStream inputStream) throws IOException {
+              inputStream.close();
             }
 
             @Override
