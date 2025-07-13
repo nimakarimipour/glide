@@ -26,7 +26,6 @@ import com.bumptech.glide.util.pool.GlideTrace;
 import com.bumptech.glide.util.pool.StateVerifier;
 import java.util.List;
 import java.util.concurrent.Executor;
-import edu.ucr.cs.riple.annotator.util.Nullability;
 
 /**
  * A {@link Request} that loads a {@link com.bumptech.glide.load.engine.Resource} into a given
@@ -698,48 +697,49 @@ public final class SingleRequest<R> implements Request, SizeReadyCallback, Resou
   }
 
   private void onLoadFailed(@Nullable GlideException e, int maxLogLevel) {
-        stateVerifier.throwIfRecycled();
-        synchronized (requestLock) {
-          Nullability.castToNonnull(e).setOrigin(requestOrigin);
-          int logLevel = glideContext.getLogLevel();
-          if (logLevel <= maxLogLevel) {
-            Log.w(
-                GLIDE_TAG,
-                "Load failed for [" + model + "] with dimensions [" + width + "x" + height + "]",
-                e);
-            if (logLevel <= Log.INFO) {
-              e.logRootCauses(GLIDE_TAG);
-            }
-          }
-  
-          loadStatus = null;
-          status = Status.FAILED;
-  
-          notifyRequestCoordinatorLoadFailed();
-  
-          isCallingCallbacks = true;
-          try {
-            boolean anyListenerHandledUpdatingTarget = false;
-            if (requestListeners != null) {
-              for (RequestListener<R> listener : requestListeners) {
-                anyListenerHandledUpdatingTarget |=
-                    listener.onLoadFailed(e, model, target, isFirstReadyResource());
-              }
-            }
-            anyListenerHandledUpdatingTarget |=
-                targetListener != null
-                    && targetListener.onLoadFailed(e, model, target, isFirstReadyResource());
-  
-            if (!anyListenerHandledUpdatingTarget) {
-              setErrorPlaceholder();
-            }
-          } finally {
-            isCallingCallbacks = false;
-          }
-  
-          GlideTrace.endSectionAsync(TAG, cookie);
+    stateVerifier.throwIfRecycled();
+    synchronized (requestLock) {
+      e.setOrigin(requestOrigin);
+      int logLevel = glideContext.getLogLevel();
+      if (logLevel <= maxLogLevel) {
+        Log.w(
+            GLIDE_TAG,
+            "Load failed for [" + model + "] with dimensions [" + width + "x" + height + "]",
+            e);
+        if (logLevel <= Log.INFO) {
+          e.logRootCauses(GLIDE_TAG);
         }
+      }
+
+      loadStatus = null;
+      status = Status.FAILED;
+
+      notifyRequestCoordinatorLoadFailed();
+
+      isCallingCallbacks = true;
+      try {
+        // TODO: what if this is a thumbnail request?
+        boolean anyListenerHandledUpdatingTarget = false;
+        if (requestListeners != null) {
+          for (RequestListener<R> listener : requestListeners) {
+            anyListenerHandledUpdatingTarget |=
+                listener.onLoadFailed(e, model, target, isFirstReadyResource());
+          }
+        }
+        anyListenerHandledUpdatingTarget |=
+            targetListener != null
+                && targetListener.onLoadFailed(e, model, target, isFirstReadyResource());
+
+        if (!anyListenerHandledUpdatingTarget) {
+          setErrorPlaceholder();
+        }
+      } finally {
+        isCallingCallbacks = false;
+      }
+
+      GlideTrace.endSectionAsync(TAG, cookie);
     }
+  }
 
   @Override
   public boolean isEquivalentTo(@Nullable Request o) {
