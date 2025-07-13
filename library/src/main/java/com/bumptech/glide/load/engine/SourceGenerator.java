@@ -41,9 +41,10 @@ class SourceGenerator implements DataFetcherGenerator, DataFetcherGenerator.Fetc
   @Nullable private volatile DataCacheKey originalKey;
 
   SourceGenerator(DecodeHelper<?> helper, FetcherReadyCallback cb) {
-    this.helper = helper;
-    this.cb = cb;
-  }
+      this.helper = helper;
+      this.cb = cb;
+      this.loadData = null;
+    }
 
   // Concurrent access isn't supported.
   @SuppressWarnings({"NonAtomicOperationOnVolatileField", "NonAtomicVolatileUpdate"})
