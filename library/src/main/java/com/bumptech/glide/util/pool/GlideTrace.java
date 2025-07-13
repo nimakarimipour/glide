@@ -51,16 +51,13 @@ public final class GlideTrace {
   }
 
   public static int beginSectionAsync(String tag) {
-      if (TRACING_ENABLED) {
-        if (COOKIE_CREATOR != null) {
-          int cookie = COOKIE_CREATOR.incrementAndGet();
-          Trace.beginAsyncSection(truncateTag(tag), cookie);
-          return cookie;
-        }
-        return -1;
-      }
-      return -1;
+    if (TRACING_ENABLED) {
+      int cookie = COOKIE_CREATOR.incrementAndGet();
+      Trace.beginAsyncSection(truncateTag(tag), cookie);
+      return cookie;
     }
+    return -1;
+  }
 
   public static void endSectionAsync(String tag, int cookie) {
     if (TRACING_ENABLED) {
