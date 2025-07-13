@@ -319,18 +319,27 @@ class EngineJob<R> implements DecodeJob.Callback<R>, Poolable {
   }
 
   @Initializer
-  @Override
-  public void onResourceReady(
-      Resource<R> resource,
-      @Nullable DataSource dataSource,
-      boolean isLoadedFromAlternateCacheKey) {
-    synchronized (this) {
-      this.resource = resource;
-      this.dataSource = dataSource;
-      this.isLoadedFromAlternateCacheKey = isLoadedFromAlternateCacheKey;
+    @Override
+    public void onResourceReady(
+        Resource<R> resource,
+        @Nullable DataSource dataSource,
+        boolean isLoadedFromAlternateCacheKey) {
+      synchronized (this) {
+        if (resource == null || dataSource == null) {
+          throw new IllegalArgumentException("Resource and DataSource must not be null");
+        }
+        this.resource = resource;
+        this.dataSource = dataSource;
+        this.isLoadedFromAlternateCacheKey = isLoadedFromAlternateCacheKey;
+        if (decodeJob == null) {
+          throw new IllegalStateException("decodeJob must be initialized");
+        }
+        if (key == null) {
+          throw new IllegalStateException("key must be initialized");
+        }
+      }
+      notifyCallbacksOfResult();
     }
-    notifyCallbacksOfResult();
-  }
 
   @Override
   public void onLoadFailed(GlideException e) {
