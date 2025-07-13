@@ -6,8 +6,6 @@ import com.bumptech.glide.util.Preconditions;
 import com.bumptech.glide.util.Synthetic;
 import com.bumptech.glide.util.pool.FactoryPools;
 import com.bumptech.glide.util.pool.StateVerifier;
-import javax.annotation.Nullable;
-import com.uber.nullaway.annotations.Initializer;
 
 /**
  * A resource that defers any calls to {@link Resource#recycle()} until after {@link #unlock()} is
@@ -43,7 +41,7 @@ final class LockedResource<Z> implements Resource<Z>, FactoryPools.Poolable {
   @Synthetic
   LockedResource() {}
 
-  @Initializer private void init(Resource<Z> toWrap) {
+  private void init(Resource<Z> toWrap) {
     isRecycled = false;
     isLocked = true;
     this.toWrap = toWrap;
