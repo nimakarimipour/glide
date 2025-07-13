@@ -185,13 +185,10 @@ public final class LruArrayPool implements ArrayPool {
     return sizes;
   }
 
+  @SuppressWarnings("unchecked")
   private <T> ArrayAdapterInterface<T> getAdapterFromObject(@Nullable T object) {
-      Class<?> objectClass = (object != null) ? object.getClass() : null;
-      if (objectClass == null) {
-        throw new IllegalArgumentException("Object cannot be null");
-      }
-      return (ArrayAdapterInterface<T>) getAdapterFromType(objectClass);
-    }
+    return (ArrayAdapterInterface<T>) getAdapterFromType(object.getClass());
+  }
 
   @SuppressWarnings("unchecked")
   private <T> ArrayAdapterInterface<T> getAdapterFromType(Class<T> arrayPoolClass) {
