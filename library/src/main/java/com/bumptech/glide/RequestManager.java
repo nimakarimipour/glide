@@ -90,7 +90,7 @@ public class RequestManager
   // the list each time a request is started.
   private final CopyOnWriteArrayList<RequestListener<Object>> defaultRequestListeners;
 
-  @Nullable @GuardedBy("this")
+  @GuardedBy("this")
   private RequestOptions requestOptions;
 
   private boolean pauseAllRequestsOnTrimMemoryModerate;
@@ -156,10 +156,8 @@ public class RequestManager
   }
 
   private synchronized void updateRequestOptions(@NonNull RequestOptions toUpdate) {
-        if (requestOptions != null) {
-            requestOptions = requestOptions.apply(toUpdate);
-        }
-    }
+    requestOptions = requestOptions.apply(toUpdate);
+  }
 
   /**
    * Updates the default {@link RequestOptions} for all loads started with this request manager with
@@ -694,7 +692,7 @@ public class RequestManager
     return defaultRequestListeners;
   }
 
-  @Nullable synchronized RequestOptions getDefaultRequestOptions() {
+  synchronized RequestOptions getDefaultRequestOptions() {
     return requestOptions;
   }
 
