@@ -96,8 +96,11 @@ final class DecodeHelper<Transcode> {
   }
 
   DiskCacheStrategy getDiskCacheStrategy() {
-    return diskCacheStrategy;
-  }
+      if (diskCacheStrategy == null) {
+        throw new IllegalStateException("diskCacheStrategy is null");
+      }
+      return diskCacheStrategy;
+    }
 
   <T> DataRewinder<T> getRewinder(T data) {
     return glideContext.getRegistry().getRewinder(data);
