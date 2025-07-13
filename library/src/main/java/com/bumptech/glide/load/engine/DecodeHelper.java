@@ -99,7 +99,7 @@ final class DecodeHelper<Transcode> {
     return diskCacheProvider.getDiskCache();
   }
 
-  @Nullable DiskCacheStrategy getDiskCacheStrategy() {
+  DiskCacheStrategy getDiskCacheStrategy() {
     return diskCacheStrategy;
   }
 
