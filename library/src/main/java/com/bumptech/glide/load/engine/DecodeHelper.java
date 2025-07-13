@@ -107,7 +107,7 @@ final class DecodeHelper<Transcode> {
     return glideContext.getRegistry().getRewinder(data);
   }
 
-  Priority getPriority() {
+  @Nullable Priority getPriority() {
     return priority;
   }
 

@@ -1,0 +1,866 @@
+====================
+Type='RETURN_NULLABLE', message='returning @Nullable expression from method with @NonNull return type'
+/home/nima/Developer/nullness-benchmarks/glide/library/src/main/java/com/bumptech/glide/load/engine/DecodeHelper.java:111
+    return priority;
+Log:
+15:00:16.170 TRACE edu.ucr.cs.riple.core.checkers.nullaway.NullAway.lambda$resolveRemainingErrors$19
+==============================
+15:00:16.170 TRACE edu.ucr.cs.riple.core.checkers.nullaway.NullAway.lambda$resolveRemainingErrors$19
+CHATGPT.COUNT = 2
+15:00:16.170 TRACE edu.ucr.cs.riple.core.checkers.nullaway.NullAway.lambda$resolveRemainingErrors$19
+CHATGPT.PROMPTS SIZE = 2
+15:00:16.170 TRACE edu.ucr.cs.riple.core.checkers.nullaway.NullAway.lambda$resolveRemainingErrors$19
+Both set to 0 and cleared 0
+15:00:16.170 TRACE edu.ucr.cs.riple.core.checkers.nullaway.NullAway.lambda$resolveRemainingErrors$19
+12 : TOP LEVEL CALL TO FIX ERROR: Type='RETURN_NULLABLE', message='returning @Nullable expression from method with @NonNull return type'
+/home/nima/Developer/nullness-benchmarks/glide/library/src/main/java/com/bumptech/glide/load/engine/DecodeHelper.java:111
+    return priority;
+15:00:17.945 TRACE edu.ucr.cs.riple.core.checkers.nullaway.codefix.AdvancedNullAwayCodeFix.fix
+Fixing error: Type='RETURN_NULLABLE', message='returning @Nullable expression from method with @NonNull return type'
+/home/nima/Developer/nullness-benchmarks/glide/library/src/main/java/com/bumptech/glide/load/engine/DecodeHelper.java:111
+    return priority;
+15:00:17.945 TRACE edu.ucr.cs.riple.core.checkers.nullaway.codefix.AdvancedNullAwayCodeFix.resolveNullableReturnError
+Checking if the method is actually returning nullable.
+15:00:17.947 TRACE edu.ucr.cs.riple.core.checkers.nullaway.codefix.ChatGPT.checkNullabilityPossibilityAtErrorPoint
+Asking if the expression can be null at error point point
+15:00:17.947 TRACE edu.ucr.cs.riple.core.checkers.nullaway.codefix.ChatGPT.ask
+Asking ChatGPT:
+In the method below, is there a possibility that the expression "return priority;" at line "return priority;" is null?
+Priority getPriority() {
+    return priority;
+}
+Give a single-word answer in XML format. If it is possible for the expression to be null, respond with:
+```xml
+<response>
+    <reason><![CDATA[YOUR REASON]]></reason>
+    <value>YES</value>
+</response>
+```
+If it is not possible for the expression to be null, respond with:
+```xml
+<response>
+    <reason><![CDATA[YOUR REASON]]></reason>
+    <value>NO</value>
+</response>
+```
+If you are unsure or need more information, respond with where you can ask for more details or what specific information you need.
+
+If additional information is required, list each request inside a `<request>` tag. If no additional information is needed, omit the `<requests>` section.
+
+Respond with:
+```xml
+<response>
+    <reason><![CDATA[YOUR REASON]]></reason>
+    <value>UNKNOWN</value>
+    <!-- Include <requests> only if additional information is needed -->
+    <requests>
+        <request><![CDATA[YOUR REQUEST 1]]></request>
+        <request><![CDATA[YOUR REQUEST 2]]></request>
+    </requests>
+</response>
+```
+15:00:17.947 TRACE edu.ucr.cs.riple.core.checkers.nullaway.codefix.ChatGPT.ask
+Retrieving response from cache
+15:00:17.947 TRACE edu.ucr.cs.riple.core.checkers.nullaway.codefix.Response.tryCreate
+Trying to create Response:
+```xml
+<response>
+    <reason><![CDATA[The method getPriority() returns a field 'priority' which can potentially be null depending on how it is initialized or modified. Without further information on the initialization or modifications to 'priority', it is possible for this field to be null.]]></reason>
+    <value>YES</value>
+</response>
+```
+15:00:17.948 TRACE edu.ucr.cs.riple.core.checkers.nullaway.codefix.Response.<init>
+Creating Response:
+```xml
+<response>
+    <reason><![CDATA[The method getPriority() returns a field 'priority' which can potentially be null depending on how it is initialized or modified. Without further information on the initialization or modifications to 'priority', it is possible for this field to be null.]]></reason>
+    <value>YES</value>
+</response>
+```
+15:00:17.948 TRACE edu.ucr.cs.riple.core.checkers.nullaway.codefix.Response.<init>
+Response created:
+Agreement: The method getPriority() returns a field 'priority' which can potentially be null depending on how it is initialized or modified. Without further information on the initialization or modifications to 'priority', it is possible for this field to be null.
+15:00:17.948 TRACE edu.ucr.cs.riple.core.checkers.nullaway.codefix.AdvancedNullAwayCodeFix.resolveNullableReturnError
+Checking if the method is a getter for field.
+15:00:17.951 TRACE edu.ucr.cs.riple.core.checkers.nullaway.codefix.AdvancedNullAwayCodeFix.resolveNullableReturnError
+The method is identified as a getter method for field: priority
+15:00:17.951 TRACE edu.ucr.cs.riple.core.checkers.nullaway.codefix.AdvancedNullAwayCodeFix.resolveNullableReturnError
+Checking if the field is nullable.
+15:00:17.951 TRACE edu.ucr.cs.riple.core.checkers.nullaway.codefix.AdvancedNullAwayCodeFix.investigateFieldNullability
+Investigating field nullability.
+15:00:17.951 TRACE edu.ucr.cs.riple.core.checkers.nullaway.codefix.AdvancedNullAwayCodeFix.investigateFieldNullability
+Checking if there is any method initializing field: priority
+15:00:17.951 TRACE edu.ucr.cs.riple.core.checkers.nullaway.codefix.AdvancedNullAwayCodeFix.resolveNullableReturnError
+Field is nullable, keeping the annotation on the field.
+15:00:17.953 TRACE edu.ucr.cs.riple.core.checkers.nullaway.codefix.AdvancedNullAwayCodeFix.resolveNullableReturnError
+Made the method nullable and resolving triggered errors.
+15:00:17.953 TRACE edu.ucr.cs.riple.core.checkers.nullaway.codefix.AdvancedNullAwayCodeFix.fixTriggeredErrorsForLocation
+Fixing triggered errors for location: OnMethod{method='getPriority()', clazz='com.bumptech.glide.load.engine.DecodeHelper'}
+15:00:17.955 TRACE edu.ucr.cs.riple.core.checkers.nullaway.codefix.AdvancedNullAwayCodeFix.fixTriggeredErrorsForLocation
+Triggered errors size: 3
+15:00:17.955 TRACE edu.ucr.cs.riple.core.checkers.nullaway.codefix.AdvancedNullAwayCodeFix.fixTriggeredErrorsForLocation
+Adding annotations for resolvable errors, size: 0
+15:00:17.958 TRACE edu.ucr.cs.riple.core.checkers.nullaway.codefix.AdvancedNullAwayCodeFix.fixTriggeredErrorsForLocation
+Resolving unresolvable error for triggered error: Type='PASS_NULLABLE', message='passing @Nullable parameter 'helper.getPriority()' where @NonNull is required'
+/home/nima/Developer/nullness-benchmarks/glide/library/src/main/java/com/bumptech/glide/load/engine/ResourceCacheGenerator.java:108
+          loadData.fetcher.loadData(helper.getPriority(), this);
+15:00:17.958 TRACE edu.ucr.cs.riple.core.checkers.nullaway.codefix.AdvancedNullAwayCodeFix.fix
+Fixing error: Type='PASS_NULLABLE', message='passing @Nullable parameter 'helper.getPriority()' where @NonNull is required'
+/home/nima/Developer/nullness-benchmarks/glide/library/src/main/java/com/bumptech/glide/load/engine/ResourceCacheGenerator.java:108
+          loadData.fetcher.loadData(helper.getPriority(), this);
+15:00:17.958 TRACE edu.ucr.cs.riple.core.checkers.nullaway.codefix.AdvancedNullAwayCodeFix.resolveRemainingErrors
+Resolving remaining cast to nonnull
+15:00:17.959 TRACE edu.ucr.cs.riple.core.checkers.nullaway.codefix.ChatGPT.ask
+Asking ChatGPT:
+in the method below, the expression helper.getPriority() is not nullable at the point it is used.
+
+```java
+@SuppressWarnings("PMD.CollapsibleIfStatements")
+  @Override
+  public boolean startNext() {
+    GlideTrace.beginSection("ResourceCacheGenerator.startNext");
+    try {
+      List<Key> sourceIds = helper.getCacheKeys();
+      if (sourceIds.isEmpty()) {
+        return false;
+      }
+      List<Class<?>> resourceClasses = helper.getRegisteredResourceClasses();
+      if (resourceClasses.isEmpty()) {
+        if (File.class.equals(helper.getTranscodeClass())) {
+          return false;
+        }
+        throw new IllegalStateException(
+            "Failed to find any load path from "
+                + helper.getModelClass()
+                + " to "
+                + helper.getTranscodeClass());
+      }
+      while (modelLoaders == null || !hasNextModelLoader()) {
+        resourceClassIndex++;
+        if (resourceClassIndex >= resourceClasses.size()) {
+          sourceIdIndex++;
+          if (sourceIdIndex >= sourceIds.size()) {
+            return false;
+          }
+          resourceClassIndex = 0;
+        }
+
+        Key sourceId = sourceIds.get(sourceIdIndex);
+        Class<?> resourceClass = resourceClasses.get(resourceClassIndex);
+        Transformation<?> transformation = helper.getTransformation(resourceClass);
+        // PMD.AvoidInstantiatingObjectsInLoops Each iteration is comparatively expensive anyway,
+        // we only run until the first one succeeds, the loop runs for only a limited
+        // number of iterations on the order of 10-20 in the worst case.
+        currentKey =
+            new ResourceCacheKey( // NOPMD AvoidInstantiatingObjectsInLoops
+                helper.getArrayPool(),
+                sourceId,
+                helper.getSignature(),
+                helper.getWidth(),
+                helper.getHeight(),
+                transformation,
+                resourceClass,
+                helper.getOptions());
+        cacheFile = helper.getDiskCache().get(currentKey);
+        if (cacheFile != null) {
+          sourceKey = sourceId;
+          modelLoaders = helper.getModelLoaders(cacheFile);
+          modelLoaderIndex = 0;
+        }
+      }
+
+      loadData = null;
+      boolean started = false;
+      while (!started && hasNextModelLoader()) {
+        ModelLoader<File, ?> modelLoader = modelLoaders.get(modelLoaderIndex++);
+        loadData =
+            modelLoader.buildLoadData(
+                cacheFile, helper.getWidth(), helper.getHeight(), helper.getOptions());
+        if (loadData != null && helper.hasLoadPath(loadData.fetcher.getDataClass())) {
+          started = true;
+          loadData.fetcher.loadData(helper.getPriority(), this);
+        }
+      }
+
+      return started;
+    } finally {
+      GlideTrace.endSection();
+    }
+}
+```
+At the line "          loadData.fetcher.loadData(helper.getPriority(), this);", at the occurrence of: "helper.getPriority()" should be replaced with `Nullability.castToNonnull(helper.getPriority())`
+see the example below, for expression `foo.getBar()`, to wrap it with `Nullability.castToNonnull(foo.getBar())`.
+
+```java
+public t(){
+    String l = foo.getBar();
+}
+```
+
+will be:
+```java
+public t(){
+    String l = Nullability.castToNonnull(foo.getBar());
+}
+```
+
+### Instructions:
+
+Do not import any additional classes.
+
+Do not add Java comments.
+
+Only modify relevant lines as required.
+
+Return only the modified method wrapped in the XML format shown below.
+
+Place the Java code inside the <code> tag using a CDATA block with ```java formatting.
+
+Just give me the fixed code snippet in XML format in <response> tag like the example below. I will apply the fix to my codebase. Do not import any additional libraries or classes or add java comments. If you can provide the fixed code snippet, please provide it in the following format and place the code snippet in the <code> tag within ```java block.
+<response>
+  <success>true</success>
+  <code><![CDATA[
+  ```java
+  Your fixed code snippet here
+  ```
+    ]]>
+  </code>
+</response>
+
+15:00:17.959 TRACE edu.ucr.cs.riple.core.checkers.nullaway.codefix.ChatGPT.ask
+Retrieving response from cache
+15:00:17.959 TRACE edu.ucr.cs.riple.core.checkers.nullaway.codefix.Response.tryCreate
+Trying to create Response:
+```xml
+<response>
+  <success>true</success>
+  <code><![CDATA[
+  ```java
+@SuppressWarnings("PMD.CollapsibleIfStatements")
+  @Override
+  public boolean startNext() {
+    GlideTrace.beginSection("ResourceCacheGenerator.startNext");
+    try {
+      List<Key> sourceIds = helper.getCacheKeys();
+      if (sourceIds.isEmpty()) {
+        return false;
+      }
+      List<Class<?>> resourceClasses = helper.getRegisteredResourceClasses();
+      if (resourceClasses.isEmpty()) {
+        if (File.class.equals(helper.getTranscodeClass())) {
+          return false;
+        }
+        throw new IllegalStateException(
+            "Failed to find any load path from "
+                + helper.getModelClass()
+                + " to "
+                + helper.getTranscodeClass());
+      }
+      while (modelLoaders == null || !hasNextModelLoader()) {
+        resourceClassIndex++;
+        if (resourceClassIndex >= resourceClasses.size()) {
+          sourceIdIndex++;
+          if (sourceIdIndex >= sourceIds.size()) {
+            return false;
+          }
+          resourceClassIndex = 0;
+        }
+
+        Key sourceId = sourceIds.get(sourceIdIndex);
+        Class<?> resourceClass = resourceClasses.get(resourceClassIndex);
+        Transformation<?> transformation = helper.getTransformation(resourceClass);
+        currentKey =
+            new ResourceCacheKey( 
+                helper.getArrayPool(),
+                sourceId,
+                helper.getSignature(),
+                helper.getWidth(),
+                helper.getHeight(),
+                transformation,
+                resourceClass,
+                helper.getOptions());
+        cacheFile = helper.getDiskCache().get(currentKey);
+        if (cacheFile != null) {
+          sourceKey = sourceId;
+          modelLoaders = helper.getModelLoaders(cacheFile);
+          modelLoaderIndex = 0;
+        }
+      }
+
+      loadData = null;
+      boolean started = false;
+      while (!started && hasNextModelLoader()) {
+        ModelLoader<File, ?> modelLoader = modelLoaders.get(modelLoaderIndex++);
+        loadData =
+            modelLoader.buildLoadData(
+                cacheFile, helper.getWidth(), helper.getHeight(), helper.getOptions());
+        if (loadData != null && helper.hasLoadPath(loadData.fetcher.getDataClass())) {
+          started = true;
+          loadData.fetcher.loadData(Nullability.castToNonnull(helper.getPriority()), this);
+        }
+      }
+
+      return started;
+    } finally {
+      GlideTrace.endSection();
+    }
+}
+  ```
+    ]]>
+  </code>
+</response>
+```
+15:00:17.960 TRACE edu.ucr.cs.riple.core.checkers.nullaway.codefix.Response.<init>
+Creating Response:
+```xml
+<response>
+  <success>true</success>
+  <code><![CDATA[
+  ```java
+@SuppressWarnings("PMD.CollapsibleIfStatements")
+  @Override
+  public boolean startNext() {
+    GlideTrace.beginSection("ResourceCacheGenerator.startNext");
+    try {
+      List<Key> sourceIds = helper.getCacheKeys();
+      if (sourceIds.isEmpty()) {
+        return false;
+      }
+      List<Class<?>> resourceClasses = helper.getRegisteredResourceClasses();
+      if (resourceClasses.isEmpty()) {
+        if (File.class.equals(helper.getTranscodeClass())) {
+          return false;
+        }
+        throw new IllegalStateException(
+            "Failed to find any load path from "
+                + helper.getModelClass()
+                + " to "
+                + helper.getTranscodeClass());
+      }
+      while (modelLoaders == null || !hasNextModelLoader()) {
+        resourceClassIndex++;
+        if (resourceClassIndex >= resourceClasses.size()) {
+          sourceIdIndex++;
+          if (sourceIdIndex >= sourceIds.size()) {
+            return false;
+          }
+          resourceClassIndex = 0;
+        }
+
+        Key sourceId = sourceIds.get(sourceIdIndex);
+        Class<?> resourceClass = resourceClasses.get(resourceClassIndex);
+        Transformation<?> transformation = helper.getTransformation(resourceClass);
+        currentKey =
+            new ResourceCacheKey( 
+                helper.getArrayPool(),
+                sourceId,
+                helper.getSignature(),
+                helper.getWidth(),
+                helper.getHeight(),
+                transformation,
+                resourceClass,
+                helper.getOptions());
+        cacheFile = helper.getDiskCache().get(currentKey);
+        if (cacheFile != null) {
+          sourceKey = sourceId;
+          modelLoaders = helper.getModelLoaders(cacheFile);
+          modelLoaderIndex = 0;
+        }
+      }
+
+      loadData = null;
+      boolean started = false;
+      while (!started && hasNextModelLoader()) {
+        ModelLoader<File, ?> modelLoader = modelLoaders.get(modelLoaderIndex++);
+        loadData =
+            modelLoader.buildLoadData(
+                cacheFile, helper.getWidth(), helper.getHeight(), helper.getOptions());
+        if (loadData != null && helper.hasLoadPath(loadData.fetcher.getDataClass())) {
+          started = true;
+          loadData.fetcher.loadData(Nullability.castToNonnull(helper.getPriority()), this);
+        }
+      }
+
+      return started;
+    } finally {
+      GlideTrace.endSection();
+    }
+}
+  ```
+    ]]>
+  </code>
+</response>
+```
+15:00:17.961 TRACE edu.ucr.cs.riple.core.checkers.nullaway.codefix.Response.<init>
+Response created:
+@SuppressWarnings("PMD.CollapsibleIfStatements")
+  @Override
+  public boolean startNext() {
+    GlideTrace.beginSection("ResourceCacheGenerator.startNext");
+    try {
+      List<Key> sourceIds = helper.getCacheKeys();
+      if (sourceIds.isEmpty()) {
+        return false;
+      }
+      List<Class<?>> resourceClasses = helper.getRegisteredResourceClasses();
+      if (resourceClasses.isEmpty()) {
+        if (File.class.equals(helper.getTranscodeClass())) {
+          return false;
+        }
+        throw new IllegalStateException(
+            "Failed to find any load path from "
+                + helper.getModelClass()
+                + " to "
+                + helper.getTranscodeClass());
+      }
+      while (modelLoaders == null || !hasNextModelLoader()) {
+        resourceClassIndex++;
+        if (resourceClassIndex >= resourceClasses.size()) {
+          sourceIdIndex++;
+          if (sourceIdIndex >= sourceIds.size()) {
+            return false;
+          }
+          resourceClassIndex = 0;
+        }
+
+        Key sourceId = sourceIds.get(sourceIdIndex);
+        Class<?> resourceClass = resourceClasses.get(resourceClassIndex);
+        Transformation<?> transformation = helper.getTransformation(resourceClass);
+        currentKey =
+            new ResourceCacheKey( 
+                helper.getArrayPool(),
+                sourceId,
+                helper.getSignature(),
+                helper.getWidth(),
+                helper.getHeight(),
+                transformation,
+                resourceClass,
+                helper.getOptions());
+        cacheFile = helper.getDiskCache().get(currentKey);
+        if (cacheFile != null) {
+          sourceKey = sourceId;
+          modelLoaders = helper.getModelLoaders(cacheFile);
+          modelLoaderIndex = 0;
+        }
+      }
+
+      loadData = null;
+      boolean started = false;
+      while (!started && hasNextModelLoader()) {
+        ModelLoader<File, ?> modelLoader = modelLoaders.get(modelLoaderIndex++);
+        loadData =
+            modelLoader.buildLoadData(
+                cacheFile, helper.getWidth(), helper.getHeight(), helper.getOptions());
+        if (loadData != null && helper.hasLoadPath(loadData.fetcher.getDataClass())) {
+          started = true;
+          loadData.fetcher.loadData(Nullability.castToNonnull(helper.getPriority()), this);
+        }
+      }
+
+      return started;
+    } finally {
+      GlideTrace.endSection();
+    }
+}
+15:00:17.961 TRACE edu.ucr.cs.riple.core.checkers.nullaway.codefix.ChatGPT.fixDereferenceByRemainingCastToNonnull
+Fixing the error by adding castToNonnull
+15:00:17.963 TRACE edu.ucr.cs.riple.core.checkers.nullaway.codefix.AdvancedNullAwayCodeFix.fixTriggeredErrorsForLocation
+Resolving unresolvable error for triggered error: Type='PASS_NULLABLE', message='passing @Nullable parameter 'helper.getPriority()' where @NonNull is required'
+/home/nima/Developer/nullness-benchmarks/glide/library/src/main/java/com/bumptech/glide/load/engine/SourceGenerator.java:95
+    loadData.fetcher.loadData(
+15:00:17.963 TRACE edu.ucr.cs.riple.core.checkers.nullaway.codefix.AdvancedNullAwayCodeFix.fix
+Fixing error: Type='PASS_NULLABLE', message='passing @Nullable parameter 'helper.getPriority()' where @NonNull is required'
+/home/nima/Developer/nullness-benchmarks/glide/library/src/main/java/com/bumptech/glide/load/engine/SourceGenerator.java:95
+    loadData.fetcher.loadData(
+15:00:17.963 TRACE edu.ucr.cs.riple.core.checkers.nullaway.codefix.AdvancedNullAwayCodeFix.resolveRemainingErrors
+Resolving remaining cast to nonnull
+15:00:17.964 TRACE edu.ucr.cs.riple.core.checkers.nullaway.codefix.ChatGPT.ask
+Asking ChatGPT:
+in the method below, the expression helper.getPriority() is not nullable at the point it is used.
+
+```java
+private void startNextLoad(final LoadData<?> toStart) {
+    loadData.fetcher.loadData(
+        helper.getPriority(),
+        new DataCallback<Object>() {
+          @Override
+          public void onDataReady(@Nullable Object data) {
+            if (isCurrentRequest(toStart)) {
+              onDataReadyInternal(toStart, data);
+            }
+          }
+
+          @Override
+          public void onLoadFailed(@NonNull Exception e) {
+            if (isCurrentRequest(toStart)) {
+              onLoadFailedInternal(toStart, e);
+            }
+          }
+        });
+}
+```
+At the line "    loadData.fetcher.loadData(", at the occurrence of: "helper.getPriority()" should be replaced with `Nullability.castToNonnull(helper.getPriority())`
+see the example below, for expression `foo.getBar()`, to wrap it with `Nullability.castToNonnull(foo.getBar())`.
+
+```java
+public t(){
+    String l = foo.getBar();
+}
+```
+
+will be:
+```java
+public t(){
+    String l = Nullability.castToNonnull(foo.getBar());
+}
+```
+
+### Instructions:
+
+Do not import any additional classes.
+
+Do not add Java comments.
+
+Only modify relevant lines as required.
+
+Return only the modified method wrapped in the XML format shown below.
+
+Place the Java code inside the <code> tag using a CDATA block with ```java formatting.
+
+Just give me the fixed code snippet in XML format in <response> tag like the example below. I will apply the fix to my codebase. Do not import any additional libraries or classes or add java comments. If you can provide the fixed code snippet, please provide it in the following format and place the code snippet in the <code> tag within ```java block.
+<response>
+  <success>true</success>
+  <code><![CDATA[
+  ```java
+  Your fixed code snippet here
+  ```
+    ]]>
+  </code>
+</response>
+
+15:00:17.964 TRACE edu.ucr.cs.riple.core.checkers.nullaway.codefix.ChatGPT.ask
+Retrieving response from cache
+15:00:17.964 TRACE edu.ucr.cs.riple.core.checkers.nullaway.codefix.Response.tryCreate
+Trying to create Response:
+```xml
+<response>
+  <success>true</success>
+  <code><![CDATA[
+  ```java
+  private void startNextLoad(final LoadData<?> toStart) {
+    loadData.fetcher.loadData(
+        Nullability.castToNonnull(helper.getPriority()),
+        new DataCallback<Object>() {
+          @Override
+          public void onDataReady( Object data) {
+            if (isCurrentRequest(toStart)) {
+              onDataReadyInternal(toStart, data);
+            }
+          }
+
+          @Override
+          public void onLoadFailed(@NonNull Exception e) {
+            if (isCurrentRequest(toStart)) {
+              onLoadFailedInternal(toStart, e);
+            }
+          }
+        });
+  }
+  ```
+    ]]>
+  </code>
+</response>
+```
+15:00:17.965 TRACE edu.ucr.cs.riple.core.checkers.nullaway.codefix.Response.<init>
+Creating Response:
+```xml
+<response>
+  <success>true</success>
+  <code><![CDATA[
+  ```java
+  private void startNextLoad(final LoadData<?> toStart) {
+    loadData.fetcher.loadData(
+        Nullability.castToNonnull(helper.getPriority()),
+        new DataCallback<Object>() {
+          @Override
+          public void onDataReady( Object data) {
+            if (isCurrentRequest(toStart)) {
+              onDataReadyInternal(toStart, data);
+            }
+          }
+
+          @Override
+          public void onLoadFailed(@NonNull Exception e) {
+            if (isCurrentRequest(toStart)) {
+              onLoadFailedInternal(toStart, e);
+            }
+          }
+        });
+  }
+  ```
+    ]]>
+  </code>
+</response>
+```
+15:00:17.965 TRACE edu.ucr.cs.riple.core.checkers.nullaway.codefix.Response.<init>
+Response created:
+private void startNextLoad(final LoadData<?> toStart) {
+    loadData.fetcher.loadData(
+        Nullability.castToNonnull(helper.getPriority()),
+        new DataCallback<Object>() {
+          @Override
+          public void onDataReady( Object data) {
+            if (isCurrentRequest(toStart)) {
+              onDataReadyInternal(toStart, data);
+            }
+          }
+
+          @Override
+          public void onLoadFailed(@NonNull Exception e) {
+            if (isCurrentRequest(toStart)) {
+              onLoadFailedInternal(toStart, e);
+            }
+          }
+        });
+  }
+15:00:17.965 TRACE edu.ucr.cs.riple.core.checkers.nullaway.codefix.ChatGPT.fixDereferenceByRemainingCastToNonnull
+Fixing the error by adding castToNonnull
+15:00:17.968 TRACE edu.ucr.cs.riple.core.checkers.nullaway.codefix.AdvancedNullAwayCodeFix.fixTriggeredErrorsForLocation
+Resolving unresolvable error for triggered error: Type='PASS_NULLABLE', message='passing @Nullable parameter 'helper.getPriority()' where @NonNull is required'
+/home/nima/Developer/nullness-benchmarks/glide/library/src/main/java/com/bumptech/glide/load/engine/DataCacheGenerator.java:80
+          loadData.fetcher.loadData(helper.getPriority(), this);
+15:00:17.968 TRACE edu.ucr.cs.riple.core.checkers.nullaway.codefix.AdvancedNullAwayCodeFix.fix
+Fixing error: Type='PASS_NULLABLE', message='passing @Nullable parameter 'helper.getPriority()' where @NonNull is required'
+/home/nima/Developer/nullness-benchmarks/glide/library/src/main/java/com/bumptech/glide/load/engine/DataCacheGenerator.java:80
+          loadData.fetcher.loadData(helper.getPriority(), this);
+15:00:17.968 TRACE edu.ucr.cs.riple.core.checkers.nullaway.codefix.AdvancedNullAwayCodeFix.resolveRemainingErrors
+Resolving remaining cast to nonnull
+15:00:17.969 TRACE edu.ucr.cs.riple.core.checkers.nullaway.codefix.ChatGPT.ask
+Asking ChatGPT:
+in the method below, the expression helper.getPriority() is not nullable at the point it is used.
+
+```java
+@Override
+  public boolean startNext() {
+    GlideTrace.beginSection("DataCacheGenerator.startNext");
+    try {
+      while (modelLoaders == null || !hasNextModelLoader()) {
+        sourceIdIndex++;
+        if (sourceIdIndex >= cacheKeys.size()) {
+          return false;
+        }
+
+        Key sourceId = cacheKeys.get(sourceIdIndex);
+        // PMD.AvoidInstantiatingObjectsInLoops The loop iterates a limited number of times
+        // and the actions it performs are much more expensive than a single allocation.
+        @SuppressWarnings("PMD.AvoidInstantiatingObjectsInLoops")
+        Key originalKey = new DataCacheKey(sourceId, helper.getSignature());
+        cacheFile = helper.getDiskCache().get(originalKey);
+        if (cacheFile != null) {
+          this.sourceKey = sourceId;
+          modelLoaders = helper.getModelLoaders(cacheFile);
+          modelLoaderIndex = 0;
+        }
+      }
+
+      loadData = null;
+      boolean started = false;
+      while (!started && hasNextModelLoader()) {
+        ModelLoader<File, ?> modelLoader = modelLoaders.get(modelLoaderIndex++);
+        loadData =
+            modelLoader.buildLoadData(
+                cacheFile, helper.getWidth(), helper.getHeight(), helper.getOptions());
+        if (loadData != null && helper.hasLoadPath(loadData.fetcher.getDataClass())) {
+          started = true;
+          loadData.fetcher.loadData(helper.getPriority(), this);
+        }
+      }
+      return started;
+    } finally {
+      GlideTrace.endSection();
+    }
+}
+```
+At the line "          loadData.fetcher.loadData(helper.getPriority(), this);", at the occurrence of: "helper.getPriority()" should be replaced with `Nullability.castToNonnull(helper.getPriority())`
+see the example below, for expression `foo.getBar()`, to wrap it with `Nullability.castToNonnull(foo.getBar())`.
+
+```java
+public t(){
+    String l = foo.getBar();
+}
+```
+
+will be:
+```java
+public t(){
+    String l = Nullability.castToNonnull(foo.getBar());
+}
+```
+
+### Instructions:
+
+Do not import any additional classes.
+
+Do not add Java comments.
+
+Only modify relevant lines as required.
+
+Return only the modified method wrapped in the XML format shown below.
+
+Place the Java code inside the <code> tag using a CDATA block with ```java formatting.
+
+Just give me the fixed code snippet in XML format in <response> tag like the example below. I will apply the fix to my codebase. Do not import any additional libraries or classes or add java comments. If you can provide the fixed code snippet, please provide it in the following format and place the code snippet in the <code> tag within ```java block.
+<response>
+  <success>true</success>
+  <code><![CDATA[
+  ```java
+  Your fixed code snippet here
+  ```
+    ]]>
+  </code>
+</response>
+
+15:00:17.969 TRACE edu.ucr.cs.riple.core.checkers.nullaway.codefix.ChatGPT.ask
+Retrieving response from cache
+15:00:17.969 TRACE edu.ucr.cs.riple.core.checkers.nullaway.codefix.Response.tryCreate
+Trying to create Response:
+```xml
+<response>
+  <success>true</success>
+  <code><![CDATA[
+  ```java
+@Override
+  public boolean startNext() {
+    GlideTrace.beginSection("DataCacheGenerator.startNext");
+    try {
+      while (modelLoaders == null || !hasNextModelLoader()) {
+        sourceIdIndex++;
+        if (sourceIdIndex >= cacheKeys.size()) {
+          return false;
+        }
+
+        Key sourceId = cacheKeys.get(sourceIdIndex);
+        @SuppressWarnings("PMD.AvoidInstantiatingObjectsInLoops")
+        Key originalKey = new DataCacheKey(sourceId, helper.getSignature());
+        cacheFile = helper.getDiskCache().get(originalKey);
+        if (cacheFile != null) {
+          this.sourceKey = sourceId;
+          modelLoaders = helper.getModelLoaders(cacheFile);
+          modelLoaderIndex = 0;
+        }
+      }
+
+      loadData = null;
+      boolean started = false;
+      while (!started && hasNextModelLoader()) {
+        ModelLoader<File, ?> modelLoader = modelLoaders.get(modelLoaderIndex++);
+        loadData =
+            modelLoader.buildLoadData(
+                cacheFile, helper.getWidth(), helper.getHeight(), helper.getOptions());
+        if (loadData != null && helper.hasLoadPath(loadData.fetcher.getDataClass())) {
+          started = true;
+          loadData.fetcher.loadData(Nullability.castToNonnull(helper.getPriority()), this);
+        }
+      }
+      return started;
+    } finally {
+      GlideTrace.endSection();
+    }
+}
+  ```
+  ]]>
+  </code>
+</response>
+```
+15:00:17.970 TRACE edu.ucr.cs.riple.core.checkers.nullaway.codefix.Response.<init>
+Creating Response:
+```xml
+<response>
+  <success>true</success>
+  <code><![CDATA[
+  ```java
+@Override
+  public boolean startNext() {
+    GlideTrace.beginSection("DataCacheGenerator.startNext");
+    try {
+      while (modelLoaders == null || !hasNextModelLoader()) {
+        sourceIdIndex++;
+        if (sourceIdIndex >= cacheKeys.size()) {
+          return false;
+        }
+
+        Key sourceId = cacheKeys.get(sourceIdIndex);
+        @SuppressWarnings("PMD.AvoidInstantiatingObjectsInLoops")
+        Key originalKey = new DataCacheKey(sourceId, helper.getSignature());
+        cacheFile = helper.getDiskCache().get(originalKey);
+        if (cacheFile != null) {
+          this.sourceKey = sourceId;
+          modelLoaders = helper.getModelLoaders(cacheFile);
+          modelLoaderIndex = 0;
+        }
+      }
+
+      loadData = null;
+      boolean started = false;
+      while (!started && hasNextModelLoader()) {
+        ModelLoader<File, ?> modelLoader = modelLoaders.get(modelLoaderIndex++);
+        loadData =
+            modelLoader.buildLoadData(
+                cacheFile, helper.getWidth(), helper.getHeight(), helper.getOptions());
+        if (loadData != null && helper.hasLoadPath(loadData.fetcher.getDataClass())) {
+          started = true;
+          loadData.fetcher.loadData(Nullability.castToNonnull(helper.getPriority()), this);
+        }
+      }
+      return started;
+    } finally {
+      GlideTrace.endSection();
+    }
+}
+  ```
+  ]]>
+  </code>
+</response>
+```
+15:00:17.971 TRACE edu.ucr.cs.riple.core.checkers.nullaway.codefix.Response.<init>
+Response created:
+@Override
+  public boolean startNext() {
+    GlideTrace.beginSection("DataCacheGenerator.startNext");
+    try {
+      while (modelLoaders == null || !hasNextModelLoader()) {
+        sourceIdIndex++;
+        if (sourceIdIndex >= cacheKeys.size()) {
+          return false;
+        }
+
+        Key sourceId = cacheKeys.get(sourceIdIndex);
+        @SuppressWarnings("PMD.AvoidInstantiatingObjectsInLoops")
+        Key originalKey = new DataCacheKey(sourceId, helper.getSignature());
+        cacheFile = helper.getDiskCache().get(originalKey);
+        if (cacheFile != null) {
+          this.sourceKey = sourceId;
+          modelLoaders = helper.getModelLoaders(cacheFile);
+          modelLoaderIndex = 0;
+        }
+      }
+
+      loadData = null;
+      boolean started = false;
+      while (!started && hasNextModelLoader()) {
+        ModelLoader<File, ?> modelLoader = modelLoaders.get(modelLoaderIndex++);
+        loadData =
+            modelLoader.buildLoadData(
+                cacheFile, helper.getWidth(), helper.getHeight(), helper.getOptions());
+        if (loadData != null && helper.hasLoadPath(loadData.fetcher.getDataClass())) {
+          started = true;
+          loadData.fetcher.loadData(Nullability.castToNonnull(helper.getPriority()), this);
+        }
+      }
+      return started;
+    } finally {
+      GlideTrace.endSection();
+    }
+}
+15:00:17.971 TRACE edu.ucr.cs.riple.core.checkers.nullaway.codefix.ChatGPT.fixDereferenceByRemainingCastToNonnull
+Fixing the error by adding castToNonnull

@@ -16,6 +16,7 @@ import com.bumptech.glide.util.LogTime;
 import com.bumptech.glide.util.Synthetic;
 import java.io.IOException;
 import java.util.Collections;
+import edu.ucr.cs.riple.annotator.util.Nullability;
 
 /**
  * Generates {@link com.bumptech.glide.load.data.DataFetcher DataFetchers} from original source data
@@ -92,24 +93,24 @@ class SourceGenerator implements DataFetcherGenerator, DataFetcherGenerator.Fetc
   }
 
   private void startNextLoad(final LoadData<?> toStart) {
-    loadData.fetcher.loadData(
-        helper.getPriority(),
-        new DataCallback<Object>() {
-          @Override
-          public void onDataReady(@Nullable Object data) {
-            if (isCurrentRequest(toStart)) {
-              onDataReadyInternal(toStart, data);
+      loadData.fetcher.loadData(
+          Nullability.castToNonnull(helper.getPriority()),
+          new DataCallback<Object>() {
+            @Override
+            public void onDataReady( Object data) {
+              if (isCurrentRequest(toStart)) {
+                onDataReadyInternal(toStart, data);
+              }
             }
-          }
-
-          @Override
-          public void onLoadFailed(@NonNull Exception e) {
-            if (isCurrentRequest(toStart)) {
-              onLoadFailedInternal(toStart, e);
+  
+            @Override
+            public void onLoadFailed(@NonNull Exception e) {
+              if (isCurrentRequest(toStart)) {
+                onLoadFailedInternal(toStart, e);
+              }
             }
-          }
-        });
-  }
+          });
+    }
 
   // We want reference equality explicitly to make sure we ignore results from old requests.
   @SuppressWarnings({"PMD.CompareObjectsWithEquals", "WeakerAccess"})
