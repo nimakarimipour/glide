@@ -9,8 +9,8 @@ public final class GlideTrace {
   // Enable this locally to see tracing statements.
   private static final boolean TRACING_ENABLED = false;
 
-  
-  @Nullable private static final AtomicInteger COOKIE_CREATOR = TRACING_ENABLED ? new AtomicInteger() : null;
+  @Nullable
+  private static final AtomicInteger COOKIE_CREATOR = TRACING_ENABLED ? new AtomicInteger() : null;
 
   /** Maximum length of a systrace tag. */
   private static final int MAX_LENGTH = 127;
@@ -51,16 +51,13 @@ public final class GlideTrace {
   }
 
   public static int beginSectionAsync(String tag) {
-        if (TRACING_ENABLED) {
-            if (COOKIE_CREATOR == null) {
-                throw new IllegalStateException("COOKIE_CREATOR is not initialized");
-            }
-            int cookie = COOKIE_CREATOR.incrementAndGet();
-            Trace.beginAsyncSection(truncateTag(tag), cookie);
-            return cookie;
-        }
-        return -1;
+    if (TRACING_ENABLED) {
+      int cookie = COOKIE_CREATOR.incrementAndGet();
+      Trace.beginAsyncSection(truncateTag(tag), cookie);
+      return cookie;
     }
+    return -1;
+  }
 
   public static void endSectionAsync(String tag, int cookie) {
     if (TRACING_ENABLED) {
