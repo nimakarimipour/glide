@@ -22,7 +22,6 @@ import java.util.List;
 import java.util.Map;
 import java.util.Map.Entry;
 import javax.annotation.Nullable;
-import edu.ucr.cs.riple.annotator.util.Nullability;
 
 final class DecodeHelper<Transcode> {
 
@@ -33,7 +32,7 @@ final class DecodeHelper<Transcode> {
   private Object model;
   private int width;
   private int height;
-  @Nullable private Class<?> resourceClass;
+  private Class<?> resourceClass;
   private DecodeJob.DiskCacheProvider diskCacheProvider;
   private Options options;
   @Nullable private Map<Class<?>, Transformation<?>> transformations;
@@ -141,18 +140,19 @@ final class DecodeHelper<Transcode> {
   }
 
   List<Class<?>> getRegisteredResourceClasses() {
-      return glideContext
-          .getRegistry()
-          .getRegisteredResourceClasses(model.getClass(), Nullability.castToNonnull(resourceClass), transcodeClass);
+    return glideContext
+        .getRegistry()
+        .getRegisteredResourceClasses(model.getClass(), resourceClass, transcodeClass);
   }
 
   boolean hasLoadPath(Class<?> dataClass) {
     return getLoadPath(dataClass) != null;
   }
 
-  @Nullable <Data> LoadPath<Data, ?, Transcode> getLoadPath(Class<Data> dataClass) {
-      return glideContext.getRegistry().getLoadPath(dataClass, Nullability.castToNonnull(resourceClass), transcodeClass);
-    }
+  @Nullable
+  <Data> LoadPath<Data, ?, Transcode> getLoadPath(Class<Data> dataClass) {
+    return glideContext.getRegistry().getLoadPath(dataClass, resourceClass, transcodeClass);
+  }
 
   boolean isScaleOnlyOrNoTransform() {
     return isScaleOnlyOrNoTransform;
