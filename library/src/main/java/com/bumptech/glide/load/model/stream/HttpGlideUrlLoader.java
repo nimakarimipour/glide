@@ -39,21 +39,20 @@ public class HttpGlideUrlLoader implements ModelLoader<GlideUrl, InputStream> {
   }
 
   @Override
-  public LoadData<InputStream> buildLoadData(
-      @NonNull GlideUrl model, int width, int height, @NonNull Options options) {
-    // GlideUrls memoize parsed URLs so caching them saves a few object instantiations and time
-    // spent parsing urls.
-    GlideUrl url = model;
-    if (modelCache != null) {
-      url = modelCache.get(model, 0, 0);
-      if (url == null) {
-        modelCache.put(model, 0, 0, model);
-        url = model;
+    public LoadData<InputStream> buildLoadData(
+        @NonNull GlideUrl model, int width, int height, @NonNull Options options) {
+      GlideUrl url = model;
+      if (modelCache != null) {
+        url = modelCache.get(model, 0, 0);
+        if (url == null) {
+          modelCache.put(model, 0, 0, model);
+          url = model;
+        }
       }
+      Integer timeoutValue = options.get(TIMEOUT);
+      int timeout = timeoutValue != null ? timeoutValue : 0;
+      return new LoadData<>(url, new HttpUrlFetcher(url, timeout));
     }
-    int timeout = options.get(TIMEOUT);
-    return new LoadData<>(url, new HttpUrlFetcher(url, timeout));
-  }
 
   @Override
   public boolean handles(@NonNull GlideUrl model) {
