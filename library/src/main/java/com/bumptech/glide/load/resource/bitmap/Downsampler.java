@@ -39,6 +39,7 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Queue;
 import java.util.Set;
+import edu.ucr.cs.riple.annotator.util.Nullability;
 
 /**
  * Downsamples, decodes, and rotates images according to their exif orientation using {@link
@@ -268,43 +269,42 @@ public final class Downsampler {
         EMPTY_CALLBACKS);
   }
 
-  @Nullable
-  private Resource<Bitmap> decode(
-      ImageReader imageReader,
-      int requestedWidth,
-      int requestedHeight,
-      Options options,
-      DecodeCallbacks callbacks)
-      throws IOException {
-    byte[] bytesForOptions = byteArrayPool.get(ArrayPool.STANDARD_BUFFER_SIZE_BYTES, byte[].class);
-    BitmapFactory.Options bitmapFactoryOptions = getDefaultOptions();
-    bitmapFactoryOptions.inTempStorage = bytesForOptions;
-
-    DecodeFormat decodeFormat = options.get(DECODE_FORMAT);
-    PreferredColorSpace preferredColorSpace = options.get(PREFERRED_COLOR_SPACE);
-    DownsampleStrategy downsampleStrategy = options.get(DownsampleStrategy.OPTION);
-    boolean fixBitmapToRequestedDimensions = options.get(FIX_BITMAP_SIZE_TO_REQUESTED_DIMENSIONS);
-    boolean isHardwareConfigAllowed =
-        options.get(ALLOW_HARDWARE_CONFIG) != null && options.get(ALLOW_HARDWARE_CONFIG);
-
-    try {
-      Bitmap result =
-          decodeFromWrappedStreams(
-              imageReader,
-              bitmapFactoryOptions,
-              downsampleStrategy,
-              decodeFormat,
-              preferredColorSpace,
-              isHardwareConfigAllowed,
-              requestedWidth,
-              requestedHeight,
-              fixBitmapToRequestedDimensions,
-              callbacks);
-      return BitmapResource.obtain(result, bitmapPool);
-    } finally {
-      releaseOptions(bitmapFactoryOptions);
-      byteArrayPool.put(bytesForOptions);
-    }
+  @Nullable private Resource<Bitmap> decode(
+        ImageReader imageReader,
+        int requestedWidth,
+        int requestedHeight,
+        Options options,
+        DecodeCallbacks callbacks)
+        throws IOException {
+      byte[] bytesForOptions = byteArrayPool.get(ArrayPool.STANDARD_BUFFER_SIZE_BYTES, byte[].class);
+      BitmapFactory.Options bitmapFactoryOptions = getDefaultOptions();
+      bitmapFactoryOptions.inTempStorage = bytesForOptions;
+  
+      DecodeFormat decodeFormat = options.get(DECODE_FORMAT);
+      PreferredColorSpace preferredColorSpace = options.get(PREFERRED_COLOR_SPACE);
+      DownsampleStrategy downsampleStrategy = options.get(DownsampleStrategy.OPTION);
+      boolean fixBitmapToRequestedDimensions = Nullability.castToNonnull(options.get(FIX_BITMAP_SIZE_TO_REQUESTED_DIMENSIONS));
+      boolean isHardwareConfigAllowed =
+          options.get(ALLOW_HARDWARE_CONFIG) != null && options.get(ALLOW_HARDWARE_CONFIG);
+  
+      try {
+        Bitmap result =
+            decodeFromWrappedStreams(
+                imageReader,
+                bitmapFactoryOptions,
+                downsampleStrategy,
+                decodeFormat,
+                preferredColorSpace,
+                isHardwareConfigAllowed,
+                requestedWidth,
+                requestedHeight,
+                fixBitmapToRequestedDimensions,
+                callbacks);
+        return BitmapResource.obtain(result, bitmapPool);
+      } finally {
+        releaseOptions(bitmapFactoryOptions);
+        byteArrayPool.put(bytesForOptions);
+      }
   }
 
   @Nullable
