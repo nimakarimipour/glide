@@ -159,30 +159,33 @@ final class DecodeHelper<Transcode> {
   }
 
   @SuppressWarnings("unchecked")
-  <Z> Transformation<Z> getTransformation(Class<Z> resourceClass) {
-    Transformation<Z> result = (Transformation<Z>) transformations.get(resourceClass);
-    if (result == null) {
-      for (Entry<Class<?>, Transformation<?>> entry : transformations.entrySet()) {
-        if (entry.getKey().isAssignableFrom(resourceClass)) {
-          result = (Transformation<Z>) entry.getValue();
-          break;
+    <Z> Transformation<Z> getTransformation(Class<Z> resourceClass) {
+      if (transformations == null) {
+        throw new IllegalStateException("Transformations map is not initialized.");
+      }
+      Transformation<Z> result = (Transformation<Z>) transformations.get(resourceClass);
+      if (result == null) {
+        for (Entry<Class<?>, Transformation<?>> entry : transformations.entrySet()) {
+          if (entry.getKey().isAssignableFrom(resourceClass)) {
+            result = (Transformation<Z>) entry.getValue();
+            break;
+          }
         }
       }
-    }
-
-    if (result == null) {
-      if (transformations.isEmpty() && isTransformationRequired) {
-        throw new IllegalArgumentException(
-            "Missing transformation for "
-                + resourceClass
-                + ". If you wish to"
-                + " ignore unknown resource types, use the optional transformation methods.");
-      } else {
-        return UnitTransformation.get();
+    
+      if (result == null) {
+        if (transformations.isEmpty() && isTransformationRequired) {
+          throw new IllegalArgumentException(
+              "Missing transformation for "
+                  + resourceClass
+                  + ". If you wish to"
+                  + " ignore unknown resource types, use the optional transformation methods.");
+        } else {
+          return UnitTransformation.get();
+        }
       }
+      return result;
     }
-    return result;
-  }
 
   boolean isResourceEncoderAvailable(Resource<?> resource) {
     return glideContext.getRegistry().isResourceEncoderAvailable(resource);
