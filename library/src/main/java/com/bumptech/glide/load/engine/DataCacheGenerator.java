@@ -92,8 +92,8 @@ class DataCacheGenerator implements DataFetcherGenerator, DataFetcher.DataCallba
     }
 
   private boolean hasNextModelLoader() {
-    return modelLoaderIndex < modelLoaders.size();
-  }
+        return modelLoaders != null && modelLoaderIndex < modelLoaders.size();
+    }
 
   @Override
   public void cancel() {
