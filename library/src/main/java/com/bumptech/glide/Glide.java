@@ -44,7 +44,6 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
-import edu.ucr.cs.riple.annotator.util.Nullability;
 
 /**
  * A singleton to present a simple static interface for building requests with {@link
@@ -513,10 +512,12 @@ public class Glide implements ComponentCallbacks2 {
   }
 
   @NonNull
-    private static RequestManagerRetriever getRetriever( @Nullable Context context) {
-      Preconditions.checkNotNull(context, DESTROYED_ACTIVITY_WARNING);
-      return Glide.get(Nullability.castToNonnull(context)).getRequestManagerRetriever();
-    }
+  private static RequestManagerRetriever getRetriever(@Nullable Context context) {
+    // Context could be null for other reasons (ie the user passes in null), but in practice it will
+    // only occur due to errors with the Fragment lifecycle.
+    Preconditions.checkNotNull(context, DESTROYED_ACTIVITY_WARNING);
+    return Glide.get(context).getRequestManagerRetriever();
+  }
 
   /**
    * Begin a load with Glide by passing in a context.
