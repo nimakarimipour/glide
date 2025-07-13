@@ -27,6 +27,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 import javax.annotation.Nullable;
+import edu.ucr.cs.riple.annotator.util.Nullability;
 
 /**
  * A class responsible for decoding resources either from cached data or from the original source
@@ -59,7 +60,7 @@ class DecodeJob<R>
   private int width;
   private int height;
   private DiskCacheStrategy diskCacheStrategy;
-  private Options options;
+  @Nullable private Options options;
   private Callback<R> callback;
   private int order;
   private Stage stage;
@@ -517,30 +518,26 @@ class DecodeJob<R>
     return runLoadPath(data, dataSource, path);
   }
 
-  @NonNull
-  private Options getOptionsWithHardwareConfig(@Nullable DataSource dataSource) {
-    Options options = this.options;
-    if (Build.VERSION.SDK_INT < Build.VERSION_CODES.O) {
-      return options;
-    }
-
-    boolean isHardwareConfigSafe =
-        dataSource == DataSource.RESOURCE_DISK_CACHE || decodeHelper.isScaleOnlyOrNoTransform();
-    Boolean isHardwareConfigAllowed = options.get(Downsampler.ALLOW_HARDWARE_CONFIG);
-
-    // If allow hardware config is defined, we can use it if it's set to false or if it's safe to
-    // use the hardware config for the request.
-    if (isHardwareConfigAllowed != null && (!isHardwareConfigAllowed || isHardwareConfigSafe)) {
-      return options;
-    }
-
-    // If allow hardware config is undefined or is set to true but it's unsafe for us to use the
-    // hardware config for this request, we need to override the config.
-    options = new Options();
-    options.putAll(this.options);
-    options.set(Downsampler.ALLOW_HARDWARE_CONFIG, isHardwareConfigSafe);
-
-    return options;
+  @SuppressWarnings("NullAway") @NonNull
+      private Options getOptionsWithHardwareConfig(@Nullable DataSource dataSource) {
+        Options options = this.options;
+        if (Build.VERSION.SDK_INT < Build.VERSION_CODES.O) {
+          return options;
+        }
+    
+        boolean isHardwareConfigSafe =
+            dataSource == DataSource.RESOURCE_DISK_CACHE || decodeHelper.isScaleOnlyOrNoTransform();
+        Boolean isHardwareConfigAllowed = Nullability.castToNonnull(options.get(Downsampler.ALLOW_HARDWARE_CONFIG), "intended to be non-null");
+    
+        if (isHardwareConfigAllowed != null && (!isHardwareConfigAllowed || isHardwareConfigSafe)) {
+          return options;
+        }
+    
+        options = new Options();
+        options.putAll(Nullability.castToNonnull(this.options));
+        options.set(Downsampler.ALLOW_HARDWARE_CONFIG, isHardwareConfigSafe);
+    
+        return options;
   }
 
   private <Data, ResourceType> Resource<R> runLoadPath(
@@ -581,64 +578,64 @@ class DecodeJob<R>
   }
 
   @Synthetic
-  @NonNull
-  <Z> Resource<Z> onResourceDecoded(@Nullable DataSource dataSource, @NonNull Resource<Z> decoded) {
-    @SuppressWarnings("unchecked")
-    Class<Z> resourceSubClass = (Class<Z>) decoded.get().getClass();
-    Transformation<Z> appliedTransformation = null;
-    Resource<Z> transformed = decoded;
-    if (dataSource != DataSource.RESOURCE_DISK_CACHE) {
-      appliedTransformation = decodeHelper.getTransformation(resourceSubClass);
-      transformed = appliedTransformation.transform(glideContext, decoded, width, height);
-    }
-    // TODO: Make this the responsibility of the Transformation.
-    if (!decoded.equals(transformed)) {
-      decoded.recycle();
-    }
-
-    final EncodeStrategy encodeStrategy;
-    final ResourceEncoder<Z> encoder;
-    if (decodeHelper.isResourceEncoderAvailable(transformed)) {
-      encoder = decodeHelper.getResultEncoder(transformed);
-      encodeStrategy = encoder.getEncodeStrategy(options);
-    } else {
-      encoder = null;
-      encodeStrategy = EncodeStrategy.NONE;
-    }
-
-    Resource<Z> result = transformed;
-    boolean isFromAlternateCacheKey = !decodeHelper.isSourceKey(currentSourceKey);
-    if (diskCacheStrategy.isResourceCacheable(
-        isFromAlternateCacheKey, dataSource, encodeStrategy)) {
-      if (encoder == null) {
-        throw new Registry.NoResultEncoderAvailableException(transformed.get().getClass());
+    @NonNull
+    <Z> Resource<Z> onResourceDecoded( @Nullable DataSource dataSource, @NonNull Resource<Z> decoded) {
+      @SuppressWarnings("unchecked")
+      Class<Z> resourceSubClass = (Class<Z>) decoded.get().getClass();
+      Transformation<Z> appliedTransformation = null;
+      Resource<Z> transformed = decoded;
+      if (dataSource != DataSource.RESOURCE_DISK_CACHE) {
+        appliedTransformation = decodeHelper.getTransformation(resourceSubClass);
+        transformed = appliedTransformation.transform(glideContext, decoded, width, height);
       }
-      final Key key;
-      switch (encodeStrategy) {
-        case SOURCE:
-          key = new DataCacheKey(currentSourceKey, signature);
-          break;
-        case TRANSFORMED:
-          key =
-              new ResourceCacheKey(
-                  decodeHelper.getArrayPool(),
-                  currentSourceKey,
-                  signature,
-                  width,
-                  height,
-                  appliedTransformation,
-                  resourceSubClass,
-                  options);
-          break;
-        default:
-          throw new IllegalArgumentException("Unknown strategy: " + encodeStrategy);
+      // TODO: Make this the responsibility of the Transformation.
+      if (!decoded.equals(transformed)) {
+        decoded.recycle();
       }
-
-      LockedResource<Z> lockedResult = LockedResource.obtain(transformed);
-      deferredEncodeManager.init(key, encoder, lockedResult);
-      result = lockedResult;
-    }
-    return result;
+  
+      final EncodeStrategy encodeStrategy;
+      final ResourceEncoder<Z> encoder;
+      if (decodeHelper.isResourceEncoderAvailable(transformed)) {
+        encoder = decodeHelper.getResultEncoder(transformed);
+        encodeStrategy = encoder.getEncodeStrategy(Nullability.castToNonnull(options));
+      } else {
+        encoder = null;
+        encodeStrategy = EncodeStrategy.NONE;
+      }
+  
+      Resource<Z> result = transformed;
+      boolean isFromAlternateCacheKey = !decodeHelper.isSourceKey(currentSourceKey);
+      if (diskCacheStrategy.isResourceCacheable(
+          isFromAlternateCacheKey, dataSource, encodeStrategy)) {
+        if (encoder == null) {
+          throw new Registry.NoResultEncoderAvailableException(transformed.get().getClass());
+        }
+        final Key key;
+        switch (encodeStrategy) {
+          case SOURCE:
+            key = new DataCacheKey(currentSourceKey, signature);
+            break;
+          case TRANSFORMED:
+            key =
+                new ResourceCacheKey(
+                    decodeHelper.getArrayPool(),
+                    currentSourceKey,
+                    signature,
+                    width,
+                    height,
+                    appliedTransformation,
+                    resourceSubClass,
+                    options);
+            break;
+          default:
+            throw new IllegalArgumentException("Unknown strategy: " + encodeStrategy);
+        }
+  
+        LockedResource<Z> lockedResult = LockedResource.obtain(transformed);
+        deferredEncodeManager.init(key, encoder, lockedResult);
+        result = lockedResult;
+      }
+      return result;
   }
 
   private final class DecodeCallback<Z> implements DecodePath.DecodeCallback<Z> {
@@ -715,7 +712,7 @@ class DecodeJob<R>
       this.toEncode = (LockedResource<Z>) toEncode;
     }
 
-    void encode(DiskCacheProvider diskCacheProvider, Options options) {
+    void encode(DiskCacheProvider diskCacheProvider, @Nullable Options options) {
       GlideTrace.beginSection("DecodeJob.encode");
       try {
         diskCacheProvider
