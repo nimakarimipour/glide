@@ -8,7 +8,6 @@ import androidx.annotation.VisibleForTesting;
 import com.bumptech.glide.util.Synthetic;
 import com.bumptech.glide.util.Util;
 import java.util.NavigableMap;
-import edu.ucr.cs.riple.annotator.util.Nullability;
 
 /**
  * A strategy for reusing bitmaps that relies on {@link Bitmap#reconfigure(int, int,
@@ -69,12 +68,12 @@ final class SizeStrategy implements LruPoolStrategy {
   }
 
   private void decrementBitmapOfSize(Integer size) {
-      Integer current = Nullability.castToNonnull(sortedSizes.get(size));
-      if (current == 1) {
-        sortedSizes.remove(size);
-      } else {
-        sortedSizes.put(size, current - 1);
-      }
+    Integer current = sortedSizes.get(size);
+    if (current == 1) {
+      sortedSizes.remove(size);
+    } else {
+      sortedSizes.put(size, current - 1);
+    }
   }
 
   @Override
