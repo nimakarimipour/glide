@@ -45,6 +45,7 @@ import java.util.Arrays;
 import java.util.List;
 import java.util.Objects;
 import java.util.concurrent.Executor;
+import edu.ucr.cs.riple.annotator.util.Nullability;
 
 /**
  * A generic class that can handle setting options and staring loads for generic resource types.
@@ -87,21 +88,21 @@ public class RequestBuilder<TranscodeType> extends BaseRequestOptions<RequestBui
 
   // We only override the method to change the return type, not the functionality.
   @SuppressLint("CheckResult")
-  @SuppressWarnings("PMD.ConstructorCallsOverridableMethod")
-  protected RequestBuilder(
-      @NonNull Glide glide,
-      RequestManager requestManager,
-      Class<TranscodeType> transcodeClass,
-      Context context) {
-    this.glide = glide;
-    this.requestManager = requestManager;
-    this.transcodeClass = transcodeClass;
-    this.context = context;
-    this.transitionOptions = requestManager.getDefaultTransitionOptions(transcodeClass);
-    this.glideContext = glide.getGlideContext();
-
-    initRequestListeners(requestManager.getDefaultRequestListeners());
-    apply(requestManager.getDefaultRequestOptions());
+    @SuppressWarnings("PMD.ConstructorCallsOverridableMethod")
+    protected RequestBuilder(
+        @NonNull Glide glide,
+        RequestManager requestManager,
+        Class<TranscodeType> transcodeClass,
+        Context context) {
+      this.glide = glide;
+      this.requestManager = requestManager;
+      this.transcodeClass = transcodeClass;
+      this.context = context;
+      this.transitionOptions = requestManager.getDefaultTransitionOptions(transcodeClass);
+      this.glideContext = glide.getGlideContext();
+  
+      initRequestListeners(requestManager.getDefaultRequestListeners());
+      apply(Nullability.castToNonnull(requestManager.getDefaultRequestOptions()));
   }
 
   RequestManager getRequestManager() {
